@@ -1,0 +1,26 @@
+{
+  "name": "hawkhack.io-v2",
+  "version": "0.0.1",
+  "description": "web application for hawkhack fall 2019",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hawkhack/HawkHack.io-v2.git"
+  },
+  "author": "cristian novac",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hawkhack/HawkHack.io-v2/issues"
+  },
+  "homepage": "https://github.com/hawkhack/HawkHack.io-v2#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "passport": "^0.4.0"
+  }
+}
