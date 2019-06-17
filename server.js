@@ -1,10 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const mongoose = require('mongoose');
 const {port, dburi} = require('./config/config');
+const passport = require("passport");
 
 const app = express();
+
+const users = require('./routes/api/user');
+const profile = require('./routes/api/profile');
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 mongoose
   .connect(
@@ -17,8 +24,18 @@ mongoose
   .catch(err => console.log(err));
 
 
+//Passport middleware
+app.use(passport.initialize());
+
+//Passport Config
+require("./config/passport")(passport);
+
+//Use Routes
+app.use("/api/u", users);
+app.use("/api/p", profile);
+
 app.get('/', (req, res)=>{
-    res.status(200).json("reached home");
+  res.status(200).json("reached home");
 });
 
 app.listen(port ,()=>{
