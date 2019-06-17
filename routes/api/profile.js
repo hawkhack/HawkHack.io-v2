@@ -57,13 +57,11 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     profileFields.email = req.user.email;
+    profileFields.status=req.user.status;
     if(req.user.status=='Incomplete' && isComplete){
       profileFields.status='Complete';
-      console.log("profile complete");
-    }else{
-      profileFields.status=req.user.status;
-      console.log(isComplete);
     }
+
     if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
