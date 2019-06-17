@@ -7,70 +7,74 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  firstName:{
+  status: {
+    type: String
+  },
+  firstName: {
     type: String,
     max: 20
   },
-  lastName:{
+  lastName: {
     type: String,
-    max:20
+    max: 20
   },
-  email:{
-    type: String
+  email: {
+    type: String,
+    ref: "users"
   },
-  phoneNumber:{
+  phoneNumber: {
     type: String,
     max: 12
   },
-  dateOfBirth:{
+  dateOfBirth: {
     type: Date
   },
-  shirtSize:{
+  shirtSize: {
     type: String,
-    enum:['XXS','XS','S','M','L','XL','XXL']
+    enum: ["XXS", "XS", "S", "M", "L", "XL", "XXL"]
   },
-  gender:{
+  gender: {
     type: String,
     max: 20
   },
-  ethnicity:{
+  ethnicity: {
     type: String,
-    max:20
+    max: 20
   },
-  github:{
+  github: {
     type: String
   },
-  linkedin:{
+  linkedin: {
     type: String
   },
-  website:{
+  website: {
     type: String
   },
-  school:{
+  school: {
     type: String,
     max: 30
   },
-  graduationYear:{
+  graduationYear: {
     type: String,
-    max:4
+    max: 4
   },
-  levelOfStudy:{
+  levelOfStudy: {
     type: String,
-    enum:['Undergraduate', 'Graduate', 'High School']
+    enum: ["Undergraduate", "Graduate", "High School"]
   },
-  major:{
+  major: {
     type: String,
-    max:30
+    max: 30
   },
-  dietaryRestrictions:{
+  dietaryRestrictions: {
     type: String,
     default: "None",
     max: 200
   },
-  specialNeeds:{
+  specialNeeds: {
     type: String,
     default: "None",
-    max:200
+    max: 200
   },
   date: {
     type: Date,

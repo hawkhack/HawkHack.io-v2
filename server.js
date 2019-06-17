@@ -22,6 +22,7 @@ mongoose
     console.log("connected to mongodb");
   })
   .catch(err => console.log(err));
+mongoose.set('useFindAndModify', false);
 
 
 //Passport middleware

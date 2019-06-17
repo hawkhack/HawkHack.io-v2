@@ -20,31 +20,46 @@ module.exports = function validateProfileInput(data) {
   data.dietaryRestrictions = !isEmpty(data.dietaryRestrictions) ? data.dietaryRestrictions : "";
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
 
-  if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
-    errors.firstName = "First Name needs to be between 2 and 20 characters";
+  if (!isEmpty(data.firstName)) {
+    if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
+      errors.firstName = "First Name needs to be between 2 and 20 characters";
+    }
   }
-  if (!Validator.isLength(data.lastName, { min: 2, max: 20 })) {
-    errors.lastName = "Last Name needs to be between 2 and 20 characters";
+  if (!isEmpty(data.lastName)) {
+    if (!Validator.isLength(data.lastName, { min: 2, max: 20 })) {
+      errors.lastName = "Last Name needs to be between 2 and 20 characters";
+    }
   }
-  if (!Validator.isLength(data.gender, { min: 2, max: 20 })) {
-    errors.gender = "Gender needs to be between 2 and 20 characters";
+  if (!isEmpty(data.gender)) {
+    if (!Validator.isLength(data.gender, { min: 2, max: 20 })) {
+      errors.gender = "Gender needs to be between 2 and 20 characters";
+    }
   }
-  if (!Validator.isLength(data.ethnicity, { min: 2, max: 20 })) {
-    errors.ethnicity = "Ethnicity needs to be between 2 and 20 characters";
+  if (!isEmpty(data.ethnicity)) {
+    if (!Validator.isLength(data.ethnicity, { min: 2, max: 20 })) {
+      errors.ethnicity = "Ethnicity needs to be between 2 and 20 characters";
+    }
   }
-  if (!Validator.isLength(data.major, { min: 2, max: 30 })) {
-    errors.major = "Major needs to be between 2 and 30 characters";
+  if (!isEmpty(data.major)) {
+    if (!Validator.isLength(data.major, { min: 2, max: 30 })) {
+      errors.major = "Major needs to be between 2 and 30 characters";
+    }
   }
-  if (!Validator.isLength(data.dietaryRestrictions, { min: 2, max: 200 })) {
-    errors.dietaryRestrictions = "Dietary Restrictions need to be between 2 and 200 characters";
+  if (!isEmpty(data.dietaryRestrictions)) {
+    if (!Validator.isLength(data.dietaryRestrictions, { min: 2, max: 200 })) {
+      errors.dietaryRestrictions = "Dietary Restrictions need to be between 2 and 200 characters";
+    }
   }
-  if (!Validator.isLength(data.specialNeeds, { min: 2, max: 200 })) {
-    errors.specialNeeds = "Special Needs need to be between 2 and 200 characters";
+  if (!isEmpty(data.specialNeeds)) {
+    if (!Validator.isLength(data.specialNeeds, { min: 2, max: 200 })) {
+      errors.specialNeeds = "Special Needs need to be between 2 and 200 characters";
+    }
   }
-  if (!Validator.isLength(data.graduationYear, { min: 2, max: 4 })) {
-    errors.graduationYear = "Graduation Year need to be between 2 and 4 characters";
+  if (!isEmpty(data.graduationYear)) {
+    if (!Validator.isLength(data.graduationYear, { min: 2, max: 4 })) {
+      errors.graduationYear = "Graduation Year need to be between 2 and 4 characters";
+    }
   }
-
 
   if (!isEmpty(data.github)) {
     if (!Validator.isURL(data.github)) {
@@ -60,7 +75,7 @@ module.exports = function validateProfileInput(data) {
     if (!Validator.isURL(data.website)) {
       errors.website = "Not a valid URL";
     }
-  }
+  } 
 
   if (!isEmpty(data.phoneNumber)) {
     if (!Validator.isMobilePhone(data.phoneNumber)) {
@@ -68,8 +83,28 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
+  isComplete = () => {
+    if (
+      firstName &&
+      lastName &&
+      phoneNumber &&
+      dateOfBirth &&
+      shirtSize &&
+      gender &&
+      ethnicity &&
+      school &&
+      graduationYear &&
+      levelOfStudy &&
+      major
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
+    isComplete
   };
 };
