@@ -8,6 +8,7 @@ const app = express();
 
 const users = require('./routes/api/user');
 const profile = require('./routes/api/profile');
+const admin = require('./routes/api/admin');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,6 +35,7 @@ require("./config/passport")(passport);
 //Use Routes
 app.use("/api/u", users);
 app.use("/api/p", profile);
+app.use("/api/a", admin);
 
 app.get('/', (req, res)=>{
   res.status(200).json("reached home");
