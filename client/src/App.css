@@ -35,7 +35,7 @@
   background-color: transparent;
   border: 1px solid white;
   border-radius: 10px;
-  cursor: crosshair;
+  cursor: pointer;
 }
 .button:hover {
   background: white;
