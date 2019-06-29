@@ -1,20 +1,62 @@
-import React, { Component } from 'react'
-class Hero extends Component {
-    render() {
-        return (
-            <div>
-                <header className="masthead">
-                    <div className="container">
-                        <div className="intro-text">
-                            <div className="intro-lead-in">Get ready for round 2</div>
-                            <div className="intro-heading text-uppercase">HawkHack</div>
-                            <a className="btn btn-primary btn-xl text-uppercase js-scroll-trigger fullButton" href="#services">Register me already</a>
-                        </div>
-                    </div>
-                </header>
-            </div>
-        )
-    }
+import React from 'react'
+import { Grid, Typography, withStyles, Button } from '@material-ui/core'
+import heroStyles from '../../styles/heroStyles';
+
+const Hero = ({ ...props }) => {
+    const { classes } = props
+    return (
+        <div>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                style={{ minHeight: '80vh' }}
+            >
+                <Grid item>
+                    <Typography
+                        variant="h5"
+                        className={classes.heroText}
+                    >
+                        Get ready for round 2
+                        </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography
+                        variant="h2"
+                        className={classes.heroText}
+                    >
+                        Hawkhack
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        className={classes.buttonGroup}
+                        spacing={16}
+                    >
+                        <Grid item>
+                            <Button
+                                className={classes.Button}
+                            >
+                                Register me already
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                className={classes.Button}
+                            >
+                                Hop in as a sponsor
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </div>
+    )
 }
 
-export default Hero
+export default withStyles(heroStyles)(Hero)

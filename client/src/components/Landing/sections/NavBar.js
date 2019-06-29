@@ -1,19 +1,39 @@
 import React from 'react'
+import { Toolbar, AppBar, withStyles, Grid, Typography, Button } from "@material-ui/core"
+import navbarStyles from '../../styles/navbarStyles';
 
-const NavBar = () => {
+const NavBar = ({ ...props }) => {
+    const { classes } = props
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-                <div className="container">
-                    <a className="navbar-brand js-scroll-trigger" href="#page-top">HawkHack</a>
-                    <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        Menu
-                    <i className="fas fa-bars"></i>
-                    </button>
-                </div>
-            </nav>
-        </div>
+            <AppBar color="transparent" className={classes.color} >
+                <Toolbar>
+                    <Grid
+                        container
+                        justify="space-around"
+                        spacing={24}
+                    >
+                        <Grid item>
+                            <Typography
+                                color="inherit"
+                                className={classes.navBarText}
+                                variant="h6"
+                            >
+                                "Logo HERE" HawkHack
+                           </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography className={classes.navBarText}>
+                                <Button>
+                                    Checkout HawkHack Spring 2019
+                                </Button>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+        </div >
     )
 }
 
-export default NavBar
+export default withStyles(navbarStyles)(NavBar)
