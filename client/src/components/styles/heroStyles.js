@@ -5,8 +5,11 @@ const heroStyles = theme => ({
     buttonGroup: {
         padding: 20
     },
-    button: {
-        padding: 20
+    Button: {
+        padding: 10,
+        marginLeft: "1rem",
+        marginRight: "1rem",
+        color: "white"
     }
 })
 

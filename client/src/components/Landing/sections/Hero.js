@@ -36,7 +36,7 @@ const Hero = ({ ...props }) => {
                         justify="center"
                         alignItems="center"
                         className={classes.buttonGroup}
-                        spacing={16}
+                        spacing={48}
                     >
                         <Grid item>
                             <Button

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Hero from "./sections/Hero";
-import Navbar from "./sections/NavBar"
+import About from "./sections/About"
 
 class LandingPage extends Component {
     render() {
         return (
             <div>
-                <Navbar />
                 <Hero />
+                <About />
             </div>
         )
     }
