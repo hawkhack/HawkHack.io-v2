@@ -1,7 +1,8 @@
 const aboutStyles = theme => ({
     Home: {
-        height: "100vh",
-        color: "white"
+        height: "80vh",
+        marginLeft: 0,
+        marginRight: 0
     }
 })
 

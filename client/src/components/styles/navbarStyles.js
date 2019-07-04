@@ -5,6 +5,9 @@ const navbarStyles = theme => ({
     },
     navBarText: {
         color: "white"
+    },
+    Button: {
+        color: "white"
     }
 })
 

@@ -1,13 +1,13 @@
 import React from "react";
-import { withStyles } from "@material-ui/core"
+import { withStyles, Paper } from "@material-ui/core"
 import aboutStyles from "../../styles/aboutStyles"
 
 const About = ({ ...props }) => {
     const { classes } = props
     return (
-        <div className={classes.Section}>
+        <Paper className={classes.Home}>
             OH EYAH
-        </div>
+        </Paper>
     )
 }
 

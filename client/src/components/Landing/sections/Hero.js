@@ -5,7 +5,7 @@ import heroStyles from '../../styles/heroStyles';
 const Hero = ({ ...props }) => {
     const { classes } = props
     return (
-        <div>
+        <div id="landing">
             <Grid
                 container
                 direction="column"
@@ -19,7 +19,7 @@ const Hero = ({ ...props }) => {
                         className={classes.heroText}
                     >
                         Get ready for round 2
-                        </Typography>
+                    </Typography>
                 </Grid>
                 <Grid item>
                     <Typography
@@ -43,7 +43,7 @@ const Hero = ({ ...props }) => {
                                 className={classes.Button}
                             >
                                 Register me already
-                            </Button>
+                                        </Button>
                         </Grid>
                         <Grid item>
                             <Button

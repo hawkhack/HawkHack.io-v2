@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // import { defaults } from "./Defaults"; // Get a handle to the default application settings
 import LandingPage from "./components/Landing/Landing";
+import "./components/styles/App.css"
 
 
 

@@ -24,7 +24,7 @@ const NavBar = ({ ...props }) => {
                         </Grid>
                         <Grid item>
                             <Typography className={classes.navBarText}>
-                                <Button>
+                                <Button className={classes.Button}>
                                     Checkout HawkHack Spring 2019
                                 </Button>
                             </Typography>
