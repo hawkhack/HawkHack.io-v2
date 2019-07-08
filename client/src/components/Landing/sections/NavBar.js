@@ -19,7 +19,7 @@ const NavBar = ({ ...props }) => {
                                 className={classes.navBarText}
                                 variant="h6"
                             >
-                                "Logo HERE" HawkHack
+                                "Logo HERE" 
                            </Typography>
                         </Grid>
                         <Grid item>

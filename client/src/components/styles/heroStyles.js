@@ -6,10 +6,15 @@ const heroStyles = theme => ({
         padding: 20
     },
     Button: {
-        padding: 10,
+        padding: 20,
         marginLeft: "1rem",
         marginRight: "1rem",
-        color: "white"
+        fontSize: "1rem",
+        borderRadius: "0",
+        color: "white",
+        '&:active, &:focus': {
+            boxShadow: 'none',
+        },
     }
 })
 

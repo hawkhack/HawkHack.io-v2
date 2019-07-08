@@ -11,19 +11,19 @@ const Hero = ({ ...props }) => {
                 direction="column"
                 justify="center"
                 alignItems="center"
-                style={{ minHeight: '80vh' }}
+                style={{ minHeight: '100vh' }}
             >
                 <Grid item>
                     <Typography
                         variant="h5"
-                        className={classes.heroText}
+                        color="primary"
                     >
                         Get ready for round 2
                     </Typography>
                 </Grid>
                 <Grid item>
                     <Typography
-                        variant="h2"
+                        variant="h1"
                         className={classes.heroText}
                     >
                         Hawkhack
@@ -41,13 +41,19 @@ const Hero = ({ ...props }) => {
                         <Grid item>
                             <Button
                                 className={classes.Button}
+                                variant="contained"
+                                size="large"
+                                color="primary"
                             >
                                 Register me already
-                                        </Button>
+                            </Button>
                         </Grid>
                         <Grid item>
                             <Button
                                 className={classes.Button}
+                                variant="contained"
+                                size="large"
+                                color="primary"
                             >
                                 Hop in as a sponsor
                             </Button>
