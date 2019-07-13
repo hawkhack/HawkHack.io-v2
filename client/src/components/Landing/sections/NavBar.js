@@ -19,13 +19,20 @@ const NavBar = ({ ...props }) => {
                                 className={classes.navBarText}
                                 variant="h6"
                             >
-                                "Logo HERE" 
+                                "Logo HERE"
                            </Typography>
                         </Grid>
                         <Grid item>
                             <Typography className={classes.navBarText}>
-                                <Button className={classes.Button}>
-                                    Checkout HawkHack Spring 2019
+                                <Button
+                                    className={classes.Button}
+                                >
+                                    Sign in
+                                </Button>
+                                <Button
+                                    className={classes.Button}
+                                >
+                                    Register
                                 </Button>
                             </Typography>
                         </Grid>
