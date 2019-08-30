@@ -14,7 +14,7 @@ router.get("/stats", (req, res) => {
       response.updated = true;
     })
     .then(() => {
-      User.countDocuments({ status: "Degistered" })
+      User.countDocuments({ status: "Registered" })
         .then(result => {
           response.numregistered = result;
         })
