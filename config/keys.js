@@ -4,5 +4,6 @@ dotenv.config({path: path.resolve(__dirname, "./", ".env")});
 module.exports = {
   dburi: process.env.DBURI,
   port: process.env.PORT,
-  secretOrKey: process.env.SecretOrKey
+  secretOrKey: process.env.SecretOrKey,
+  mailchimpKey: process.env.MailChimpKey
 };

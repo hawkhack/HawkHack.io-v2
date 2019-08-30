@@ -11,7 +11,7 @@ const profile = require('./routes/api/profile');
 const admin = require('./routes/api/admin');
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 mongoose

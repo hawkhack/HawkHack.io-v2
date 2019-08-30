@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {secretOrKey} = require("../../config/keys");
+const { secretOrKey, mailchimpKey } = require("../../config/keys");
 const passport = require("passport");
+const request = require("request");
 
 //Load user model
 const User = require("../../models/User");
@@ -80,21 +81,16 @@ router.post("/login", (req, res) => {
         //Create JWT payload
         const payload = {
           id: user.id,
-          email: user.email,
+          email: user.email
         };
 
         //Sign Token
-        jwt.sign(
-          payload,
-          secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
+        jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        });
       } else {
         errors.password = "Password incorrect";
         return res.status(400).json(errors);
@@ -106,17 +102,48 @@ router.post("/login", (req, res) => {
 //  @route  GET api/u/current
 //  @desc   Return current user
 //  @access Private
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({
-      email: req.user.email,
-      role: req.user.role,
-      status: req.user.status,
-      date: req.user.date
-    });
-  }
-);
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+  res.json({
+    email: req.user.email,
+    role: req.user.role,
+    status: req.user.status,
+    date: req.user.date
+  });
+});
 
+//  @route  GET api/u/preregister
+//  @desc   Sign up to maillist
+//  @access Public
+
+router.post("/preregister", (req, res) => {
+  const { fname, lname, email } = req.body;
+
+  const data = {
+    email_address: email,
+    status: 'subscribed',
+    merge_fields: {
+      FNAME: fname,
+      LNAME: lname,
+      EMAIL: email
+    }
+  };
+
+  const postData = JSON.stringify(data);
+
+  const options = {
+    url: "https://us19.api.mailchimp.com/3.0/lists/dd503b0557/members",
+    method: "POST",
+    headers: {
+      Authorization: `auth ${mailchimpKey}`
+    },
+    body: postData
+  };
+
+  request(options, (err, response, body) => {
+    const resdata = JSON.parse(body);
+    res.json(resdata);
+  });
+});
 module.exports = router;
+
+        
