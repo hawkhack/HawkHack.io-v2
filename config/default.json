@@ -1,0 +1,15 @@
+{
+    "Event":{
+        "name": "HawkHack Fall 2019",
+        "date": "November 23-24",
+        "startTime": "November 23, 2019 08:00:00",
+        "school": "Montclair State University",
+        "location": "Student Center",
+        "status": "Closed"
+    },
+    "Schedule":[{
+        "name": "Doors Open",
+        "time": "November 23, 2019 08:00:00",
+        "location": "Main Enterance"
+    }]
+}

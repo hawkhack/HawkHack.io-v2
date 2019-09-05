@@ -37,6 +37,9 @@ require("./config/passport")(passport);
 app.use("/api/u", users);
 app.use("/api/p", profile);
 app.use("/api/a", admin);
+app.get("/api", (req, res)=>{
+  res.status(200).json(require('config').get('Event'));
+})
 
 // app.get('/', (req, res)=>{
 //   res.status(200).json("reached home");
