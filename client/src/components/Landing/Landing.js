@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
-import "../../App.css";
-import Hero from "./sections/Hero";
+import Hero from "./sections/Hero"
+import About from "./sections/About"
+import NavBar from "./sections/NavBar"
+import Faq from "./sections/Faq"
+import Footer from "./sections/Footer"
 
-export default class LandingPage extends Component {
+class LandingPage extends Component {
     render() {
         return (
-            <Hero />
-            
+            <div>
+                <NavBar />
+                <Hero />
+                <About />
+                <Faq />
+                <Footer />
+            </div>
         )
     }
 }
+
+export default LandingPage

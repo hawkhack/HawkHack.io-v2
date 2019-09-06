@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const {port, dburi} = require('./config/keys');
+const { port, dburi } = require('./config/config');
 const passport = require("passport");
+const path = require('path');
 
 const app = express();
 
@@ -40,10 +41,15 @@ app.get("/api", (req, res)=>{
   res.status(200).json(require('config').get('Event'));
 })
 
-app.get('/', (req, res)=>{
-  res.status(200).json("reached home");
+// app.get('/', (req, res)=>{
+//   res.status(200).json("reached home");
+// });
+
+app.get('*', (req, res) => {
+  console.log("OH YEAH")
+  res.sendFile(path.resolve(`${__dirname}/client/public/index.html`));
 });
 
-app.listen(port ,()=>{
-    console.log(`Server listening on port ${port}`);
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
