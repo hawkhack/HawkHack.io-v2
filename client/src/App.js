@@ -3,19 +3,19 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // import { defaults } from "./Defaults"; // Get a handle to the default application settings
 import LandingPage from "./components/Landing/Landing";
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import "./components/styles/App.css"
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#336699'
+      main: '#E9190F'
     },
     secondary: {
-      main: '#61D095'
-    } // Indigo is probably a good match with pink
+      main: '#FBFBFF'
+    } 
   }
 })
+
 class App extends Component {
 
   render() {

@@ -4,10 +4,14 @@ const navbarStyles = theme => ({
         boxShadow: "none",
     },
     navBarText: {
-        color: "white"
+        color: theme.palette.primary.main
     },
     Button: {
-        color: "white"
+        color: theme.palette.primary.main
+    },
+    NotTop: {
+        background: "white",
+        boxShadow: "none"
     }
 })
 
