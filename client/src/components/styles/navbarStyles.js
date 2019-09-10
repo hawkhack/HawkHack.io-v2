@@ -1,7 +1,8 @@
 const navbarStyles = theme => ({
     color: {
-        background: "transparent",
         boxShadow: "none",
+        backgroundColor: "transparent",
+        transition: "background-color 0.3s ease-in-out"
     },
     navBarText: {
         color: theme.palette.primary.main
@@ -11,7 +12,8 @@ const navbarStyles = theme => ({
     },
     NotTop: {
         background: "white",
-        boxShadow: "none"
+        transition: "background-color 0.1s ease-in-out",
+        height: "60px"
     }
 })
 
