@@ -1,11 +1,10 @@
 const faqStyles = theme => ({
-    root: {
-        height: "80vh"
-    },
-    iframe: {
-    	border: 0,
-    	height: "100wh",
-    	minWidth: "40vh"
+    video: {
+    	backgroundPosition: "center",
+    	backgroundRepeat: "no-repeat",
+    	backgroundSize: "cover",
+    	backgroundAttachment: "fixed",
+    	margin: 0,
     }
 })
 
