@@ -5,8 +5,8 @@ import footerStyles from '../styles/footerStyles'
 const Footer = ({ ...props }) => {
     const { classes } = props
     return (
-        <div className={classes.root}>
-            Oh yeah
+        <div className={classes.outer}>
+        	
         </div>
     )
 }

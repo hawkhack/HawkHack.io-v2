@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from "react";
-import { withStyles, Paper, Grid, Card, CardMedia, CardContent, Typography, CardActions, Button } from "@material-ui/core"
+import { withStyles, Grid, Typography } from "@material-ui/core"
 import aboutStyles from "../styles/aboutStyles"
-import Grow from '@material-ui/core/Grow';
-
+import Grow from '@material-ui/core/Grow'
 
 class About extends Component {
 
     state = {
-        closed: false
+        closed: false,
     }
 
     componentDidMount() {
@@ -27,9 +26,10 @@ class About extends Component {
     }
 
     render() {
-        const { classes } = this.props
+        const { classes, mobile } = this.props
         const { closed } = this.state
 
+        console.log(mobile)
         return (
             <Fragment> 
                 <div className={classes.wrapper}>
@@ -39,9 +39,16 @@ class About extends Component {
                         justify="center" 
                         alignItems="center"
                     >
+                        {mobile ? 
+                            <Grid item sm={12} md={6}>
+                               <Grow in={ closed } timeout={1200}>
+                                    <img className={classes.img} src="https://picsum.photos/650/500" alt="there should be something really cool here" />
+                                </Grow>
+                            </Grid> : null
+                        }
                         <Grid item sm={12} md={6}>
                             <Grow in={ closed } timeout="auto">
-                                <div>
+                                <div className={classes.wrapper}>
                                     <Typography
                                         variant="h2"
                                         align="center"
@@ -51,7 +58,7 @@ class About extends Component {
                                     </Typography>
                                     <hr className={classes.hr} />
                                     <Typography
-                                        variant="h5"
+                                        variant="body1"
                                         align="center"
                                         gutterBottom
                                         paragraph
@@ -61,12 +68,16 @@ class About extends Component {
                                 </div>
                             </Grow>
                         </Grid>
-                        <Grid item sm={12} md={6}>
-                           <Grow in={ closed } timeout={1200}>
-                                <img src="https://picsum.photos/650/500" />
-                            </Grow>
-                        </Grid>
-                    </Grid>
+                        {!mobile ? 
+                            <Grid item sm={12} md={6}>
+                               <Grow in={ closed } timeout={1200}>
+                                    <img className={classes.img} src="https://picsum.photos/650/500" alt="there should also be something really cool here" />
+                                </Grow>
+                            </Grid> : null
+                        }
+                    </Grid> 
+                </div>
+                <div className={classes.wrapper}> 
                     <br className={classes.br}/>
                     <Grid 
                         container 
@@ -76,13 +87,12 @@ class About extends Component {
                     >
                         <Grid item sm={12} md={6}>
                             <Grow in={ closed } timeout="auto">
-                                <img src="https://picsum.photos/650/500" />
+                                <img className={classes.img} src="https://picsum.photos/650/500" alt="we need to fix our pictures" />
                             </Grow>
                         </Grid>
                         <Grid item sm={12} md={6}>
                            <Grow in={ closed } timeout={1200}>
-
-                                <div>
+                                <div className={classes.wrapper}>
                                     <Typography
                                         variant="h2"
                                         align="center"
@@ -92,7 +102,7 @@ class About extends Component {
                                     </Typography>
                                     <hr className={classes.hr} />
                                     <Typography
-                                        variant="h5"
+                                        variant="body1"
                                         align="center"
                                         gutterBottom
                                         paragraph

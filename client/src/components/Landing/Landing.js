@@ -11,17 +11,40 @@ import image2 from '../styles/pictures/background1.jpg'
 
 class LandingPage extends Component {
 
+    state = {
+        mobile: false
+    }
+
+    componentDidMount() {
+        window.addEventListener('width', this.handleWidth, true);
+    }
+
+    componentWillUnmount() {
+        window.RemoveEventListener('width', this.handleWidth);
+    }
+
+    handleWidth() {
+        if (window.innerWidth < 500) {
+            this.setState({ mobile: true })
+        } else {
+            this.setState({ mobile: false })
+        }
+    }
+
     render() {
+        console.log(window.innerWidth)
         return (
             <Fragment>
                 <BackgroundSlider 
                     images={[image1, image2]}
                     duration={1} transition={2} 
                 />
-                <NavBar/>
+                <NavBar />
                 <Hero />
-                <Sponsors />
-                <About />
+                <Sponsors mobile={this.state.mobile} />
+                <About mobile={this.state.mobile} />
+                <Faq />
+                <Footer />
             </Fragment>
         )
     }

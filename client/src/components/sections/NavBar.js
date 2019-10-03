@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Toolbar, AppBar, withStyles, Grid, Typography, Button, Grow } from "@material-ui/core"
+import { Toolbar, AppBar, withStyles, Grid, Typography, Button } from "@material-ui/core"
 import navbarStyles from '../styles/navbarStyles';
 
 class NavBar extends Component {
 
     state = {
-        onTop: false
+        onTop: true
     }
 
     componentDidMount() {
@@ -27,7 +27,7 @@ class NavBar extends Component {
     render() {
         const { classes } = this.props
         return (
-            <AppBar color="white" className={this.state.onTop ? classes.color : classes.NotTop } >
+            <AppBar color="white" className={this.state.onTop ? classes.color : classes.NotTop}>
                 <Toolbar>
                     <Grid
                         container
@@ -44,8 +44,9 @@ class NavBar extends Component {
                            </Typography>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.navBarText}>
-                            </Typography>
+                            <Button color="primary">
+                                Stay Updated
+                            </Button>
                         </Grid>
                     </Grid>
                 </Toolbar>

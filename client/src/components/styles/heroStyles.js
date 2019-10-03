@@ -20,13 +20,8 @@ const heroStyles = theme => ({
             boxShadow: 'none',
         },
     },
-    videoWrapper: {
-        position: "absolute",
-        zIndex: -100,
-    },
-    video: {
-        width: "100vw",
-        height: "auto"
+    wrapper: {
+        padding: 10
     }
 })
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Grid, Typography, withStyles, Button } from '@material-ui/core'
 import heroStyles from '../styles/heroStyles';
 import { ScrollDownIndicator } from 'react-landing-page'
-import video from '../styles/pictures/Hawkhack.mp4'
 
 class Hero extends Component {
     render() {
@@ -35,16 +34,20 @@ class Hero extends Component {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Grid container spacing={2} justify="center">
+                        <Grid container justify="center">
                             <Grid item>
-                                <Button variant="contained" color="primary" className={classes.Button}>
-                                    Register me 
-                                </Button>
+                                <div className={classes.wrapper}>
+                                    <Button variant="contained" color="primary" className={classes.Button}>
+                                        Register me 
+                                    </Button>
+                                </div>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="primary" className={classes.Button}>
-                                    Sponsor me 
-                                </Button>
+                                <div className={classes.wrapper}>
+                                    <Button variant="contained" color="primary" className={classes.Button}>
+                                        Sponsor me 
+                                    </Button>
+                                </div>
                             </Grid>
                         </Grid>
                     </Grid>

@@ -13,22 +13,40 @@ const Sponsors = ({ ...props }) => {
 			  	justify="center"
 			  	alignItems="center"
 			>
-				<Grid item>
-					<Typography variant="h5">
-						this is for the sponsors 
-					</Typography>
+				<Grid item xs={12} sm md>
+					<div className={classes.wrapper}>
+						<Typography variant="h5" align="center">
+							Our Sponsors:
+						</Typography>
+					</div>
 				</Grid>
-				<Grid item>
-					Google
+				<Grid item xs={12} sm md>
+					<div className={classes.wrapper}>
+						<Typography variant="body1" align="center">
+							Google
+						</Typography>
+					</div>
 				</Grid>
-				<Grid item>
-					UPS
+				<Grid item xs={12} sm md>
+					<div className={classes.wrapper}>
+						<Typography variant="body1" align="center">
+							UPS
+						</Typography>
+					</div>
 				</Grid>
-				<Grid item>
-					Montclair State University
+				<Grid item xs={12} sm md>
+					<div className={classes.wrapper}>
+						<Typography variant="body1" align="center">
+							Montclair State University
+						</Typography>
+					</div>
 				</Grid>
-				<Grid item>
-					your mom
+				<Grid item xs={12} sm md>
+					<div className={classes.wrapper}>
+						<Typography variant="body1" align="center">
+							Your mom
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 		</div>

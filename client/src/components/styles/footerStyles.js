@@ -1,8 +1,15 @@
 const footerStyles = theme => ({
-    root: {
-        height: "10vh",
-        backgroundColor: "white"
-    }
+	outer: {
+		alignItems: "center",
+		height: "100px",
+		backgroundColor: "#D3D3D3",
+		display: "flex",
+		width: "100%",
+		justifyContent: "space-between",
+	},
+	image: {
+		
+	}
 })
 
 export default footerStyles
