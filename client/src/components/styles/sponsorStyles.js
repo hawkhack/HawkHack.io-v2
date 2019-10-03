@@ -4,7 +4,6 @@ const sponsorStyles = (theme) => ({
 		height: "auto",
 		minHeight: "60px",
 		width: "100%",
-		backgroundColor: "#D3D3D3",
 		display: "flex",
 		justifyContent: "space-between",
 	},

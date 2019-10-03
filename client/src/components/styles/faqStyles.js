@@ -11,6 +11,7 @@ const faqStyles = theme => ({
     	backgroundImage: `url(${image})`,
     	backgroundRepeat: "no-repeat",
     	backgroundSize: "cover",
+        backgroundAttachment: "fixed"
     },
     grad: {
     	background: "linear-gradient(to bottom right, rgba(209, 25, 13, 0.9) 0%, rgba(34, 31, 31, 0.9) 100%)",

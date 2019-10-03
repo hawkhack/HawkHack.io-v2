@@ -4,6 +4,7 @@ import About from "../sections/About"
 import NavBar from "../sections/NavBar"
 import Faq from "../sections/Faq"
 import Footer from "../sections/Footer"
+import Schedule from "../sections/Schedule"
 import Sponsors from "../sections/Sponsors"
 import BackgroundSlider from 'react-background-slider'
 import image1 from '../styles/pictures/beach.jpg'
@@ -44,6 +45,7 @@ class LandingPage extends Component {
                 <Sponsors mobile={this.state.mobile} />
                 <About mobile={this.state.mobile} />
                 <Faq />
+                <Schedule />
                 <Footer />
             </Fragment>
         )

@@ -22,6 +22,95 @@ const Faq = ({ ...props }) => {
 	    					</div>
 	    				</Grid>
 	    			</Grid>
+		    		<Grid
+		    		  container
+		    		  direction="row"
+		    		  justify="center"
+		    		  alignItems="center"
+		    		>
+		    			<Grid item md={6}>
+		    				<Grid
+		    				  container
+		    				  direction="column"
+		    				  justify="center"
+		    				  alignItems="center"
+		    				>
+		    					<Grid item>
+		    						<Typography variant="h3" align="center">
+		    							item 1
+		    						</Typography>
+		    						<Typography variant="h5" align="center">
+		    							item 2
+		    						</Typography>
+		    					</Grid>
+		    					<Grid item>
+		    						<Typography variant="h3" align="center">
+		    							item 1
+		    						</Typography>
+		    						<Typography variant="h5" align="center">
+		    							item 2
+		    						</Typography>
+		    					</Grid>		    					
+		    					<Grid item>
+		    						<Typography variant="h3" align="center">
+		    							item 1
+		    						</Typography>
+		    						<Typography variant="h5" align="center">
+		    							item 2
+		    						</Typography>
+		    					</Grid>
+		    					<Grid item>
+		    						<Typography variant="h3" align="center">
+		    							item 1
+		    						</Typography>
+		    						<Typography variant="h5" align="center">
+		    							item 2
+		    						</Typography>
+		    					</Grid>
+		    				</Grid>
+		    			</Grid>	
+		    			<Grid item md={6}>
+							<Grid
+							  container
+							  direction="column"
+							  justify="center"
+							  alignItems="center"
+							>
+								<Grid item>
+									<Typography variant="h3" align="center">
+										item 1
+									</Typography>
+									<Typography variant="h5" align="center">
+										item 2
+									</Typography>
+								</Grid>
+								<Grid item>
+									<Typography variant="h3" align="center">
+										item 1
+									</Typography>
+									<Typography variant="h5" align="center">
+										item 2
+									</Typography>
+								</Grid>
+								<Grid item>
+									<Typography variant="h3" align="center">
+										item 1
+									</Typography>
+									<Typography variant="h5" align="center">
+										item 2
+									</Typography>
+								</Grid>
+								<Grid item>
+									<Typography variant="h3" align="center">
+										item 1
+									</Typography>
+									<Typography variant="h5" align="center">
+										item 2
+									</Typography>
+								</Grid>
+							</Grid>
+		    			</Grid>
+		    		</Grid>
 	    		</div>
 	    	</div>
 	    </Paper>

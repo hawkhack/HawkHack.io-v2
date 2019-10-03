@@ -1,12 +1,12 @@
 import React from 'react'
-import { withStyles, Grid, Typography } from '@material-ui/core'
+import { withStyles, Grid, Typography, Paper } from '@material-ui/core'
 import sponsorStyles from '../styles/sponsorStyles'
 
 const Sponsors = ({ ...props }) => {
 	const { classes } = props
 
 	return (
-		<div className={classes.outer}>
+		<Paper className={classes.outer}>
 			<Grid
 				container
 			  	direction="row"
@@ -49,7 +49,7 @@ const Sponsors = ({ ...props }) => {
 					</div>
 				</Grid>
 			</Grid>
-		</div>
+		</Paper>
 	)	
 }							
 
