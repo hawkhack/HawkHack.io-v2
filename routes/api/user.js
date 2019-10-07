@@ -150,7 +150,7 @@ router.post("/preregister", (req, res) => {
 });
 
 //  @route  POST api/u/changepw
-//  @desc   Return current user
+//  @desc   Change user password
 //  @access Private
 router.post(
   "/changepw",
