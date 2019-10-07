@@ -1,7 +1,8 @@
 const heroStyles = theme => ({
     heroText: {
         color: "white",
-        fontSize: "calc(12px + 8.5vw);"
+        fontSize: "calc(12px + 8.5vw)",
+        marginBottom: "3vh"
     },
     buttonGroup: {
         padding: 20
@@ -18,6 +19,9 @@ const heroStyles = theme => ({
         '&:active, &:focus': {
             boxShadow: 'none',
         },
+    },
+    wrapper: {
+        padding: 10
     }
 })
 

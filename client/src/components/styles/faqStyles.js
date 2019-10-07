@@ -1,11 +1,21 @@
+import image from './pictures/msulanding.jpg'
+
 const faqStyles = theme => ({
-    root: {
-        height: "80vh"
+    wrapper: {
+    	padding: 40,
+    	color: theme.palette.secondary.main
     },
-    iframe: {
-    	border: 0,
-    	height: "100wh",
-    	minWidth: "40vh"
+    image: {
+    	width: "100%",
+    	height: "100vh",
+    	backgroundImage: `url(${image})`,
+    	backgroundRepeat: "no-repeat",
+    	backgroundSize: "cover",
+        backgroundAttachment: "fixed"
+    },
+    grad: {
+    	background: "linear-gradient(to bottom right, rgba(209, 25, 13, 0.9) 0%, rgba(34, 31, 31, 0.9) 100%)",
+    	height: "100vh"
     }
 })
 
