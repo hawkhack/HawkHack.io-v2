@@ -102,14 +102,18 @@ router.post("/login", (req, res) => {
 //  @route  GET api/u/current
 //  @desc   Return current user
 //  @access Private
-router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
-  res.json({
-    email: req.user.email,
-    role: req.user.role,
-    status: req.user.status,
-    date: req.user.date
-  });
-});
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      email: req.user.email,
+      role: req.user.role,
+      status: req.user.status,
+      date: req.user.date
+    });
+  }
+);
 
 //  @route  GET api/u/preregister
 //  @desc   Sign up to maillist
@@ -120,7 +124,7 @@ router.post("/preregister", (req, res) => {
 
   const data = {
     email_address: email,
-    status: 'subscribed',
+    status: "subscribed",
     merge_fields: {
       FNAME: fname,
       LNAME: lname,
@@ -144,6 +148,38 @@ router.post("/preregister", (req, res) => {
     res.json(resdata);
   });
 });
-module.exports = router;
 
-        
+//  @route  POST api/u/changepw
+//  @desc   Return current user
+//  @access Private
+router.post(
+  "/changepw",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    var errors = {};
+    var { newpw } = req.body;
+    User.findOne({ email: req.user.email }).then(user => {
+      if (!user) {
+        errors.nouser = "user not found";
+        return res.status(500).json(errors);
+      }
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newpw, salt, (err, hash) => {
+          if (err) throw err;
+          if (user.password == hash) {
+            errors.samepassword =
+              "The password needs to be different than your current";
+            return res.status(200).json(errors);
+          }
+          user.password = hash;
+          user
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
+        });
+      });
+    });
+  }
+);
+
+module.exports = router;
