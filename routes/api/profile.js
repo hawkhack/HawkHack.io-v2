@@ -11,14 +11,14 @@ const Profile = require("../../models/Profile");
 //Load user model
 const User = require("../../models/User");
 
-//  @route  GET api/profile/test
+//  @route  GET api/p/test
 //  @desc   Test profile route
 //  @access Public
 router.get("/test", (req, res) => {
   res.json({ msg: "Profile Works" });
 });
 
-//  @route  GET api/profile/
+//  @route  GET api/p/
 //  @desc   Get current user profile
 //  @access Private
 router.get(
@@ -39,7 +39,7 @@ router.get(
   }
 );
 
-//  @route  POST api/profile/
+//  @route  POST api/p/
 //  @desc   Create user profile
 //  @access Private
 router.post(
@@ -98,7 +98,7 @@ router.post(
   }
 );
 
-//  @route  GET api/profile/:user_id
+//  @route  GET api/p/:user_id
 //  @desc   Get user profile by id
 //  @access Private
 router.get(
@@ -125,7 +125,7 @@ router.get(
   }
 );
 
-//  @route  DELETE api/profile/
+//  @route  DELETE api/p/
 //  @desc   Delete user and profile
 //  @access Private
 router.delete(
