@@ -4,29 +4,8 @@ import aboutStyles from "../styles/aboutStyles"
 
 class About extends Component {
 
-    state = {
-        closed: false,
-    }
-
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll, true);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
-
-    handleScroll = () => {
-        if (window.scrollY > 100) {
-            this.setState({ closed: true })
-        } else {
-            this.setState({ closed: false })
-        }
-    }
-
     render() {
         const { classes, mobile } = this.props
-        const { closed } = this.state
 
         return (
             <Fragment> 

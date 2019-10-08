@@ -28,7 +28,7 @@ const Faq = ({ ...props }) => {
 		    		  justify="center"
 		    		  alignItems="center"
 		    		>
-		    			<Grid item md={6}>
+		    			<Grid item xs={12} sm={6} md={6}>
 		    				<Grid
 		    				  container
 		    				  direction="column"
@@ -59,7 +59,7 @@ const Faq = ({ ...props }) => {
 		    							item 2
 		    						</Typography>
 		    					</Grid>
-		    					<Grid item>
+		    					<Grid item className={classes.bottomItem}> 
 		    						<Typography variant="h3" align="center">
 		    							item 1
 		    						</Typography>
@@ -69,7 +69,7 @@ const Faq = ({ ...props }) => {
 		    					</Grid>
 		    				</Grid>
 		    			</Grid>	
-		    			<Grid item md={6}>
+		    			<Grid item xs={12} sm={6} md={6}>
 							<Grid
 							  container
 							  direction="column"
@@ -100,7 +100,7 @@ const Faq = ({ ...props }) => {
 										item 2
 									</Typography>
 								</Grid>
-								<Grid item>
+								<Grid item className={classes.bottomItem}>
 									<Typography variant="h3" align="center">
 										item 1
 									</Typography>
