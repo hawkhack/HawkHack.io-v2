@@ -169,7 +169,7 @@ router.post(
           if (user.password == hash) {
             errors.samepassword =
               "The password needs to be different than your current";
-            return res.status(200).json(errors);
+            return res.status(412).json(errors);
           }
           user.password = hash;
           user
