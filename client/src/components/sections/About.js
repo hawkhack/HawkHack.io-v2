@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { withStyles, Grid, Typography } from "@material-ui/core"
 import aboutStyles from "../styles/aboutStyles"
-import Grow from '@material-ui/core/Grow'
 
 class About extends Component {
 
@@ -40,38 +39,32 @@ class About extends Component {
                     >
                         {mobile ? 
                             <Grid item sm={12} md={6}>
-                               <Grow in={ window.scrollY > 100} timeout={1200}>
-                                    <img className={classes.img} src="https://picsum.photos/650/500" alt="there should be something really cool here" />
-                                </Grow>
+                                <img className={classes.img} src="https://picsum.photos/650/500" alt="there should be something really cool here" />
                             </Grid> : null
                         }
                         <Grid item sm={12} md={6}>
-                            <Grow in={ window.scrollY > 100 } timeout="auto">
-                                <div className={classes.wrapper}>
-                                    <Typography
-                                        variant="h2"
-                                        align="center"
-                                        color="primary"
-                                    >
-                                        Title
-                                    </Typography>
-                                    <hr className={classes.hr} />
-                                    <Typography
-                                        variant="body1"
-                                        align="center"
-                                        gutterBottom
-                                        paragraph
-                                    >
-                                       HawkHack is a 24-hour hackathon event at Montclair State University. Students of any majors are welcome to form a team and build awesome software and hardware projects. Industry experts and mentors will be there to help and guide students and create a learning environment through talks, workshops, and one-on-one guidance. We encourage anyone from beginner to advanced developers to challenge themselves and create something awesome.
-                                    </Typography>
-                                </div>
-                            </Grow>
+                            <div className={classes.wrapper}>
+                                <Typography
+                                    variant="h2"
+                                    align="center"
+                                    color="primary"
+                                >
+                                    Title
+                                </Typography>
+                                <hr className={classes.hr} />
+                                <Typography
+                                    variant="body1"
+                                    align="center"
+                                    gutterBottom
+                                    paragraph
+                                >
+                                   HawkHack is a 24-hour hackathon event at Montclair State University. Students of any majors are welcome to form a team and build awesome software and hardware projects. Industry experts and mentors will be there to help and guide students and create a learning environment through talks, workshops, and one-on-one guidance. We encourage anyone from beginner to advanced developers to challenge themselves and create something awesome.
+                                </Typography>
+                            </div>
                         </Grid>
                         {!mobile ? 
                             <Grid item sm={12} md={6}>
-                               <Grow in={ window.scrollY > 100 } timeout={1200}>
-                                    <img className={classes.img} src="https://picsum.photos/650/500" alt="there should also be something really cool here" />
-                                </Grow>
+                                <img className={classes.img} src="https://picsum.photos/650/500" alt="there should also be something really cool here" />
                             </Grid> : null
                         }
                     </Grid> 
@@ -85,31 +78,27 @@ class About extends Component {
                         alignItems="center"
                     >
                         <Grid item sm={12} md={6}>
-                            <Grow in={ closed } timeout="auto">
-                                <img className={classes.img} src="https://picsum.photos/650/500" alt="we need to fix our pictures" />
-                            </Grow>
+                            <img className={classes.img} src="https://picsum.photos/650/500" alt="we need to fix our pictures" />
                         </Grid>
                         <Grid item sm={12} md={6}>
-                           <Grow in={ closed } timeout={1200}>
-                                <div className={classes.wrapper}>
-                                    <Typography
-                                        variant="h2"
-                                        align="center"
-                                        color="primary"
-                                    >
-                                        Title
-                                    </Typography>
-                                    <hr className={classes.hr} />
-                                    <Typography
-                                        variant="body1"
-                                        align="center"
-                                        gutterBottom
-                                        paragraph
-                                    >
-                                       HawkHack is a 24-hour hackathon event at Montclair State University. Students of any majors are welcome to form a team and build awesome software and hardware projects. Industry experts and mentors will be there to help and guide students and create a learning environment through talks, workshops, and one-on-one guidance. We encourage anyone from beginner to advanced developers to challenge themselves and create something awesome.
-                                    </Typography>
-                                </div>
-                            </Grow>
+                            <div className={classes.wrapper}>
+                                <Typography
+                                    variant="h2"
+                                    align="center"
+                                    color="primary"
+                                >
+                                    Title
+                                </Typography>
+                                <hr className={classes.hr} />
+                                <Typography
+                                    variant="body1"
+                                    align="center"
+                                    gutterBottom
+                                    paragraph
+                                >
+                                   HawkHack is a 24-hour hackathon event at Montclair State University. Students of any majors are welcome to form a team and build awesome software and hardware projects. Industry experts and mentors will be there to help and guide students and create a learning environment through talks, workshops, and one-on-one guidance. We encourage anyone from beginner to advanced developers to challenge themselves and create something awesome.
+                                </Typography>
+                            </div>
                         </Grid>
                     </Grid>
                 </div>

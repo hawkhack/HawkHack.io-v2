@@ -33,7 +33,6 @@ class LandingPage extends Component {
     }
 
     render() {
-        console.log(window.innerWidth)
         return (
             <Fragment>
                 <BackgroundSlider 
