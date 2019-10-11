@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Toolbar, AppBar, withStyles, Grid, Typography, Button } from "@material-ui/core"
 import navbarStyles from '../styles/navbarStyles';
+import { NavLink } from 'react-router-dom'
 
 class NavBar extends Component {
 
@@ -12,9 +13,6 @@ class NavBar extends Component {
         window.addEventListener('scroll', this.handleScroll, true);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
 
     handleScroll = () => {
         if (window.scrollY < 100) {
@@ -22,6 +20,10 @@ class NavBar extends Component {
         } else {
             this.setState({ onTop: false })
         }
+    }
+
+    handleLogin = () => {
+
     }
 
     render() {
@@ -44,9 +46,11 @@ class NavBar extends Component {
                            </Typography>
                         </Grid>
                         <Grid item>
-                            <Button color="primary">
-                                Stay Updated
+                        <NavLink to='/login'>
+                            <Button color="primary" onClick={this.handleLogin}>
+                                Login
                             </Button>
+                        </NavLink>
                         </Grid>
                     </Grid>
                 </Toolbar>

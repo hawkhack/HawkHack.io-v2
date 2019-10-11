@@ -12,26 +12,6 @@ import image2 from '../styles/pictures/background1.jpg'
 
 class LandingPage extends Component {
 
-    state = {
-        mobile: false
-    }
-
-    componentDidMount() {
-        window.addEventListener('width', this.handleWidth, true);
-    }
-
-    componentWillUnmount() {
-        window.RemoveEventListener('width', this.handleWidth);
-    }
-
-    handleWidth() {
-        if (window.innerWidth < 500) {
-            this.setState({ mobile: true })
-        } else {
-            this.setState({ mobile: false })
-        }
-    }
-
     render() {
         return (
             <Fragment>
@@ -41,8 +21,7 @@ class LandingPage extends Component {
                 />
                 <NavBar />
                 <Hero />
-                <Sponsors mobile={this.state.mobile} />
-                <About mobile={this.state.mobile} />
+                <About />
                 <Faq />
                 <Schedule />
                 <Footer />
