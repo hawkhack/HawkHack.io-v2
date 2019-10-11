@@ -23,7 +23,7 @@ class About extends Component {
                                     align="center"
                                     color="primary"
                                 >
-                                    Title
+                                    who and what?
                                 </Typography>
                                 <hr className={classes.hr} />
                                 <Typography
@@ -33,6 +33,25 @@ class About extends Component {
                                     paragraph
                                 >
                                    HawkHack is a 24-hour hackathon event at Montclair State University. Students of any majors are welcome to form a team and build awesome software and hardware projects. Industry experts and mentors will be there to help and guide students and create a learning environment through talks, workshops, and one-on-one guidance. We encourage anyone from beginner to advanced developers to challenge themselves and create something awesome.
+                                </Typography>
+                            </div>
+                            <div className={classes.wrapper}>
+                                <Typography
+                                    variant="h2"
+                                    align="center"
+                                    color="primary"
+                                >
+                                    when and where?
+                                </Typography>
+                                <hr className={classes.hr} />
+                                <Typography
+                                    variant="body1"
+                                    align="center"
+                                    gutterBottom
+                                    paragraph
+                                >
+                                   <b>November 23rd, 10:00 AM to November 24th, 10:00 AM</b> 
+                                   <b>Montclair State University, Student Center - Ballrooms A, B, C</b>
                                 </Typography>
                             </div>
                         </Grid>
@@ -48,35 +67,41 @@ class About extends Component {
                         justify="center"
                         alignItems="center"
                       >
-                        <Grid item sm={3}>
+                        <Grid item xs={12} sm={12} md={3}>
                             <div className={classes.wrapper}>
-                                <Typography variant="h2" align="center">
-                                    title
-                                </Typography>
-                                <Typography variant="h5">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                <div className={classes.wrapper}>
+                                    <Typography variant="h4" align="center">
+                                        People Icon
+                                    </Typography>
+                                </div>
+                                <Typography variant="h5" align="center">
+                                    First Hackathon at MSU with over 150+ attendees
                                 </Typography>
                             </div>
                         </Grid>
-                        <Grid item sm={3}>
+                        <Grid item xs={12} sm={12} md={3}>
                             <div className={classes.border}>
                                 <div className={classes.wrapper}>
-                                    <Typography variant="h2" align="center">
-                                        title
-                                    </Typography>
-                                    <Typography variant="h5">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                    <div className={classes.wrapper}>
+                                        <Typography variant="h4" align="center">
+                                            Money Icon
+                                        </Typography>
+                                    </div>
+                                    <Typography variant="h5" align="center">
+                                        $10,000+ in sponsorships and $500+ in prizes 
                                     </Typography>
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item sm={3}>
+                        <Grid item xs={12} sm={12} md={3}>
                           <div className={classes.wrapper}>
-                                <Typography variant="h2" align="center">
-                                    title
-                                </Typography>
-                                <Typography variant="h5">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                                <div className={classes.wrapper}>
+                                    <Typography variant="h4" align="center">
+                                        Activities Icon
+                                    </Typography>
+                                </div>
+                                <Typography variant="h5" align="center">
+                                    Lasertag tournament certified
                                 </Typography>
                             </div>
                         </Grid>

@@ -22,8 +22,7 @@ class LandingPage extends Component {
                 <NavBar />
                 <Hero />
                 <About />
-                <Faq />
-                <Schedule />
+                <Sponsors />
                 <Footer />
             </Fragment>
         )
