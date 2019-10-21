@@ -61,7 +61,7 @@ class About extends Component {
                             </div>
                         </Grid>
                         <Grid item sm={12} md={6}>
-                            <img className={classes.img} src="https://picsum.photos/650/500" alt="there should also be something really cool here" />
+                            <img className={classes.img} src="https://picsum.photos/650/500" alt="there should be something really cool here" />
                         </Grid>
                     </Grid> 
                 </div>
@@ -127,7 +127,7 @@ class About extends Component {
                                     </Grid>
                                 </Grid>
                                 <Typography variant="h5" align="center" >
-                                    $15,000+ in sponsorships and $1000+ in prizes 
+                                    Lasertag and Smash tournament certified
                                 </Typography>
                             </div>
                         </Grid>

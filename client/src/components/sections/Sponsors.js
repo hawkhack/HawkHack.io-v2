@@ -11,7 +11,7 @@ const Sponsors = ({ ...props }) => {
 				<div className={classes.wholeWrapper}>
 					<div className={classes.title}>
 						<Typography variant="h2" align="center">
-							Our Sponsors
+							our sponsors
 						</Typography>
 					</div>
 					<Grid

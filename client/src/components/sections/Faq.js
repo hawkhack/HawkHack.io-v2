@@ -26,7 +26,7 @@ const Faq = ({ ...props }) => {
     		  justify="center"
     		  alignItems="center"
     		>
-    			<Grid item xs={12} sm={6} md={6}>
+    			<Grid item xs={12} sm={12} md={6}>
     				<Grid
     				  container
     				  direction="column"
@@ -97,7 +97,7 @@ const Faq = ({ ...props }) => {
     					</Grid>
     				</Grid>
     			</Grid>	
-    			<Grid item xs={12} sm={6} md={6}>
+    			<Grid item xs={12} sm={12} md={6}>
 					<Grid
 					  container
 					  direction="column"
@@ -156,7 +156,7 @@ const Faq = ({ ...props }) => {
 										How much does it cost to attend?
 									</Typography>
 								</div>
-								<Typography variant="h5" align="center">
+								<Typography variant="body1" align="center">
 									FREE, that’s how much. The event is completely FREE to attend.
 									FREE food, FREE games, FREE fun. Sounds good, doesn’t it?
 								</Typography>

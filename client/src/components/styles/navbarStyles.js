@@ -8,7 +8,8 @@ const navbarStyles = theme => ({
         color: theme.palette.primary.secondary
     },
     navbarScrolled: {
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+        fontFamily: "Dancing script, cursive"
     },
     NotTop: {
         background: "white",
@@ -17,6 +18,12 @@ const navbarStyles = theme => ({
     },
     aboutButton: {
         padding: 10
+    },
+    buttonTop: {
+        color: "white",
+    },
+    buttonNotTop: {
+        color: theme.palette.primary.main,
     }
 })
 

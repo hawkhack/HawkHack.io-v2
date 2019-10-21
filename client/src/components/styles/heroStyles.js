@@ -4,6 +4,7 @@ const heroStyles = theme => ({
     heroText: {
         color: "white",
         fontSize: "calc(12px + 8.5vw)",
+        fontFamily: "Dancing Script, cursive",
     },
     buttonGroup: {
         padding: 20
@@ -15,6 +16,7 @@ const heroStyles = theme => ({
         marginLeft: "1rem",
         marginRight: "1rem",
         fontSize: "1rem",
+        fontFamily: 'Roboto',
         borderRadius: "0",
         color: "white",
         '&:active, &:focus': {
@@ -39,7 +41,8 @@ const heroStyles = theme => ({
         minHeight: "100vh"
     },
     round2: {
-       fontSize: "calc(12px + 1.5vw)"
+       fontSize: "calc(12px + 1.5vw)",
+       fontFamily: "Roboto"
     }
 })
 

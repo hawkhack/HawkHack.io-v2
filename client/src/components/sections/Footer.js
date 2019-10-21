@@ -5,8 +5,10 @@ import footerStyles from '../styles/footerStyles'
 const Footer = ({ ...props }) => {
     const { classes } = props
     return (
-        <div className={classes.outer}>
-        	
+        <div className={classes.image}>
+        	<div className={classes.grad}>
+        		
+        	</div>
         </div>
     )
 }

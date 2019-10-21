@@ -34,31 +34,44 @@ class NavBar extends Component {
                     <Grid
                       container
                       direction="row"
-                      justify="flex-start"
+                      justify="space-between"
                       alignItems="center"
                     >
                         <Grid item>
-                            <Typography
-                                color="secondary"
-                                className={this.state.onTop ? classes.navBarText : classes.navbarScrolled}
-                                variant="h5"
-                            >
-                                "Logo HERE"
-                           </Typography>
+                            {this.state.onTop ? 
+                                <div></div> 
+                            : 
+                                <div> 
+                                    <Typography
+                                        color="secondary"
+                                        className={this.state.onTop ? classes.navBarText : classes.navbarScrolled}
+                                        variant="h5"
+                                    >
+                                        Hawkhack
+                                   </Typography>
+                                </div>
+                            }
                         </Grid>
                         <Grid item>
-                            <div className={classes.aboutButton}>
-                                <Button variant="outline">    
-                                    About 
-                                </Button>
-                            </div>
-                        </Grid>     
-                        <Grid item>
-                            <div className={classes.wrapper}>
-                                <Button variant="outline">    
-                                    FAQ 
-                                </Button>
-                            </div>
+                            <Grid
+                              container
+                              direction="row"
+                              justify="flex-end"
+                              alignItems="center"
+                            >
+                                <Grid item>
+                                    <div className={classes.wrapper}>
+                                        <NavLink
+                                            to="login"
+                                            style={{textDecoration: "none"}}
+                                        >
+                                            <Button variant="outline" color="inherit" className={this.state.onTop ? classes.buttonTop : classes.buttonNotTop}>    
+                                                Login 
+                                            </Button>
+                                        </NavLink>
+                                    </div>
+                                </Grid>
+                            </Grid>
                         </Grid> 
                     </Grid>
                 </Toolbar>

@@ -19,14 +19,6 @@ class Hero extends Component {
                     >
                         <Grid item>
                             <Typography
-                                variant="h5"
-                                color="primary"
-                                align="center"
-                                className={classes.round2}
-                            >
-                                Get ready for round 2
-                            </Typography>
-                            <Typography
                                 variant="h1"
                                 className={classes.heroText}
                                 color="secondary"
@@ -37,8 +29,13 @@ class Hero extends Component {
                         </Grid>
                         <Grid item>
                             <div className={classes.wrapper}>
-                                <Typography variant="h4" color="primary" className={classes.round2}>    
-                                    November 23rd - 24th
+                                <Typography
+                                    variant="h5"
+                                    color="primary"
+                                    align="center"
+                                    className={classes.round2}
+                                >
+                                    Get ready for round 2, baby
                                 </Typography>
                             </div>
                         </Grid>

@@ -14,6 +14,7 @@ class LandingPage extends Component {
         const { classes } = this.props
         return (
             <Fragment>
+                <NavBar />
                 <Hero />
                 <About />
                 <Sponsors />
