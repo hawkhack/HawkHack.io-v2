@@ -1,15 +1,11 @@
 import React, { Component, Fragment } from 'react' 
 
-import { Grid, Paper, withStyles, Typography, } from '@material-ui/core'
+import { Grid, Paper, withStyles, Typography } from '@material-ui/core'
 
-import BackgroundSlider from 'react-background-slider'
-import image1 from '../styles/pictures/beach.jpg'
-import image2 from '../styles/pictures/background1.jpg'
-import LoginForm from '../../components/forms/LoginForm'
+import registerStyles from '../styles/registerStyles'
+import RegisterForm from '../forms/RegisterForm'
 
-import loginStyles from '../styles/loginStyles'
-
-class Login extends Component {
+class Register extends Component {
 
 	render() {
 		const { classes } = this.props
@@ -26,13 +22,11 @@ class Login extends Component {
 					    >
 					        <Grid item xs sm={12} md={6}>
 							    <Typography variant="h1" align="left" color="secondary">
-				                    Sign In
+				                    Register
 			                	</Typography>
 					            <Paper className={classes.paper}>
 					            	<div className={classes.outer}>
-						                <LoginForm
-						                    submit={this.submit}
-						                />
+						                <RegisterForm />
 						            </div>
 					            </Paper>
 					        </Grid>
@@ -44,4 +38,4 @@ class Login extends Component {
 	}
 }
 
-export default withStyles(loginStyles)(Login)
+export default withStyles(registerStyles)(Register)

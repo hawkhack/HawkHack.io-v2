@@ -3,6 +3,8 @@ import { Grid, Typography, withStyles, Button } from '@material-ui/core'
 import heroStyles from '../styles/heroStyles';
 import { ScrollDownIndicator } from 'react-landing-page'
 
+import { NavLink } from 'react-router-dom'
+
 class Hero extends Component {
     render() {
         const { classes } = this.props
@@ -43,9 +45,13 @@ class Hero extends Component {
                             <Grid container justify="center">
                                 <Grid item>
                                     <div className={classes.wrapper}>
-                                        <Button variant="contained" color="primary" className={classes.Button}>
-                                            Register 
-                                        </Button>
+                                        <NavLink
+                                            to="register"
+                                        >
+                                            <Button variant="contained" color="primary" className={classes.Button}>
+                                                Register 
+                                            </Button>
+                                        </NavLink>
                                     </div>
                                 </Grid>
                             </Grid>

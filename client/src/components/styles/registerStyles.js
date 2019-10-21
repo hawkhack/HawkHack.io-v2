@@ -1,6 +1,6 @@
 import image from './pictures/msulanding.jpg'
 
-const loginStyles = theme => ({
+const registerStyles = theme => ({
 	paper: {
 		boxShadow: "0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
 	},
@@ -23,4 +23,4 @@ const loginStyles = theme => ({
     },
 })
 
-export default loginStyles
+export default registerStyles
