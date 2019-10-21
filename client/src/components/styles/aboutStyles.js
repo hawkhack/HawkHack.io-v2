@@ -25,6 +25,9 @@ const aboutStyles = theme => ({
     border: {
         borderLeft: "5px solid red",
         borderRight: "5px solid red"
+    },
+    icons: {
+        align: "center",
     }
 })
 

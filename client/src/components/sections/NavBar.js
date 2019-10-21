@@ -32,26 +32,34 @@ class NavBar extends Component {
             <AppBar color="white" className={this.state.onTop ? classes.color : classes.NotTop}>
                 <Toolbar>
                     <Grid
-                        container
-                        justify="space-between"
-                        spacing={24}
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
                     >
                         <Grid item>
                             <Typography
-                                color="inherit"
-                                className={classes.navBarText}
-                                variant="h6"
+                                color="secondary"
+                                className={this.state.onTop ? classes.navBarText : classes.navbarScrolled}
+                                variant="h5"
                             >
                                 "Logo HERE"
                            </Typography>
                         </Grid>
                         <Grid item>
-                        <NavLink to='/login'>
-                            <Button color="primary" onClick={this.handleLogin}>
-                                Login
-                            </Button>
-                        </NavLink>
-                        </Grid>
+                            <div className={classes.aboutButton}>
+                                <Button variant="outline">    
+                                    About 
+                                </Button>
+                            </div>
+                        </Grid>     
+                        <Grid item>
+                            <div className={classes.wrapper}>
+                                <Button variant="outline">    
+                                    FAQ 
+                                </Button>
+                            </div>
+                        </Grid> 
                     </Grid>
                 </Toolbar>
             </AppBar>

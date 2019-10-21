@@ -3,7 +3,7 @@ import image from './pictures/msulanding.jpg'
 const faqStyles = theme => ({
     wrapper: {
     	padding: 40,
-    	color: theme.palette.secondary.main
+    	color: theme.palette.secondary.secondary
     },
     image: {
     	width: "100%",
@@ -19,8 +19,11 @@ const faqStyles = theme => ({
     	height: "auto",
         minHeight: "100vh"
     },
-    bottomItem: {
-        marginBottom: "100px"
+    faqWrapper: {
+        padding: 20
+    },
+    faqTitleWrapper: {
+        padding: 10
     }
 })
 

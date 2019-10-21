@@ -5,15 +5,18 @@ const navbarStyles = theme => ({
         transition: "background-color 0.3s ease-in-out"
     },
     navBarText: {
-        color: theme.palette.primary.main
+        color: theme.palette.primary.secondary
     },
-    Button: {
+    navbarScrolled: {
         color: theme.palette.primary.main
     },
     NotTop: {
         background: "white",
         transition: "background-color 0.3s ease-in-out",
         height: "60px"
+    },
+    aboutButton: {
+        padding: 10
     }
 })
 
