@@ -26,7 +26,7 @@ class Login extends Component {
 					    >
 					        <Grid item xs sm={12} md={6}>
 					        	<div className={classes.signIn}>
-								    <Typography variant="h1" align="left" color="secondary" style={{marginBottom: "-12px", fontFamily: "Dancing Script, cursive", textShadow: "2px 2px #000000"}} >
+								    <Typography variant="h1" align="left" color="secondary" style={{marginBottom: "-12px", fontFamily: "Dancing Script, cursive", textShadow: "1px 1px #000000"}} >
 					                    Sign In
 				                	</Typography>
 				                </div>
