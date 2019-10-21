@@ -21,6 +21,9 @@ const loginStyles = theme => ({
         height: "auto",
         minHeight: "100vh"
     },
+    signIn: {
+    	fontFamily: "Dancing Script, cursive"
+    }
 })
 
 export default loginStyles

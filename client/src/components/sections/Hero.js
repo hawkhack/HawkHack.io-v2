@@ -47,6 +47,7 @@ class Hero extends Component {
                                     <div className={classes.wrapper}>
                                         <NavLink
                                             to="register"
+                                            style={{textDecoration: "none"}}
                                         >
                                             <Button variant="contained" color="primary" className={classes.Button}>
                                                 Register 

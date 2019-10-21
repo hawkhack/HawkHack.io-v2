@@ -25,9 +25,11 @@ class Login extends Component {
 					        style={{height: "100vh"}}
 					    >
 					        <Grid item xs sm={12} md={6}>
-							    <Typography variant="h1" align="left" color="secondary">
-				                    Sign In
-			                	</Typography>
+					        	<div className={classes.signIn}>
+								    <Typography variant="h1" align="left" color="secondary" style={{marginBottom: "-12px", fontFamily: "Dancing Script, cursive"}} >
+					                    Sign In
+				                	</Typography>
+				                </div>
 					            <Paper className={classes.paper}>
 					            	<div className={classes.outer}>
 						                <LoginForm
