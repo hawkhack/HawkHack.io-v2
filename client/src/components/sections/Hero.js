@@ -8,51 +8,54 @@ class Hero extends Component {
         const { classes } = this.props
     
         return (
-            <div> 
-                <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    style={{ minHeight: '100vh' }}
-                >
-                    <Grid item>
-                        <Typography
-                            variant="h5"
-                            color="primary"
-                            align="center"
-                        >
-                            Get ready for round 2, baby
-                        </Typography>
-                        <Typography
-                            variant="h1"
-                            className={classes.heroText}
-                            color="secondary"
-                            align="center"
-                        >
-                            HawkHack
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Grid container justify="center">
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <Button variant="contained" color="primary" className={classes.Button}>
-                                        Register me 
-                                    </Button>
-                                </div>
-                            </Grid>
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <Button variant="contained" color="primary" className={classes.Button}>
-                                        Sponsor me 
-                                    </Button>
-                                </div>
+            <div className={classes.image}>
+                <div className={classes.grad}> 
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItems="center"
+                        style={{ minHeight: '100vh' }}
+                    >
+                        <Grid item>
+                            <Typography
+                                variant="h5"
+                                color="primary"
+                                align="center"
+                                className={classes.round2}
+                            >
+                                Get ready for round 2
+                            </Typography>
+                            <Typography
+                                variant="h1"
+                                className={classes.heroText}
+                                color="secondary"
+                                align="center"
+                            >
+                                HawkHack
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <div className={classes.wrapper}>
+                                <Typography variant="h4" color="primary" className={classes.round2}>    
+                                    November 23rd - 24th
+                                </Typography>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <Grid container justify="center">
+                                <Grid item>
+                                    <div className={classes.wrapper}>
+                                        <Button variant="contained" color="primary" className={classes.Button}>
+                                            Register 
+                                        </Button>
+                                    </div>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-                <ScrollDownIndicator />
+                    <ScrollDownIndicator />
+                </div>
             </div>
         )
     }
