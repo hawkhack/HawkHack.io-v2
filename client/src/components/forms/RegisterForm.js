@@ -114,14 +114,14 @@ class RegisterForm extends Component {
           <FormControl
             margin="normal"
             fullWidth
-            error={!!this.state.errors.password}
+            error={!!this.state.errors.repassword}
             required
           >
             <InputLabel htmlFor="password"> Repeat Password </InputLabel>
             <Input
               id="repassword"
               name="repassword"
-              value={this.state.password}
+              value={this.state.repassword}
               type="password"
               autoComplete="repeat password"
               onChange={this.onChange}
