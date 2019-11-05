@@ -114,7 +114,7 @@ class RegisterForm extends Component {
           <FormControl
             margin="normal"
             fullWidth
-            error={!!this.state.errors.nopwmatch}
+            error={!!this.state.errors.repassword}
             required
           >
             <InputLabel htmlFor="password"> Repeat Password </InputLabel>
