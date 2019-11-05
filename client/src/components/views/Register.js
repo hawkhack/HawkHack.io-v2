@@ -6,6 +6,26 @@ import registerStyles from "../styles/registerStyles";
 import RegisterForm from "../forms/RegisterForm";
 
 class Register extends Component {
+
+  submit = (email, password, repassword) => {
+    fetch('http://localhost:3001/api/u/register', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        password2: repassword
+      })
+    })
+      .then(response => response.json())
+      .then(result => {
+        this.props.history.push('/')
+      })
+      .catch(err => console.log(err))
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -25,7 +45,7 @@ class Register extends Component {
                 </Typography>
                 <Paper className={classes.paper}>
                   <div className={classes.outer}>
-                    <RegisterForm />
+                    <RegisterForm submit={this.submit} />
                   </div>
                 </Paper>
               </Grid>

@@ -46,13 +46,13 @@ class RegisterForm extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = event => {
+  onSubmit = async event => {
     event.preventDefault();
     const { email, password, repassword } = this.state;
-    const errors = this.validate(email, password, repassword);
+    const errors = await this.validate(email, password, repassword);
     this.setState({ errors });
     if (Object.keys(this.state.errors).length === 0) {
-      this.props.submit(email, password);
+      this.props.submit(email, password, repassword);
     }
   };
 
@@ -60,7 +60,7 @@ class RegisterForm extends Component {
     const errors = {};
     if (!Validator.isEmail(email)) errors.email = "Invalid Email";
     if (!password) errors.password = "Can't be blank";
-    if (password != repassword) errors.nopwmatch = "Passwords must match";
+    if (password !== repassword) errors.nopwmatch = "Passwords must match";
     return errors;
   };
 
@@ -114,19 +114,22 @@ class RegisterForm extends Component {
           <FormControl
             margin="normal"
             fullWidth
-            error={!!this.state.errors.password}
+            error={!!this.state.errors.nopwmatch}
             required
           >
             <InputLabel htmlFor="password"> Repeat Password </InputLabel>
             <Input
               id="repassword"
               name="repassword"
-              value={this.state.password}
+              value={this.state.repassword}
               type="password"
               autoComplete="repeat password"
               onChange={this.onChange}
               className={classes.textField}
             />
+            {this.state.errors.nopwmatch ? (
+              <FormHelperText>Passwords don't match</FormHelperText>
+            ) : null}
           </FormControl>
         </span>
         <span className={classes.wrapper}>

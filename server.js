@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const path = require("path");
+const cors = require("cors");
 
 //import keys
 const { port, dburi } = require("./config/keys");
@@ -18,6 +19,7 @@ const app = express();
 //body parse middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 //Passport middleware
 app.use(passport.initialize());

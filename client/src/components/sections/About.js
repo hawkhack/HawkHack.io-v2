@@ -10,7 +10,6 @@ class About extends Component {
 
     render() {
         const { classes, mobile } = this.props
-
         return (
             <Fragment> 
                 <div className={classes.wrapper}>
@@ -92,7 +91,7 @@ class About extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={12} sm={12} md={3}>
-                            { window.innerWidth > 1000 ?
+                            <div className={classes.border}>
                                 <div className={classes.wrapper}>
                                     <Grid
                                       container
@@ -110,27 +109,7 @@ class About extends Component {
                                         $15,000+ in sponsorships and $1000+ in prizes 
                                     </Typography>
                                 </div>
-                            :
-                                <div className={classes.border}>
-                                    <div className={classes.wrapper}>
-                                        <Grid
-                                          container
-                                          direction="row"
-                                          justify="center"
-                                          alignItems="center"
-                                        >
-                                            <Grid item>
-                                                <div className={classes.wrapper}>
-                                                    <img src={moneyIcon} width="100px" height="auto" />
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-                                        <Typography variant="h5" align="center" >
-                                            $15,000+ in sponsorships and $1000+ in prizes 
-                                        </Typography>
-                                    </div>
-                                </div>
-                            }
+                            </div>
                         </Grid>
                         <Grid item xs={12} sm={12} md={3}>
                             <div className={classes.wrapper}>

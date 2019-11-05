@@ -91,7 +91,7 @@ const Faq = ({ ...props }) => {
 									workshops and have plenty of mentors so by the end of the 24
 									hours you'll have a working project even if you haven't coded
 									a day in your life before. We also host a prize for best
-									beginner hack.item 2
+									beginner hack
 	    						</Typography>
 	    					</div>
     					</Grid>
