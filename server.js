@@ -19,7 +19,9 @@ const app = express();
 //body parse middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
+
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 //Passport middleware
 app.use(passport.initialize());
@@ -44,9 +46,9 @@ app.get("/api", (req, res) => {
   res.status(200).json(require("config").get("Event"));
 });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   console.log("OH YEAH");
-  res.sendFile(path.resolve(`${__dirname}/client/public/index.html`));
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
 const server = app.listen(port, () => {
