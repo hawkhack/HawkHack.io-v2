@@ -4,9 +4,9 @@
   "description": "web application for hawkhack fall 2019",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "dev": "concurrently \"npm start\" \"cd client && npm start\""
+    "dev": "concurrently \"npm start\" \"cd client && npm start\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
