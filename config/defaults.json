@@ -1,0 +1,17 @@
+{
+  "Event": {
+    "name": "HawkHack Spring 2020",
+    "date": "March 28-29",
+    "startTime": "March 28, 2020 08:00:00",
+    "school": "Montclair State University",
+    "location": "Student Center",
+    "status": "Closed"
+  },
+  "Schedule": [
+    {
+      "name": "Doors Open",
+      "time": "November 23, 2019 08:00:00",
+      "location": "Main Enterance"
+    }
+  ]
+}

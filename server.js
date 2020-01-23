@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
+const defaults = require("./config/defaults.json");
 
 //import keys
 const { port, dburi } = require("./config/keys");
@@ -42,8 +43,9 @@ mongoose.set("useFindAndModify", false);
 app.use("/api/u", users);
 app.use("/api/p", profile);
 app.use("/api/a", admin);
+
 app.get("/api", (req, res) => {
-  res.status(200).json(require("config").get("Event"));
+  res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
 });
 
 app.get("/", (req, res) => {

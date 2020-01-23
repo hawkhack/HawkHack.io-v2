@@ -2,9 +2,13 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { secretOrKey, mailchimpKey } = require("../../config/keys");
 const passport = require("passport");
 const request = require("request");
+const randtoken = require("rand-token");
+const uid = randtoken.uid;
+const { secretOrKey, mailchimpKey } = require("../../config/keys");
+const mailgun = require("../../config/mailgun");
+const defaults = require("../../config/defaults.json");
 
 //Load user model
 const User = require("../../models/User");
@@ -30,27 +34,66 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
+  //check if email exists
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       errors.email = "Email already exists";
       return res.status(400).json(errors);
     } else {
+      //create new user
       const newUser = new User({
         email: req.body.email,
         password: req.body.password
       });
 
+      //generate email verification token
+      newUser.verificationToken = uid(32);
+
+      //hash password
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
+
+          //save user to db
           newUser
             .save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
         });
       });
+      //send email verification
+      const data = {
+        from: "noreply@hawkhack.io",
+        to: newUser.email,
+        subject: `${defaults.Event.name} Please verify your email`,
+        html: `<h1>${defaults.Event.name}</h1><p>Please verify your email by clicking the link below</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p>`
+      };
+      mailgun.messages().send(data, (err, body) => {
+        if (err) {
+          res.status(500).json("error");
+          console.log("mailgun error: ", err);
+        }
+        res.status(200).json(`verification email send to ${tomail}`);
+      });
     }
+  });
+});
+
+//  @route  GET api/u/verify/:token
+//  @desc   verify user
+//  @params token: verification token
+//  @access Public
+router.get("/verify/:token", (req, res) => {
+  const token = req.params.token;
+  User.findOne({ confirmationToken: token }).then(user => {
+    if (!user) {
+      res.status(400).json("Invalid token");
+    }
+    user.verified = true;
+    user.save().then(savedUser => {
+      res.status(200).json("user verified");
+    });
   });
 });
 
