@@ -1,8 +1,14 @@
-const navbarStyles = theme => ({
-    color: {
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
+const navbarStyles = makeStyles((theme) => ({
+    onTop: {
+        color: "white",
         boxShadow: "none",
         backgroundColor: "transparent",
         transition: "background-color 0.3s ease-in-out"
+    },
+    navLink: {
+        textDecoration: "none"
     },
     navBarText: {
         color: theme.palette.primary.secondary
@@ -25,6 +31,6 @@ const navbarStyles = theme => ({
     buttonNotTop: {
         color: theme.palette.primary.main,
     }
-})
+}))
 
 export default navbarStyles

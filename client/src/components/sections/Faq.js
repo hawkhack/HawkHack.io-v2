@@ -13,11 +13,9 @@ const Faq = ({ ...props }) => {
 			  alignItems="center"
 			>
 				<Grid item>
-					<div className={classes.wrapper}>
     					<Typography variant="h1" color="primary">
     						faq
     					</Typography>
-					</div>
 				</Grid>
 			</Grid>
     		<Grid
@@ -36,7 +34,7 @@ const Faq = ({ ...props }) => {
     					<Grid item>
     						<div className={classes.faqWrapper}> 
     							<div className={classes.faqTitleWrapper}>
-		    						<Typography variant="h3" align="center" color="primary">
+		    						<Typography variant="h4" align="center" color="primary">
 		    							What is a hackathon?
 		    						</Typography>
 		    					</div>
@@ -52,7 +50,7 @@ const Faq = ({ ...props }) => {
     					<Grid item>
     						<div className={classes.faqWrapper}>
     							<div className={classes.faqTitleWrapper}>
-		    						<Typography variant="h3" align="center" color="primary">
+		    						<Typography variant="h4" align="center" color="primary">
 		    							What is the goal of the hackathon?
 		    						</Typography>
 		    					</div>
@@ -66,7 +64,7 @@ const Faq = ({ ...props }) => {
     					<Grid item>
     						<div className={classes.faqWrapper}>
     							<div className={classes.faqTitleWrapper}>
-		    						<Typography variant="h3" align="center" color="primary">
+		    						<Typography variant="h4" align="center" color="primary">
 		    							I'm new, what should I do?
 		    						</Typography>
 		    					</div>
@@ -81,7 +79,7 @@ const Faq = ({ ...props }) => {
     					<Grid item className={classes.bottomItem}>
     						<div className={classes.faqWrapper}>
     							<div className={classes.faqTitleWrapper}>
-		    						<Typography variant="h3" align="center" color="primary">
+		    						<Typography variant="h4" align="center" color="primary">
 										How much coding experience do I need?
 		    						</Typography>
 		    					</div>
@@ -107,7 +105,7 @@ const Faq = ({ ...props }) => {
 						<Grid item>
 							<div className={classes.faqWrapper}>
 								<div className={classes.faqTitleWrapper}>
-									<Typography variant="h3" align="center" color="primary">
+									<Typography variant="h4" align="center" color="primary">
 										Who can come?
 									</Typography>
 								</div>
@@ -124,7 +122,7 @@ const Faq = ({ ...props }) => {
 						<Grid item>
 							<div className={classes.faqWrapper}>
 								<div className={classes.faqTitleWrapper}>
-									<Typography variant="h3" align="center" color="primary">
+									<Typography variant="h4" align="center" color="primary">
 										Do I need a team?
 									</Typography>
 								</div>
@@ -138,7 +136,7 @@ const Faq = ({ ...props }) => {
 						<Grid item>
 							<div className={classes.faqWrapper}>
 								<div className={classes.faqTitleWrapper}>
-									<Typography variant="h3" align="center" color="primary">
+									<Typography variant="h4" align="center" color="primary">
 										What if I can't stay for full 24 hours?
 									</Typography>
 								</div>
@@ -152,7 +150,7 @@ const Faq = ({ ...props }) => {
 						<Grid item className={classes.bottomItem}>
 							<div className={classes.faqWrapper}>
 								<div className={classes.faqTitleWrapper}>
-									<Typography variant="h3" align="center" color="primary">
+									<Typography variant="h4" align="center" color="primary">
 										How much does it cost to attend?
 									</Typography>
 								</div>

@@ -8,7 +8,7 @@ import RegisterForm from "../forms/RegisterForm";
 class Register extends Component {
 
   submit = (email, password, repassword) => {
-    fetch('http://localhost:3001/api/u/register', {
+    fetch(process.env.REACT_APP_API_URL + '/api/u/register', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -21,6 +21,7 @@ class Register extends Component {
     })
       .then(response => response.json())
       .then(result => {
+        console.log(result)
         this.props.history.push('/')
       })
       .catch(err => console.log(err))
@@ -28,6 +29,7 @@ class Register extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(process.env.REACT_APP_API_URL)
     return (
       <Fragment>
         <div className={classes.image}>

@@ -1,6 +1,7 @@
 import image from './pictures/msulanding.jpg'
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const heroStyles = theme => ({
+const heroStyles = makeStyles((theme) => ({
     heroText: {
         color: "white",
         fontSize: "calc(12px + 8.5vw)",
@@ -44,6 +45,6 @@ const heroStyles = theme => ({
        fontSize: "calc(12px + 1.5vw)",
        fontFamily: "Roboto"
     }
-})
+}))
 
 export default heroStyles
