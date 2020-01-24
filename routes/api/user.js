@@ -74,7 +74,7 @@ router.post("/register", (req, res) => {
           res.status(500).json("error");
           console.log("mailgun error: ", err);
         }
-        res.status(200).json(`verification email send to ${tomail}`);
+        res.status(200).json(`verification email send to ${data.tomail}`);
       });
     }
   });
@@ -86,9 +86,10 @@ router.post("/register", (req, res) => {
 //  @access Public
 router.get("/verify/:token", (req, res) => {
   const token = req.params.token;
-  User.findOne({ confirmationToken: token }).then(user => {
+  console.log(token);
+  User.findOne({ verificationToken: token }).then(user => {
     if (!user) {
-      res.status(400).json("Invalid token");
+      return res.status(400).json("Invalid token");
     }
     user.verified = true;
     user.save().then(savedUser => {
