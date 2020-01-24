@@ -3,7 +3,6 @@ module.exports = () => {
     if (!req.user.verified) {
       return res.status(401).json("you need to verify email");
     }
-    console.log("verified");
     next();
   };
 };
