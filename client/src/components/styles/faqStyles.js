@@ -1,6 +1,7 @@
 import image from './pictures/msulanding.jpg'
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const faqStyles = theme => ({
+const faqStyles = makeStyles((theme) => ({
     wrapper: {
     	padding: 40,
     	color: theme.palette.secondary.secondary
@@ -25,6 +26,6 @@ const faqStyles = theme => ({
     faqTitleWrapper: {
         padding: 10
     }
-})
+}))
 
 export default faqStyles

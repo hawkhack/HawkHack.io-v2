@@ -1,35 +1,39 @@
 import React from 'react'
-import { withStyles, Paper, Grid, Typography } from '@material-ui/core'
+
 import faqStyles from '../styles/faqStyles'
 
-const Faq = ({ ...props }) => {
-    const { classes } = props
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+
+const Faq = () => {
+    const classes = faqStyles()
     return (
     	<div className={classes.wrapper}>
 			<Grid
-			  container
-			  direction="row"
-			  justify="center"
-			  alignItems="center"
+			 	container
+			  	direction="row"
+			  	justify="center"
+			  	alignItems="center"
 			>
 				<Grid item>
-    					<Typography variant="h1" color="primary">
-    						faq
-    					</Typography>
+					<Typography variant="h1" color="primary">
+						faq
+					</Typography>
 				</Grid>
 			</Grid>
     		<Grid
-    		  container
-    		  direction="row"
-    		  justify="center"
-    		  alignItems="center"
+    		  	container
+    		  	direction="row"
+    		  	justify="center"
+    		  	alignItems="center"
     		>
     			<Grid item xs={12} sm={12} md={6}>
     				<Grid
-    				  container
-    				  direction="column"
-    				  justify="center"
-    				  alignItems="center"
+    				  	container
+    				  	direction="column"
+    				  	justify="center"
+    				  	alignItems="center"
     				>
     					<Grid item>
     						<div className={classes.faqWrapper}> 
@@ -97,10 +101,10 @@ const Faq = ({ ...props }) => {
     			</Grid>	
     			<Grid item xs={12} sm={12} md={6}>
 					<Grid
-					  container
-					  direction="column"
-					  justify="center"
-					  alignItems="center"
+					  	container
+					  	direction="column"
+					  	justify="center"
+					  	alignItems="center"
 					>
 						<Grid item>
 							<div className={classes.faqWrapper}>
@@ -167,4 +171,4 @@ const Faq = ({ ...props }) => {
     )
 }
 
-export default withStyles(faqStyles)(Faq)
+export default Faq

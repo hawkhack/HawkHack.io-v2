@@ -1,18 +1,19 @@
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
-const aboutStyles = theme => ({
+const aboutStyles = makeStyles((theme) => ({
+    section: {
+        padding: "20px",
+    },
     home: {
         display: 'flex',
         height: "80vh"
     },
-    aboutText: {
-        width: "80vw"
-    },
     hr: {
-    	border: 0,
-    	height: 0,
-    	borderTop: "1px solid rgba(0, 0, 0, 0.1)",
-    	borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-    	width: "50%"
+        height: "2px",
+        width: "200px",
+        color: theme.palette.primary.main,
+        backgroundColor: "gray",
+        border: "none"
     },
     wrapper: {
         padding: "40px"
@@ -20,6 +21,7 @@ const aboutStyles = theme => ({
     img: {
         minWidth: "100px",
         width: "100%",
+        margin: 0,
         boxShadow: "0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
     },
     border: {
@@ -28,7 +30,11 @@ const aboutStyles = theme => ({
     },
     icons: {
         align: "center",
+    },
+    whatText: {
+        fontSize: "1.3em",
+        color: "black",
     }
-})
+}))
 
-export default aboutStyles
+export default aboutStyles;

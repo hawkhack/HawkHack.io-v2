@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,14 +11,13 @@ import heroStyles from '../styles/heroStyles';
 const Hero = () => {
     const classes = heroStyles()
     return (
-        <div className={classes.image}>
-            <div className={classes.grad}> 
+            <Fragment> 
                 <Grid
                     container
                     direction="column"
                     justify="center"
                     alignItems="center"
-                    style={{ minHeight: '100vh' }}
+                    className={classes.gridContainer}
                 >
                     <Grid item>
                         <Typography
@@ -34,7 +33,7 @@ const Hero = () => {
                         <div className={classes.wrapper}>
                             <Typography
                                 variant="h5"
-                                color="primary"
+                                color="secondary"
                                 align="center"
                                 className={classes.round2}
                             >
@@ -48,7 +47,31 @@ const Hero = () => {
                                 <div className={classes.wrapper}>
                                     <NavLink
                                         to="register"
-                                        style={{textDecoration: "none"}}
+                                        className={classes.navLink}
+                                    >
+                                        <Button variant="contained" color="primary" className={classes.Button}>
+                                            Register 
+                                        </Button>
+                                    </NavLink>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className={classes.wrapper}>
+                                    <NavLink
+                                        to="register"
+                                        className={classes.navLink}
+                                    >
+                                        <Button variant="contained" color="primary" className={classes.Button}>
+                                            Register 
+                                        </Button>
+                                    </NavLink>
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className={classes.wrapper}>
+                                    <NavLink
+                                        to="register"
+                                        className={classes.navLink}
                                     >
                                         <Button variant="contained" color="primary" className={classes.Button}>
                                             Register 
@@ -60,8 +83,7 @@ const Hero = () => {
                     </Grid>
                 </Grid>
                 <ScrollDownIndicator />
-            </div>
-        </div>
+            </Fragment>
     )
 }
 

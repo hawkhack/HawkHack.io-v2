@@ -2,6 +2,9 @@ import image from './pictures/msulanding.jpg'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const heroStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: "100vh"
+    },
     heroText: {
         color: "white",
         fontSize: "calc(12px + 8.5vw)",
@@ -11,18 +14,12 @@ const heroStyles = makeStyles((theme) => ({
         padding: 20
     },
     Button: {
-        padding: 20,
-        paddingLeft: 40,
+        margin: 0,
+        paddingTop: 20,
+        paddingBottom: 20,
         paddingRight: 40,
-        marginLeft: "1rem",
-        marginRight: "1rem",
-        fontSize: "1rem",
-        fontFamily: 'Roboto',
-        borderRadius: "0",
-        color: "white",
-        '&:active, &:focus': {
-            boxShadow: 'none',
-        },
+        paddingLeft: 40,
+        borderRadius: 10
     },
     wrapper: {
         padding: 10
@@ -43,7 +40,11 @@ const heroStyles = makeStyles((theme) => ({
     },
     round2: {
        fontSize: "calc(12px + 1.5vw)",
-       fontFamily: "Roboto"
+       fontFamily: "Roboto",
+       paddingBottom: 20
+    },
+    navLink: {
+        textDecoration: "none"
     }
 }))
 
