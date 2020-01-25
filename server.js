@@ -51,8 +51,7 @@ app.get("/api", (req, res) => {
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
 });
 
-app.get("/", (req, res) => {
-  console.log("OH YEAH");
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
