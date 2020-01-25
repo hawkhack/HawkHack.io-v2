@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles, Grid, Typography, Paper } from '@material-ui/core'
+import { withStyles, Grid, Typography } from '@material-ui/core'
 import sponsorStyles from '../styles/sponsorStyles'
 
 const Sponsors = ({ ...props }) => {

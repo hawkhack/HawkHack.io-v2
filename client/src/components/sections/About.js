@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -9,6 +9,7 @@ import gameIcon from '../styles/pictures/gameIcon.png';
 
 const About = () => {
     const classes = aboutStyles();
+
     return (
         <div className={classes.section}> 
             <Grid 
@@ -75,66 +76,96 @@ const About = () => {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item xs={12} sm={12} md={3}>
+                <Grid item style={{ width: "100%" }}>
                     <div className={classes.wrapper}>
-                        <Grid
-                          container
-                          direction="row"
-                          justify="center"
-                          alignItems="center"
-                        >
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <img src={peopleIcon} width="100px" height="auto" />
-                                </div>
-                            </Grid>
-                        </Grid>
-                        <Typography variant="h5" align="center">
-                            First Hackathon at MSU with over 150+ attendees
-                        </Typography>
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                    <div className={classes.border}>
-                        <div className={classes.wrapper}>
-                            <Grid
-                              container
-                              direction="row"
-                              justify="center"
-                              alignItems="center"
-                            >
-                                <Grid item>
-                                    <div className={classes.wrapper}>
-                                        <img src={moneyIcon} width="100px" height="auto" />
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <Typography color="#FFF" variant="h5" align="center">
-                                $15,000+ in sponsorships and $1000+ in prizes 
-                            </Typography>
-                        </div>
-                    </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                    <div className={classes.wrapper}>
-                        <Grid
-                          container
-                          direction="row"
-                          justify="center"
-                          alignItems="center"
-                        >
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <img src={gameIcon} width="100px" height="auto" />
-                                </div>
-                            </Grid>
-                        </Grid>
-                        <Typography color="#FFF" variant="h5" align="center">
-                            Lasertag and Smash tournament certified
-                        </Typography>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3017.4248192418804!2d-74.19984088466741!3d40.862550436328576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fe352883ec55%3A0xeece028744cfc9ae!2sMontclair%20State%20University!5e0!3m2!1sen!2sus!4v1579972815513!5m2!1sen!2sus" 
+                            width="100%" height="350" frameborder="0" className={classes.iframe} allowfullscreen=""></iframe>
                     </div>
                 </Grid>
             </Grid>
+            <div className={classes.wrapper}>
+                <div className={classes.wrapper}>
+                    <div className={classes.wrapper}>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Grid item xs={12} sm={12} md={3}>
+                                <Grid
+                                  container
+                                  direction="column"
+                                  justify="center"
+                                  alignItems="center"
+                                >
+                                    <Grid item>
+                                         <img src={peopleIcon} width="100px" height="auto" />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography 
+                                            variant="h5"
+                                            align="center"
+                                            style={{ width: "200px" }}
+                                            gutterBottom
+                                            className={classes.whatText}
+                                        >
+                                            First Hackathon at MSU with over 150+ attendees
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={3}>
+                                <Grid
+                                  container
+                                  direction="column"
+                                  justify="center"
+                                  alignItems="center"
+                                >
+                                    <Grid item>
+                                        <img src={moneyIcon} width="100px" height="auto" />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography 
+                                            variant="h5"
+                                            align="center"
+                                            style={{ width: "200px" }}
+                                            gutterBottom
+                                            className={classes.whatText}
+                                        >
+                                            $15,000+ in sponsorships and $1000+ in prizes 
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={3}>
+                                <Grid
+                                    container
+                                    direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <Grid item>
+                                        <img src={gameIcon} width="100px" height="auto" />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography 
+                                            variant="h5"
+                                            align="center"
+                                            style={{ width: "200px" }}
+                                            gutterBottom
+                                            className={classes.whatText}
+                                        >
+                                            Lasertag and Smash tournament certified, sponsored 
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

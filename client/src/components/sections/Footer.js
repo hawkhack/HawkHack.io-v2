@@ -1,7 +1,5 @@
 import React from 'react';
 
-import classNames from "classnames";
-import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -16,7 +14,7 @@ const Footer = () => {
     			<List className={classes.list}>
 		            <ListItem className={classes.inlineBlock}>
 		             	<a
-			                href="#"
+			                href="www.google.com"
 			                className={classes.block}
 			                target="_blank"
 		              	>
@@ -25,7 +23,7 @@ const Footer = () => {
 		           	</ListItem>
 		            <ListItem className={classes.inlineBlock}>
 		              	<a
-		               		href="#"
+		               		href="www.google.com"
 		                	className={classes.block}
 		                	target="_blank"
 		              	>
@@ -34,7 +32,7 @@ const Footer = () => {
 		            </ListItem>
 		            <ListItem className={classes.inlineBlock}>
 		              	<a
-		                	href="http://blog.creative-tim.com/?ref=mkr-footer"
+		                	href="www.google.com"
 		                	className={classes.block}
 		                	target="_blank"
 		              	>
@@ -43,7 +41,7 @@ const Footer = () => {
 		            </ListItem>
 		            <ListItem className={classes.inlineBlock}>
 		              	<a
-			                href="#"
+			                href="www.google.com"
 			                className={classes.block}
 			                target="_blank"
 		              	>
@@ -55,7 +53,7 @@ const Footer = () => {
     			<div className={classes.right}>
     			&copy; {1900 + new Date().getYear()}{" "}
     			<a
-    			  href="#"
+    			  href="www.google.com"
     			  className={classes.rightText}
     			  target="_blank"
     			>

@@ -2,7 +2,6 @@ import React from 'react'
 
 import faqStyles from '../styles/faqStyles'
 
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
@@ -10,6 +9,7 @@ const Faq = () => {
     const classes = faqStyles()
     return (
     	<div className={classes.wrapper}>
+    		<div className={classes.wrapper}>
 			<Grid
 			 	container
 			  	direction="row"
@@ -18,7 +18,7 @@ const Faq = () => {
 			>
 				<Grid item>
 					<Typography variant="h1" color="primary">
-						faq
+						Faq
 					</Typography>
 				</Grid>
 			</Grid>
@@ -42,7 +42,7 @@ const Faq = () => {
 		    							What is a hackathon?
 		    						</Typography>
 		    					</div>
-	    						<Typography variant="body1" align="center">
+	    						<Typography className={classes.faqText} variant="body1" align="center">
 	    							Hackathons are an intense event that bring together software
 									developers, graphic designers and user interface specialists
 									along with industry process experts and professionals to
@@ -58,7 +58,7 @@ const Faq = () => {
 		    							What is the goal of the hackathon?
 		    						</Typography>
 		    					</div>
-	    						<Typography variant="body1" align="center">
+	    						<Typography className={classes.faqText} variant="body1" align="center">
 	    							We want to create an environment that embraces new ideas and
 					                technology solutions. A place where people passionate in
 					                technology can come innovate the industry.
@@ -72,7 +72,7 @@ const Faq = () => {
 		    							I'm new, what should I do?
 		    						</Typography>
 		    					</div>
-	    						<Typography variant="body1" align="center">
+	    						<Typography className={classes.faqText}  variant="body1" align="center">
 	    							We would love to have you at HawkHack! Throughout the event we
 				                    will be hosting workshops where you can try new things, start
 				                    a project for that idea you always had in mind, and receive
@@ -87,7 +87,7 @@ const Faq = () => {
 										How much coding experience do I need?
 		    						</Typography>
 		    					</div>
-	    						<Typography variant="body1" align="center">
+	    						<Typography className={classes.faqText} variant="body1" align="center">
 									Absolutely none. Hackathons are a great place to learn and get
 									advice from experienced hackers. We'll also host plenty of
 									workshops and have plenty of mentors so by the end of the 24
@@ -113,7 +113,7 @@ const Faq = () => {
 										Who can come?
 									</Typography>
 								</div>
-								<Typography variant="body1" align="center">
+								<Typography className={classes.faqText} variant="body1" align="center">
 									If you're at a current college/university student, a recent
 									graduate (up to 1 year), or a high school student, you're more
 									than welcome to attend! We are open to students of all
@@ -130,7 +130,7 @@ const Faq = () => {
 										Do I need a team?
 									</Typography>
 								</div>
-								<Typography variant="body1" align="center">
+								<Typography className={classes.faqText} variant="body1" align="center">
 									You are welcome to come solo or in a group no more than 4. We
 									will provide means for you to find a team if you don’t have
 									one
@@ -144,7 +144,7 @@ const Faq = () => {
 										What if I can't stay for full 24 hours?
 									</Typography>
 								</div>
-								<Typography variant="body1" align="center">
+								<Typography className={classes.faqText} variant="body1" align="center">
 									That is fine! Although we encourage you to do so and make the
 									best of the event, you are free to leave whenever you want and
 									come back later
@@ -158,7 +158,7 @@ const Faq = () => {
 										How much does it cost to attend?
 									</Typography>
 								</div>
-								<Typography variant="body1" align="center">
+								<Typography className={classes.faqText} variant="body1" align="center">
 									FREE, that’s how much. The event is completely FREE to attend.
 									FREE food, FREE games, FREE fun. Sounds good, doesn’t it?
 								</Typography>
@@ -167,7 +167,8 @@ const Faq = () => {
 					</Grid>
     			</Grid>
     		</Grid>
-	    </div>
+	    	</div>
+	   	</div>
     )
 }
 

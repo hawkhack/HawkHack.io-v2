@@ -11,79 +11,79 @@ import heroStyles from '../styles/heroStyles';
 const Hero = () => {
     const classes = heroStyles()
     return (
-            <Fragment> 
-                <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    className={classes.gridContainer}
-                >
-                    <Grid item>
+        <Fragment> 
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className={classes.gridContainer}
+            >
+                <Grid item>
+                    <Typography
+                        variant="h1"
+                        className={classes.heroText}
+                        color="secondary"
+                        align="center"
+                    >
+                        HawkHack
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <div className={classes.wrapper}>
                         <Typography
-                            variant="h1"
-                            className={classes.heroText}
+                            variant="h5"
                             color="secondary"
                             align="center"
+                            className={classes.round2}
                         >
-                            HawkHack
+                            Get ready for round 2
                         </Typography>
-                    </Grid>
-                    <Grid item>
-                        <div className={classes.wrapper}>
-                            <Typography
-                                variant="h5"
-                                color="secondary"
-                                align="center"
-                                className={classes.round2}
-                            >
-                                Get ready for round 2
-                            </Typography>
-                        </div>
-                    </Grid>
-                    <Grid item>
-                        <Grid container justify="center">
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <NavLink
-                                        to="register"
-                                        className={classes.navLink}
-                                    >
-                                        <Button variant="contained" color="primary" className={classes.Button}>
-                                            Register 
-                                        </Button>
-                                    </NavLink>
-                                </div>
-                            </Grid>
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <NavLink
-                                        to="register"
-                                        className={classes.navLink}
-                                    >
-                                        <Button variant="contained" color="primary" className={classes.Button}>
-                                            Register 
-                                        </Button>
-                                    </NavLink>
-                                </div>
-                            </Grid>
-                            <Grid item>
-                                <div className={classes.wrapper}>
-                                    <NavLink
-                                        to="register"
-                                        className={classes.navLink}
-                                    >
-                                        <Button variant="contained" color="primary" className={classes.Button}>
-                                            Register 
-                                        </Button>
-                                    </NavLink>
-                                </div>
-                            </Grid>
+                    </div>
+                </Grid>
+                <Grid item>
+                    <Grid container justify="center">
+                        <Grid item>
+                            <div className={classes.wrapper}>
+                                <NavLink
+                                    to="register"
+                                    className={classes.navLink}
+                                >
+                                    <Button variant="contained" color="primary" className={classes.Button}>
+                                        Mentor
+                                    </Button>
+                                </NavLink>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div className={classes.wrapper}>
+                                <NavLink
+                                    to="register"
+                                    className={classes.navLink}
+                                >
+                                    <Button variant="contained" color="primary" className={classes.Button}>
+                                        Participate
+                                    </Button>
+                                </NavLink>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div className={classes.wrapper}>
+                                <NavLink
+                                    to="register"
+                                    className={classes.navLink}
+                                >
+                                    <Button variant="contained" color="primary" className={classes.Button}>
+                                        Volunteer
+                                    </Button>
+                                </NavLink>
+                            </div>
                         </Grid>
                     </Grid>
                 </Grid>
-                <ScrollDownIndicator />
-            </Fragment>
+            </Grid>
+            <ScrollDownIndicator />
+        </Fragment>
     )
 }
 

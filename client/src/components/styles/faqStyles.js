@@ -25,6 +25,10 @@ const faqStyles = makeStyles((theme) => ({
     },
     faqTitleWrapper: {
         padding: 10
+    },
+    faqText: {
+        width: "400px",
+        color: "black"
     }
 }))
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,13 +17,13 @@ const NavBar = () => {
         return setTop(st);
     }
 
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
         if (window.scrollY < 100) {
             handleTop(true);
         } else {
             handleTop(false);
         }
-    }
+    }, [])
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
