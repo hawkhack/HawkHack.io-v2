@@ -32,12 +32,15 @@ require("./config/passport")(passport);
 
 //connect to db
 mongoose
-  .connect(dburi, { useNewUrlParser: true })
+  .connect(dburi, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  })
   .then(() => {
     console.log("connected to mongodb");
   })
   .catch(err => console.log(err));
-mongoose.set("useFindAndModify", false);
 
 //Use Routes
 app.use("/api/u", users);

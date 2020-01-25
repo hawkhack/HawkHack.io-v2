@@ -9,6 +9,7 @@ const uid = randtoken.uid;
 const { secretOrKey, mailchimpKey } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
 const defaults = require("../../config/defaults.json");
+const verify = require("../../config/verify");
 
 //Load user model
 const User = require("../../models/User");
@@ -23,6 +24,18 @@ const validateLoginInput = require("../../validation/login");
 router.get("/test", (req, res) => {
   res.json({ msg: "Users Works" });
 });
+
+//  @route  GET api/u/test
+//  @desc   Test users route
+//  @access Public
+router.get(
+  "/testp",
+  passport.authenticate("jwt", { session: false }),
+  verify(),
+  (req, res) => {
+    res.json({ msg: "Users Works" });
+  }
+);
 
 //  @route  POST api/u/register
 //  @desc   register user
@@ -74,7 +87,7 @@ router.post("/register", (req, res) => {
           res.status(500).json("error");
           console.log("mailgun error: ", err);
         }
-        res.status(200).json(`verification email send to ${tomail}`);
+        console.log("verification email sent");
       });
     }
   });
@@ -85,12 +98,18 @@ router.post("/register", (req, res) => {
 //  @params token: verification token
 //  @access Public
 router.get("/verify/:token", (req, res) => {
+  //get token from parameters
   const token = req.params.token;
-  User.findOne({ confirmationToken: token }).then(user => {
+  console.log(token);
+  //find user with this token
+  User.findOne({ verificationToken: token }).then(user => {
     if (!user) {
-      res.status(400).json("Invalid token");
+      //if no user then no such token exists
+      return res.status(400).json("Invalid token");
     }
+    //set verify flag to true
     user.verified = true;
+    //save user and return success
     user.save().then(savedUser => {
       res.status(200).json("user verified");
     });
@@ -109,37 +128,39 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   //Find user by email
-  User.findOne({ email }).then(user => {
-    //check for user
-    if (!user) {
-      errors.email = "User not found";
-      return res.status(404).json(errors);
-    }
-
-    //check password
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        //User mathed
-
-        //Create JWT payload
-        const payload = {
-          id: user.id,
-          email: user.email
-        };
-
-        //Sign Token
-        jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        });
-      } else {
-        errors.password = "Password incorrect";
-        return res.status(400).json(errors);
+  User.findOne({ email })
+    .select("password")
+    .then(user => {
+      //check for user
+      if (!user) {
+        errors.email = "User not found";
+        return res.status(404).json(errors);
       }
+
+      //check password
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+          //User mathed
+
+          //Create JWT payload
+          const payload = {
+            id: user.id,
+            email: user.email
+          };
+
+          //Sign Token
+          jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          });
+        } else {
+          errors.password = "Password incorrect";
+          return res.status(400).json(errors);
+        }
+      });
     });
-  });
 });
 
 //  @route  GET api/u/current
@@ -148,6 +169,7 @@ router.post("/login", (req, res) => {
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
     res.json({
       email: req.user.email,
@@ -161,7 +183,6 @@ router.get(
 //  @route  GET api/u/preregister
 //  @desc   Sign up to maillist
 //  @access Public
-
 router.post("/preregister", (req, res) => {
   const { fname, lname, email } = req.body;
 
@@ -198,6 +219,7 @@ router.post("/preregister", (req, res) => {
 router.post(
   "/changepw",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
     var errors = {};
     var { newpw } = req.body;
