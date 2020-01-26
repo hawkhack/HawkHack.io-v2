@@ -29,6 +29,9 @@ const faqStyles = makeStyles((theme) => ({
     faqText: {
         width: "400px",
         color: "black"
+    },
+    wrapperExp: {
+        padding: "10px 20px"
     }
 }))
 
