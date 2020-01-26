@@ -76,7 +76,13 @@ const heroStyles = makeStyles((theme) => ({
     round2: {
        fontSize: "calc(12px + 1.5vw)",
        fontFamily: "Roboto",
-       paddingBottom: 20
+       paddingBottom: 20,
+       fontWeight: 300
+    },
+    dates: {
+        fontSize: "calc(13px + .5vw)",
+        fontFamily: "Roboto",
+        fontWeight: 300
     },
     navLink: {
         textDecoration: "none"

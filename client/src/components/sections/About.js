@@ -18,7 +18,7 @@ const About = () => {
                 justify="space-between" 
                 alignItems="center"
             >
-                <Grid item sm={12} md={6}>
+                <Grid item sm={12} md={12} lg={6}>
                     <div className={classes.wrapper}>
                         <Typography
                             variant="h2"
@@ -64,7 +64,7 @@ const About = () => {
                         </div>
                     </div>
                 </Grid>
-                <Grid item sm={12} md={6}>
+                <Grid item sm={12} md={12} lg={6}>
                     <div className={classes.wrapper}>
                         <img className={classes.img} src="https://picsum.photos/650/500" alt="there should be something really cool here" />
                     </div>

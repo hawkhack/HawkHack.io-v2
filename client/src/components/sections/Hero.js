@@ -36,7 +36,15 @@ const Hero = () => {
                             align="center"
                             className={classes.round2}
                         >
-                            Get ready for round 2
+                            Montclair State's second annual 24-hour hackathon
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            color="secondary"
+                            align="center"
+                            className={classes.dates}
+                        >
+                            March 29th - 31st or something
                         </Typography>
                     </div>
                 </Grid>
