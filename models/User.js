@@ -35,18 +35,6 @@ const UserSchema = new Schema({
     ],
     default: "Participant"
   },
-  status: {
-    type: String,
-    enum: [
-      "Incomplete",
-      "Registered",
-      "Waitlisted",
-      "Accepted",
-      "Confirmed",
-      "Denied"
-    ],
-    default: "Incomplete"
-  },
   date: {
     type: Date,
     default: Date.now

@@ -37,6 +37,22 @@ router.get(
   }
 );
 
+//  @route  GET api/u/
+//  @desc   Return current user
+//  @access Private
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      email: req.user.email,
+      isVerified: req.user.verified,
+      role: req.user.role,
+      date: req.user.date
+    });
+  }
+);
+
 //  @route  POST api/u/register
 //  @desc   register user
 //  @access Public
@@ -156,23 +172,6 @@ router.post("/login", (req, res) => {
       });
     });
 });
-
-//  @route  GET api/u/current
-//  @desc   Return current user
-//  @access Private
-router.get(
-  "/current",
-  passport.authenticate("jwt", { session: false }),
-  verify(),
-  (req, res) => {
-    res.json({
-      email: req.user.email,
-      role: req.user.role,
-      status: req.user.status,
-      date: req.user.date
-    });
-  }
-);
 
 //  @route  GET api/u/preregister
 //  @desc   Sign up to maillist
