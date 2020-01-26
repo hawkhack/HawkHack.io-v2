@@ -2,13 +2,21 @@ import image from './pictures/msulanding.jpg'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const heroStyles = makeStyles((theme) => ({
-    gridContainer: {
-        height: "100vh"
-    },
     heroText: {
         color: "white",
-        fontSize: "calc(12px + 8.5vw)",
         fontFamily: "Dancing Script, cursive",
+        "@media (min-width: 576px)": {
+           fontSize: "calc(12px + 15.5vw)",
+        },
+        "@media (min-width: 768px)": {
+           fontSize: "calc(12px + 20.5vw)",
+        },
+        "@media (min-width: 992px)": {
+           fontSize: "calc(12px + 10.5vw)",
+        },
+        "@media (min-width: 1200px)": {
+           fontSize: "calc(12px + 10.5vw)"
+        },
     },
     buttonGroup: {
         padding: 20

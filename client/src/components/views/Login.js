@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,12 +22,17 @@ import loginStyles from '../styles/loginStyles'
 const Login = ({ ...props }) => {
 	const [values, setValues] = useState({
 		email: "",
-		password: ""
+		password: "",
+		errors: {}
 	})
 
 	const handleChange = prop => event => {
 	  setValues({ ...values, [prop]: event.target.value });
 	};
+
+	const handleErrors = (errors) => {
+	  setValues({ ...values, errors: errors })
+	}
 
 	const classes = loginStyles();	
 
@@ -39,11 +45,10 @@ const Login = ({ ...props }) => {
 		.then(result => {
 			if (result.data.success) {
 				localStorage.setItem("cool-jwt", result.data.token)
-				console.log(props)
 				props.history.push("/")
 			}
 		})
-		.catch(err => console.log(err))
+		.catch(err => handleErrors(err.response.data))
 	}
 
 	return (
@@ -78,6 +83,7 @@ const Login = ({ ...props }) => {
 					        				    </InputAdornment>
 					        				  }
 					        				/>
+					        				{values.errors.email ? <FormHelperText error>{values.errors.email}</FormHelperText> : null}
 				        				</FormControl>
 				        				<FormControl className={classes.formControl}>
 					        				<InputLabel htmlFor="Password">Password</InputLabel>
@@ -91,6 +97,7 @@ const Login = ({ ...props }) => {
 					        				    	</InputAdornment>
 					        				  	}
 					        				/>
+					        				{values.errors.password ? <FormHelperText error>{values.errors.password}</FormHelperText> : null}
 				        				</FormControl>
 				        			</div>
 				        			<div className={classes.cardFooter}>

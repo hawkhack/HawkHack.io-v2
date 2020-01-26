@@ -53,7 +53,6 @@ const Register = ({ ...props }) => {
     })
   }
 
-      console.log(props.location.pathname)
   return (
     <Fragment>
       <CssBaseline />
