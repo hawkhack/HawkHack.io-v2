@@ -5,8 +5,11 @@ const heroStyles = makeStyles((theme) => ({
     heroText: {
         color: "white",
         fontFamily: "Dancing Script, cursive",
-        "@media (min-width: 576px)": {
+        "@media (min-width: 276px)": {
            fontSize: "calc(12px + 15.5vw)",
+        },
+        "@media (min-width: 576px)": {
+           fontSize: "calc(12px + 10.5vw)",
         },
         "@media (min-width: 768px)": {
            fontSize: "calc(12px + 20.5vw)",
