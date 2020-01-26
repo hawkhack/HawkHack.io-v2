@@ -80,7 +80,7 @@ const About = () => {
                     <div className={classes.wrapper}>
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3017.4248192418804!2d-74.19984088466741!3d40.862550436328576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fe352883ec55%3A0xeece028744cfc9ae!2sMontclair%20State%20University!5e0!3m2!1sen!2sus!4v1579972815513!5m2!1sen!2sus" 
-                            width="100%" height="350" frameborder="0" className={classes.iframe} allowfullscreen=""></iframe>
+                            width="100%" height="350" frameborder="0" className={classes.iframe} title="maps" allowfullscreen=""></iframe>
                     </div>
                 </Grid>
             </Grid>
@@ -101,7 +101,7 @@ const About = () => {
                                   alignItems="center"
                                 >
                                     <Grid item>
-                                         <img src={peopleIcon} width="100px" height="auto" />
+                                         <img alt="icons" src={peopleIcon} width="100px" height="auto" />
                                     </Grid>
                                     <Grid item>
                                         <Typography 
@@ -124,7 +124,7 @@ const About = () => {
                                   alignItems="center"
                                 >
                                     <Grid item>
-                                        <img src={moneyIcon} width="100px" height="auto" />
+                                        <img alt="icons" src={moneyIcon} width="100px" height="auto" />
                                     </Grid>
                                     <Grid item>
                                         <Typography 
@@ -147,7 +147,7 @@ const About = () => {
                                     alignItems="center"
                                 >
                                     <Grid item>
-                                        <img src={gameIcon} width="100px" height="auto" />
+                                        <img alt="icons" src={gameIcon} width="100px" height="auto" />
                                     </Grid>
                                     <Grid item>
                                         <Typography 

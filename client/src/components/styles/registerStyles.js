@@ -79,7 +79,8 @@ const registerStyles = makeStyles((theme) => ({
     container: {
         zIndex: "2",
         position: "relative",
-        paddingTop: "10vh",
+        paddingTop: "20vh",
+        height: "100vh",
         color: "#FFFFFF",
         paddingBottom: "200px",
         "@media (min-width: 576px)": {
@@ -119,11 +120,6 @@ const registerStyles = makeStyles((theme) => ({
     cardHeader: {
         width: "auto",
         textAlign: "center",
-        marginLeft: "20px",
-        marginRight: "20px",
-        marginTop: "-40px",
-        padding: "20px 0",
-        marginBottom: "15px",
         borderRadius: "3px",
         padding: "1rem 15px",
         marginLeft: "15px",
@@ -152,9 +148,7 @@ const registerStyles = makeStyles((theme) => ({
     labelRoot: {
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         fontWeight: "300",
-        lineHeight: "1.5em",
         color: "#AAAAAA !important",
-        fontWeight: "400",
         fontSize: "14px",
         lineHeight: "1.42857",
         top: "10px",

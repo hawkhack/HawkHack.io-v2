@@ -120,10 +120,6 @@ const loginStyles = makeStyles((theme) => ({
     cardHeader: {
         width: "auto",
         textAlign: "center",
-        marginLeft: "20px",
-        marginRight: "20px",
-        marginTop: "-40px",
-        padding: "20px 0",
         marginBottom: "15px",
         borderRadius: "3px",
         padding: "1rem 15px",
@@ -131,7 +127,6 @@ const loginStyles = makeStyles((theme) => ({
         marginRight: "15px",
         marginTop: "-30px",
         border: "0",
-        marginBottom: "0",
         color: "#fff",
         background: "linear-gradient(60deg, #E9190F, #E9190F)",
         boxShadow:
@@ -152,8 +147,6 @@ const loginStyles = makeStyles((theme) => ({
     },
     labelRoot: {
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-        fontWeight: "300",
-        lineHeight: "1.5em",
         color: "#AAAAAA !important",
         fontWeight: "400",
         fontSize: "14px",

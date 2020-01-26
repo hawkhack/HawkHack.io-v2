@@ -2,8 +2,6 @@ import React, { Fragment, useState } from 'react'
 
 import axios from 'axios'
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,7 +12,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from "@material-ui/icons/Email";
 
-import LoginForm from '../../components/forms/LoginForm'
 import NavBar from '../../components/sections/NavBar'
 
 import loginStyles from '../styles/loginStyles'
@@ -68,7 +65,14 @@ const Login = ({ ...props }) => {
 				        	<div className={classes.card}>
 				        		<form className={classes.form}>
 				        			<div className={classes.cardHeader}>
-				        				<h1>Login</h1>
+				        				<Typography
+					        				variant="h4"
+					        				align="center"
+					        				color="secondary"
+					        				className={classes.wrapper}
+				        				>
+				        					Login
+				        				</Typography>
 				        			</div>
 				        			<div className={classes.cardBody}>
 				        				<FormControl className={classes.formControl}>

@@ -1,4 +1,3 @@
-import image from './pictures/msulanding.jpg'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const faqStyles = makeStyles((theme) => ({
