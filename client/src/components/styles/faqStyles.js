@@ -6,19 +6,22 @@ const faqStyles = makeStyles((theme) => ({
     	padding: 40,
     	color: theme.palette.secondary.secondary
     },
-    image: {
-    	width: "100%",
-    	height: "auto",
-        minHeight: "100vh",
-    	backgroundImage: `url(${image})`,
-    	backgroundRepeat: "no-repeat",
-    	backgroundSize: "cover",
-        backgroundAttachment: "fixed"
-    },
-    grad: {
-    	background: "linear-gradient(to bottom right, rgba(209, 25, 13, 0.9) 0%, rgba(34, 31, 31, 0.9) 100%)",
-    	height: "auto",
-        minHeight: "100vh"
+    faqText: {
+        "@media (min-width: 276px)": {
+           padding: "5px"
+        },
+        "@media (min-width: 576px)": {
+           padding: "10px"
+        },
+        "@media (min-width: 768px)": {
+           padding: "15px"
+        },
+        "@media (min-width: 992px)": {
+           padding: "15px"
+        },
+        "@media (min-width: 1200px)": {
+            padding: "15px"
+        },
     },
     faqWrapper: {
         padding: 20
@@ -26,12 +29,22 @@ const faqStyles = makeStyles((theme) => ({
     faqTitleWrapper: {
         padding: 10
     },
-    faqText: {
-        width: "400px",
-        color: "black"
-    },
     wrapperExp: {
-        padding: "10px 20px"
+        "@media (min-width: 276px)": {
+           padding: "5px"
+        },
+        "@media (min-width: 576px)": {
+           padding: "5px"
+        },
+        "@media (min-width: 768px)": {
+           padding: "5px"
+        },
+        "@media (min-width: 992px)": {
+           padding: "10px 20px"
+        },
+        "@media (min-width: 1200px)": {
+            padding: "10px 20px"
+        },
     }
 }))
 
