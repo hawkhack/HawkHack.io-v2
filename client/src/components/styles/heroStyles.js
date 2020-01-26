@@ -2,13 +2,24 @@ import image from './pictures/msulanding.jpg'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const heroStyles = makeStyles((theme) => ({
-    gridContainer: {
-        height: "100vh"
-    },
     heroText: {
         color: "white",
-        fontSize: "calc(12px + 8.5vw)",
         fontFamily: "Dancing Script, cursive",
+        "@media (min-width: 276px)": {
+           fontSize: "calc(12px + 15.5vw)",
+        },
+        "@media (min-width: 576px)": {
+           fontSize: "calc(12px + 10.5vw)",
+        },
+        "@media (min-width: 768px)": {
+           fontSize: "calc(12px + 20.5vw)",
+        },
+        "@media (min-width: 992px)": {
+           fontSize: "calc(12px + 10.5vw)",
+        },
+        "@media (min-width: 1200px)": {
+           fontSize: "calc(12px + 10.5vw)"
+        },
     },
     buttonGroup: {
         padding: 20
@@ -21,18 +32,14 @@ const heroStyles = makeStyles((theme) => ({
         boxShadow:
           "0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12)",
         border: "none",
-        borderRadius: "3px",
         position: "relative",
-        padding: "12px 30px",
         margin: ".3125rem 1px",
-        fontSize: "12px",
         fontWeight: "400",
         textTransform: "uppercase",
         letterSpacing: "0",
         willChange: "box-shadow, transform",
         transition:
           "box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-        lineHeight: "1.42857143",
         textAlign: "center",
         whiteSpace: "nowrap",
         verticalAlign: "middle",

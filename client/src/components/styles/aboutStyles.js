@@ -16,7 +16,21 @@ const aboutStyles = makeStyles((theme) => ({
         border: "none"
     },
     wrapper: {
-        padding: "40px"
+        "@media (min-width: 276px)": {
+           padding: "5px"
+        },
+        "@media (min-width: 576px)": {
+           padding: "20px"
+        },
+        "@media (min-width: 768px)": {
+           padding: "30px"
+        },
+        "@media (min-width: 992px)": {
+           padding: "40px"
+        },
+        "@media (min-width: 1200px)": {
+            padding: "40px"
+        },
     },
     img: {
         minWidth: "100px",
@@ -32,7 +46,7 @@ const aboutStyles = makeStyles((theme) => ({
         align: "center",
     },
     whatText: {
-        fontSize: "1.3em",
+        fontSize: "calc(12px + .5vw)",
         color: "black",
     },
     iframe: {

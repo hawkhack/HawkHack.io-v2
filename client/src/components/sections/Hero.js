@@ -17,9 +17,8 @@ const Hero = () => {
                 direction="column"
                 justify="center"
                 alignItems="center"
-                className={classes.gridContainer}
             >
-                <Grid item>
+                <Grid item xs={12}>
                     <Typography
                         variant="h1"
                         className={classes.heroText}
@@ -29,7 +28,7 @@ const Hero = () => {
                         HawkHack
                     </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12}>
                     <div className={classes.wrapper}>
                         <Typography
                             variant="h5"
@@ -42,19 +41,12 @@ const Hero = () => {
                     </div>
                 </Grid>
                 <Grid item>
-                    <Grid container justify="center">
-                        <Grid item>
-                            <div className={classes.wrapper}>
-                                <NavLink
-                                    to="register"
-                                    className={classes.navLink}
-                                >
-                                    <Button variant="contained" color="primary" className={classes.Button}>
-                                        Mentor
-                                    </Button>
-                                </NavLink>
-                            </div>
-                        </Grid>
+                    <Grid 
+                        container 
+                        direction="row"
+                        alignItems="center"
+                        justify="center"
+                    >
                         <Grid item>
                             <div className={classes.wrapper}>
                                 <NavLink

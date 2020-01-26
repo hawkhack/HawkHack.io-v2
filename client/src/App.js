@@ -6,6 +6,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import LandingPage from './components/views/Landing';
 import Login from './components/views/Login'
 import Register from './components/views/Register'
+import Dashboard from './components/views/Dashboard'
 
 const theme = createMuiTheme({
   palette: {
@@ -23,9 +24,10 @@ const App = () => (
   <BrowserRouter>
     <MuiThemeProvider theme={theme}>
       <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" render={(props) => <Login {...props} />} />
-        <Route exact path="/register" render={(props) => <Register {...props} />} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route component={LandingPage} />
       </Switch>
     </MuiThemeProvider>
   </BrowserRouter>
