@@ -80,6 +80,7 @@ const loginStyles = makeStyles((theme) => ({
         zIndex: "2",
         position: "relative",
         paddingTop: "20vh",
+        height: "100vh",
         color: "#FFFFFF",
         paddingBottom: "200px",
         "@media (min-width: 576px)": {

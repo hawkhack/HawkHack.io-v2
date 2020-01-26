@@ -45,7 +45,7 @@ const Login = ({ ...props }) => {
 		.then(result => {
 			if (result.data.success) {
 				localStorage.setItem("cool-jwt", result.data.token)
-				props.history.push("/")
+				props.history.push("/dashboard")
 			}
 		})
 		.catch(err => handleErrors(err.response.data))
@@ -64,7 +64,7 @@ const Login = ({ ...props }) => {
 				        alignItems="center"
 				        className={classes.gridContainer}
 				    >
-				        <Grid item xs={12} sm={12} md={6} lg={4} className={classes.gridItem}>
+				        <Grid item xs={12} sm={8} md={4} lg={4} className={classes.gridItem}>
 				        	<div className={classes.card}>
 				        		<form className={classes.form}>
 				        			<div className={classes.cardHeader}>

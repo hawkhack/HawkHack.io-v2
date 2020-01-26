@@ -66,7 +66,7 @@ const Register = ({ ...props }) => {
                 alignItems="center"
                 className={classes.gridContainer}
             >
-                <Grid item xs={12} sm={12} md={6} lg={4} className={classes.gridItem}>
+                <Grid item xs={12} sm={8} md={4} lg={4} className={classes.gridItem}>
                   <div className={classes.card}>
                     <form className={classes.form}>
                       <div className={classes.cardHeader}>

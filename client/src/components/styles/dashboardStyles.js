@@ -51,10 +51,33 @@ const dashboardStyles = makeStyles((theme) => ({
 	  	zIndex: "3"
 	},
 	mainRaised: {
-	  	margin: "-600px 30px 0px",
+	  	margin: "-75vh 30px 0px",
 	  	borderRadius: "6px",
 	  	boxShadow:
 	    	"0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
+	},
+	dashboardTitle: {
+		"@media (min-width: 276px)": {
+	    	paddingTop: "6vh",
+	    	fontSize: "3em",
+		},
+	    "@media (min-width: 576px)": {
+	    	paddingTop: "4vh",
+	    	fontSize: "5em",
+	    },
+	    "@media (min-width: 768px)": {
+	        paddingTop: "5vh",
+	        fontSize: "5em"
+	    },
+	    "@media (min-width: 992px)": {
+	        paddingTop: "5vh",
+	        fontSize: "5em"
+	    },
+	    "@media (min-width: 1200px)": {
+	       	paddingTop: "5vh",
+	       	fontSize: "6em"
+	    },
+	    fontFamily: `"Roboto", "Times New Roman", serif`
 	}
 }))
 
