@@ -8,7 +8,16 @@ const ProfileSchema = new Schema({
     ref: "users"
   },
   status: {
-    type: String
+    type: String,
+    enum: [
+      "Incomplete",
+      "Registered",
+      "Waitlisted",
+      "Accepted",
+      "Confirmed",
+      "Denied"
+    ],
+    default: "Incomplete"
   },
   firstName: {
     type: String,
@@ -35,7 +44,7 @@ const ProfileSchema = new Schema({
   },
   gender: {
     type: String,
-    max: 20
+    enum: ["Male", "Female", "Other", "Prefer not to say"]
   },
   ethnicity: {
     type: String,

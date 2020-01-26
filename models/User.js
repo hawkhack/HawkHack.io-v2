@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     type: String,
     select: false
   },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
   role: {
     type: String,
     enum: [
@@ -30,18 +34,6 @@ const UserSchema = new Schema({
       "Administrator"
     ],
     default: "Participant"
-  },
-  status: {
-    type: String,
-    enum: [
-      "Incomplete",
-      "Registered",
-      "Waitlisted",
-      "Accepted",
-      "Confirmed",
-      "Denied"
-    ],
-    default: "Incomplete"
   },
   date: {
     type: Date,

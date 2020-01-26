@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+//load middleware
+const verify = require("../../middleware/verifyActive");
+
 //Load validation
 const validateProfileInput = require("../../validation/profile");
 
@@ -24,6 +27,7 @@ router.get("/test", (req, res) => {
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
@@ -45,23 +49,18 @@ router.get(
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
-    const { errors, isValid, isComplete } = validateProfileInput(req.body);
+    const { errors, isValid } = validateProfileInput(req.body);
     //check validation
     if (!isValid) {
       //return any erros with 400 status
       return res.status(400).json(errors);
     }
-
     //get fields
     const profileFields = {};
     profileFields.user = req.user.id;
     profileFields.email = req.user.email;
-    profileFields.status = req.user.status;
-    if (req.user.status == "Incomplete" && isComplete) {
-      profileFields.status = "Complete";
-    }
-
     if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
@@ -104,6 +103,7 @@ router.post(
 router.get(
   "/:user_id",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
     const errors = {};
     if (req.user.role != "Director" || req.user.role != "Administrator") {
@@ -131,6 +131,7 @@ router.get(
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
+  verify(),
   (req, res) => {
     Profile.findOneAndRemove({ user: req.user.id }).then(() => {
       User.findOneAndRemove({ _id: req.user.id }).then(() => {
