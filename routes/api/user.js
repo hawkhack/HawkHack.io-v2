@@ -63,7 +63,7 @@ router.post("/register", (req, res) => {
       newUser.verificationToken = uid(32);
 
       //hash password
-      bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.genSalt(13, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
@@ -71,23 +71,24 @@ router.post("/register", (req, res) => {
           //save user to db
           newUser
             .save()
-            .then(user => res.json(user))
+            .then(user => {
+              //send email verification
+              const data = {
+                from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
+                to: user.email,
+                subject: `${defaults.Event.name} Please verify your email`,
+                html: `<p>Hi ${user.firstName},<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+              };
+              mailgun.messages().send(data, (err, body) => {
+                if (err) {
+                  res.status(500).json("error");
+                  console.log("mailgun error: ", err);
+                }
+                console.log("verification email sent");
+              });
+            })
             .catch(err => console.log(err));
         });
-      });
-      //send email verification
-      const data = {
-        from: "noreply@hawkhack.io",
-        to: newUser.email,
-        subject: `${defaults.Event.name} Please verify your email`,
-        html: `<h1>${defaults.Event.name}</h1><p>Please verify your email by clicking the link below</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p>`
-      };
-      mailgun.messages().send(data, (err, body) => {
-        if (err) {
-          res.status(500).json("error");
-          console.log("mailgun error: ", err);
-        }
-        console.log("verification email sent");
       });
     }
   });
@@ -196,7 +197,6 @@ router.post("/preregister", (req, res) => {
 router.post(
   "/changepw",
   passport.authenticate("jwt", { session: false }),
-  verify(),
   (req, res) => {
     var errors = {};
     var { newpw } = req.body;
@@ -205,7 +205,7 @@ router.post(
         errors.nouser = "user not found";
         return res.status(500).json(errors);
       }
-      bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.genSalt(13, (err, salt) => {
         bcrypt.hash(newpw, salt, (err, hash) => {
           if (err) throw err;
           if (user.password == hash) {
@@ -223,5 +223,72 @@ router.post(
     });
   }
 );
+
+//  @route  GET api/u/resetpw/:email
+//  @desc   Send password reset token
+//  @access Public
+router.get("/resetpw/:email", (req, res) => {
+  const email = req.params.email;
+
+  User.findOne({ email: email }).then(user => {
+    //if no user, smile and nod.
+    if (!user) {
+      return res.status(200).json(`email sent to ${email}`);
+    }
+    const token = uid(64);
+    user.passwordResetToken = token;
+    user.save().then(() => {
+      //send password reset link to email
+      const data = {
+        from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
+        to: user.email,
+        subject: `${defaults.Event.name} Password Reset`,
+        html: `<p>Hi,<br>An account registered in ${defaults.Event.name} has issued a password reset. Clicking the link below to reset your password. </p><p>www.${defaults.Links.domain}/reset/${token}</p><p>If you did not issue a password reset please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+      };
+      mailgun.messages().send(data, (err, body) => {
+        if (err) {
+          console.log("mailgun error: ", err);
+          return res.status(500).json("error");
+        }
+        console.log(`ResetPW email sent to ${data.to}`);
+        res.status(200).json(`email sent to ${data.to}`);
+      });
+    });
+  });
+  //  @route  POST api/u/resetpw/:token
+  //  @desc   Reset user password
+  //  @access Public
+  router.post("/resetpw/:token", (req, res) => {
+    const token = req.params.token;
+    const password = req.body;
+    User.findOne({ passwordResetToken: token })
+      .select("password passwordResetToken")
+      .then(user => {
+        if (!user) {
+          console.log(`ResetPW no user with token ${token}`);
+          errors.token = "token not valid";
+          return res.status(404).json();
+        }
+        bcrypt.genSalt(13, (err, salt) => {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err;
+            if (user.password == hash) {
+              errors.password =
+                "The password needs to be different than your current";
+              return res.status(412).json(errors);
+            }
+            user.password = hash;
+            user.passwordResetToken = "";
+            user
+              .save()
+              .then(() => {
+                res.status(200);
+              })
+              .catch(err => console.log(err));
+          });
+        });
+      });
+  });
+});
 
 module.exports = router;

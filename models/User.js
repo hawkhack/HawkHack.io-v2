@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     type: String,
     select: false
   },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
   role: {
     type: String,
     enum: [
