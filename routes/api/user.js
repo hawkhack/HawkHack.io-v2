@@ -77,15 +77,31 @@ router.post("/register", (req, res) => {
                 from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
                 to: user.email,
                 subject: `${defaults.Event.name} Please verify your email`,
-                html: `<p>Hi ${user.firstName},<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+                html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
               };
               mailgun.messages().send(data, (err, body) => {
                 if (err) {
-                  res.status(500).json("error");
                   console.log("mailgun error: ", err);
+                  return res.status(500).json("error");
                 }
-                console.log("verification email sent");
+                console.log(`verification email sent to ${data.to}`);
               });
+              const payload = {
+                id: user.id,
+                email: user.email
+              };
+              //Sign Token
+              jwt.sign(
+                payload,
+                secretOrKey,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  return res.status(200).json({
+                    success: true,
+                    token: "Bearer " + token
+                  });
+                }
+              );
             })
             .catch(err => console.log(err));
         });
@@ -128,7 +144,7 @@ router.post("/login", (req, res) => {
 
           //Sign Token
           jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
-            res.json({
+            res.status(200).json({
               success: true,
               token: "Bearer " + token
             });
