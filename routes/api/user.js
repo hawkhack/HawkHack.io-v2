@@ -9,7 +9,7 @@ const uid = randtoken.uid;
 const { secretOrKey, mailchimpKey } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
 const defaults = require("../../config/defaults.json");
-const verify = require("../../config/verify");
+const verify = require("../../middleware/verifyActive");
 
 //Load user model
 const User = require("../../models/User");
@@ -90,29 +90,6 @@ router.post("/register", (req, res) => {
         console.log("verification email sent");
       });
     }
-  });
-});
-
-//  @route  GET api/u/verify/:token
-//  @desc   verify user
-//  @params token: verification token
-//  @access Public
-router.get("/verify/:token", (req, res) => {
-  //get token from parameters
-  const token = req.params.token;
-  console.log(token);
-  //find user with this token
-  User.findOne({ verificationToken: token }).then(user => {
-    if (!user) {
-      //if no user then no such token exists
-      return res.status(400).json("Invalid token");
-    }
-    //set verify flag to true
-    user.verified = true;
-    //save user and return success
-    user.save().then(savedUser => {
-      res.status(200).json("user verified");
-    });
   });
 });
 

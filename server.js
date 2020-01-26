@@ -14,6 +14,8 @@ const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
 const admin = require("./routes/api/admin");
 
+const UserModel = require("./models/User");
+
 //initialize express app
 const app = express();
 
@@ -47,13 +49,31 @@ app.use("/api/u", users);
 app.use("/api/p", profile);
 app.use("/api/a", admin);
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
+
 app.get("/api", (req, res) => {
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
 });
 
-app.get("/", (req, res) => {
-  console.log("OH YEAH");
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+app.get("/verify/:token", (req, res) => {
+  //get token from parameters
+  const token = req.params.token;
+  console.log(token);
+  //find user with this token
+  UserModel.findOne({ verificationToken: token }).then(user => {
+    if (!user) {
+      //if no user then no such token exists
+      return res.status(400).json("Invalid token");
+    }
+    //set verify flag to true
+    user.verified = true;
+    //save user and return success
+    user.save().then(() => {
+      res.redirect("/login");
+    });
+  });
 });
 
 const server = app.listen(port, () => {
