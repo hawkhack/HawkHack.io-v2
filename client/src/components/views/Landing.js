@@ -7,9 +7,11 @@ import classNames from "classnames";
 
 import Hero from "../sections/Hero";
 import About from "../sections/About";
+import LastYear from "../sections/LastYear";
 import NavBar from "../sections/NavBar";
 import Faq from "../sections/Faq";
 import Footer from "../sections/Footer";
+import Final from "../sections/Final";
 import Parallax from "../sections/Parallax/Parallax";
 
 const LandingPage = () => {
@@ -26,8 +28,17 @@ const LandingPage = () => {
             </Parallax>
             <div className={classNames(classes.main, classes.mainRaised)}>
                 <div className={classes.container}>
+                    <br />
                     <About />
+                    <br />
+                    <br />
+                    <LastYear />
+                    <br />
+                    <br />
                     <Faq />
+                    <br />
+                    <br />
+                    <Final />
                 </div>
             </div>
             <Footer />
