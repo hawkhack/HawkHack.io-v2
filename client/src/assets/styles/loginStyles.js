@@ -76,6 +76,10 @@ const loginStyles = makeStyles((theme) => ({
     fontSize: '.875rem',
     transition: 'all 300ms linear',
   },
+  loginText: {
+    padding: 20,
+    fontWeight: 300
+  },
   container: {
     zIndex: '2',
     position: 'relative',
@@ -139,11 +143,13 @@ const loginStyles = makeStyles((theme) => ({
   formControl: {
     width: '100%',
     margin: '0 0 17px 0',
-    paddingTop: '10px',
     position: 'relative',
     '& svg,& .fab,& .far,& .fal,& .fas,& .material-icons': {
       color: '#495057',
     },
+  },
+  textfieldWrapper: {
+    paddingTop: 10,
   },
   labelRoot: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

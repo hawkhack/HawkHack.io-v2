@@ -154,7 +154,7 @@ const registerStyles = makeStyles((theme) => ({
     letterSpacing: 'unset',
     '& + $underline': {
       marginTop: '0px',
-    }
+    },
   },
   inputIconsColor: {
     color: '#495057',
@@ -181,11 +181,11 @@ const registerStyles = makeStyles((theme) => ({
     },
   },
   textfieldWrapper: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   register: {
     padding: 20,
-    fontWeight: 300
+    fontWeight: 300,
   },
   cardFooter: {
     display: 'flex',

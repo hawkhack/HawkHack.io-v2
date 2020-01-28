@@ -5,12 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import IconButton from '@material-ui/core/IconButton';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import NavBar from '../../components/sections/NavBar';
 
@@ -29,6 +32,14 @@ const Login = ({ ...props }) => {
 
   const handleErrors = (errors) => {
     setValues({ ...values, errors });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const classes = loginStyles();
@@ -69,44 +80,63 @@ const Login = ({ ...props }) => {
                       variant="h4"
                       align="center"
                       color="secondary"
-                      className={classes.wrapper}
+                      className={classes.loginText}
                     >
                       Login
                     </Typography>
                   </div>
                   <div className={classes.cardBody}>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="email">Email</InputLabel>
-                      <Input
-                        id="email"
-                        onChange={handleChange('email')}
-                        type="text"
-                        endAdornment={(
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                   )}
-                      />
-                      {values.errors.email
-                        ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                        : null}
-                    </FormControl>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="Password">Password</InputLabel>
-                      <Input
-                        id="Password"
-                        type="password"
-                        onChange={handleChange('password')}
-                        endAdornment={(
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                    )}
-                      />
-                      {values.errors.password
-                        ? <FormHelperText error>{values.errors.password}</FormHelperText>
-                        : null}
-                    </FormControl>
+                    <div className={classes.textfieldWrapper}>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          type="Email"
+                          value={values.email}
+                          error={values.errors.email}
+                          onChange={handleChange('email')}
+                          endAdornment={(
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                disabled
+                              >
+                                <Email />
+                              </IconButton>
+                            </InputAdornment>
+                          )}
+                        />
+                        {values.errors.email
+                          ? <FormHelperText error>{values.errors.email}</FormHelperText>
+                          : null}
+                      </FormControl>
+                    </div>
+                    <div className={classes.textfieldWrapper}>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          type={values.showPassword ? 'text' : 'password'}
+                          value={values.password}
+                          error={values.errors.password}
+                          onChange={handleChange('password')}
+                          endAdornment={(
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                              >
+                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          )}
+                        />
+                        {values.errors.password
+                          ? <FormHelperText error>{values.errors.password}</FormHelperText>
+                          : null}
+                      </FormControl>
+                    </div>
                   </div>
                   <div className={classes.cardFooter}>
                     <Button

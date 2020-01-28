@@ -39,7 +39,7 @@ const Register = ({ ...props }) => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -97,7 +97,7 @@ const Register = ({ ...props }) => {
                           value={values.email}
                           error={values.errors.email}
                           onChange={handleChange('email')}
-                          endAdornment={
+                          endAdornment={(
                             <InputAdornment position="end">
                               <IconButton
                                 aria-label="toggle password visibility"
@@ -106,7 +106,7 @@ const Register = ({ ...props }) => {
                                 <Email />
                               </IconButton>
                             </InputAdornment>
-                          }
+                          )}
                         />
                         {values.errors.email
                           ? <FormHelperText error>{values.errors.email}</FormHelperText>
@@ -122,7 +122,7 @@ const Register = ({ ...props }) => {
                           value={values.password}
                           error={values.errors.password}
                           onChange={handleChange('password')}
-                          endAdornment={
+                          endAdornment={(
                             <InputAdornment position="end">
                               <IconButton
                                 aria-label="toggle password visibility"
@@ -132,7 +132,7 @@ const Register = ({ ...props }) => {
                                 {values.showPassword ? <Visibility /> : <VisibilityOff />}
                               </IconButton>
                             </InputAdornment>
-                          }
+                          )}
                         />
                         {values.errors.password
                           ? <FormHelperText error>{values.errors.password}</FormHelperText>
@@ -148,16 +148,16 @@ const Register = ({ ...props }) => {
                           value={values.password2}
                           error={values.errors.password2}
                           onChange={handleChange('password2')}
-                          endAdornment={
+                          endAdornment={(
                             <InputAdornment position="end">
                               <IconButton
                                 aria-label="toggle password visibility"
                                 disabled
                               >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" /></svg>
                               </IconButton>
                             </InputAdornment>
-                          }
+                          )}
                         />
                         {values.errors.password2
                           ? <FormHelperText error>{values.errors.password2}</FormHelperText>
