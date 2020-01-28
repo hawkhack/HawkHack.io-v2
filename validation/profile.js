@@ -85,8 +85,42 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
+  if (!isEmpty(data.shirtSize)) {
+    const sizes = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
+    if (!sizes.includes(data.shirtSize)) {
+      errors.shirtSize = "not a valid size";
+    }
+  }
+
+  if (!isEmpty(data.gender)) {
+    const sizes = ["Male", "Female", "Other", "Prefer not to say"];
+    if (!sizes.includes(data.gender)) {
+      errors.gender = "not a valid gender";
+    }
+  }
+
+  isComplete = () => {
+    if (
+      data.firstName &&
+      data.lastName &&
+      data.phoneNumber &&
+      data.dateOfBirth &&
+      data.shirtSize &&
+      data.gender &&
+      data.ethnicity &&
+      data.school &&
+      data.graduationYear &&
+      data.levelOfStudy &&
+      data.major
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
+    isComplete: isComplete()
   };
 };
