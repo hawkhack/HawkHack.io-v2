@@ -3,16 +3,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
-import LandingPage from './components/views/Landing';
-import Login from './components/views/Login'
-import Register from './components/views/Register'
-import Dashboard from './components/views/Dashboard'
+import LandingPage from './views/Landing/Landing';
+import Login from './views/Login/Login';
+import Register from './views/Register/Register';
+import Dashboard from './views/Dashboard/Dashboard';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#E9190F',
-      secondary: "black"
+      secondary: 'black',
     },
     secondary: {
       main: '#FBFBFF',
