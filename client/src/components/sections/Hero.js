@@ -44,7 +44,7 @@ const Hero = () => {
               align="center"
               className={classes.dates}
             >
-              Saturday, March 28th - Sunday, March 29th 2020  
+              Saturday, March 28th - Sunday, March 29th 2020
             </Typography>
           </div>
         </Grid>

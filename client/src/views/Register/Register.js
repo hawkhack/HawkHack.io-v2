@@ -9,8 +9,11 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import NavBar from '../../components/sections/NavBar';
 
@@ -32,6 +35,14 @@ const Register = ({ ...props }) => {
     setValues({ ...values, errors });
   };
 
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
+
   const classes = registerStyles();
 
   const submit = async () => {
@@ -43,7 +54,7 @@ const Register = ({ ...props }) => {
     })
       .then((result) => {
         localStorage.setItem('cool-jwt', result.data.token);
-        props.history.push('/dashboard');
+        props.history.push('/');
       })
       .catch((err) => {
         handleErrors(err.response.data);
@@ -71,63 +82,88 @@ const Register = ({ ...props }) => {
                       variant="h4"
                       align="center"
                       color="secondary"
-                      className={classes.wrapper}
+                      className={classes.register}
                     >
-                          Register
+                      Register
                     </Typography>
                   </div>
                   <div className={classes.cardBody}>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="email">Email</InputLabel>
-                      <Input
-                        id="email"
-                        onChange={handleChange('email')}
-                        type="text"
-                        error={values.errors.email}
-                        endAdornment={(
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                            )}
-                      />
-                      {values.errors.email
-                        ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                        : null}
-                    </FormControl>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="Password">Password</InputLabel>
-                      <Input
-                        id="Password"
-                        type="password"
-                        error={values.errors.password}
-                        onChange={handleChange('password')}
-                        endAdornment={(
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                              )}
-                      />
-                      {values.errors.password
-                        ? <FormHelperText error>{values.errors.password}</FormHelperText>
-                        : null}
-                    </FormControl>
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="Password">Confirm Password</InputLabel>
-                      <Input
-                        id="Password"
-                        type="password"
-                        error={values.errors.password2}
-                        onChange={handleChange('password2')}
-                        endAdornment={(
-                          <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
-                          </InputAdornment>
-                              )}
-                      />
-                      {values.errors.password2
-                        ? <FormHelperText error>{values.errors.password2}</FormHelperText>
-                        : null}
-                    </FormControl>
+                    <div className={classes.textfieldWrapper}>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          type="Email"
+                          value={values.email}
+                          error={values.errors.email}
+                          onChange={handleChange('email')}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                disabled
+                              >
+                                <Email />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                        {values.errors.email
+                          ? <FormHelperText error>{values.errors.email}</FormHelperText>
+                          : null}
+                      </FormControl>
+                    </div>
+                    <div className={classes.textfieldWrapper}>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          type={values.showPassword ? 'text' : 'password'}
+                          value={values.password}
+                          error={values.errors.password}
+                          onChange={handleChange('password')}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                              >
+                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                        {values.errors.password
+                          ? <FormHelperText error>{values.errors.password}</FormHelperText>
+                          : null}
+                      </FormControl>
+                    </div>
+                    <div className={classes.textfieldWrapper}>
+                      <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="standard-adornment-password">Confirm password</InputLabel>
+                        <Input
+                          id="standard-adornment-password"
+                          type={values.showPassword ? 'text' : 'password'}
+                          value={values.password2}
+                          error={values.errors.password2}
+                          onChange={handleChange('password2')}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                disabled
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                        {values.errors.password2
+                          ? <FormHelperText error>{values.errors.password2}</FormHelperText>
+                          : null}
+                      </FormControl>
+                    </div>
                   </div>
                   <div className={classes.cardFooter}>
                     <Button
@@ -136,12 +172,12 @@ const Register = ({ ...props }) => {
                       className={classes.button}
                       onClick={submit}
                     >
-                          Submit
+                      Submit
                     </Button>
                   </div>
                   <div className={classes.cardFooter}>
                     <Button color="primary" className={classes.button}>
-                          Forgot Password?
+                      Forgot Password?
                     </Button>
                   </div>
                 </form>

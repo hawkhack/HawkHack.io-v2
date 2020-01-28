@@ -25,7 +25,7 @@ const Final = () => {
               color="primary"
               align="center"
             >
-                            Join the fun
+              Join the fun
             </Typography>
           </div>
           <div className={classes.wrapper}>
@@ -35,7 +35,7 @@ const Final = () => {
               color="primary"
               align="center"
             >
-                            We have prizes and tournaments and speakers from all over
+              We have prizes and tournaments and speakers from all over
             </Typography>
           </div>
         </Grid>
@@ -54,19 +54,7 @@ const Final = () => {
                     className={classes.navLink}
                   >
                     <Button variant="contained" color="primary" className={classes.Button}>
-                                            Participate
-                    </Button>
-                  </NavLink>
-                </div>
-              </Grid>
-              <Grid item>
-                <div className={classes.wrapper}>
-                  <NavLink
-                    to="register"
-                    className={classes.navLink}
-                  >
-                    <Button variant="contained" color="primary" className={classes.Button}>
-                                            Volunteer
+                      Register
                     </Button>
                   </NavLink>
                 </div>
@@ -75,9 +63,6 @@ const Final = () => {
           </div>
         </Grid>
       </Grid>
-      <br />
-      <br />
-      <br />
       <br />
       <br />
       <br />

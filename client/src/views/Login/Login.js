@@ -42,7 +42,7 @@ const Login = ({ ...props }) => {
       .then((result) => {
         if (result.data.success) {
           localStorage.setItem('cool-jwt', result.data.token);
-          props.history.push('/dashboard');
+          props.history.push('/');
         }
       })
       .catch((err) => handleErrors(err.response.data));

@@ -139,7 +139,6 @@ const registerStyles = makeStyles((theme) => ({
   formControl: {
     width: '100%',
     margin: '0 0 17px 0',
-    paddingTop: '10px',
     position: 'relative',
     '& svg,& .fab,& .far,& .fal,& .fas,& .material-icons': {
       color: '#495057',
@@ -155,7 +154,7 @@ const registerStyles = makeStyles((theme) => ({
     letterSpacing: 'unset',
     '& + $underline': {
       marginTop: '0px',
-    },
+    }
   },
   inputIconsColor: {
     color: '#495057',
@@ -171,7 +170,7 @@ const registerStyles = makeStyles((theme) => ({
       opacity: '1',
     },
     '&::placeholder': {
-      color: '#AAAAAA',
+      color: '#FFF',
     },
     '&:hover:not($disabled):before,&:before': {
       borderColor: '#D2D2D2 !important',
@@ -180,6 +179,13 @@ const registerStyles = makeStyles((theme) => ({
     '&:after': {
       borderColor: theme.palette.primary.main,
     },
+  },
+  textfieldWrapper: {
+    paddingTop: 10
+  },
+  register: {
+    padding: 20,
+    fontWeight: 300
   },
   cardFooter: {
     display: 'flex',
