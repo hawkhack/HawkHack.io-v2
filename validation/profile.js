@@ -85,8 +85,28 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
+  isComplete = () => {
+    if (
+      data.firstName &&
+      data.lastName &&
+      data.phoneNumber &&
+      data.dateOfBirth &&
+      data.shirtSize &&
+      data.gender &&
+      data.ethnicity &&
+      data.school &&
+      data.graduationYear &&
+      data.levelOfStudy &&
+      data.major
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
+    isComplete: isComplete()
   };
 };
