@@ -47,7 +47,7 @@ const NavBar = () => {
                   className={top ? classes.navBarText : classes.navbarScrolled}
                   variant="h5"
                 >
-                  Hawkhack
+                  HawkHack
                 </Typography>
               </div>
               )}
