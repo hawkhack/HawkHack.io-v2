@@ -9,6 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
@@ -25,6 +26,7 @@ const Register = ({ ...props }) => {
     password: '',
     password2: '',
     errors: {},
+    loading: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -43,10 +45,15 @@ const Register = ({ ...props }) => {
     event.preventDefault();
   };
 
+  const handleLoading = (val) => {
+    setValues({ ...values, loading: val });
+  };
+
   const classes = registerStyles();
 
   const submit = async () => {
     // validate
+    handleLoading(true);
     await axios.post(`${process.env.REACT_APP_API_URL}/u/register`, {
       email: values.email,
       password: values.password,
@@ -54,6 +61,7 @@ const Register = ({ ...props }) => {
     })
       .then((result) => {
         localStorage.setItem('cool-jwt', result.data.token);
+        handleLoading(false);
         props.history.push('/');
       })
       .catch((err) => {
@@ -65,6 +73,20 @@ const Register = ({ ...props }) => {
     <>
       <CssBaseline />
       <NavBar />
+      { values.loading
+        && (
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          align="center"
+          className={classes.loadingGrid}
+        >
+          <Grid item>
+            <CircularProgress className={classes.progress} />
+          </Grid>
+        </Grid>
+        )}
       <div className={classes.login}>
         <div className={classes.container}>
           <Grid
@@ -95,6 +117,7 @@ const Register = ({ ...props }) => {
                           id="standard-adornment-password"
                           type="Email"
                           value={values.email}
+                          disabled={values.loading}
                           error={values.errors.email}
                           onChange={handleChange('email')}
                           endAdornment={(
@@ -120,6 +143,7 @@ const Register = ({ ...props }) => {
                           id="standard-adornment-password"
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password}
+                          disabled={values.loading}
                           error={values.errors.password}
                           onChange={handleChange('password')}
                           endAdornment={(
@@ -146,6 +170,7 @@ const Register = ({ ...props }) => {
                           id="standard-adornment-password"
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password2}
+                          disabled={values.loading}
                           error={values.errors.password2}
                           onChange={handleChange('password2')}
                           endAdornment={(
@@ -175,11 +200,7 @@ const Register = ({ ...props }) => {
                       Submit
                     </Button>
                   </div>
-                  <div className={classes.cardFooter}>
-                    <Button color="primary" className={classes.button}>
-                      Forgot Password?
-                    </Button>
-                  </div>
+                  <div className={classes.cardFooter} />
                 </form>
               </div>
             </Grid>

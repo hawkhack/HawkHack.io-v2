@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
 import navbarStyles from '../../assets/styles/navbarStyles';
 
-const NavBar = () => {
+const NavBar = ({ route }) => {
   const [top, setTop] = useState(true);
   const classes = navbarStyles();
 
-  const handleTop = (st) => setTop(st);
+  const handleTop = (tp) => setTop(tp);
 
   const handleScroll = useCallback(() => {
     if (window.scrollY < 100) {
@@ -22,6 +22,44 @@ const NavBar = () => {
       handleTop(false);
     }
   }, []);
+
+  const routes = (rt) => {
+    switch (rt) {
+      case 'login':
+        return (
+          <NavLink
+            to="register"
+            className={classes.navLink}
+          >
+            <Button color="inherit" className={top ? classes.buttonTop : classes.buttonNotTop}>
+              Register
+            </Button>
+          </NavLink>
+        );
+      case 'register':
+        return (
+          <NavLink
+            to="login"
+            className={classes.navLink}
+          >
+            <Button color="inherit" className={top ? classes.buttonTop : classes.buttonNotTop}>
+              Login
+            </Button>
+          </NavLink>
+        );
+      default:
+        return (
+          <NavLink
+            to="login"
+            className={classes.navLink}
+          >
+            <Button color="inherit" className={top ? classes.buttonTop : classes.buttonNotTop}>
+              Login
+            </Button>
+          </NavLink>
+        );
+    }
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -54,14 +92,7 @@ const NavBar = () => {
           </Grid>
           <Grid item>
             <div className={classes.wrapper}>
-              <NavLink
-                to="login"
-                className={classes.navLink}
-              >
-                <Button color="inherit" className={top ? classes.buttonTop : classes.buttonNotTop}>
-                  Login
-                </Button>
-              </NavLink>
+              {routes(route)}
             </div>
           </Grid>
         </Grid>

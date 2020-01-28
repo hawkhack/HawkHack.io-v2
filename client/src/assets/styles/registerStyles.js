@@ -205,6 +205,15 @@ const registerStyles = makeStyles((theme) => ({
   wrapper: {
     padding: 20,
   },
+  loadingGrid: {
+    height: '90vh',
+    position: 'absolute',
+    zIndex: '100',
+  },
+  progress: {
+    height: 'auto',
+    width: 700,
+  },
 }));
 
 export default registerStyles;

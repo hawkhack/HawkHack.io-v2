@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -24,6 +25,7 @@ const Login = ({ ...props }) => {
     email: '',
     password: '',
     errors: {},
+    loading: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -42,10 +44,15 @@ const Login = ({ ...props }) => {
     event.preventDefault();
   };
 
+  const handleLoading = (val) => {
+    setValues({ ...values, loading: val });
+  };
+
   const classes = loginStyles();
 
   const submit = async () => {
     // validate
+    handleLoading(true);
     await axios.post(`${process.env.REACT_APP_API_URL}/u/login`, {
       email: values.email,
       password: values.password,
@@ -53,6 +60,7 @@ const Login = ({ ...props }) => {
       .then((result) => {
         if (result.data.success) {
           localStorage.setItem('cool-jwt', result.data.token);
+          handleLoading(false);
           props.history.push('/');
         }
       })
@@ -62,7 +70,24 @@ const Login = ({ ...props }) => {
   return (
     <>
       <CssBaseline />
-      <NavBar />
+      <NavBar
+        route="login"
+      />
+
+      { values.loading
+        && (
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          align="center"
+          className={classes.loadingGrid}
+        >
+          <Grid item>
+            <CircularProgress className={classes.progress} />
+          </Grid>
+        </Grid>
+        )}
       <div className={classes.login}>
         <div className={classes.container}>
           <Grid
@@ -86,63 +111,69 @@ const Login = ({ ...props }) => {
                     </Typography>
                   </div>
                   <div className={classes.cardBody}>
-                    <div className={classes.textfieldWrapper}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
-                        <Input
-                          id="standard-adornment-password"
-                          type="Email"
-                          value={values.email}
-                          error={values.errors.email}
-                          onChange={handleChange('email')}
-                          endAdornment={(
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                disabled
-                              >
-                                <Email />
-                              </IconButton>
-                            </InputAdornment>
-                          )}
-                        />
-                        {values.errors.email
-                          ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                    <div className={classes.textfieldWrapper}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <Input
-                          id="standard-adornment-password"
-                          type={values.showPassword ? 'text' : 'password'}
-                          value={values.password}
-                          error={values.errors.password}
-                          onChange={handleChange('password')}
-                          endAdornment={(
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                              >
-                                {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                              </IconButton>
-                            </InputAdornment>
-                          )}
-                        />
-                        {values.errors.password
-                          ? <FormHelperText error>{values.errors.password}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
+                    <>
+                      <div className={classes.textfieldWrapper}>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
+                          <Input
+                            id="standard-adornment-password"
+                            type="Email"
+                            disabled={values.loading}
+                            value={values.email}
+                            error={values.errors.email}
+                            onChange={handleChange('email')}
+                            endAdornment={(
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle password visibility"
+                                  disabled
+                                >
+                                  <Email />
+                                </IconButton>
+                              </InputAdornment>
+                            )}
+                          />
+                          {values.errors.email
+                            ? <FormHelperText error>{values.errors.email}</FormHelperText>
+                            : null}
+                        </FormControl>
+                      </div>
+                      <div className={classes.textfieldWrapper}>
+                        <FormControl className={classes.formControl}>
+                          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                          <Input
+                            id="standard-adornment-password"
+                            type={values.showPassword ? 'text' : 'password'}
+                            value={values.password}
+                            disabled={values.loading}
+                            error={values.errors.password}
+                            onChange={handleChange('password')}
+                            endAdornment={(
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle password visibility"
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={handleMouseDownPassword}
+                                >
+                                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                              </InputAdornment>
+                            )}
+                          />
+                          {values.errors.password
+                            ? <FormHelperText error>{values.errors.password}</FormHelperText>
+                            : null}
+                        </FormControl>
+                      </div>
+                    </>
+
                   </div>
                   <div className={classes.cardFooter}>
                     <Button
                       variant="contained"
                       color="primary"
                       className={classes.button}
+                      disabled={values.loading}
                       onClick={submit}
                     >
                           Submit
@@ -150,11 +181,12 @@ const Login = ({ ...props }) => {
                   </div>
                   <div className={classes.cardFooter}>
                     <Button color="primary" className={classes.button}>
-                          Forgot Password?
+                      Forgot Password?
                     </Button>
                   </div>
                 </form>
               </div>
+
             </Grid>
           </Grid>
         </div>

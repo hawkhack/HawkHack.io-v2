@@ -78,7 +78,7 @@ const loginStyles = makeStyles((theme) => ({
   },
   loginText: {
     padding: 20,
-    fontWeight: 300
+    fontWeight: 300,
   },
   container: {
     zIndex: '2',
@@ -204,6 +204,15 @@ const loginStyles = makeStyles((theme) => ({
   },
   wrapper: {
     padding: 20,
+  },
+  loadingGrid: {
+    height: '90vh',
+    position: 'absolute',
+    zIndex: '100',
+  },
+  progress: {
+    height: 'auto',
+    width: 70,
   },
 }));
 
