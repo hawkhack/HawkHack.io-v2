@@ -5,6 +5,7 @@ const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
 const defaults = require("./config/defaults.json");
+const mailgun = require("mailgun-js");
 
 //import keys
 const { port, dburi } = require("./config/keys");
@@ -15,6 +16,7 @@ const profile = require("./routes/api/profile");
 const admin = require("./routes/api/admin");
 
 const UserModel = require("./models/User");
+const ProfileModel = require("./models/Profile");
 
 //initialize express app
 const app = express();
@@ -75,6 +77,15 @@ app.get("/verify/:token", (req, res) => {
       //save user and return success
       user.save().then(() => {
         res.redirect("/login");
+      });
+      Profile.findOne({ user: user.id }).then(profile => {
+        const member = {
+          name: profile.firstName,
+          address: profile.email
+        };
+        mailgun
+          .lists("subscribers@mg.hawkhack.io")
+          .add({ members: member, subscribed: true });
       });
     });
 });
