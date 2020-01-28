@@ -88,8 +88,13 @@ router.post(
         Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
-          { new: true }
-        ).then(profile => res.json(profile));
+          { new: true, runValidators: true }
+        )
+          .then(profile => res.json(profile))
+          .catch(err => {
+            console.log(err.errors);
+            return res.status(400).json("something went wrong");
+          });
       } else {
         new Profile(profileFields).save().then(profile => res.json(profile));
       }
