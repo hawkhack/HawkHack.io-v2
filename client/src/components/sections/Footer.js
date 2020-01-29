@@ -16,7 +16,7 @@ const Footer = () => {
               <a
                 href="https://www.facebook.com/msucomputerclub/"
                 className={classes.block}
-                target="_blank"
+                target=""
               >
                       Facebook
               </a>
@@ -25,7 +25,7 @@ const Footer = () => {
               <a
                 href="https://www.instagram.com/msucomputerclub/"
                 className={classes.block}
-                target="_blank"
+                target=""
               >
                 Instagram
               </a>
@@ -40,7 +40,7 @@ const Footer = () => {
           <a
             href="https://orgsync.com/160607/chapter"
             className={classes.rightText}
-            target="_blank"
+            target=""
           >
             MSU Computer Club
           </a>
