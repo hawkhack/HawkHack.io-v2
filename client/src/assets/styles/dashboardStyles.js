@@ -79,6 +79,22 @@ const dashboardStyles = makeStyles((theme) => ({
     },
     fontFamily: '"Roboto", "Times New Roman", serif',
   },
+  wrapper: {
+    padding: 20
+  },
+  verifyWrapper: {
+    padding: 20,
+    height: "100%"
+  },
+  verify: {
+    fontWeight: 300
+  },
+  verifyPara: {
+    width: "30vw"
+  },
+  dash: {
+    height: '90vh'
+  },
 }));
 
 export default dashboardStyles;

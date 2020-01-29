@@ -7,6 +7,7 @@ import LandingPage from './views/Landing/Landing';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Dashboard from './views/Dashboard/Dashboard';
+import PrivateRoute from './components/routes/PrivateRoute';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,8 +27,8 @@ const App = () => (
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route component={LandingPage} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <Route exact strict path="/" component={LandingPage} />
       </Switch>
     </MuiThemeProvider>
   </BrowserRouter>

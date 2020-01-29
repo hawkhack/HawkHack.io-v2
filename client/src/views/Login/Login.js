@@ -61,7 +61,7 @@ const Login = ({ ...props }) => {
         if (result.data.success) {
           localStorage.setItem('cool-jwt', result.data.token);
           handleLoading(false);
-          props.history.push('/');
+          props.history.push('/dashboard');
         }
       })
       .catch((err) => handleErrors(err.response.data));
