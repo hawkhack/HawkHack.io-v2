@@ -22,7 +22,7 @@ const About = () => {
               align="center"
               color="primary"
             >
-                            What's Hawkhack?
+              What's HawkHack?
             </Typography>
           </div>
           <div className={classes.wrapper}>
@@ -47,7 +47,7 @@ const About = () => {
               align="center"
               color="primary"
             >
-              When and where?
+              When and Where?
             </Typography>
           </div>
           <div className={classes.wrapper}>
