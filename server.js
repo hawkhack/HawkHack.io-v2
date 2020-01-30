@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const hpp = require("hpp");
+const morgan = require("morgan");
+const rateLimit = require("express-rate-limit");
 const defaults = require("./config/defaults.json");
 const mailgun = require("mailgun-js");
 
@@ -18,14 +23,35 @@ const admin = require("./routes/api/admin");
 const UserModel = require("./models/User");
 const ProfileModel = require("./models/Profile");
 
-//initialize express app
 const app = express();
 
-//body parse middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//body parser
+app.use(express.json());
+
+//enable cors
 app.use(cors());
 
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100
+});
+app.use(limiter);
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Set static files
 app.use(express.static(path.join(__dirname, "/client/build")));
 
 //Passport middleware
@@ -78,7 +104,7 @@ app.get("/verify/:token", (req, res) => {
       user.save().then(() => {
         res.redirect("/login");
       });
-      Profile.findOne({ user: user.id }).then(profile => {
+      ProfileModel.findOne({ user: user.id }).then(profile => {
         const member = {
           name: profile.firstName,
           address: profile.email

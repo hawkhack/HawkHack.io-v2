@@ -4,7 +4,8 @@
   "description": "web application for hawkhack fall 2019",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "server": "cross-env NODE_ENV=development nodemon server",
+    "start": "cross-env NODE_ENV=production node server",
     "dev": "concurrently \"npm start\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
@@ -20,25 +21,26 @@
   "homepage": "https://github.com/hawkhack/HawkHack.io-v2#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "bootstrap": "^4.3.1",
-    "classnames": "^2.2.6",
-    "config": "^3.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "gravatar": "^1.8.0",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.21.2",
+    "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.7.5",
-    "nodemon": "^1.19.1",
+    "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
     "rand-token": "^0.4.0",
-    "react-background-slider": "^1.2.0",
-    "react-bootstrap": "^1.0.0-beta.12",
     "request": "^2.88.0",
-    "validator": "^11.0.0"
+    "validator": "^11.0.0",
+    "xss-clean": "^0.1.1",
+    "cross-env": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
