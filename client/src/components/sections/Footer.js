@@ -14,38 +14,20 @@ const Footer = () => {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="www.google.com"
+                href="https://www.facebook.com/msucomputerclub/"
                 className={classes.block}
-                target="_blank"
+                target=""
               >
                       Facebook
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="www.google.com"
+                href="https://www.instagram.com/msucomputerclub/"
                 className={classes.block}
-                target="_blank"
+                target=""
               >
-                      Instagram
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="www.google.com"
-                className={classes.block}
-                target="_blank"
-              >
-                      Twitter
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="www.google.com"
-                className={classes.block}
-                target="_blank"
-              >
-                      Website
+                Instagram
               </a>
             </ListItem>
           </List>
@@ -56,9 +38,9 @@ const Footer = () => {
           {1900 + new Date().getYear()}
           {' '}
           <a
-            href="www.google.com"
+            href="https://orgsync.com/160607/chapter"
             className={classes.rightText}
-            target="_blank"
+            target=""
           >
             MSU Computer Club
           </a>
