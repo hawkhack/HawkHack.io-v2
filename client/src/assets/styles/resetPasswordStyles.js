@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import image from './pictures/msubackground-1.png';
 
-const resetPasswordStyles = makeStyles((theme) => ({
+const resetPasswordStyles = makeStyles(() => ({
   resetPassword: {
     backgroundImage: `url(${image})`,
     height: '100vh',
