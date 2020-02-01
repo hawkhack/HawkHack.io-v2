@@ -39,7 +39,6 @@ const Login = ({ ...props }) => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    console.log(event.target.value);
   };
 
   const handleErrors = (errors) => {
@@ -59,7 +58,6 @@ const Login = ({ ...props }) => {
   };
 
   const handleDialogShow = () => {
-    console.log(values.forgotPasswordEmail);
     setValues({ ...values, open: !values.open });
   };
 
@@ -85,7 +83,7 @@ const Login = ({ ...props }) => {
   const submitForgotPassword = async () => {
     handleLoading(true);
     await axios.post(`${process.env.REACT_APP_API_URL}/u/forgotPassword`, {
-      email: values.forgotPasswordEmail
+      email: values.forgotPasswordEmail,
     })
       .then((result) => {
         if (result.data.success) {
@@ -93,7 +91,7 @@ const Login = ({ ...props }) => {
         }
       })
       .catch((err) => handleErrors(err.response.data));
-  } 
+  };
 
   return (
     <>
