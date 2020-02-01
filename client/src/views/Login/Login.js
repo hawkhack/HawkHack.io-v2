@@ -82,7 +82,7 @@ const Login = ({ ...props }) => {
 
   const submitForgotPassword = async () => {
     handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/forgotPassword`, {
+    await axios.post(`${process.env.REACT_APP_API_URL}/u/resetpw/:email`, {
       email: values.forgotPasswordEmail,
     })
       .then((result) => {

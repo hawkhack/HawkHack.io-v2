@@ -7,6 +7,7 @@ import LandingPage from './views/Landing/Landing';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Dashboard from './views/Dashboard/Dashboard';
+import ResetPassword from './views/ResetPassword/ResetPassword';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,6 +28,7 @@ const App = () => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/reset-password" component={ResetPassword} />
         <Route component={LandingPage} />
       </Switch>
     </MuiThemeProvider>
