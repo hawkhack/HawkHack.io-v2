@@ -199,11 +199,16 @@ const Login = ({ ...props }) => {
                     <Button color="primary" className={classes.button} onClick={handleClickOpen}>
                       Forgot Password?
                     </Button>
-                    <Dialog open={values.open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <Dialog 
+                      open={values.open} 
+                      onClose={handleClose} 
+                      aria-labelledby="form-dialog-title"
+                    >
                       <DialogTitle id="form-dialog-title">Forgot Password?</DialogTitle>
                       <DialogContent>
                         <DialogContentText>
-                          To retrive your password, please enter your email address here. We will send
+                          To retrive your password, please enter your email 
+                          address here. We will send
                           you an email with a link to update your password.
                         </DialogContentText>
                         <TextField
