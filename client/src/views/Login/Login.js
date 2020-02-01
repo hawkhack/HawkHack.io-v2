@@ -21,7 +21,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 
 import NavBar from '../../components/sections/NavBar';
 
@@ -35,6 +36,7 @@ const Login = ({ ...props }) => {
     loading: false,
     open: false,
     forgotPasswordEmail: '',
+    snackBarOpen: false
   });
 
   const handleChange = (prop) => (event) => {
@@ -61,6 +63,10 @@ const Login = ({ ...props }) => {
     setValues({ ...values, open: !values.open });
   };
 
+  const handleSnackbarShow = () => {
+    setValues({ ...values, snackBarOpen: !values.snackBarOpen });
+  };
+
   const classes = loginStyles();
 
   const submit = async () => {
@@ -74,6 +80,7 @@ const Login = ({ ...props }) => {
         if (result.data.success) {
           localStorage.setItem('cool-jwt', result.data.token);
           handleLoading(false);
+          handleSnackbarShow();
           props.history.push('/');
         }
       })
@@ -87,6 +94,7 @@ const Login = ({ ...props }) => {
     })
       .then((result) => {
         if (result.data.success) {
+          handleSnackbarShow();
           handleLoading(false);
         }
       })
@@ -241,6 +249,23 @@ const Login = ({ ...props }) => {
                         </Button>
                       </DialogActions>
                     </Dialog>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                      open={values.snackBarOpen}
+                      autoHideDuration={6000}
+                      onClose={handleSnackbarShow}
+                      message="An email has been sent to you with a link to reset your password!"
+                      action={
+                        <React.Fragment>
+                          <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarShow}>
+                            <CloseIcon fontSize="small" />
+                          </IconButton>
+                        </React.Fragment>
+                      }
+                    />
                   </div>
                 </form>
               </div>
