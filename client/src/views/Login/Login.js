@@ -36,7 +36,7 @@ const Login = ({ ...props }) => {
     loading: false,
     open: false,
     forgotPasswordEmail: '',
-    snackBarOpen: false
+    snackBarOpen: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -80,7 +80,6 @@ const Login = ({ ...props }) => {
         if (result.data.success) {
           localStorage.setItem('cool-jwt', result.data.token);
           handleLoading(false);
-          handleSnackbarShow();
           props.history.push('/');
         }
       })
@@ -94,8 +93,8 @@ const Login = ({ ...props }) => {
     })
       .then((result) => {
         if (result.data.success) {
-          handleSnackbarShow();
           handleLoading(false);
+          handleSnackbarShow();
         }
       })
       .catch((err) => handleErrors(err.response.data));
@@ -258,13 +257,13 @@ const Login = ({ ...props }) => {
                       autoHideDuration={6000}
                       onClose={handleSnackbarShow}
                       message="An email has been sent to you with a link to reset your password!"
-                      action={
-                        <React.Fragment>
+                      action={(
+                        <>
                           <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarShow}>
                             <CloseIcon fontSize="small" />
                           </IconButton>
-                        </React.Fragment>
-                      }
+                        </>
+                      )}
                     />
                   </div>
                 </form>
