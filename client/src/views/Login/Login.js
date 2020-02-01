@@ -237,7 +237,7 @@ const Login = ({ ...props }) => {
                           Cancel
                         </Button>
                         <Button onClick={submitForgotPassword} color="primary">
-                          Submit
+                          Send
                         </Button>
                       </DialogActions>
                     </Dialog>
