@@ -33,7 +33,7 @@ const Login = ({ ...props }) => {
     password: '',
     errors: {},
     loading: false,
-    open: false
+    open: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -57,11 +57,11 @@ const Login = ({ ...props }) => {
   };
 
   const handleClickOpen = () => {
-    setValues({ ...values, open: true})
+    setValues({ ...values, open: true });
   };
 
   const handleClose = () => {
-    setValues({ ...values, open: false})
+    setValues({ ...values, open: false });
   };
 
   const classes = loginStyles();
@@ -203,8 +203,8 @@ const Login = ({ ...props }) => {
                       <DialogTitle id="form-dialog-title">Forgot Password?</DialogTitle>
                       <DialogContent>
                         <DialogContentText>
-                          To retrive your password, please enter your email address here. We will send you
-                          an email with a link to update your password.
+                          To retrive your password, please enter your email address here. We will send
+                          you an email with a link to update your password.
                         </DialogContentText>
                         <TextField
                           autoFocus
