@@ -79,7 +79,7 @@ const registerStyles = makeStyles((theme) => ({
   container: {
     zIndex: '2',
     position: 'relative',
-    paddingTop: '20vh',
+    paddingTop: '15vh',
     height: '100vh',
     color: '#FFFFFF',
     paddingBottom: '200px',
