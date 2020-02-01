@@ -34,10 +34,12 @@ const Login = ({ ...props }) => {
     errors: {},
     loading: false,
     open: false,
+    forgotPasswordEmail: '',
   });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+    console.log(event.target.value);
   };
 
   const handleErrors = (errors) => {
@@ -56,12 +58,9 @@ const Login = ({ ...props }) => {
     setValues({ ...values, loading: val });
   };
 
-  const handleClickOpen = () => {
-    setValues({ ...values, open: true });
-  };
-
-  const handleClose = () => {
-    setValues({ ...values, open: false });
+  const handleDialogShow = () => {
+    console.log(values.forgotPasswordEmail);
+    setValues({ ...values, open: !values.open });
   };
 
   const classes = loginStyles();
@@ -82,6 +81,19 @@ const Login = ({ ...props }) => {
       })
       .catch((err) => handleErrors(err.response.data));
   };
+
+  const submitForgotPassword = async () => {
+    handleLoading(true);
+    await axios.post(`${process.env.REACT_APP_API_URL}/u/forgotPassword`, {
+      email: values.forgotPasswordEmail
+    })
+      .then((result) => {
+        if (result.data.success) {
+          handleLoading(false);
+        }
+      })
+      .catch((err) => handleErrors(err.response.data));
+  } 
 
   return (
     <>
@@ -196,23 +208,25 @@ const Login = ({ ...props }) => {
                     </Button>
                   </div>
                   <div className={classes.cardFooter}>
-                    <Button color="primary" className={classes.button} onClick={handleClickOpen}>
+                    <Button color="primary" className={classes.button} onClick={handleDialogShow}>
                       Forgot Password?
                     </Button>
-                    <Dialog 
-                      open={values.open} 
-                      onClose={handleClose} 
+                    <Dialog
+                      open={values.open}
+                      onClose={handleDialogShow}
                       aria-labelledby="form-dialog-title"
                     >
                       <DialogTitle id="form-dialog-title">Forgot Password?</DialogTitle>
                       <DialogContent>
                         <DialogContentText>
-                          To retrive your password, please enter your email 
+                          To retrive your password, please enter your email
                           address here. We will send
                           you an email with a link to update your password.
                         </DialogContentText>
                         <TextField
                           autoFocus
+                          value={values.forgotPasswordEmail}
+                          onChange={handleChange('forgotPasswordEmail')}
                           margin="dense"
                           id="name"
                           label="Email Address"
@@ -221,10 +235,10 @@ const Login = ({ ...props }) => {
                         />
                       </DialogContent>
                       <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={handleDialogShow} color="primary">
                           Cancel
                         </Button>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={submitForgotPassword} color="primary">
                           Submit
                         </Button>
                       </DialogActions>
