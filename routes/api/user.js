@@ -126,6 +126,32 @@ router.post("/register", (req, res) => {
   });
 });
 
+//  @route  GET api/u/reverify
+//  @desc   reset email confirmation
+//  @access Private
+router.get(
+  "/reverify",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    if (req.user.verified) {
+      return res.status(400).json("user already verified");
+    }
+    const data = {
+      from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
+      to: req.user.email,
+      subject: `${defaults.Event.name} Please verify your email`,
+      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.dev.hawkhack.io/verify/${req.user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+    };
+    mailgun.messages().send(data, (err, body) => {
+      if (err) {
+        console.log("mailgun error: ", err);
+        return res.status(500).json("error");
+      }
+      console.log(`verification email sent to ${data.to}`);
+    });
+  }
+);
+
 //  @route  POST api/u/login
 //  @desc   login user
 //  @access Public
@@ -171,39 +197,6 @@ router.post("/login", (req, res) => {
         }
       });
     });
-});
-
-//  @route  GET api/u/preregister
-//  @desc   Sign up to maillist
-//  @access Public
-router.post("/preregister", (req, res) => {
-  const { fname, lname, email } = req.body;
-
-  const data = {
-    email_address: email,
-    status: "subscribed",
-    merge_fields: {
-      FNAME: fname,
-      LNAME: lname,
-      EMAIL: email
-    }
-  };
-
-  const postData = JSON.stringify(data);
-
-  const options = {
-    url: "https://us19.api.mailchimp.com/3.0/lists/dd503b0557/members",
-    method: "POST",
-    headers: {
-      Authorization: `auth ${mailchimpKey}`
-    },
-    body: postData
-  };
-
-  request(options, (err, response, body) => {
-    const resdata = JSON.parse(body);
-    res.json(resdata);
-  });
 });
 
 //  @route  POST api/u/changepw
