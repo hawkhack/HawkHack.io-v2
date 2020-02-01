@@ -15,6 +15,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
 
 import NavBar from '../../components/sections/NavBar';
 
@@ -26,6 +33,7 @@ const Login = ({ ...props }) => {
     password: '',
     errors: {},
     loading: false,
+    open: false
   });
 
   const handleChange = (prop) => (event) => {
@@ -46,6 +54,14 @@ const Login = ({ ...props }) => {
 
   const handleLoading = (val) => {
     setValues({ ...values, loading: val });
+  };
+
+  const handleClickOpen = () => {
+    setValues({ ...values, open: true})
+  };
+
+  const handleClose = () => {
+    setValues({ ...values, open: false})
   };
 
   const classes = loginStyles();
@@ -180,9 +196,34 @@ const Login = ({ ...props }) => {
                     </Button>
                   </div>
                   <div className={classes.cardFooter}>
-                    <Button color="primary" className={classes.button}>
+                    <Button color="primary" className={classes.button} onClick={handleClickOpen}>
                       Forgot Password?
                     </Button>
+                    <Dialog open={values.open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                      <DialogTitle id="form-dialog-title">Forgot Password?</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          To retrive your password, please enter your email address here. We will send you
+                          an email with a link to update your password.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Email Address"
+                          type="email"
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button onClick={handleClose} color="primary">
+                          Submit
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
                   </div>
                 </form>
               </div>
