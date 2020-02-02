@@ -3,10 +3,10 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { defaults } from '../../defaults';
 
 import { ScrollDownIndicator } from 'react-landing-page';
 import { NavLink } from 'react-router-dom';
+import defaults from '../../defaults';
 
 import heroStyles from '../../assets/styles/heroStyles';
 

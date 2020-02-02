@@ -1,7 +1,7 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import image from './pictures/msulanding.jpg';
 
-const heroStyles = makeStyles((theme) => ({
+const heroStyles = makeStyles(() => ({
   heroText: {
     color: 'white',
     fontFamily: 'Dancing Script, cursive',
@@ -25,7 +25,7 @@ const heroStyles = makeStyles((theme) => ({
     padding: 20,
   },
   Button: {
-    padding: "15px 40px",
+    padding: '15px 40px',
     minHeight: 'auto',
     minWidth: 'auto',
     boxShadow:

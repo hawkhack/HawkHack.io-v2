@@ -18,7 +18,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import NavBar from '../../components/sections/NavBar';
 import registerStyles from '../../assets/styles/registerStyles';
 
-import { RegisterUser } from '../../assets/utils/api'
+import { RegisterUser } from '../../assets/utils/api';
 
 const Register = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -55,7 +55,7 @@ const Register = ({ ...props }) => {
     // validate
     handleLoading(true);
     try {
-      const result = await RegisterUser(values.email, values.password, values.password2)
+      const result = await RegisterUser(values.email, values.password, values.password2);
 
       localStorage.setItem('cool-jwt', result.data.token);
       handleLoading(false);

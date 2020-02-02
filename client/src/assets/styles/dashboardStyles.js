@@ -80,20 +80,20 @@ const dashboardStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", "Times New Roman", serif',
   },
   wrapper: {
-    padding: 20
+    padding: 20,
   },
   verifyWrapper: {
     padding: 20,
-    height: "100%"
+    height: '100%',
   },
   verify: {
-    fontWeight: 300
+    fontWeight: 300,
   },
   verifyPara: {
-    width: "30vw"
+    width: '30vw',
   },
   dash: {
-    height: '90vh'
+    height: '90vh',
   },
 }));
 

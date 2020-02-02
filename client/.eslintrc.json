@@ -21,8 +21,10 @@
         "react"
     ],
     "rules": {
-        "react/prop-types": 0,
-        "react/jsx-filename-extension": 0,
-        "react/no-unescaped-entities": 0
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": "off",
+        "react/no-unescaped-entities": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react-hooks/exhaustive-deps": "off"
     }
 }

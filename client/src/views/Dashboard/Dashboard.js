@@ -18,32 +18,32 @@ import Progress from './sections/Progress';
 const Dashboard = () => {
   const [values, setValues] = useState({
     user: {},
-    dash: null
-  })
+    dash: null,
+  });
 
   const handleState = (key, val) => {
-    setValues({ ...values, [key]: val })
-  }
+    setValues({ ...values, [key]: val });
+  };
+
+  const classes = dashboardStyles();
 
   useEffect(() => {
     const apiCall = async () => {
       try {
         const user = await GetUser();
 
-        handleState("user", user.data)
-        handleState("dash", user.data.isVerified ? 
-              <RealDashboard classes={classes} /> : <IsVerified classes={ classes } />)
+        handleState('user', user.data);
+        handleState('dash', user.data.isVerified
+          ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
       } catch (err) {
         // Redirect to 404 page
-        console.log(err)
+        // console.log(err);
       }
-    }
+    };
 
     apiCall();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
-  const classes = dashboardStyles();
 
   return (
     <>

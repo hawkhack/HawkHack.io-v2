@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 const aboutStyles = makeStyles((theme) => ({
   section: {
     padding: '20px',
-    minHeight: "100vh"
+    minHeight: '100vh',
   },
   home: {
     display: 'flex',
