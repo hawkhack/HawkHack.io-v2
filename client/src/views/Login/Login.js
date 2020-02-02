@@ -14,6 +14,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 
 import NavBar from '../NavBar/NavBar';
 
@@ -27,6 +35,9 @@ const Login = ({ ...props }) => {
     password: '',
     errors: {},
     loading: false,
+    open: false,
+    forgotPasswordEmail: '',
+    snackBarOpen: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -47,6 +58,14 @@ const Login = ({ ...props }) => {
 
   const handleLoading = (val) => {
     setValues({ ...values, loading: val });
+  };
+
+  const handleDialogShow = () => {
+    setValues({ ...values, open: !values.open });
+  };
+
+  const handleSnackbarShow = () => {
+    setValues({ ...values, snackBarOpen: !values.snackBarOpen });
   };
 
   const classes = loginStyles();
@@ -75,6 +94,20 @@ const Login = ({ ...props }) => {
     }
   };
 
+  const submitForgotPassword = async () => {
+    handleLoading(true);
+    await axios.post(`${process.env.REACT_APP_API_URL}/u/resetpw/:email`, {
+      email: values.forgotPasswordEmail,
+    })
+      .then((result) => {
+        if (result.data.success) {
+          handleLoading(false);
+          handleSnackbarShow();
+        }
+      })
+      .catch((err) => handleErrors(err.response.data));
+  };
+  
   useEffect(() => {
     if (localStorage.getItem('cool-jwt') !== null) {
       props.history.push('/dashboard');
@@ -194,9 +227,58 @@ const Login = ({ ...props }) => {
                     </Button>
                   </div>
                   <div className={classes.cardFooter}>
-                    <Button color="primary" className={classes.button}>
+                    <Button color="primary" className={classes.button} onClick={handleDialogShow}>
                       Forgot Password?
                     </Button>
+                    <Dialog
+                      open={values.open}
+                      onClose={handleDialogShow}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">Forgot Password?</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          To retrive your password, please enter your email
+                          address here. We will send
+                          you an email with a link to update your password.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          value={values.forgotPasswordEmail}
+                          onChange={handleChange('forgotPasswordEmail')}
+                          margin="dense"
+                          id="name"
+                          label="Email Address"
+                          type="email"
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleDialogShow} color="primary">
+                          Cancel
+                        </Button>
+                        <Button onClick={submitForgotPassword} color="primary">
+                          Send
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    <Snackbar
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                      open={values.snackBarOpen}
+                      autoHideDuration={6000}
+                      onClose={handleSnackbarShow}
+                      message="An email has been sent to you with a link to reset your password!"
+                      action={(
+                        <>
+                          <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarShow}>
+                            <CloseIcon fontSize="small" />
+                          </IconButton>
+                        </>
+                      )}
+                    />
                   </div>
                 </form>
               </div>

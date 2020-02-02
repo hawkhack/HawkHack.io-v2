@@ -6,6 +6,7 @@ import LandingPage from './views/Landing/Landing';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Dashboard from './views/Dashboard/Dashboard';
+import ResetPassword from './views/ResetPassword/ResetPassword';
 import PrivateRoute from './assets/utils/PrivateRoute';
 import theme from './theme';
 
@@ -15,6 +16,7 @@ const App = () => (
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/reset-password" component={ResetPassword} />
         <Route exact path="/" component={LandingPage} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
       </Switch>
