@@ -28,3 +28,18 @@ export const GetUser = () => axios.get(`${apiURL}/u/`, {
   .catch((err) => {
     throw err;
   });
+
+export const ForgotPassword = (email) => axios.get(`${apiURL}/u/resetpw/${email}`)
+  .then(((result) => result))
+  .catch((err) => {
+    throw err;
+  });
+
+export const ResetPass = (token, password) => axios.post(`${apiURL}/u/resetpw/${token}`, {
+  token,
+  password,
+})
+  .then((result) => result)
+  .catch((err) => {
+    throw err;
+  });

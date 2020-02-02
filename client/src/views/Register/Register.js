@@ -75,7 +75,8 @@ const Register = ({ ...props }) => {
     if (localStorage.getItem('cool-jwt') !== null) {
       props.history.push('/dashboard');
     }
-  }, [...props]);
+    // eslint-disable-next-line
+  }, [props.history]);
 
 
   return (

@@ -33,7 +33,33 @@ const validateRegister = (email, password, password2) => {
   return errors;
 };
 
+const isEmail = (email) => {
+  const errors = {};
+
+  if (!Validator.isEmail(email)) {
+    errors.forgotEmail = INVALID_EMAIL;
+  }
+
+  if (email.length === 0) {
+    errors.forgotEmail = BLANK_EMAIL;
+  }
+
+  return errors;
+};
+
+const validateResetPassword = (password, password2) => {
+  const errors = {};
+
+  if (!password) errors.password = BLANK_PASSWORD;
+  if (!password2) errors.password2 = BLANK_PASSWORD;
+  if (password !== password2) errors.password2 = NO_PASSWORD_MATCH;
+
+  return errors;
+};
+
 export {
   validateLogin,
   validateRegister,
+  isEmail,
+  validateResetPassword,
 };

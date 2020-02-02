@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,19 +11,21 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import resetPasswordStyles from '../../assets/styles/resetPasswordStyles';
 
+import { ResetPass } from '../../assets/utils/api';
+import { validateResetPassword } from '../../assets/utils/validation';
+
 const ResetPassword = ({ ...props }) => {
   const [values, setValues] = useState({
-    email: '',
     password: '',
     password2: '',
     errors: {},
     loading: false,
+    token: '',
   });
 
   const handleChange = (prop) => (event) => {
@@ -47,25 +48,34 @@ const ResetPassword = ({ ...props }) => {
     setValues({ ...values, loading: val });
   };
 
+  const handleToken = (token) => {
+    setValues({ ...values, token });
+  };
+
   const classes = resetPasswordStyles();
 
   const resetPassword = async () => {
-    // validate
-    handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/resetpw`, {
-      email: values.email,
-      password: values.password,
-      password2: values.password2,
-    })
-      .then((result) => {
-        localStorage.setItem('cool-jwt', result.data.token);
-        handleLoading(false);
-        props.history.push('/');
-      })
-      .catch((err) => {
-        handleErrors(err.response.data);
-      });
+    try {
+      handleLoading(true);
+
+      const errors = validateResetPassword(values.password, values.password2);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
+
+      await ResetPass(values.token, values.password);
+
+      handleLoading(false);
+      props.history.push('/login');
+    } catch (err) {
+      handleErrors(err);
+    }
   };
+
+  useEffect(() => {
+    handleToken(props.match.params.token);
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>
@@ -103,36 +113,10 @@ const ResetPassword = ({ ...props }) => {
                       color="secondary"
                       className={classes.passwordResetTypography}
                     >
-                      Password Reset
+                      Reset Password
                     </Typography>
                   </div>
                   <div className={classes.cardBody}>
-                    <div className={classes.textfieldWrapper}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
-                        <Input
-                          id="standard-adornment-password"
-                          type="Email"
-                          value={values.email}
-                          disabled={values.loading}
-                          error={values.errors.email}
-                          onChange={handleChange('email')}
-                          endAdornment={(
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                disabled
-                              >
-                                <Email />
-                              </IconButton>
-                            </InputAdornment>
-                          )}
-                        />
-                        {values.errors.email
-                          ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
                     <div className={classes.textfieldWrapper}>
                       <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="standard-adornment-password">New Password</InputLabel>
@@ -141,7 +125,7 @@ const ResetPassword = ({ ...props }) => {
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password}
                           disabled={values.loading}
-                          error={values.errors.password}
+                          error={!!values.errors.password}
                           onChange={handleChange('password')}
                           endAdornment={(
                             <InputAdornment position="end">
@@ -168,7 +152,7 @@ const ResetPassword = ({ ...props }) => {
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password2}
                           disabled={values.loading}
-                          error={values.errors.password2}
+                          error={!!values.errors.password2}
                           onChange={handleChange('password2')}
                           endAdornment={(
                             <InputAdornment position="end">
@@ -191,10 +175,11 @@ const ResetPassword = ({ ...props }) => {
                     <Button
                       variant="contained"
                       color="primary"
+                      disabled={values.loading}
                       className={classes.button}
                       onClick={resetPassword}
                     >
-                      Reset My Password
+                      Reset
                     </Button>
                   </div>
                   <div className={classes.cardFooter} />

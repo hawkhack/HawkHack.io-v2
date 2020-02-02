@@ -16,7 +16,7 @@ const App = () => (
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/reset-password" component={ResetPassword} />
+        <Route exact path="/reset/:token" component={ResetPassword} />
         <Route exact path="/" component={LandingPage} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
       </Switch>

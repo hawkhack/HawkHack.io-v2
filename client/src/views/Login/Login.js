@@ -26,8 +26,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import NavBar from '../NavBar/NavBar';
 
 import loginStyles from '../../assets/styles/loginStyles';
-import { LoginUser } from '../../assets/utils/api';
-import { validateLogin } from '../../assets/utils/validation';
+import { LoginUser, ForgotPassword } from '../../assets/utils/api';
+import { validateLogin, isEmail } from '../../assets/utils/validation';
 
 const Login = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -65,13 +65,12 @@ const Login = ({ ...props }) => {
   };
 
   const handleSnackbarShow = () => {
-    setValues({ ...values, snackBarOpen: !values.snackBarOpen });
+    setValues({ ...values, open: false, snackBarOpen: !values.snackBarOpen });
   };
 
   const classes = loginStyles();
 
   const submit = async () => {
-    // validate
     try {
       handleLoading(true);
 
@@ -95,24 +94,28 @@ const Login = ({ ...props }) => {
   };
 
   const submitForgotPassword = async () => {
-    handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/resetpw/:email`, {
-      email: values.forgotPasswordEmail,
-    })
-      .then((result) => {
-        if (result.data.success) {
-          handleLoading(false);
-          handleSnackbarShow();
-        }
-      })
-      .catch((err) => handleErrors(err.response.data));
+    try {
+      const errors = isEmail(values.forgotPasswordEmail);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
+
+      handleDialogShow();
+      await ForgotPassword(values.forgotPasswordEmail);
+
+      handleSnackbarShow();
+    } catch (err) {
+      handleDialogShow();
+      handleErrors(err);
+    }
   };
-  
+
   useEffect(() => {
     if (localStorage.getItem('cool-jwt') !== null) {
       props.history.push('/dashboard');
     }
-  }, [...props]);
+    // eslint-disable-next-line
+  }, [props.history]);
 
   return (
     <>
@@ -248,10 +251,14 @@ const Login = ({ ...props }) => {
                           onChange={handleChange('forgotPasswordEmail')}
                           margin="dense"
                           id="name"
+                          error={!!values.errors.forgotEmail}
                           label="Email Address"
                           type="email"
                           fullWidth
                         />
+                        {values.errors.forgotEmail
+                          ? <FormHelperText error>{values.errors.forgotEmail}</FormHelperText>
+                          : null}
                       </DialogContent>
                       <DialogActions>
                         <Button onClick={handleDialogShow} color="primary">
@@ -282,7 +289,6 @@ const Login = ({ ...props }) => {
                   </div>
                 </form>
               </div>
-
             </Grid>
           </Grid>
         </div>
