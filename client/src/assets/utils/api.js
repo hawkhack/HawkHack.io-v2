@@ -12,6 +12,15 @@ export const RegisterUser = (email, password, password2) => axios.post(`${apiURL
     throw err.response.data;
   });
 
+export const LoginUser = (email, password) => axios.post(`${apiURL}/u/login`, {
+  email,
+  password,
+})
+  .then((result) => result)
+  .catch((err) => {
+    throw err.response.data;
+  });
+
 export const GetUser = () => axios.get(`${apiURL}/u/`, {
   headers: { Authorization: `${localStorage.getItem('cool-jwt')}` },
 })

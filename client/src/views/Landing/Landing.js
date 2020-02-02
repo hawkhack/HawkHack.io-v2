@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import landingPageStyles from '../../assets/styles/landingPageStyles';
 import image from '../../assets/styles/pictures/msubackground-1.png';
 
+import NavBar from '../NavBar/NavBar';
 import Hero from '../../components/sections/Hero';
 import About from '../../components/sections/About';
-import NavBar from '../../components/sections/NavBar';
 import Faq from '../../components/sections/Faq';
 import Footer from '../../components/sections/Footer';
 import Final from '../../components/sections/Final';
@@ -19,7 +19,9 @@ const LandingPage = () => {
   return (
     <>
       <CssBaseline />
-      <NavBar />
+      <NavBar
+        route="login"
+      />
       <Parallax filter image={image}>
         <div className={classes.container}>
           <Hero />

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
 import classNames from 'classnames';
+
 import dashboardStyles from '../../assets/styles/dashboardStyles';
 import image from '../../assets/styles/pictures/msubackground-1.png';
 import { GetUser } from '../../assets/utils/api';
 
-import NavBar from '../../components/sections/NavBar';
+import NavBar from '../NavBar/NavBar';
 import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
 import IsVerified from './sections/IsVerified';
@@ -42,13 +42,16 @@ const Dashboard = () => {
     };
 
     apiCall();
+    // eslint-disable-next-line
   }, []);
 
 
   return (
     <>
       <CssBaseline />
-      <NavBar />
+      <NavBar
+        route="user"
+      />
       <Parallax filter image={image}>
         <Grid
           container

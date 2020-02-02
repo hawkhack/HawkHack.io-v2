@@ -12,12 +12,26 @@ const RealDashboard = ({ classes }) => (
     className={classes.dash}
   >
     <Grid item>
-      <Typography
-        variant="h2"
-        color="primary"
-      >
-          Real dash
-      </Typography>
+      <div className={classes.wrapper}>
+        <Typography
+          variant="h2"
+          color="primary"
+          align="center"
+        >
+            Hang in there!
+        </Typography>
+      </div>
+    </Grid>
+    <Grid item>
+      <div className={classes.wrapper}>
+        <Typography
+          variant="body1"
+          color="primary"
+          align="center"
+        >
+            Once applications open, we'll notify you.
+        </Typography>
+      </div>
     </Grid>
   </Grid>
 );
