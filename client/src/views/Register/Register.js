@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
@@ -17,8 +16,9 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import NavBar from '../../components/sections/NavBar';
-
 import registerStyles from '../../assets/styles/registerStyles';
+
+import { RegisterUser } from '../../assets/utils/api'
 
 const Register = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -54,19 +54,15 @@ const Register = ({ ...props }) => {
   const submit = async () => {
     // validate
     handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/register`, {
-      email: values.email,
-      password: values.password,
-      password2: values.password2,
-    })
-      .then((result) => {
-        localStorage.setItem('cool-jwt', result.data.token);
-        handleLoading(false);
-        props.history.push('/dashboard');
-      })
-      .catch((err) => {
-        handleErrors(err.response.data);
-      });
+    try {
+      const result = await RegisterUser(values.email, values.password, values.password2)
+
+      localStorage.setItem('cool-jwt', result.data.token);
+      handleLoading(false);
+      props.history.push('/dashboard');
+    } catch (err) {
+      handleErrors(err);
+    }
   };
 
   return (

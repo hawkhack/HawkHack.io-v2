@@ -7,7 +7,6 @@ import image from '../../assets/styles/pictures/msubackground-1.png';
 
 import Hero from '../../components/sections/Hero';
 import About from '../../components/sections/About';
-import LastYear from '../../components/sections/LastYear';
 import NavBar from '../../components/sections/NavBar';
 import Faq from '../../components/sections/Faq';
 import Footer from '../../components/sections/Footer';
@@ -29,7 +28,6 @@ const LandingPage = () => {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <About />
-          <LastYear />
           <Faq />
           <Final />
         </div>

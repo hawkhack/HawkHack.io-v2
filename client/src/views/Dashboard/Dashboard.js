@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import classNames from 'classnames';
-import axios from 'axios';
 import dashboardStyles from '../../assets/styles/dashboardStyles';
 import image from '../../assets/styles/pictures/msubackground-1.png';
+import { GetUser } from '../../assets/utils/api';
 
 import NavBar from '../../components/sections/NavBar';
 import Footer from '../../components/sections/Footer';
@@ -27,20 +27,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const apiCall = async () => {
-      return await axios.get(`${process.env.REACT_APP_API_URL}/u/`, {
-        headers: {'Authorization': `${localStorage.getItem("cool-jwt")}`},
-      })
-        .then((result) => {
-          if (result.status !== 200) {
-            throw new Error(result)
-          }
+      try {
+        const user = await GetUser();
 
-          handleState("user", result.data)
-          handleState("dash", result.data.isVerified ? 
+        handleState("user", user.data)
+        handleState("dash", user.data.isVerified ? 
               <RealDashboard classes={classes} /> : <IsVerified classes={ classes } />)
-
-        })
-        .catch(err => console.log(err))
+      } catch (err) {
+        // Redirect to 404 page
+        console.log(err)
+      }
     }
 
     apiCall();

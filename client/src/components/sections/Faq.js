@@ -74,14 +74,14 @@ const Faq = () => {
         justify="center"
         alignItems="center"
       >
-        <Grid item xs={12} sm={12} md={6} lg={6}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="column"
             justify="center"
             alignItems="center"
           >
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -89,17 +89,17 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                Hackathons are an intense event that bring together software
-                                developers, graphic designers and user interface specialists
-                                along with industry process experts and professionals to
-                                identify issues and create software solutions, usually within
-                                a weekend.
+                      Hackathons are an intense event that bring together software
+                      developers, graphic designers and user interface specialists
+                      along with industry process experts and professionals to
+                      identify issues and create software solutions, usually within
+                      a weekend.
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -107,15 +107,15 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                          We want to create an environment that embraces new ideas and
-                                technology solutions. A place where people passionate in
-                                technology can come innovate the industry.
+                      We want to create an environment that embraces new ideas and
+                      technology solutions. A place where people passionate in
+                      technology can come innovate the industry.
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -123,16 +123,16 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                        We would love to have you at HawkHack! Throughout the event we
-                                will be hosting workshops where you can try new things, start
-                                a project for that idea you always had in mind, and receive
-                                help from industry experts.
+                      We would love to have you at HawkHack! Throughout the event we
+                      will be hosting workshops where you can try new things, start
+                      a project for that idea you always had in mind, and receive
+                      help from industry experts.
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -140,7 +140,7 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                Absolutely none. Hackathons are a great place to learn and get
+                      Absolutely none. Hackathons are a great place to learn and get
                       advice from experienced hackers. We'll also host plenty of
                       workshops and have plenty of mentors so by the end of the 24
                       hours you'll have a working project even if you haven't coded
@@ -153,14 +153,14 @@ const Faq = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6}>
+        <Grid item xs={12}>
           <Grid
             container
             direction="column"
             justify="center"
             alignItems="center"
           >
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -168,18 +168,18 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                If you're at a current college/university student, a recent
-                                graduate (up to 1 year), or a high school student, you're more
-                                than welcome to attend! We are open to students of all
-                                academic backgrounds and skill levels, so whether you’re an
-                                aspiring artist or an expert engineer, there’s a place for you
-                                at HawkHack!
+                      If you're at a current college/university student, a recent
+                      graduate (up to 1 year), or a high school student, you're more
+                      than welcome to attend! We are open to students of all
+                      academic backgrounds and skill levels, so whether you’re an
+                      aspiring artist or an expert engineer, there’s a place for you
+                      at HawkHack!
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -187,15 +187,15 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                You are welcome to come solo or in a group no more than 4. We
-                                will provide means for you to find a team if you don’t have
-                                one
+                     You are welcome to come solo or in a group no more than 4. We
+                     will provide means for you to find a team if you don’t have
+                     one
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -203,15 +203,15 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                That is fine! Although we encourage you to do so and make the
-                                best of the event, you are free to leave whenever you want and
-                                come back later
+                     That is fine! Although we encourage you to do so and make the
+                     best of the event, you are free to leave whenever you want and
+                     come back later
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -219,8 +219,8 @@ const Faq = () => {
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails>
                     <Typography className={classes.faqText}>
-                                FREE, that’s how much. The event is completely FREE to attend.
-                                FREE food, FREE games, FREE fun. Sounds good, doesn’t it?
+                      FREE, that’s how much. The event is completely FREE to attend.
+                      FREE food, FREE games, FREE fun. Sounds good, doesn’t it?
                     </Typography>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
