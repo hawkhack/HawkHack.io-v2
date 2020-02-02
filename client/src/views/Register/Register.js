@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,9 +15,11 @@ import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import NavBar from '../../components/sections/NavBar';
-
+import NavBar from '../NavBar/NavBar';
 import registerStyles from '../../assets/styles/registerStyles';
+
+import { RegisterUser } from '../../assets/utils/api';
+import { validateRegister } from '../../assets/utils/validation';
 
 const Register = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -52,27 +53,37 @@ const Register = ({ ...props }) => {
   const classes = registerStyles();
 
   const submit = async () => {
-    // validate
-    handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/register`, {
-      email: values.email,
-      password: values.password,
-      password2: values.password2,
-    })
-      .then((result) => {
-        localStorage.setItem('cool-jwt', result.data.token);
-        handleLoading(false);
-        props.history.push('/');
-      })
-      .catch((err) => {
-        handleErrors(err.response.data);
-      });
+    try {
+      handleLoading(true);
+
+      const errors = validateRegister(values.email, values.password, values.password2);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
+
+      const result = await RegisterUser(values.email, values.password, values.password2);
+
+      localStorage.setItem('cool-jwt', result.data.token);
+      handleLoading(false);
+      props.history.push('/dashboard');
+    } catch (err) {
+      handleErrors(err);
+    }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('cool-jwt') !== null) {
+      props.history.push('/dashboard');
+    }
+  }, [...props]);
+
 
   return (
     <>
       <CssBaseline />
-      <NavBar />
+      <NavBar
+        route="login"
+      />
       { values.loading
         && (
         <Grid
@@ -118,7 +129,7 @@ const Register = ({ ...props }) => {
                           type="Email"
                           value={values.email}
                           disabled={values.loading}
-                          error={values.errors.email}
+                          error={!!values.errors.email}
                           onChange={handleChange('email')}
                           endAdornment={(
                             <InputAdornment position="end">
@@ -144,7 +155,7 @@ const Register = ({ ...props }) => {
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password}
                           disabled={values.loading}
-                          error={values.errors.password}
+                          error={!!values.errors.password}
                           onChange={handleChange('password')}
                           endAdornment={(
                             <InputAdornment position="end">
@@ -171,7 +182,7 @@ const Register = ({ ...props }) => {
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password2}
                           disabled={values.loading}
-                          error={values.errors.password2}
+                          error={!!values.errors.password2}
                           onChange={handleChange('password2')}
                           endAdornment={(
                             <InputAdornment position="end">
@@ -194,6 +205,7 @@ const Register = ({ ...props }) => {
                     <Button
                       variant="contained"
                       color="primary"
+                      disabled={values.loading}
                       className={classes.button}
                       onClick={submit}
                     >

@@ -1,7 +1,7 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import image from './pictures/msulanding.jpg';
 
-const finalStyles = makeStyles((theme) => ({
+const finalStyles = makeStyles(() => ({
   heroText: {
     fontFamily: 'Roboto, Dancing Script, cursive',
   },
@@ -9,36 +9,27 @@ const finalStyles = makeStyles((theme) => ({
     padding: 20,
   },
   Button: {
+    padding: '15px 40px',
     minHeight: 'auto',
     minWidth: 'auto',
-    backgroundColor: theme.palette.primary.main,
-    color: '#FFFFFF',
     boxShadow:
           '0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12)',
-    border: 'none',
-    position: 'relative',
-    margin: '.3125rem 1px',
-    fontWeight: '400',
-    textTransform: 'uppercase',
-    letterSpacing: '0',
-    willChange: 'box-shadow, transform',
-    transition:
-          'box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-    verticalAlign: 'middle',
-    touchAction: 'manipulation',
-    cursor: 'pointer',
-    '&:hover,&:focus': {
-      color: '#FFFFFF',
-      backgroundColor: theme.palette.primary.main,
-      boxShadow:
-            '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)',
+    fontSize: '1rem',
+    '@media (min-width: 276px)': {
+      fontSize: '0.8rem',
     },
-    padding: '1.125rem 2.25rem',
-    fontSize: '0.875rem',
-    lineHeight: '1.333333',
-    borderRadius: '0.2rem',
+    '@media (min-width: 576px)': {
+      fontSize: '0.9rem',
+    },
+    '@media (min-width: 768px)': {
+      fontSize: '1rem',
+    },
+    '@media (min-width: 992px)': {
+      fontSize: '1rem',
+    },
+    '@media (min-width: 1200px)': {
+      fontSize: '1rem',
+    },
   },
   wrapper: {
     padding: 10,

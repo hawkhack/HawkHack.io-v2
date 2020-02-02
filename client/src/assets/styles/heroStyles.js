@@ -1,60 +1,51 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import image from './pictures/msulanding.jpg';
 
-const heroStyles = makeStyles((theme) => ({
+const heroStyles = makeStyles(() => ({
   heroText: {
     color: 'white',
     fontFamily: 'Dancing Script, cursive',
     '@media (min-width: 276px)': {
-      fontSize: 'calc(12px + 15.5vw)',
+      fontSize: 'calc(12px + 4em)',
     },
     '@media (min-width: 576px)': {
-      fontSize: 'calc(12px + 10.5vw)',
+      fontSize: 'calc(12px + 7em)',
     },
     '@media (min-width: 768px)': {
-      fontSize: 'calc(12px + 20.5vw)',
+      fontSize: 'calc(12px + 8em)',
     },
     '@media (min-width: 992px)': {
-      fontSize: 'calc(12px + 10.5vw)',
+      fontSize: 'calc(12px + 9em)',
     },
     '@media (min-width: 1200px)': {
-      fontSize: 'calc(12px + 10.5vw)',
+      fontSize: 'calc(12px + 10em)',
     },
   },
   buttonGroup: {
     padding: 20,
   },
   Button: {
+    padding: '15px 40px',
     minHeight: 'auto',
     minWidth: 'auto',
-    backgroundColor: theme.palette.primary.main,
-    color: '#FFFFFF',
     boxShadow:
           '0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12)',
-    border: 'none',
-    position: 'relative',
-    margin: '.3125rem 1px',
-    fontWeight: '400',
-    textTransform: 'uppercase',
-    letterSpacing: '0',
-    willChange: 'box-shadow, transform',
-    transition:
-          'box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-    textAlign: 'center',
-    whiteSpace: 'nowrap',
-    verticalAlign: 'middle',
-    touchAction: 'manipulation',
-    cursor: 'pointer',
-    '&:hover,&:focus': {
-      color: '#FFFFFF',
-      backgroundColor: theme.palette.primary.main,
-      boxShadow:
-            '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)',
+    fontSize: '1rem',
+    '@media (min-width: 276px)': {
+      fontSize: '0.8rem',
     },
-    padding: '1.125rem 2.25rem',
-    fontSize: '0.875rem',
-    lineHeight: '1.333333',
-    borderRadius: '0.2rem',
+    '@media (min-width: 576px)': {
+      fontSize: '0.9rem',
+    },
+    '@media (min-width: 768px)': {
+      fontSize: '1rem',
+    },
+    '@media (min-width: 992px)': {
+      fontSize: '1rem',
+    },
+    '@media (min-width: 1200px)': {
+      fontSize: '1rem',
+    },
   },
   wrapper: {
     padding: 10,
@@ -74,10 +65,24 @@ const heroStyles = makeStyles((theme) => ({
     minHeight: '100vh',
   },
   round2: {
-    fontSize: 'calc(12px + 1.5vw)',
     fontFamily: 'Roboto',
     paddingBottom: 20,
     fontWeight: 300,
+    '@media (min-width: 276px)': {
+      fontSize: '1.375em',
+    },
+    '@media (min-width: 576px)': {
+      fontSize: '1.375em',
+    },
+    '@media (min-width: 768px)': {
+      fontSize: '1.5em',
+    },
+    '@media (min-width: 992px)': {
+      fontSize: '1.75em',
+    },
+    '@media (min-width: 1200px)': {
+      fontSize: '1.75em',
+    },
   },
   dates: {
     fontSize: 'calc(13px + .5vw)',

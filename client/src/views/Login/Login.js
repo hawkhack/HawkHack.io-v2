@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
@@ -24,9 +23,11 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
-import NavBar from '../../components/sections/NavBar';
+import NavBar from '../NavBar/NavBar';
 
 import loginStyles from '../../assets/styles/loginStyles';
+import { LoginUser } from '../../assets/utils/api';
+import { validateLogin } from '../../assets/utils/validation';
 
 const Login = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -71,19 +72,26 @@ const Login = ({ ...props }) => {
 
   const submit = async () => {
     // validate
-    handleLoading(true);
-    await axios.post(`${process.env.REACT_APP_API_URL}/u/login`, {
-      email: values.email,
-      password: values.password,
-    })
-      .then((result) => {
-        if (result.data.success) {
-          localStorage.setItem('cool-jwt', result.data.token);
-          handleLoading(false);
-          props.history.push('/');
-        }
-      })
-      .catch((err) => handleErrors(err.response.data));
+    try {
+      handleLoading(true);
+
+      const errors = validateLogin(values.email, values.password);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
+
+      const user = await LoginUser(values.email, values.password);
+
+      if (!user.data.success) {
+        throw user;
+      }
+
+      localStorage.setItem('cool-jwt', user.data.token);
+      handleLoading(false);
+      props.history.push('/dashboard');
+    } catch (err) {
+      handleErrors(err);
+    }
   };
 
   const submitForgotPassword = async () => {
@@ -99,12 +107,18 @@ const Login = ({ ...props }) => {
       })
       .catch((err) => handleErrors(err.response.data));
   };
+  
+  useEffect(() => {
+    if (localStorage.getItem('cool-jwt') !== null) {
+      props.history.push('/dashboard');
+    }
+  }, [...props]);
 
   return (
     <>
       <CssBaseline />
       <NavBar
-        route="login"
+        route="register"
       />
 
       { values.loading
@@ -153,7 +167,7 @@ const Login = ({ ...props }) => {
                             type="Email"
                             disabled={values.loading}
                             value={values.email}
-                            error={values.errors.email}
+                            error={!!values.errors.email}
                             onChange={handleChange('email')}
                             endAdornment={(
                               <InputAdornment position="end">
@@ -179,7 +193,7 @@ const Login = ({ ...props }) => {
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
                             disabled={values.loading}
-                            error={values.errors.password}
+                            error={!!values.errors.password}
                             onChange={handleChange('password')}
                             endAdornment={(
                               <InputAdornment position="end">
