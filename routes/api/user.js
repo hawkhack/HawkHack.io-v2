@@ -241,6 +241,7 @@ router.get("/resetpw/:email", (req, res) => {
   User.findOne({ email: email }).then(user => {
     //if no user, smile and nod.
     if (!user) {
+      console.log(`user ${email} not found`);
       return res.status(200).json(`email sent to ${email}`);
     }
     const token = uid(64);
@@ -267,8 +268,8 @@ router.get("/resetpw/:email", (req, res) => {
   //  @desc   Reset user password
   //  @access Public
   router.post("/resetpw/:token", (req, res) => {
-    const token = req.params.token;
-    const password = req.body;
+    const { token } = req.params;
+    const { password } = req.body;
     User.findOne({ passwordResetToken: token })
       .select("password passwordResetToken")
       .then(user => {
