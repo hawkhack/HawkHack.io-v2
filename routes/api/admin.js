@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
+const defaults = require("../../config/defaults.json");
+
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const Event = require("../../models/Event");
@@ -134,6 +136,53 @@ router.put(
           });
         });
       });
+    });
+  }
+);
+
+router.post(
+  "/accept",
+  passport.authenticate("jwt", { session: false }),
+  verifyRole("Administrator", "Director"),
+  (req, res) => {
+    const errors = {};
+    //uid: user id
+    //status: whether the user is Accepted or Denied
+    //force: flag used as backup to force accept a user in case someting goes wrong
+    const { uid, status, force } = req.body;
+
+    //find user
+    Profile.findOne({ user: uid }).then(profile => {
+      //check if profile exists
+      if (!profile) {
+        errors.profile = `profile with user ${profile.email} not found`;
+        console.log(`ADMIN ERROR: ${errors}`);
+        return res.status(400).json(errors);
+      }
+
+      //if user is accepted and his current status is "Registered" meaning his application is completed OR force flag is on, set status to "ACCEPTED", save and send response
+      if (status === "Accepted") {
+        if (profile.status === "Registered" || force) {
+          profile.status = status;
+          profile.save().then(profile => {
+            console.log(`USER ACCEPTED: ${profile.email}`);
+            return res.status(200).json(`user ${profile.email} accepted`);
+          });
+        }
+      }
+      //if user is denied, set status to denied, save, and send response
+      if (status === "Denied") {
+        profile.status = status;
+        profile.save().then(profile => {
+          console.log(`USER DENIED: ${profile.email}`);
+          return res.status(200).json(`user ${profile.email} denied`);
+        });
+      }
+      //if invalid status or something else didn't go through, cry about it.
+      console.log(
+        `ACCEPT ERROR:\nuid: ${uid}\nstatus:${status}\nforce${force}`
+      );
+      res.status(400).json("something went wrong");
     });
   }
 );

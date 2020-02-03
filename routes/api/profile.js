@@ -51,7 +51,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   verify(),
   (req, res) => {
-    const { errors, isValid } = validateProfileInput(req.body);
+    const { errors, isValid, isComplete } = validateProfileInput(req.body);
     //check validation
     if (!isValid) {
       //return any erros with 400 status
@@ -61,6 +61,10 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     profileFields.email = req.user.email;
+    profileFields.status = req.user.status;
+    if (req.user.status === "Incomplete" && isComplete) {
+      profileFields.status = "Registered";
+    }
     if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
