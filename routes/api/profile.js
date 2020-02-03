@@ -64,6 +64,7 @@ router.post(
     profileFields.status = req.user.status;
     if (req.user.status === "Incomplete" && isComplete) {
       profileFields.status = "Registered";
+      profileFields.statusChangedAt = new Date();
     }
     if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;

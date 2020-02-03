@@ -163,20 +163,42 @@ router.post(
       //if user is accepted and his current status is "Registered" meaning his application is completed OR force flag is on, set status to "ACCEPTED", save and send response
       if (status === "Accepted") {
         if (profile.status === "Registered" || force) {
+          profile.statusChangedAt = new Date();
           profile.status = status;
           profile.save().then(profile => {
             console.log(`USER ACCEPTED: ${profile.email}`);
-            return res.status(200).json(`user ${profile.email} accepted`);
+
+            //send confirmation email
+            profile.confirmationToken = uid(32);
+            profile.save().then(profile => {
+              const data = {
+                from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
+                to: profile.email,
+                subject: `${defaults.Event.name} You have been Accepted to HawkHack Spring 2020`,
+                html: `<p>Congratulations ${profile.firstName}!<br>You have been accepted to HawkHack Spring 2020. Please let us know if you are coming by clicking the link below.</p><p>www.${defaults.Links.website}/confirm/${profile.confirmationToken}`
+              };
+              mailgun.messages().send(data, (err, body) => {
+                if (err) {
+                  console.log("mailgun error: ", err);
+                  return res.status(500).json("error");
+                }
+                console.log(`Confirmation email sent to ${data.to}`);
+                return res
+                  .status(200)
+                  .json(
+                    `User ${profile.email} accepted. Email sent to ${profile.email}`
+                  );
+              });
+            });
           });
         }
       }
       //if user is denied, set status to denied, save, and send response
       if (status === "Denied") {
         profile.status = status;
-        profile.save().then(profile => {
-          console.log(`USER DENIED: ${profile.email}`);
-          return res.status(200).json(`user ${profile.email} denied`);
-        });
+
+        console.log(`USER DENIED: ${profile.email}`);
+        return res.status(200).json(`user ${profile.email} denied`);
       }
       //if invalid status or something else didn't go through, cry about it.
       console.log(

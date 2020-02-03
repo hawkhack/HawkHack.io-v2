@@ -19,6 +19,12 @@ const ProfileSchema = new Schema({
     ],
     default: "Incomplete"
   },
+  statusChangedAt: {
+    type: Date
+  },
+  confirmationToken: {
+    type: String
+  },
   firstName: {
     type: String,
     max: 20
