@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +16,7 @@ import IsVerified from './sections/IsVerified';
 import RealDashboard from './sections/RealDashboard';
 import Progress from './sections/Progress';
 
-const Dashboard = () => {
+const Dashboard = ({ ...props }) => {
   const [values, setValues] = useState({
     user: {},
     dash: null,
@@ -25,10 +26,14 @@ const Dashboard = () => {
     setValues({ ...values, [key]: val });
   };
 
+  const handleError = () => {
+    props.history.push('/NotFound');
+  }
+
   const classes = dashboardStyles();
 
   useEffect(() => {
-    if (localStorage.getItem("cool-jwt")) {
+    if (localStorage.getItem('cool-jwt')) {
       const apiCall = async () => {
         try {
           const user = await GetUser();
@@ -38,7 +43,7 @@ const Dashboard = () => {
             ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
         } catch (err) {
           // Redirect to 404 page
-          console.log(err);
+          handleError()
         }
       };
 

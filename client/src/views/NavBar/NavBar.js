@@ -43,7 +43,6 @@ const NavBar = ({ route }) => {
         return (
           <UserNav
             top={top}
-            classes={classes}
           />
         );
       default:

@@ -21,6 +21,9 @@ const styles = makeStyles((theme) => ({
   buttonNotTop: {
     color: theme.palette.primary.main,
   },
+  navLink: {
+    textDecoration: "none"
+  }
 }));
 
 const RegisterNav = ({ top }) => {

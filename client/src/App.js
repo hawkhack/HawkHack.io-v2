@@ -7,6 +7,8 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Dashboard from './views/Dashboard/Dashboard';
 import ResetPassword from './views/ResetPassword/ResetPassword';
+import NotFound from './views/NotFound/NotFound';
+
 import PrivateRoute from './assets/utils/PrivateRoute';
 import theme from './theme';
 
@@ -14,11 +16,14 @@ const App = () => (
   <BrowserRouter>
     <MuiThemeProvider theme={theme}>
       <Switch>
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/reset/:token" component={ResetPassword} />
         <Route exact path="/" component={LandingPage} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        
+        <Route component={NotFound} />
       </Switch>
     </MuiThemeProvider>
   </BrowserRouter>
