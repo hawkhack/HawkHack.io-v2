@@ -31,14 +31,12 @@ const NavBar = ({ route }) => {
         return (
           <RegisterNav
             top={top}
-            classes={classes}
           />
         );
       case 'login':
         return (
           <LoginNav
             top={top}
-            classes={classes}
           />
         );
       case 'user':

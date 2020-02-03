@@ -37,7 +37,7 @@ const Dashboard = () => {
           ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
       } catch (err) {
         // Redirect to 404 page
-        // console.log(err);
+        console.log(err);
       }
     };
 

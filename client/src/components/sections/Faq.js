@@ -81,7 +81,7 @@ const Faq = () => {
             justify="center"
             alignItems="center"
           >
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -99,7 +99,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -115,7 +115,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -132,7 +132,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -160,7 +160,7 @@ const Faq = () => {
             justify="center"
             alignItems="center"
           >
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -179,7 +179,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -195,7 +195,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -211,7 +211,7 @@ const Faq = () => {
                 </ExpansionPanel>
               </div>
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
                 <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">

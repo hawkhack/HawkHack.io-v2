@@ -11,8 +11,7 @@ const navbarStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   navBarText: {
-    color: theme.palette.primary.secondary,
-    display: 'none',
+    color: theme.palette.primary.main,
   },
   navbarScrolled: {
     color: theme.palette.primary.main,
