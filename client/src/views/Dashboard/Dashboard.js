@@ -28,20 +28,22 @@ const Dashboard = () => {
   const classes = dashboardStyles();
 
   useEffect(() => {
-    const apiCall = async () => {
-      try {
-        const user = await GetUser();
+    if (localStorage.getItem("cool-jwt")) {
+      const apiCall = async () => {
+        try {
+          const user = await GetUser();
 
-        handleState('user', user.data);
-        handleState('dash', user.data.isVerified
-          ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
-      } catch (err) {
-        // Redirect to 404 page
-        console.log(err);
-      }
-    };
+          handleState('user', user.data);
+          handleState('dash', user.data.isVerified
+            ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
+        } catch (err) {
+          // Redirect to 404 page
+          console.log(err);
+        }
+      };
 
-    apiCall();
+      apiCall();
+    }
     // eslint-disable-next-line
   }, []);
 

@@ -21,18 +21,18 @@ const styles = makeStyles((theme) => ({
   buttonNotTop: {
     color: theme.palette.primary.main,
   },
-}))
+}));
 
 const LoginNav = ({ top }) => {
   const classes = styles();
 
-  const hh = top ? classes.navBarText : classes.navbarScrolled
-  const log = top ? classes.buttonTop : classes.buttonNotTop
+  const hh = top ? classes.navBarText : classes.navbarScrolled;
+  const log = top ? classes.buttonTop : classes.buttonNotTop;
 
   return (
     <>
       <Grid item>
-      {!top
+        {!top
         && (
         <div>
           <Typography
@@ -58,7 +58,7 @@ const LoginNav = ({ top }) => {
         </div>
       </Grid>
     </>
-  )
+  );
 };
 
 export default LoginNav;
