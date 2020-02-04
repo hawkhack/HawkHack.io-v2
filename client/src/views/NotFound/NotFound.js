@@ -20,7 +20,7 @@ const styles = makeStyles(() => ({
 
 let msg = "Something went wrong, but we've been notified";
 
-const NotFound = ({ message, ...props }) => {
+const NotFound = ({ message }) => {
   const classes = styles();
 
   if (message && message.length !== 0) msg = message;

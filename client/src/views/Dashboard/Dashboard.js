@@ -15,7 +15,6 @@ import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
 import IsVerified from './sections/IsVerified';
 import RealDashboard from './sections/RealDashboard';
-import Progress from './sections/Progress';
 
 const Dashboard = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -28,7 +27,7 @@ const Dashboard = ({ ...props }) => {
   };
 
   const handleError = () => {
-    localStorage.removeItem("cool-jwt");
+    localStorage.removeItem('cool-jwt');
     props.history.push('/NotFound');
   };
 
@@ -84,8 +83,8 @@ const Dashboard = ({ ...props }) => {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          {!values.dash ? (   
-            <>   
+          {!values.dash ? (
+            <>
               <Grid
                 container
                 direction="column"

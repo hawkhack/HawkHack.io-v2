@@ -10,9 +10,7 @@ const Progress = ({ classes }) => (
     align="center"
     className={classes.dash}
   >
-    <Grid item>
-
-    </Grid>
+    <Grid item />
   </Grid>
 );
 
