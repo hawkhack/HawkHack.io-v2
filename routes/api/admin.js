@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const wrap = require("../../middleware/asyncWrapper");
 
 const getDefaults = require("../../config/defaults");
 
@@ -13,30 +14,21 @@ const verifyRole = require("../../middleware/verifyRole");
 
 router.get(
   "/stats",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
-  (req, res) => {
-    let response = {};
-    User.countDocuments()
-      .then(result => {
-        response.numusers = result;
-      })
-      .then(() => {
-        User.countDocuments({ status: "Registered" })
-          .then(result => {
-            response.numregistered = result;
-          })
-          .then(() => {
-            User.countDocuments({ role: "Participant" })
-              .then(result => {
-                response.numparticipants = result;
-              })
-              .then(() => {
-                res.status(200).json(response);
-              });
-          });
-      });
-  }
+  // passport.authenticate("jwt", { session: false }),
+  // verifyRole("Director", "Administrator"),
+  wrap(async (req, res, next) => {
+    const numUsers = await User.countDocuments();
+    const numAccepted = await Profile.countDocuments({ status: "Accepted" });
+    const numRegistered = await Profile.countDocuments({
+      status: "Registered"
+    });
+    const response = {
+      numUsers,
+      numRegistered,
+      numAccepted
+    };
+    return res.status(200).json(response);
+  })
 );
 
 router.get(
