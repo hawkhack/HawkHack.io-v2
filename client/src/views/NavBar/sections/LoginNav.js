@@ -22,8 +22,8 @@ const styles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
   },
   navLink: {
-    textDecoration: "none"
-  }
+    textDecoration: 'none',
+  },
 }));
 
 const LoginNav = ({ top }) => {

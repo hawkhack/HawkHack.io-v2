@@ -21,8 +21,8 @@ const styles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
   },
   navLink: {
-    textDecoration: "none"
-  }
+    textDecoration: 'none',
+  },
 }));
 
 const UserNav = ({ top }) => {
@@ -39,7 +39,7 @@ const UserNav = ({ top }) => {
   return (
     <>
       <Grid item>
-      {!top
+        {!top
       && (
       <div>
         <Typography

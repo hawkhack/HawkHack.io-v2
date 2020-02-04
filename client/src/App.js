@@ -22,7 +22,7 @@ const App = () => (
         <Route exact path="/register" component={Register} />
         <Route exact path="/reset/:token" component={ResetPassword} />
         <Route exact path="/" component={LandingPage} />
-        
+
         <Route component={NotFound} />
       </Switch>
     </MuiThemeProvider>

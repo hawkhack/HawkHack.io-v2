@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 
@@ -14,16 +14,14 @@ import Footer from '../../components/sections/Footer';
 
 const styles = makeStyles(() => ({
   wrapper: {
-    padding: 20
-  }
-}))
+    padding: 20,
+  },
+}));
 
-let msg = "Something went wrong, but we've been notified"
+let msg = "Something went wrong, but we've been notified";
 
 const NotFound = ({ message, ...props }) => {
   const classes = styles();
-
-  console.log(props)
 
   if (message && message.length !== 0) msg = message;
 
@@ -36,7 +34,7 @@ const NotFound = ({ message, ...props }) => {
           direction="column"
           justify="center"
           alignItems="center"
-          style={{ height: "100vh", zIndex: "100" }}
+          style={{ height: '100vh', zIndex: '100' }}
         >
           <Grid item>
             <div className={classes.wrapper}>
@@ -60,8 +58,8 @@ const NotFound = ({ message, ...props }) => {
           </Grid>
           <Grid item>
             <div className={classes.wrapper}>
-              <NavLink to="/" style={{ textDecoration: "none" }}>
-                <Button variant="contained" size="large" color="primary"> 
+              <NavLink to="/" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="large" color="primary">
                   Home
                 </Button>
               </NavLink>
@@ -71,7 +69,7 @@ const NotFound = ({ message, ...props }) => {
       </Parallax>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default NotFound;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import classNames from 'classnames';
 
 import dashboardStyles from '../../assets/styles/dashboardStyles';
@@ -27,8 +28,9 @@ const Dashboard = ({ ...props }) => {
   };
 
   const handleError = () => {
+    localStorage.removeItem("cool-jwt");
     props.history.push('/NotFound');
-  }
+  };
 
   const classes = dashboardStyles();
 
@@ -42,8 +44,7 @@ const Dashboard = ({ ...props }) => {
           handleState('dash', user.data.isVerified
             ? <RealDashboard classes={classes} /> : <IsVerified classes={classes} />);
         } catch (err) {
-          // Redirect to 404 page
-          handleError()
+          handleError();
         }
       };
 
@@ -83,7 +84,29 @@ const Dashboard = ({ ...props }) => {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          {!values.dash ? <Progress classes={classes} /> : values.dash}
+          {!values.dash ? (   
+            <>   
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                align="center"
+                className={classes.dash}
+              >
+                <Grid item>
+                  <div className={classes.wrapper}>
+                    <Skeleton variant="rect" width={210} height={50} />
+                  </div>
+                  <div className={classes.wrapper}>
+                    <Skeleton variant="text" width={400} />
+                    <Skeleton variant="text" width={400} />
+                    <Skeleton variant="text" width={400} />
+                    <Skeleton variant="text" width={400} />
+                  </div>
+                </Grid>
+              </Grid>
+            </>
+          ) : values.dash}
         </div>
       </div>
       <Footer />
