@@ -8,7 +8,7 @@ const randtoken = require("rand-token");
 const uid = randtoken.uid;
 const { secretOrKey, mailchimpKey } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
-const defaults = require("../../config/defaults.json");
+const getDefaults = require("../../config/defaults");
 const verify = require("../../middleware/verifyActive");
 
 //Load user model
@@ -58,6 +58,7 @@ router.get(
 //  @access Public
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
+  const defaults = getDefaults();
   //check validation
   if (!isValid) {
     return res.status(400).json(errors);
@@ -133,6 +134,7 @@ router.get(
   "/reverify",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const defaults = getDefaults();
     if (req.user.verified) {
       return res.status(400).json("user already verified");
     }
@@ -237,6 +239,7 @@ router.post(
 //  @access Public
 router.get("/resetpw/:email", (req, res) => {
   const email = req.params.email;
+  const defaults = getDefaults();
 
   User.findOne({ email: email }).then(user => {
     //if no user, smile and nod.

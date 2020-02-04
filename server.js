@@ -9,7 +9,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
-const defaults = require("./config/defaults.json");
+const getDefaults = require("./config/defaults");
 const mailgun = require("mailgun-js");
 
 //import keys
@@ -77,11 +77,8 @@ app.use("/api/u", users);
 app.use("/api/p", profile);
 app.use("/api/a", admin);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
-});
-
 app.get("/api", (req, res) => {
+  const defaults = getDefaults();
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
 });
 
@@ -114,6 +111,10 @@ app.get("/verify/:token", (req, res) => {
           .add({ members: member, subscribed: true });
       });
     });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
 const server = app.listen(port, () => {
