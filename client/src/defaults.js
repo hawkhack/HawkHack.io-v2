@@ -4,7 +4,7 @@ const defaults = {
   dateText: 'March 28th - March 29th',
   locationText: 'Student Center Ballrooms A, B, C',
   universityText: 'Montclair State University',
-  dayof: true,
+  dayof: false,
 };
 
 export default defaults;
