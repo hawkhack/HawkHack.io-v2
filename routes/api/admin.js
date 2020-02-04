@@ -3,11 +3,10 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
-const defaults = require("../../config/defaults.json");
+const getDefaults = require("../../config/defaults");
 
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
-const Event = require("../../models/Event");
 const List = require("../../models/List");
 
 const verifyRole = require("../../middleware/verifyRole");
@@ -145,6 +144,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   verifyRole("Administrator", "Director"),
   (req, res) => {
+    const defaults = getDefaults();
     const errors = {};
     //uid: user id
     //status: whether the user is Accepted or Denied
