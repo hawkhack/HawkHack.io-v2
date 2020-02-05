@@ -50,7 +50,7 @@ const Final = () => {
               <Grid item>
                 <div className={classes.wrapper}>
                   <NavLink
-                    to="register"
+                    to="/register"
                     className={classes.navLink}
                   >
                     <Button variant="contained" color="primary" className={classes.Button}>

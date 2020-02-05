@@ -17,12 +17,10 @@ const App = () => (
     <MuiThemeProvider theme={theme}>
       <Switch>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/reset/:token" component={ResetPassword} />
         <Route exact path="/" component={LandingPage} />
-
         <Route component={NotFound} />
       </Switch>
     </MuiThemeProvider>
