@@ -54,7 +54,7 @@ const Final = () => {
                     className={classes.navLink}
                   >
                     <Button variant="contained" color="primary" className={classes.Button}>
-                      Apply
+                      Register
                     </Button>
                   </NavLink>
                 </div>

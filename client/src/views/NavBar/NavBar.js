@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import { NavLink } from 'react-router-dom';
 import navbarStyles from '../../assets/styles/navbarStyles';
@@ -26,6 +27,10 @@ const NavBar = ({ route }) => {
   }, []);
 
   const routes = (rt) => {
+
+    const hh = top ? classes.navBarText : classes.navbarScrolled;
+    const log = top ? classes.buttonTop : classes.buttonNotTop;
+
     switch (rt) {
       case 'register':
         return (
@@ -47,14 +52,46 @@ const NavBar = ({ route }) => {
         );
       default:
         return (
-          <NavLink
-            to="login"
-            className={classes.navLink}
-          >
-            <Button color="inherit" className={top ? classes.buttonTop : classes.buttonNotTop}>
-              Login
-            </Button>
-          </NavLink>
+        <>
+          <Grid item>
+            {!top
+            && (
+            <div>
+              <Typography
+                color="secondary"
+                className={hh}
+                variant="h5"
+              >
+                HawkHack
+              </Typography>
+            </div>
+            )}
+          </Grid>
+          <Grid item>
+            <Grid container direction="row">
+              <Grid item>
+                <div className={classes.wrapper}>
+                  <NavLink
+                    to="login"
+                    className={classes.navLink}
+                  >
+                    <Button color="inherit" className={log}>
+                      Login
+                    </Button>
+                  </NavLink>
+                  <NavLink
+                    to="register"
+                    className={classes.navLink}
+                  >
+                    <Button color="inherit" className={log}>
+                      Register
+                    </Button>
+                  </NavLink>
+                </div>
+              </Grid>
+            </Grid>
+          </Grid>
+        </>
         );
     }
   };

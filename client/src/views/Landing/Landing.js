@@ -20,7 +20,7 @@ const LandingPage = () => {
     <>
       <CssBaseline />
       <NavBar
-        route="login"
+        route="home"
       />
       <Parallax filter image={image}>
         <div className={classes.container}>

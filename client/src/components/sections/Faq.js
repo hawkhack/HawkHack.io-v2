@@ -64,7 +64,7 @@ const Faq = () => {
       >
         <Grid item>
           <Typography variant="h1" color="primary">
-            Faq
+            FAQ
           </Typography>
         </Grid>
       </Grid>

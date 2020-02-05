@@ -64,7 +64,7 @@ const Hero = () => {
                   className={classes.navLink}
                 >
                   <Button variant="contained" color="primary" size="large" className={classes.Button}>
-                    Apply
+                    Register
                   </Button>
                 </NavLink>
               </div>
