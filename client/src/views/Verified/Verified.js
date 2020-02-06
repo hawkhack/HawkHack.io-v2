@@ -13,6 +13,7 @@ import image from '../../assets/styles/pictures/msubackground-1.png';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
+import { VerifyUser } from '../../assets/utils/api';
 
 const Verified = ({ ...props }) => {
   // const [values, setValues] = useState({
@@ -20,14 +21,26 @@ const Verified = ({ ...props }) => {
   // });
 
   useEffect(() => {
-    try {
-      if (!props.match.params.token) {
-        throw new Error('No token');
+    const apiCall = async () => {
+      try {
+        if (!props.match.params.token) {
+          throw new Error('No token');
+        }
+
+        const result = await VerifyUser(props.match.params.token);
+        if (!result.success) {
+          throw new Error('Something went wrong');
+        }
+
+        console.log(result);
+      } catch (err) {
+        console.log({ err });
+        // handleErrors(err);
       }
-    } catch (err) {
-      // console.log(err);
-      // handleErrors(err);
-    }
+    };
+
+
+    apiCall();
   }, []);
 
   const classes = dashboardStyles();
@@ -47,9 +60,7 @@ const Verified = ({ ...props }) => {
           style={{ height: '100%' }}
         >
           <Grid item>
-            <div>
-
-            </div>
+            <div />
           </Grid>
         </Grid>
       </Parallax>
