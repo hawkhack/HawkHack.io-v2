@@ -6,16 +6,15 @@ import Button from '@material-ui/core/Button';
 import { ResendVerifyEmail } from '../../../assets/utils/api';
 
 const IsVerified = ({ classes }) => {
-
   const ResendEmail = async () => {
     try {
       const result = await ResendVerifyEmail();
 
-      console.log(result)
+      console.log(result);
     } catch (err) {
-      console.log(err)
-    }  
-  }
+      console.log(err);
+    }
+  };
 
   return (
     <Grid
@@ -65,7 +64,7 @@ const IsVerified = ({ classes }) => {
         </Button>
       </Grid>
     </Grid>
-  )
+  );
 };
 
 export default IsVerified;
