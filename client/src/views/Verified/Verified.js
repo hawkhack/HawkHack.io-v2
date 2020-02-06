@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -15,23 +15,20 @@ import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
 
 const Verified = ({ ...props }) => {
-  const [values, setValues] = useState({
-    loading: false
-  })
-  
+  // const [values, setValues] = useState({
+  //   loading: false,
+  // });
+
   useEffect(() => {
     try {
-      if(!props.match.params.token) {
-        throw new Error("No token");
+      if (!props.match.params.token) {
+        throw new Error('No token');
       }
-
-
-
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       // handleErrors(err);
     }
-  }, [])
+  }, []);
 
   const classes = dashboardStyles();
 
@@ -64,12 +61,12 @@ const Verified = ({ ...props }) => {
         </Grid>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <Grid 
+        <Grid
           container
           justify="center"
           align="center"
           direction="column"
-          style={{ height: "90vh" }}
+          style={{ height: '90vh' }}
         >
           <Grid item>
             <div className={classes.wrapper}>
@@ -82,15 +79,15 @@ const Verified = ({ ...props }) => {
             </div>
           </Grid>
           <Grid item>
-              <Typography
-                variant="h5"
-                color="primary"
-              >
+            <Typography
+              variant="h5"
+              color="primary"
+            >
                 If the application is open, login to apply
-              </Typography>
+            </Typography>
           </Grid>
           <Grid item>
-            <Grid 
+            <Grid
               container
               direction="row"
               justify="center"
@@ -98,7 +95,7 @@ const Verified = ({ ...props }) => {
             >
               <Grid item>
                 <div className={classes.wrapper}>
-                  <NavLink to="/login" style={{ textDecoration: "none" }}>
+                  <NavLink to="/login" style={{ textDecoration: 'none' }}>
                     <Button variant="contained" size="large" color="primary">
                       Login
                     </Button>
@@ -107,7 +104,7 @@ const Verified = ({ ...props }) => {
               </Grid>
               <Grid item>
                 <div className={classes.wrapper}>
-                  <NavLink to="/register" style={{ textDecoration: "none" }}>
+                  <NavLink to="/register" style={{ textDecoration: 'none' }}>
                     <Button variant="contained" size="large" color="primary">
                       Register
                     </Button>
@@ -115,7 +112,7 @@ const Verified = ({ ...props }) => {
                 </div>
               </Grid>
             </Grid>
-          </Grid>  
+          </Grid>
         </Grid>
       </div>
       <Footer />
