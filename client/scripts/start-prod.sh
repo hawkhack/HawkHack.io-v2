@@ -1,5 +1,5 @@
 #!/bin/bash
-# Helper script that will bring up the application for local development
+# Helper script that will bring up the application for development
 
 set -e
 
@@ -20,6 +20,5 @@ file_exists ".env"
 
 echo "All configuration files exist!"
 
-npm i
-
-npm run 
+npm ci 
+npm run build

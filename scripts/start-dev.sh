@@ -1,6 +1,4 @@
 #!/bin/bash
-# Helper script that will bring up the application for local development
-
 set -e
 
 file_exists() {
@@ -12,14 +10,28 @@ file_exists() {
   fi
 }
 
+cd client || exit 1
 rm -rf node_modules
 echo "Removed node_modules"
 
 echo "Checking if the configuration files are setup..."
 file_exists ".env"
 
+echo "All configuration files in client exist!"
+
+npm i 
+echo "Make sure to 'npm start' the front end"
+cd ..
+
+rm -rf node_modules
+echo "Removed node_modules"
+
+echo "Checking if the configuration files are setup..."
+cd config
+file_exists ".env"
+cd ..
+
 echo "All configuration files exist!"
 
 npm i
-
-npm run 
+npm start

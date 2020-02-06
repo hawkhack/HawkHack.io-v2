@@ -12,14 +12,29 @@ file_exists() {
   fi
 }
 
+cd client || exit 1
 rm -rf node_modules
 echo "Removed node_modules"
 
 echo "Checking if the configuration files are setup..."
 file_exists ".env"
 
+echo "All configuration files in client exist!"
+
+npm ci 
+npm run build
+
+cd ..
+
+rm -rf node_modules
+echo "Removed node_modules"
+
+echo "Checking if the configuration files are setup..."
+cd config
+file_exists ".env"
+cd ..
+
 echo "All configuration files exist!"
 
-npm i
-
-npm run 
+npm ci
+npm start
