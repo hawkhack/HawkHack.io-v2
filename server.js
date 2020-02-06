@@ -99,7 +99,9 @@ app.get("/verify/:token", (req, res) => {
       user.verificationToken = "";
       //save user and return success
       user.save().then(() => {
-        res.redirect("/login");
+        res.status(200).send({
+          success: true
+        });
       });
       ProfileModel.findOne({ user: user.id }).then(profile => {
         const member = {

@@ -34,7 +34,6 @@ const Dashboard = ({ ...props }) => {
   const classes = dashboardStyles();
 
   useEffect(() => {
-    console.log(props.location.pathname)
     if (localStorage.getItem('cool-jwt')) {
       const apiCall = async () => {
         try {
