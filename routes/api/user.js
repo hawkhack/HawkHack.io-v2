@@ -18,7 +18,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 let domain = "www.hawkhack.io";
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   domain = "localhost:3000";
 }
 
