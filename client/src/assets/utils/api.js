@@ -49,3 +49,11 @@ export const VerifyUser = (token) => axios.get(`${apiURL}/verify/${token}`)
   .catch((err) => {
     throw err;
   });
+
+export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
+  headers: { Authorization: `${localStorage.getItem('cool-jwt')}` },
+})
+  .then((result) => result)
+  .catch((err) => {
+    throw err;
+  });

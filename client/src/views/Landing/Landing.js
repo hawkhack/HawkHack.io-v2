@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import classNames from 'classnames';
@@ -13,8 +13,12 @@ import Footer from '../../components/sections/Footer';
 import Final from '../../components/sections/Final';
 import Parallax from '../../components/sections/Parallax/Parallax';
 
-const LandingPage = () => {
+const LandingPage = (...props) => {
   const classes = landingPageStyles();
+
+  useEffect(() => {
+    console.log(props)
+  })
 
   return (
     <>
