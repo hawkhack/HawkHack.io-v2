@@ -13,7 +13,7 @@ import image from '../../assets/styles/pictures/msubackground-1.png';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
-import { VerifyUser } from '../../assets/utils/api'
+import { VerifyUser } from '../../assets/utils/api';
 
 const Verified = ({ ...props }) => {
   // const [values, setValues] = useState({
@@ -29,18 +29,18 @@ const Verified = ({ ...props }) => {
 
         const result = await VerifyUser(props.match.params.token);
         if (!result.success) {
-          throw new Error("Something went wrong")
+          throw new Error('Something went wrong');
         }
 
         console.log(result);
       } catch (err) {
-        console.log({err});
+        console.log({ err });
         // handleErrors(err);
       }
-    }
+    };
 
 
-    apiCall()
+    apiCall();
   }, []);
 
   const classes = dashboardStyles();
