@@ -3,10 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const request = require("request");
 const randtoken = require("rand-token");
 const uid = randtoken.uid;
-const { secretOrKey, mailchimpKey } = require("../../config/keys");
+const { secretOrKey } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
 const getDefaults = require("../../config/defaults");
 const verify = require("../../middleware/verifyActive");
@@ -18,7 +17,7 @@ const User = require("../../models/User");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-const domain = "www.hawkhack.io";
+let domain = "www.hawkhack.io";
 if (process.env.NODE_ENV === "production") {
   domain = "localhost:3000";
 }

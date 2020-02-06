@@ -12,7 +12,7 @@ const List = require("../../models/List");
 
 const verifyRole = require("../../middleware/verifyRole");
 
-const domain = "www.hawkhack.io";
+let domain = "www.hawkhack.io";
 if (process.env.NODE_ENV === "production") {
   domain = "localhost:3000";
 }
