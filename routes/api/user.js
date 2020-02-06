@@ -18,7 +18,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 let domain = "www.hawkhack.io";
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   domain = "localhost:3000";
 }
 
@@ -155,6 +155,7 @@ router.get(
         return res.status(500).json("error");
       }
       console.log(`verification email sent to ${data.to}`);
+      res.status(200).json({ success: true });
     });
   }
 );
@@ -306,6 +307,37 @@ router.get("/resetpw/:email", (req, res) => {
         });
       });
   });
+});
+
+router.get("/verify/:token", (req, res) => {
+  //get token from parameters
+  const token = req.params.token;
+  console.log(token);
+  //find user with this token
+  User.findOne({ verificationToken: token })
+    .select("verified verificationToken")
+    .then(user => {
+      if (!user) {
+        //if no user then no such token exists
+        return res.status(400).json("Invalid token");
+      }
+      //set verify flag to true
+      user.verified = true;
+      user.verificationToken = "";
+      //save user and return success
+      user.save().then(() => {
+        res.status(200).json({ success: true });
+      });
+      Profile.findOne({ user: user.id }).then(profile => {
+        const member = {
+          name: profile.firstName,
+          address: profile.email
+        };
+        mailgun
+          .lists("subscribers@mg.hawkhack.io")
+          .add({ members: member, subscribed: true });
+      });
+    });
 });
 
 module.exports = router;

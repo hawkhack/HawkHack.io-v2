@@ -13,7 +13,7 @@ const List = require("../../models/List");
 const verifyRole = require("../../middleware/verifyRole");
 
 let domain = "www.hawkhack.io";
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   domain = "localhost:3000";
 }
 
