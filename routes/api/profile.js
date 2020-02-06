@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const wrap = require("../../middleware/asyncWrapper");
 
 //load middleware
 const verify = require("../../middleware/verifyActive");
@@ -49,61 +50,85 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   verify(),
-  (req, res) => {
+  wrap(async (req, res) => {
     const { errors, isValid, isComplete } = validateProfileInput(req.body);
     //check validation
     if (!isValid) {
       //return any erros with 400 status
       return res.status(400).json(errors);
     }
-    //get fields
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    profileFields.email = req.user.email;
-    profileFields.status = req.user.status;
-    if (req.user.status === "Incomplete" && isComplete) {
-      profileFields.status = "Registered";
-      profileFields.statusChangedAt = new Date();
-    }
-    if (req.body.firstName) profileFields.firstName = req.body.firstName;
-    if (req.body.lastName) profileFields.lastName = req.body.lastName;
-    if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
-    if (req.body.dateOfBirth) profileFields.dateOfBirth = req.body.dateOfBirth;
-    if (req.body.shirtSize) profileFields.shirtSize = req.body.shirtSize;
-    if (req.body.gender) profileFields.gender = req.body.gender;
-    if (req.body.ethnicity) profileFields.ethnicity = req.body.ethnicity;
-    if (req.body.github) profileFields.github = req.body.github;
-    if (req.body.linkedin) profileFields.linkedin = req.body.linkedin;
-    if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.school) profileFields.school = req.body.school;
-    if (req.body.graduationYear)
-      profileFields.graduationYear = req.body.graduationYear;
-    if (req.body.levelOfStudy)
-      profileFields.levelOfStudy = req.body.levelOfStudy;
-    if (req.body.major) profileFields.major = req.body.major;
-    if (req.body.dietaryRestrictions)
-      profileFields.dietaryRestrictions = req.body.dietaryRestrictions;
-    if (req.body.specialNeeds)
-      profileFields.specialNeeds = req.body.specialNeeds;
 
-    Profile.findOne({ user: req.user.id }).then(profile => {
+    //get fields
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      dateOfBirth,
+      shirtSize,
+      gender,
+      ethnicity,
+      github,
+      linkedin,
+      website,
+      school,
+      graduationYear,
+      levelOfStudy,
+      major,
+      dietaryRestrictions,
+      specialNeeds,
+      emergencyName,
+      emergencyNumber
+    } = req.body;
+
+    const profileFields = {
+      user: req.user.id,
+      email: req.user.email,
+      firstName,
+      lastName,
+      phoneNumber,
+      dateOfBirth,
+      shirtSize,
+      gender,
+      ethnicity,
+      github,
+      linkedin,
+      website,
+      school,
+      graduationYear,
+      levelOfStudy,
+      major,
+      dietaryRestrictions,
+      specialNeeds,
+      emergencyName,
+      emergencyNumber
+    };
+
+    try {
+      const profile = await Profile.findOne({ id: req.user.id });
       if (profile) {
+        if (profile.status === "Incomplete" && isComplete) {
+          profileFiends.status = "Registered";
+          profileFields.statusChangedAt = new Date();
+        }
         //Update
-        Profile.findOneAndUpdate(
+        const updatedProfile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
           { new: true, runValidators: true }
-        )
-          .then(profile => res.json(profile))
-          .catch(err => {
-            console.log(err.errors);
-            return res.status(400).json("something went wrong");
-          });
+        );
+        return res.status(200).json(updatedProfile);
       } else {
-        new Profile(profileFields).save().then(profile => res.json(profile));
+        if (isComplete) {
+          profileFields.status = "Complete";
+        }
+        const savedProfile = await new Profile(profileFields).save();
+        return res.status(200).json(savedProfile);
       }
-    });
-  }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  })
 );
 
 //  @route  GET api/p/:user_id

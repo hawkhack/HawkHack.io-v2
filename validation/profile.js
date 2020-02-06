@@ -23,6 +23,10 @@ module.exports = function validateProfileInput(data) {
     ? data.dietaryRestrictions
     : "";
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
+  data.emergencyName = !isEmpty(data.emergencyName) ? data.emergencyName : "";
+  data.emergencyNumber = !isEmpty(data.emergencyNumber)
+    ? data.emergencyNumber
+    : "";
 
   if (!isEmpty(data.firstName)) {
     if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
@@ -99,6 +103,18 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
+  if (!isEmpty(data.emergencyNumber)) {
+    if (!Validator.isMobilePhone(data.emergencyNumber)) {
+      errors.emergencyNumber = "Not a valid Phone Number";
+    }
+  }
+
+  if (!isEmpty(data.emergencyName)) {
+    if (!Validator.isLength(data.emergencyName, { min: 5, max: 20 })) {
+      errors.emergencyName = "Name needs to be between 5 and 20 characters";
+    }
+  }
+
   isComplete = () => {
     if (
       data.firstName &&
@@ -111,7 +127,9 @@ module.exports = function validateProfileInput(data) {
       data.school &&
       data.graduationYear &&
       data.levelOfStudy &&
-      data.major
+      data.major &&
+      data.emergencyName &&
+      data.emergencyNumber
     ) {
       return true;
     }

@@ -91,6 +91,16 @@ const ProfileSchema = new Schema({
     default: "None",
     max: 200
   },
+  emergencyName: {
+    type: String,
+    max: 20,
+    required: true
+  },
+  emergencyNumber: {
+    type: String,
+    max: 20,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
