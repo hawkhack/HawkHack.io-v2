@@ -27,7 +27,6 @@ const NavBar = ({ route }) => {
   }, []);
 
   const routes = (rt) => {
-
     const hh = top ? classes.navBarText : classes.navbarScrolled;
     const log = top ? classes.buttonTop : classes.buttonNotTop;
 
@@ -52,9 +51,9 @@ const NavBar = ({ route }) => {
         );
       default:
         return (
-        <>
-          <Grid item>
-            {!top
+          <>
+            <Grid item>
+              {!top
             && (
             <div>
               <Typography
@@ -66,32 +65,32 @@ const NavBar = ({ route }) => {
               </Typography>
             </div>
             )}
-          </Grid>
-          <Grid item>
-            <Grid container direction="row">
-              <Grid item>
-                <div className={classes.wrapper}>
-                  <NavLink
-                    to="login"
-                    className={classes.navLink}
-                  >
-                    <Button color="inherit" className={log}>
+            </Grid>
+            <Grid item>
+              <Grid container direction="row">
+                <Grid item>
+                  <div className={classes.wrapper}>
+                    <NavLink
+                      to="login"
+                      className={classes.navLink}
+                    >
+                      <Button color="inherit" className={log}>
                       Login
-                    </Button>
-                  </NavLink>
-                  <NavLink
-                    to="register"
-                    className={classes.navLink}
-                  >
-                    <Button color="inherit" className={log}>
+                      </Button>
+                    </NavLink>
+                    <NavLink
+                      to="register"
+                      className={classes.navLink}
+                    >
+                      <Button color="inherit" className={log}>
                       Register
-                    </Button>
-                  </NavLink>
-                </div>
+                      </Button>
+                    </NavLink>
+                  </div>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </>
+          </>
         );
     }
   };
