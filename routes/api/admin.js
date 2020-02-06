@@ -12,6 +12,11 @@ const List = require("../../models/List");
 
 const verifyRole = require("../../middleware/verifyRole");
 
+const domain = "www.hawkhack.io";
+if (process.env.NODE_ENV === "production") {
+  domain = "localhost:3000";
+}
+
 router.get(
   "/stats",
   passport.authenticate("jwt", { session: false }),
@@ -187,7 +192,7 @@ router.post(
             from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
             to: savedProfile.email,
             subject: `${defaults.Event.name} You have been Accepted to HawkHack Spring 2020`,
-            html: `<p>Congratulations ${savedProfile.firstName}!<br>You have been accepted to HawkHack Spring 2020. Please let us know if you are coming by clicking the link below.</p><p>www.${defaults.Links.website}/confirm/${savedProfile.confirmationToken}`
+            html: `<p>Congratulations ${savedProfile.firstName}!<br>You have been accepted to HawkHack Spring 2020. Please let us know if you are coming by clicking the link below.</p><p>${domain}/confirm/${savedProfile.confirmationToken}`
           };
           mailgun.messages().send(data, (err, body) => {
             if (err) {

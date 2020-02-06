@@ -18,6 +18,11 @@ const User = require("../../models/User");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
+const domain = "www.hawkhack.io";
+if (process.env.NODE_ENV === "production") {
+  domain = "localhost:3000";
+}
+
 //  @route  GET api/u/test
 //  @desc   Test users route
 //  @access Public
@@ -90,11 +95,12 @@ router.post("/register", (req, res) => {
             .save()
             .then(user => {
               //send email verification
+
               const data = {
                 from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
                 to: user.email,
                 subject: `${defaults.Event.name} Please verify your email`,
-                html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.hawkhack.io/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+                html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
               };
               mailgun.messages().send(data, (err, body) => {
                 if (err) {
@@ -142,7 +148,7 @@ router.get(
       from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
       to: req.user.email,
       subject: `${defaults.Event.name} Please verify your email`,
-      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>www.dev.hawkhack.io/verify/${req.user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${req.user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
     };
     mailgun.messages().send(data, (err, body) => {
       if (err) {
@@ -255,7 +261,7 @@ router.get("/resetpw/:email", (req, res) => {
         from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
         to: user.email,
         subject: `${defaults.Event.name} Password Reset`,
-        html: `<p>Hi,<br>An account registered in ${defaults.Event.name} has issued a password reset. Clicking the link below to reset your password. </p><p>www.${defaults.Links.domain}/reset/${token}</p><p>If you did not issue a password reset please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+        html: `<p>Hi,<br>An account registered in ${defaults.Event.name} has issued a password reset. Clicking the link below to reset your password. </p><p>${domain}/reset/${token}</p><p>If you did not issue a password reset please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
       };
       mailgun.messages().send(data, (err, body) => {
         if (err) {
