@@ -18,11 +18,11 @@ const App = () => (
     <MuiThemeProvider theme={theme}>
       <Switch>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/verify/:token" component={Verified} />
-        <Route exact path="/reset/:token" component={ResetPassword} />
+        <Route exact strict path="/" component={LandingPage} />
+        <Route exact strict path="/login" component={Login} />
+        <Route exact strict path="/register" component={Register} />
+        <Route exact strict path="/verify/:token" component={Verified} />
+        <Route exact strict path="/reset/:token" component={ResetPassword} />
         <Route component={NotFound} />
       </Switch>
     </MuiThemeProvider>

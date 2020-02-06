@@ -1,5 +1,5 @@
 #!/bin/bash
-# Helper script that will bring up the application for local development
+# Helper script that will bring up the application for development
 
 set -e
 

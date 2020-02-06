@@ -48,14 +48,7 @@ const Verified = ({ ...props }) => {
         >
           <Grid item>
             <div>
-              <Typography
-                variant="h1"
-                align="center"
-                color="secondary"
-                className={classes.dashboardTitle}
-              >
-                Your Dashboard
-              </Typography>
+
             </div>
           </Grid>
         </Grid>
