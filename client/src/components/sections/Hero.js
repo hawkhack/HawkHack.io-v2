@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import defaults from '../../defaults';
 
 import heroStyles from '../../assets/styles/heroStyles';
+import Countdown from "react-countdown-now";
 
 const Hero = () => {
   const classes = heroStyles();
@@ -70,6 +71,39 @@ const Hero = () => {
               </div>
             </Grid>
           </Grid>
+          <div className={classes.countdown}>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="center"
+            >
+              <Grid item>
+                Countdown <br></br>to Hacking
+              </Grid>
+              <Grid item>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                justify="center"
+              >
+                <Grid item>
+                  <Typography
+                    variant="h5"
+                    color="secondary"
+                    align="center"
+                  >
+                    Day:Hr:Mn:Sec
+              </Typography>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Countdown date={Date.parse(defaults.startDateText)} />
+                </Grid>
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
       </Grid>
       <ScrollDownIndicator />

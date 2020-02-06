@@ -92,6 +92,11 @@ const heroStyles = makeStyles(() => ({
   navLink: {
     textDecoration: 'none',
   },
+  countdown: {
+    fontSize: 'calc(17px + 1.5vw)',
+    fontFamily: 'Roboto',
+    fontWeight: 300,
+  }
 }));
 
 export default heroStyles;
