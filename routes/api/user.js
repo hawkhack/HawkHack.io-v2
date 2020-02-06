@@ -325,7 +325,7 @@ router.get("/verify/:token", (req, res) => {
       user.verificationToken = "";
       //save user and return success
       user.save().then(() => {
-        res.redirect("/login");
+        res.status(200).json({ success: true });
       });
       Profile.findOne({ user: user.id }).then(profile => {
         const member = {
