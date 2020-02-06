@@ -17,8 +17,8 @@ const LandingPage = (...props) => {
   const classes = landingPageStyles();
 
   useEffect(() => {
-    console.log(props)
-  })
+    console.log(props);
+  });
 
   return (
     <>
