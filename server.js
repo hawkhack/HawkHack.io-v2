@@ -10,7 +10,6 @@ const hpp = require("hpp");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const getDefaults = require("./config/defaults");
-const mailgun = require("mailgun-js");
 
 //import keys
 const { port, dburi } = require("./config/keys");
@@ -19,9 +18,6 @@ const { port, dburi } = require("./config/keys");
 const users = require("./routes/api/user");
 const profile = require("./routes/api/profile");
 const admin = require("./routes/api/admin");
-
-const UserModel = require("./models/User");
-const ProfileModel = require("./models/Profile");
 
 const app = express();
 
@@ -80,37 +76,6 @@ app.use("/api/a", admin);
 app.get("/api", (req, res) => {
   const defaults = getDefaults();
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
-});
-
-app.get("/verify/:token", (req, res) => {
-  //get token from parameters
-  const token = req.params.token;
-  console.log(token);
-  //find user with this token
-  UserModel.findOne({ verificationToken: token })
-    .select("verified verificationToken")
-    .then(user => {
-      if (!user) {
-        //if no user then no such token exists
-        return res.status(400).json("Invalid token");
-      }
-      //set verify flag to true
-      user.verified = true;
-      user.verificationToken = "";
-      //save user and return success
-      user.save().then(() => {
-        res.redirect("/login");
-      });
-      ProfileModel.findOne({ user: user.id }).then(profile => {
-        const member = {
-          name: profile.firstName,
-          address: profile.email
-        };
-        mailgun
-          .lists("subscribers@mg.hawkhack.io")
-          .add({ members: member, subscribed: true });
-      });
-    });
 });
 
 app.get("*", (req, res) => {

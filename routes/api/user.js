@@ -308,4 +308,35 @@ router.get("/resetpw/:email", (req, res) => {
   });
 });
 
+router.get("/verify/:token", (req, res) => {
+  //get token from parameters
+  const token = req.params.token;
+  console.log(token);
+  //find user with this token
+  User.findOne({ verificationToken: token })
+    .select("verified verificationToken")
+    .then(user => {
+      if (!user) {
+        //if no user then no such token exists
+        return res.status(400).json("Invalid token");
+      }
+      //set verify flag to true
+      user.verified = true;
+      user.verificationToken = "";
+      //save user and return success
+      user.save().then(() => {
+        res.redirect("/login");
+      });
+      Profile.findOne({ user: user.id }).then(profile => {
+        const member = {
+          name: profile.firstName,
+          address: profile.email
+        };
+        mailgun
+          .lists("subscribers@mg.hawkhack.io")
+          .add({ members: member, subscribed: true });
+      });
+    });
+});
+
 module.exports = router;
