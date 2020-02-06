@@ -9,6 +9,7 @@ const { secretOrKey } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
 const getDefaults = require("../../config/defaults");
 const verify = require("../../middleware/verifyActive");
+const wrap = require("../../middleware/asyncWrapper");
 
 //Load user model
 const User = require("../../models/User");
@@ -138,16 +139,19 @@ router.post("/register", (req, res) => {
 router.get(
   "/reverify",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  wrap(async (req, res) => {
     const defaults = getDefaults();
     if (req.user.verified) {
       return res.status(400).json("user already verified");
     }
+    const user = await User.findOne({ id: req.user.id }).populate(
+      "verificationToken"
+    );
     const data = {
       from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
       to: req.user.email,
       subject: `${defaults.Event.name} Please verify your email`,
-      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${req.user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
+      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
     };
     mailgun.messages().send(data, (err, body) => {
       if (err) {
@@ -157,7 +161,7 @@ router.get(
       console.log(`verification email sent to ${data.to}`);
       res.status(200).json({ success: true });
     });
-  }
+  })
 );
 
 //  @route  POST api/u/login
