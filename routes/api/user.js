@@ -155,6 +155,7 @@ router.get(
         return res.status(500).json("error");
       }
       console.log(`verification email sent to ${data.to}`);
+      res.status(200).json({ success: true });
     });
   }
 );
