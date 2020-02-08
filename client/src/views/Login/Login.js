@@ -225,6 +225,7 @@ const Login = ({ ...props }) => {
                       className={classes.button}
                       disabled={values.loading}
                       onClick={submit}
+                      type="submit"
                     >
                           Submit
                     </Button>

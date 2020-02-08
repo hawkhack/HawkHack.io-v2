@@ -163,6 +163,7 @@ const Register = ({ ...props }) => {
                               <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
+                                tabIndex={-1}
                                 onMouseDown={handleMouseDownPassword}
                               >
                                 {values.showPassword ? <Visibility /> : <VisibilityOff />}
@@ -209,6 +210,7 @@ const Register = ({ ...props }) => {
                       disabled={values.loading}
                       className={classes.button}
                       onClick={submit}
+                      type="submit"
                     >
                       Submit
                     </Button>
