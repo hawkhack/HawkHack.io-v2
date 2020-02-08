@@ -16,11 +16,20 @@ import Parallax from '../../components/sections/Parallax/Parallax';
 import { VerifyUser } from '../../assets/utils/api';
 
 const Verified = ({ ...props }) => {
-  // const [values, setValues] = useState({
-  //   loading: false,
-  // });
+  const removeJWT = () => {
+    const token = localStorage.getItem('cool-jwt');
+    if (token != null) {
+      localStorage.removeItem('cool-jwt');
+    }
+  };
+
+  const handleError = () => {
+    localStorage.removeItem('cool-jwt');
+    props.history.push('/NotFound');
+  };
 
   useEffect(() => {
+    removeJWT();
     const apiCall = async () => {
       try {
         if (!props.match.params.token) {
@@ -28,14 +37,12 @@ const Verified = ({ ...props }) => {
         }
 
         const result = await VerifyUser(props.match.params.token);
-        if (!result.success) {
+        if (!result.data.success) {
           throw new Error('Something went wrong');
         }
-
-        console.log(result);
       } catch (err) {
-        console.log({ err });
-        // handleErrors(err);
+        // Redirect to 404
+        handleError(err);
       }
     };
 

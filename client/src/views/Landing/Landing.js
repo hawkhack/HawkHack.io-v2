@@ -13,11 +13,11 @@ import Footer from '../../components/sections/Footer';
 import Final from '../../components/sections/Final';
 import Parallax from '../../components/sections/Parallax/Parallax';
 
-const LandingPage = (...props) => {
+const LandingPage = () => {
   const classes = landingPageStyles();
 
   useEffect(() => {
-    console.log(props);
+
   });
 
   return (
