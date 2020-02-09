@@ -37,12 +37,12 @@ const Sponsors = ({ ...props }) => {
             </Grid>
             <Grid item xs={12} sm={12} md={3}>
               <div className={classes.imgWrapper}>
-                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/monsterlogo.png" alt="monster" />
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/gfuel.png" alt="g" />
               </div>
             </Grid>
             <Grid item xs={12} sm={12} md={3}>
               <div className={classes.imgWrapper}>
-                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/gfuel.png" alt="g" />
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/monsterlogo.png" alt="monster" />
               </div>
             </Grid>
           </Grid>

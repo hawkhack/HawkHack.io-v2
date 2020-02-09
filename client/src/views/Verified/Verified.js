@@ -48,6 +48,7 @@ const Verified = ({ ...props }) => {
 
 
     apiCall();
+    // eslint-disable-next-line
   }, []);
 
   const classes = dashboardStyles();

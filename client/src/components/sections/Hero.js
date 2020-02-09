@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import { ScrollDownIndicator } from 'react-landing-page';
 import { NavLink } from 'react-router-dom';
-import defaults from '../../defaults';
+import { defaults } from '../../defaults';
 
 import heroStyles from '../../assets/styles/heroStyles';
 

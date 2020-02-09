@@ -59,7 +59,7 @@ const About = () => {
               gutterBottom
               className={classes.whatText}
             >
-              <b>November 23rd, 10:00 AM to November 24th, 10:00 AM</b>
+              <b>March 28th, 10:00 AM to March 29th, 3:00 PM</b>
               <br />
               <b>Montclair State University, Student Center - Ballrooms A, B, C</b>
             </Typography>
@@ -67,7 +67,7 @@ const About = () => {
         </Grid>
         <Grid item sm={12} md={12} lg={6}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src={"https://msu-images.s3.amazonaws.com/msu.jpg"} alt="there should be something really cool here" />
+            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/msu.jpg" alt="there should be something really cool here" />
           </div>
         </Grid>
       </Grid>
