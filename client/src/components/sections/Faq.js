@@ -63,7 +63,7 @@ const Faq = () => {
         alignItems="center"
       >
         <Grid item>
-          <Typography variant="h1" color="primary">
+          <Typography variant="h2" style={{ fontWeight: '300' }} color="primary">
             FAQ
           </Typography>
         </Grid>

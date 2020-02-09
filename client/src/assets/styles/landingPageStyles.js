@@ -23,8 +23,6 @@ const landingPageStyles = makeStyles((theme) => ({
     '@media (min-width: 1200px)': {
       maxWidth: '100%',
     },
-    paddingRight: '15px',
-    paddingLeft: '15px',
     marginRight: 'auto',
     marginLeft: 'auto',
     width: '100%',

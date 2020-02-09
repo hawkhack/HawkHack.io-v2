@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import classNames from 'classnames';
@@ -11,14 +11,11 @@ import About from '../../components/sections/About';
 import Faq from '../../components/sections/Faq';
 import Footer from '../../components/sections/Footer';
 import Final from '../../components/sections/Final';
+import Sponsors from '../../components/sections/Sponsors';
 import Parallax from '../../components/sections/Parallax/Parallax';
 
 const LandingPage = () => {
   const classes = landingPageStyles();
-
-  useEffect(() => {
-
-  });
 
   return (
     <>
@@ -34,6 +31,7 @@ const LandingPage = () => {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <About />
+          <Sponsors />
           <Faq />
           <Final />
         </div>

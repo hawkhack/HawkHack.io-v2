@@ -8,11 +8,9 @@ import { ResendVerifyEmail } from '../../../assets/utils/api';
 const IsVerified = ({ classes }) => {
   const ResendEmail = async () => {
     try {
-      const result = await ResendVerifyEmail();
-
-      console.log(result);
+      await ResendVerifyEmail();
     } catch (err) {
-      console.log(err);
+      // so something
     }
   };
 

@@ -203,6 +203,7 @@ const Login = ({ ...props }) => {
                                 <IconButton
                                   aria-label="toggle password visibility"
                                   onClick={handleClickShowPassword}
+                                  tabIndex={-1}
                                   onMouseDown={handleMouseDownPassword}
                                 >
                                   {values.showPassword ? <Visibility /> : <VisibilityOff />}

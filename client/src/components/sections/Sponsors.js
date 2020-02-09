@@ -6,134 +6,48 @@ const Sponsors = ({ ...props }) => {
   const { classes } = props;
 
   return (
-    <div className={classes.image}>
-      <div className={classes.grad}>
-        <div className={classes.wholeWrapper}>
-          <div className={classes.title}>
-            <Typography variant="h2" align="center">
-              our sponsors
-            </Typography>
-          </div>
+    <div className={classes.wholeWrapper}>
+      <div className={classes.title}>
+        <Typography variant="h3" style={{ fontWeight: '300' }} color="primary" align="center">
+              Our Sponsors
+        </Typography>
+      </div>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item>
           <Grid
             container
-            direction="column"
+            direction="row"
             justify="center"
             alignItems="center"
           >
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Google
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      UPS
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Montclair State University
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      your mom
-                    </Typography>
-                  </div>
-                </Grid>
-              </Grid>
+            <Grid item xs={12} sm={12} md={3}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/Logitech_logo.png" alt="logitech" />
+              </div>
             </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Google
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      UPS
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Montclair State University
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      your mom
-                    </Typography>
-                  </div>
-                </Grid>
-              </Grid>
+            <Grid item xs={12} sm={12} md={3}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/lyft-logo.png" alt="lyft" />
+              </div>
             </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-              >
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Google
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      UPS
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      Montclair State University
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md>
-                  <div className={classes.wrapper}>
-                    <Typography variant="h4" align="center">
-                      your mom
-                    </Typography>
-                  </div>
-                </Grid>
-              </Grid>
+            <Grid item xs={12} sm={12} md={3}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/monsterlogo.png" alt="monster" />
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={12} md={3}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/gfuel.png" alt="g" />
+              </div>
             </Grid>
           </Grid>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };
