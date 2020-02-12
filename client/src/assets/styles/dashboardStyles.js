@@ -104,7 +104,21 @@ const dashboardStyles = makeStyles((theme) => ({
     fontWeight: 300,
   },
   verifyPara: {
-    width: '30vw',
+    '@media (min-width: 276px)': {
+      fontSize: "16px"
+    },
+    '@media (min-width: 576px)': {
+      fontSize: "1em"
+    },
+    '@media (min-width: 768px)': {
+      fontSize: "1.5em"
+    },
+    '@media (min-width: 992px)': {
+      fontSize: "2em"
+    },
+    '@media (min-width: 1200px)': {
+      fontSize: "2em"
+    },
   },
   dash: {
     minHeight: '90vh',
@@ -112,6 +126,9 @@ const dashboardStyles = makeStyles((theme) => ({
   list: {
     width: '15vw',
   },
+  buttonWrapper: {
+    padding: 5
+  }
 }));
 
 export default dashboardStyles;

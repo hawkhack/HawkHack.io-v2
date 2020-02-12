@@ -5,14 +5,23 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ResendVerifyEmail } from '../../../assets/utils/api';
 
-const IsVerified = ({ classes }) => {
+const IsVerified = ({ classes, ...props }) => {
   const ResendEmail = async () => {
     try {
-      await ResendVerifyEmail();
+      const result = await ResendVerifyEmail();
+
+      console.log("REULT")
+      console.log(result);
     } catch (err) {
       // so something
+      console.log(err)
     }
   };
+
+  const Logout = () => {
+    localStorage.removeItem("cool-jwt");
+    props.history.push("/");
+  }
 
   return (
     <Grid
@@ -20,9 +29,9 @@ const IsVerified = ({ classes }) => {
       direction="column"
       justify="center"
       align="center"
-      style={{ height: '90vh' }}
+      style={{ minHeight: '90vh' }}
     >
-      <Grid item>
+      <Grid item xs={12}>
         <div className={classes.verifyWrapper}>
           <Typography
             variant="h3"
@@ -33,7 +42,7 @@ const IsVerified = ({ classes }) => {
           </Typography>
         </div>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <div className={classes.verifyWrapper}>
           <Typography
             variant="h5"
@@ -45,7 +54,7 @@ const IsVerified = ({ classes }) => {
           </Typography>
         </div>
       </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <div className={classes.verifyWrapper}>
           <Typography
             variant="h5"
@@ -56,10 +65,28 @@ const IsVerified = ({ classes }) => {
           </Typography>
         </div>
       </Grid>
-      <Grid item>
-        <Button color="primary" size="large" variant="contained" onClick={ResendEmail}>
-          Resend email
-        </Button>
+      <Grid item xs={12}>
+        <Grid 
+          container 
+          direction="row" 
+          justify="center"
+          align="center"
+        >
+          <Grid item>
+            <div className={classes.buttonWrapper}>
+              <Button color="primary" size="large" variant="contained" onClick={ResendEmail}>
+                Resend email
+              </Button>
+            </div>
+          </Grid>
+          <Grid item>
+            <div className={classes.buttonWrapper}>
+              <Button color="primary" size="large" variant="contained" onClick={Logout}>
+                Resend email
+              </Button>
+            </div>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
