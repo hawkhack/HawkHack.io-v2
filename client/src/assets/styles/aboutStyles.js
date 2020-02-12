@@ -48,22 +48,21 @@ const aboutStyles = makeStyles((theme) => ({
     align: 'center',
   },
   whatsHawkhack: {
-    // '@media (min-width: 276px)': {
-    //   padding: '20px',
-    // },
-    // '@media (min-width: 576px)': {
-    //   padding: '20px',
-    // },
-    // '@media (min-width: 768px)': {
-    //   padding: '15px',
-    // },
-    // '@media (min-width: 992px)': {
-    //   paddingTop: '20px',
-    // },
-    // '@media (min-width: 1200px)': {
-    //   marginTop: 20,
-    //   paddingTop: '20px',
-    // },
+    '@media (min-width: 276px)': {
+      padding: '5px',
+    },
+    '@media (min-width: 576px)': {
+      padding: '10px',
+    },
+    '@media (min-width: 768px)': {
+      padding: '15px',
+    },
+    '@media (min-width: 992px)': {
+      paddingTop: '20px',
+    },
+    '@media (min-width: 1200px)': {
+      paddingTop: '20px',
+    },
     fontWeight: '300',
   },
   whatText: {
