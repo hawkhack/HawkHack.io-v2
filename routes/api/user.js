@@ -276,6 +276,7 @@ router.get("/resetpw/:email", (req, res) => {
       });
     });
   });
+})
   //  @route  POST api/u/resetpw/:token
   //  @desc   Reset user password
   //  @access Public
@@ -310,7 +311,6 @@ router.get("/resetpw/:email", (req, res) => {
         });
       });
   });
-});
 
 router.get("/verify/:token", (req, res) => {
   //get token from parameters

@@ -52,7 +52,8 @@ const Register = ({ ...props }) => {
 
   const classes = registerStyles();
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
     try {
       handleLoading(true);
 

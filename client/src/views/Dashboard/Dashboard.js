@@ -39,7 +39,8 @@ const Dashboard = ({ ...props }) => {
 
           handleState('user', user.data);
           handleState('dash', user.data.isVerified
-            ? <RealDashboard {...props} classes={classes} /> : <IsVerified classes={classes} />);
+            ? <RealDashboard {...props} classes={classes} />
+            : <IsVerified {...props} classes={classes} />);
         } catch (err) {
           handleError();
         }

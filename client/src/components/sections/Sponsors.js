@@ -47,6 +47,11 @@ const Sponsors = ({ ...props }) => {
             </Grid>
           </Grid>
         </Grid>
+        <Grid item>
+          <div className={classes.imgWrapper}>
+            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
+          </div>
+        </Grid>
       </Grid>
     </div>
   );

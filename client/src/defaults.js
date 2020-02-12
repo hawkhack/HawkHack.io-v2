@@ -38,3 +38,46 @@ export const dayTwoSchedule = [
   ['Judging and Demos', '12:00 PM'],
   ['Closing Ceremony', '2:15 PM'],
 ];
+
+export const FAQs = [
+  {
+    question: 'What is a hackathon?',
+    answer: 'Hackathons are an intense event that bring together software developers, graphic designers and user interface specialists along with industry process experts and professionals to identify issues and create software solutions, usually within a weekend.',
+  },
+  {
+    question: 'What is the goal of the hackathon?',
+    answer: 'We want to create an environment that embraces new ideas and technology solutions. A place where people passionate in technology can come innovate the industry',
+  },
+  {
+    question: "I'm new, what should I do?",
+    answer: 'We would love to have you at HawkHack! Throughout the event we will be hosting workshops where you can try new things, start a project for that idea you always had in mind, and receive help from industry experts.',
+  },
+  {
+    question: 'How much coding experience do I need?',
+    answer: 'Absolutely none. Hackathons are a great place to learn and get advice from experienced hackers. We\'ll also host plenty of workshops and have plenty of mentors so by the end of the 24 hours you\'ll have a working project even if you haven\'t coded a day in your life before. We also have prizes for the best high school hacking track!',
+  },
+  {
+    question: 'Who can come?',
+    answer: 'If you\'re at a current college/university student, a recent graduate (up to 1 year), or a high school student, you\'re more than welcome to attend! We are open to students of all academic backgrounds and skill levels, so whether you’re an aspiring artist or an expert engineer, there’s a place for you at HawkHack!',
+  },
+  {
+    question: 'Do I need a team?',
+    answer: 'You are welcome to come solo or in a group no more than 4. We will provide means for you to find a team if you don’t have one',
+  },
+  {
+    question: "What if I can't stay for the full 24 hours?",
+    answer: 'That is fine! Although we encourage you to do so and make the best of the event, you are free to leave whenever you want and come back later',
+  },
+  {
+    question: 'How much does it cost to attend?',
+    answer: 'FREE, that’s how much. The event is completely FREE to attend. FREE food, FREE games, FREE fun. Sounds good, doesn’t it?',
+  },
+  {
+    question: 'What’s the overall process like before I can eventually participate in the hackathon?',
+    answer: ['1. You first “Register” for an account;',
+      '2. Stay tuned for our follow-up email, and then, “Apply” for participation using your account;',
+      '3. We will review your application, and your application will likely be “Approved;” there is the possibility that your application will be rejected though due to various reasons. \n',
+      '4. One week before the event, you “Confirm” whether you are coming or not. Confirmations will be accepted on a first-come-first-serve basis. When the number of confirmations exceeds our capacity; you will not be able to confirm successfully.',
+      '5. If your confirmation is “Successful,” come to the venue on March 28th!'],
+  },
+];

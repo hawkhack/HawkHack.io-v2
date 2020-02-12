@@ -14,7 +14,7 @@ const Footer = () => {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://www.facebook.com/msucomputerclub/"
+                href="https://www.facebook.com/computerclubmsu/"
                 className={classes.block}
                 target=""
               >
@@ -42,7 +42,7 @@ const Footer = () => {
             className={classes.rightText}
             target=""
           >
-            MSU Computer Club
+            MSU ACM Computer Club
           </a>
         </div>
       </div>
