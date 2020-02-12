@@ -83,8 +83,9 @@ const Verified = ({ ...props }) => {
           <Grid item>
             <div className={classes.wrapper}>
               <Typography
-                variant="h3"
+                variant="h2"
                 color="primary"
+                align="center"
               >
                 You're verified!
               </Typography>
@@ -92,8 +93,9 @@ const Verified = ({ ...props }) => {
           </Grid>
           <Grid item>
             <Typography
-              variant="h5"
+              variant="body1"
               color="primary"
+              align="center"
             >
                 If the application is open, login to apply
             </Typography>

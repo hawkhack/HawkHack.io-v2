@@ -105,19 +105,19 @@ const dashboardStyles = makeStyles((theme) => ({
   },
   verifyPara: {
     '@media (min-width: 276px)': {
-      fontSize: "16px"
+      fontSize: '16px',
     },
     '@media (min-width: 576px)': {
-      fontSize: "1em"
+      fontSize: '1em',
     },
     '@media (min-width: 768px)': {
-      fontSize: "1.5em"
+      fontSize: '1.5em',
     },
     '@media (min-width: 992px)': {
-      fontSize: "2em"
+      fontSize: '2em',
     },
     '@media (min-width: 1200px)': {
-      fontSize: "2em"
+      fontSize: '2em',
     },
   },
   dash: {
@@ -127,8 +127,8 @@ const dashboardStyles = makeStyles((theme) => ({
     width: '15vw',
   },
   buttonWrapper: {
-    padding: 5
-  }
+    padding: 5,
+  },
 }));
 
 export default dashboardStyles;
