@@ -70,7 +70,8 @@ const Login = ({ ...props }) => {
 
   const classes = loginStyles();
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
     try {
       handleLoading(true);
 
@@ -259,7 +260,7 @@ const Login = ({ ...props }) => {
                         <Button onClick={handleDialogShow} color="primary">
                           Cancel
                         </Button>
-                        <Button onClick={submitForgotPassword} color="primary">
+                        <Button variant="contained" type="submit" onClick={submitForgotPassword} color="primary">
                           Send
                         </Button>
                       </DialogActions>
