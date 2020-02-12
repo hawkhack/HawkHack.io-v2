@@ -108,7 +108,9 @@ const dashboardStyles = makeStyles((theme) => ({
   },
   dash: {
     minHeight: '90vh',
-
+  },
+  list: {
+    width: '15vw',
   },
 }));
 

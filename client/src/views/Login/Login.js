@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -109,13 +109,6 @@ const Login = ({ ...props }) => {
       handleErrors(err);
     }
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('cool-jwt') !== null) {
-      props.history.push('/dashboard');
-    }
-    // eslint-disable-next-line
-  }, [props.history]);
 
   return (
     <>

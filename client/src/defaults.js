@@ -5,6 +5,7 @@ export const defaults = {
   locationText: 'Student Center Ballrooms A, B, C',
   universityText: 'Montclair State University',
   dayof: false,
+  openApplications: false,
 };
 
 export const dayOne = 'Saturday, March 30';

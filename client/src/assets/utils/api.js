@@ -36,7 +36,6 @@ export const ForgotPassword = (email) => axios.get(`${apiURL}/u/resetpw/${email}
   });
 
 export const ResetPass = (token, password) => axios.post(`${apiURL}/u/resetpw/${token}`, {
-  token,
   password,
 })
   .then((result) => result)

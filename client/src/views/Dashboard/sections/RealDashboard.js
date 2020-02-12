@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-import MobileDash from './MobileDash';
-
-const RealDashboard = ({ classes }) => {
-  const [mobile, setMobile] = useState(false);
-
-  const resize = () => {
-    const currentHideNav = (window.innerWidth <= 760);
-    if (currentHideNav !== mobile) {
-      setMobile(currentHideNav);
-    }
+const RealDashboard = ({ classes, ...props }) => {
+  const Logout = () => {
+    localStorage.removeItem('cool-jwt');
+    props.history.push('/');
   };
 
-  useEffect(() => {
-    window.addEventListener('resize', resize);
-
-    return () => window.removeEventListener('resize', resize);
-  }, [resize]);
-
-  const dash = mobile ? <MobileDash classes={classes} /> : <Typography color="primary" variant="h1"> not mobile </Typography>;
   return (
     <>
       <Grid
@@ -31,7 +19,33 @@ const RealDashboard = ({ classes }) => {
         align="center"
         className={classes.dash}
       >
-        {dash}
+        <Grid item>
+          <div className={classes.wrapper}>
+            <Typography
+              variant="h2"
+              color="primary"
+              align="center"
+            >
+                Hang in there! The applications aren't open yet.
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item>
+          <div className={classes.wrapper}>
+            <Typography
+              variant="body1"
+              color="primary"
+              align="center"
+            >
+              But when they are, we'll notify you.
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item>
+          <Button onClick={Logout} color="primary" size="large" variant="contained">
+            Logout
+          </Button>
+        </Grid>
       </Grid>
     </>
   );
