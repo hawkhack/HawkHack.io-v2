@@ -10,18 +10,18 @@ const IsVerified = ({ classes, ...props }) => {
     try {
       const result = await ResendVerifyEmail();
 
-      console.log("REULT")
+      console.log('REULT');
       console.log(result);
     } catch (err) {
       // so something
-      console.log(err)
+      console.log(err);
     }
   };
 
   const Logout = () => {
-    localStorage.removeItem("cool-jwt");
-    props.history.push("/");
-  }
+    localStorage.removeItem('cool-jwt');
+    props.history.push('/');
+  };
 
   return (
     <Grid
@@ -66,9 +66,9 @@ const IsVerified = ({ classes, ...props }) => {
         </div>
       </Grid>
       <Grid item xs={12}>
-        <Grid 
-          container 
-          direction="row" 
+        <Grid
+          container
+          direction="row"
           justify="center"
           align="center"
         >
