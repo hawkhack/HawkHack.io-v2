@@ -24,7 +24,7 @@ const Verified = ({ ...props }) => {
 
   const handleError = () => {
     localStorage.removeItem('cool-jwt');
-    props.history.push('/NotFound');
+    props.history.push('/');
   };
 
   useEffect(() => {
