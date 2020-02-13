@@ -299,7 +299,7 @@ router.post("/resetpw/:token", (req, res) => {
       try {
         if (!user) {
           console.log(`ResetPW no user with token ${token}`);
-          throw new Error("Token is not valid");
+          throw new Error({ token: "Token is not valid" });
         }
 
         bcrypt.genSalt(13, (err, salt) => {
@@ -308,9 +308,9 @@ router.post("/resetpw/:token", (req, res) => {
             if (err) throw new Error(err);
 
             if (user.password == hash) {
-              throw new Error(
-                "The password needs to be different than your current"
-              );
+              throw new Error({
+                password: "The password needs to be different than your current"
+              });
             }
 
             user.password = hash;
