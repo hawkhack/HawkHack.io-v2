@@ -25,7 +25,7 @@ const app = express();
 app.use(express.json());
 
 //enable cors
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors());
 
 // Set security headers
 app.use(helmet());
