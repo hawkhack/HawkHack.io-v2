@@ -344,15 +344,12 @@ router.get("/verify/:token", (req, res) => {
       user.save().then(() => {
         res.status(200).json({ success: true });
       });
-      Profile.findOne({ user: user.id }).then(profile => {
-        const member = {
-          name: profile.firstName,
-          address: profile.email
-        };
-        mailgun
-          .lists(process.env.usersMailingList)
-          .add({ members: member, subscribed: true });
-      });
+      const member = {
+        address: user.email
+      };
+      mailgun
+        .lists(process.env.usersMailingList)
+        .add({ members: member, subscribed: true });
     });
 });
 
