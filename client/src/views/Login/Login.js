@@ -118,19 +118,19 @@ const Login = ({ ...props }) => {
         route="register"
       />
 
-      { values.loading
+      {values.loading
         && (
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          align="center"
-          className={classes.loadingGrid}
-        >
-          <Grid item>
-            <CircularProgress className={classes.progress} />
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            align="center"
+            className={classes.loadingGrid}
+          >
+            <Grid item>
+              <CircularProgress className={classes.progress} />
+            </Grid>
           </Grid>
-        </Grid>
         )}
       <div className={classes.login}>
         <div className={classes.container}>
@@ -222,7 +222,7 @@ const Login = ({ ...props }) => {
                       onClick={submit}
                       type="submit"
                     >
-                          Submit
+                      Submit
                     </Button>
                   </div>
                   <div className={classes.cardFooter}>

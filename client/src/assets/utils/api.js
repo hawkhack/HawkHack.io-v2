@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let apiURL = process.env.REACT_APP_API_URL;;
+let apiURL = process.env.REACT_APP_API_URL;
 
 if (process.env.NODE_ENV === 'production') {
   apiURL = process.env.REACT_APP_API_URL;
@@ -39,8 +39,9 @@ export const ForgotPassword = (email) => axios.get(`${apiURL}/u/resetpw/${email}
     throw err;
   });
 
-export const ResetPass = (token, password) => axios.post(`${apiURL}/u/resetpw/${token}`, {
+export const ResetPass = (token, password, password2) => axios.post(`${apiURL}/u/resetpw/${token}`, {
   password,
+  password2,
 })
   .then((result) => result)
   .catch((err) => {

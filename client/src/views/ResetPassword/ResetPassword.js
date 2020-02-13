@@ -13,11 +13,13 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Snackbar from '@material-ui/core/Snackbar';
+import CloseIcon from '@material-ui/icons/Close';
 
 import resetPasswordStyles from '../../assets/styles/resetPasswordStyles';
 
 import { ResetPass } from '../../assets/utils/api';
-import { validateResetPassword } from '../../assets/utils/validation';
+import { validateResetPassword, validateResetToken } from '../../assets/utils/validation';
 
 const ResetPassword = ({ ...props }) => {
   const [values, setValues] = useState({
@@ -26,6 +28,7 @@ const ResetPassword = ({ ...props }) => {
     errors: {},
     loading: false,
     token: '',
+    snackBarOpen: false,
   });
 
   const handleChange = (prop) => (event) => {
@@ -52,9 +55,19 @@ const ResetPassword = ({ ...props }) => {
     setValues({ ...values, token });
   };
 
+  const handleSnackbarShow = () => {
+    setValues({ ...values, snackBarOpen: !values.snackBarOpen });
+  };
+
+  const handleTokenError = (msg) => {
+    handleSnackbarShow();
+    setValues({ ...values, snackBarOpen: true, snackBarMessage: msg });
+  };
+
   const classes = resetPasswordStyles();
 
-  const resetPassword = async () => {
+  const resetPassword = async (e) => {
+    e.preventDefault();
     try {
       handleLoading(true);
 
@@ -63,37 +76,45 @@ const ResetPassword = ({ ...props }) => {
         throw errors;
       }
 
-      await ResetPass(values.token, values.password);
+      const tkErrors = validateResetToken(values.token);
+      if (Object.keys(tkErrors).length !== 0) {
+        throw tkErrors;
+      }
+
+      await ResetPass(values.token, values.password, values.password2);
 
       handleLoading(false);
       props.history.push('/login');
     } catch (err) {
-      handleErrors(err);
+      if (err.token) {
+        handleTokenError(err.token);
+      } else {
+        handleErrors(err);
+      }
     }
   };
 
   useEffect(() => {
     handleToken(props.match.params.token);
-    console.log(values.token)
     // eslint-disable-next-line
   }, [])
 
   return (
     <>
       <CssBaseline />
-      { values.loading
+      {values.loading
         && (
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          align="center"
-          className={classes.loadingGrid}
-        >
-          <Grid item>
-            <CircularProgress className={classes.progress} />
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            align="center"
+            className={classes.loadingGrid}
+          >
+            <Grid item>
+              <CircularProgress className={classes.progress} />
+            </Grid>
           </Grid>
-        </Grid>
         )}
       <div className={classes.resetPassword}>
         <div className={classes.container}>
@@ -133,6 +154,7 @@ const ResetPassword = ({ ...props }) => {
                               <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
+                                tabIndex={-1}
                                 onMouseDown={handleMouseDownPassword}
                               >
                                 {values.showPassword ? <Visibility /> : <VisibilityOff />}
@@ -179,6 +201,7 @@ const ResetPassword = ({ ...props }) => {
                       disabled={values.loading}
                       className={classes.button}
                       onClick={resetPassword}
+                      type="submit"
                     >
                       Reset
                     </Button>
@@ -189,6 +212,23 @@ const ResetPassword = ({ ...props }) => {
             </Grid>
           </Grid>
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={values.snackBarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarShow}
+          message="An email has been sent to you with a link to reset your password!"
+          action={(
+            <>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarShow}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </>
+          )}
+        />
       </div>
     </>
   );
