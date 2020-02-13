@@ -86,8 +86,9 @@ const ResetPassword = ({ ...props }) => {
       handleLoading(false);
       props.history.push('/login');
     } catch (err) {
-      if (err.token) {
-        handleTokenError(err.token);
+      console.log(err)
+      if (!!err.response) {
+        handleTokenError(err.response.data.token);
       } else {
         handleErrors(err);
       }
@@ -99,6 +100,7 @@ const ResetPassword = ({ ...props }) => {
     // eslint-disable-next-line
   }, [])
 
+  console.log(values.errors)
   return (
     <>
       <CssBaseline />
@@ -220,7 +222,7 @@ const ResetPassword = ({ ...props }) => {
           open={values.snackBarOpen}
           autoHideDuration={6000}
           onClose={handleSnackbarShow}
-          message="An email has been sent to you with a link to reset your password!"
+          message={values.snackBarMessage}
           action={(
             <>
               <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarShow}>

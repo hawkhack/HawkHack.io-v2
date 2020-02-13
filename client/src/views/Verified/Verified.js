@@ -93,7 +93,7 @@ const Verified = ({ ...props }) => {
               color="primary"
               align="center"
             >
-                If the application is open, login to apply
+              If the application is open, login to apply
             </Typography>
           </Grid>
           <Grid item>
@@ -108,15 +108,6 @@ const Verified = ({ ...props }) => {
                   <NavLink to="/login" style={{ textDecoration: 'none' }}>
                     <Button variant="contained" size="large" color="primary">
                       Login
-                    </Button>
-                  </NavLink>
-                </div>
-              </Grid>
-              <Grid item>
-                <div className={classes.wrapper}>
-                  <NavLink to="/register" style={{ textDecoration: 'none' }}>
-                    <Button variant="contained" size="large" color="primary">
-                      Register
                     </Button>
                   </NavLink>
                 </div>
