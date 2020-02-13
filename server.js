@@ -73,6 +73,12 @@ app.use("/api/u", users);
 app.use("/api/p", profile);
 app.use("/api/a", admin);
 
+app.all("/*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.get("/api", (req, res) => {
   const defaults = getDefaults();
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
