@@ -289,30 +289,37 @@ router.post("/resetpw/:token", (req, res) => {
   User.findOne({ passwordResetToken: token })
     .select("password passwordResetToken")
     .then(user => {
-      if (!user) {
-        console.log(`ResetPW no user with token ${token}`);
-        errors.token = "token not valid";
-        return res.status(404).json({ err: errors });
-      }
-      bcrypt.genSalt(13, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-          if (err) throw err;
-          if (user.password == hash) {
-            errors.password =
-              "The password needs to be different than your current";
-            return res.status(412).json(errors);
-          }
-          user.password = hash;
-          user.passwordResetToken = "";
-          user
-            .save()
-            .then(() => {
-              res.status(200);
-            })
-            .catch(err => console.log(err));
+      try {
+        if (!user) {
+          console.log(`ResetPW no user with token ${token}`);
+          throw new Error("Token is not valid");
+        }
+
+        bcrypt.genSalt(13, (err, salt) => {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw new Error(err);
+
+            if (user.password == hash) {
+              throw new Error("The password needs to be different than your current")
+            }
+
+            user.password = hash;
+            // user.passwordResetToken = "";
+            user
+              .save()
+              .then(() => {
+                res.status(200).send({ success: true });
+              })
+              .catch(err => {
+                throw new Error(err)
+              });
+          });
         });
-      });
-    });
+      } catch (err) {
+        console.log(err.message)
+        return res.status(404).send({ error: err.message })
+      }
+  });    
 });
 
 router.get("/verify/:token", (req, res) => {
