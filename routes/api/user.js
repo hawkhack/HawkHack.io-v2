@@ -17,6 +17,7 @@ const User = require("../../models/User");
 //Load Input Validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
+const validateResetPassword = require("../../validation/resetpw");
 
 let domain = "www.hawkhack.io";
 if (process.env.NODE_ENV === "development") {
@@ -144,7 +145,9 @@ router.get(
     if (req.user.verified) {
       return res.status(400).json("user already verified");
     }
-    const user = await User.findById(req.user.id).select("verificationToken email");
+    const user = await User.findById(req.user.id).select(
+      "verificationToken email"
+    );
     console.log(user);
     const data = {
       from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
@@ -282,9 +285,13 @@ router.get("/resetpw/:email", (req, res) => {
 //  @desc   Reset user password
 //  @access Public
 router.post("/resetpw/:token", (req, res) => {
+  const { errors, isValid } = validateResetPassword(req.body);
   const { token } = req.params;
   const { password } = req.body;
-  let errors = {}
+
+  if (!isValid) {
+    throw new Error(errors);
+  }
 
   User.findOne({ passwordResetToken: token })
     .select("password passwordResetToken")
@@ -296,11 +303,14 @@ router.post("/resetpw/:token", (req, res) => {
         }
 
         bcrypt.genSalt(13, (err, salt) => {
+          if (err) throw new Error(err);
           bcrypt.hash(password, salt, (err, hash) => {
             if (err) throw new Error(err);
 
             if (user.password == hash) {
-              throw new Error("The password needs to be different than your current")
+              throw new Error(
+                "The password needs to be different than your current"
+              );
             }
 
             user.password = hash;
@@ -311,15 +321,15 @@ router.post("/resetpw/:token", (req, res) => {
                 res.status(200).send({ success: true });
               })
               .catch(err => {
-                throw new Error(err)
+                throw new Error(err);
               });
           });
         });
       } catch (err) {
-        console.log(err.message)
-        return res.status(404).send({ error: err.message })
+        console.log(err.message);
+        return res.status(400).send({ error: err.message });
       }
-  });    
+    });
 });
 
 router.get("/verify/:token", (req, res) => {
