@@ -35,7 +35,7 @@ const Final = () => {
               color="primary"
               align="center"
             >
-              We have amazing prizes, fun tournaments, and workshops and mentors from Google!
+              We have amazing prizes, fun tournaments, and workshops and mentors!
             </Typography>
           </div>
         </Grid>

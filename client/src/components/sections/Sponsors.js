@@ -47,10 +47,8 @@ const Sponsors = ({ ...props }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
-          <div className={classes.imgWrapper}>
-            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
-          </div>
+        <Grid item xs={12} sm={12} md={4}>
+          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
         </Grid>
       </Grid>
     </div>

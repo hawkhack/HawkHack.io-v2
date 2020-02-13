@@ -57,9 +57,18 @@ const validateResetPassword = (password, password2) => {
   return errors;
 };
 
+const validateResetToken = (token) => {
+  const errors = {};
+  if (token.length === 0) {
+    errors.token = 'Token is invalid';
+  }
+  return errors;
+};
+
 export {
   validateLogin,
   validateRegister,
   isEmail,
   validateResetPassword,
+  validateResetToken,
 };
