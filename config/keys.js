@@ -5,7 +5,6 @@ module.exports = {
   dburi: process.env.DBURI,
   port: process.env.PORT,
   secretOrKey: process.env.SecretOrKey,
-  mailchimpKey: process.env.MailChimpKey,
   mailgunKey: process.env.MAILGUN_KEY,
   mailgunDomain: process.env.MAILGUN_DOMAIN
 };

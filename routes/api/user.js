@@ -357,7 +357,7 @@ router.get("/verify/:token", (req, res) => {
           address: profile.email
         };
         mailgun
-          .lists("subscribers@mg.hawkhack.io")
+          .lists(process.env.usersMailingList)
           .add({ members: member, subscribed: true });
       });
     });
