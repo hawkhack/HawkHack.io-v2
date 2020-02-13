@@ -288,15 +288,14 @@ router.post("/resetpw/:token", (req, res) => {
   const { errors, isValid } = validateResetPassword(req.body);
   const { token } = req.params;
   const { password } = req.body;
+  try {
+    if (!isValid) {
+      throw new Error(errors);
+    }
 
-  if (!isValid) {
-    throw new Error(errors);
-  }
-
-  User.findOne({ passwordResetToken: token })
-    .select("password passwordResetToken")
-    .then(user => {
-      try {
+    User.findOne({ passwordResetToken: token })
+      .select("password passwordResetToken")
+      .then(user => {
         if (!user) {
           console.log(`ResetPW no user with token ${token}`);
           throw new Error({ token: "Token is not valid" });
@@ -325,11 +324,11 @@ router.post("/resetpw/:token", (req, res) => {
               });
           });
         });
-      } catch (err) {
-        console.log(err.message);
-        return res.status(400).send({ error: err.message });
-      }
-    });
+      });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(400).send({ error: err.message });
+  }
 });
 
 router.get("/verify/:token", (req, res) => {
