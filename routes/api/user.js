@@ -292,7 +292,7 @@ router.post("/resetpw/:token", (req, res) => {
       if (!user) {
         console.log(`ResetPW no user with token ${token}`);
         errors.token = "token not valid";
-        return res.status(404).json();
+        return res.status(404).json({ err: errors });
       }
       bcrypt.genSalt(13, (err, salt) => {
         bcrypt.hash(password, salt, (err, hash) => {

@@ -10,7 +10,6 @@ import classNames from 'classnames';
 import dashboardStyles from '../../assets/styles/dashboardStyles';
 import image from '../../assets/styles/pictures/msubackground-1.png';
 
-import NavBar from '../NavBar/NavBar';
 import Footer from '../../components/sections/Footer';
 import Parallax from '../../components/sections/Parallax/Parallax';
 import { VerifyUser } from '../../assets/utils/api';
@@ -56,9 +55,6 @@ const Verified = ({ ...props }) => {
   return (
     <>
       <CssBaseline />
-      <NavBar
-        route="user"
-      />
       <Parallax filter image={image}>
         <Grid
           container
