@@ -276,41 +276,42 @@ router.get("/resetpw/:email", (req, res) => {
       });
     });
   });
-})
-  //  @route  POST api/u/resetpw/:token
-  //  @desc   Reset user password
-  //  @access Public
-  router.post("/resetpw/:token", (req, res) => {
-    const { token } = req.params;
-    const { password } = req.body;
-    User.findOne({ passwordResetToken: token })
-      .select("password passwordResetToken")
-      .then(user => {
-        if (!user) {
-          console.log(`ResetPW no user with token ${token}`);
-          errors.token = "token not valid";
-          return res.status(404).json();
-        }
-        bcrypt.genSalt(13, (err, salt) => {
-          bcrypt.hash(password, salt, (err, hash) => {
-            if (err) throw err;
-            if (user.password == hash) {
-              errors.password =
-                "The password needs to be different than your current";
-              return res.status(412).json(errors);
-            }
-            user.password = hash;
-            user.passwordResetToken = "";
-            user
-              .save()
-              .then(() => {
-                res.status(200);
-              })
-              .catch(err => console.log(err));
-          });
+});
+
+//  @route  POST api/u/resetpw/:token
+//  @desc   Reset user password
+//  @access Public
+router.post("/resetpw/:token", (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  User.findOne({ passwordResetToken: token })
+    .select("password passwordResetToken")
+    .then(user => {
+      if (!user) {
+        console.log(`ResetPW no user with token ${token}`);
+        errors.token = "token not valid";
+        return res.status(404).json();
+      }
+      bcrypt.genSalt(13, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) throw err;
+          if (user.password == hash) {
+            errors.password =
+              "The password needs to be different than your current";
+            return res.status(412).json(errors);
+          }
+          user.password = hash;
+          user.passwordResetToken = "";
+          user
+            .save()
+            .then(() => {
+              res.status(200);
+            })
+            .catch(err => console.log(err));
         });
       });
-  });
+    });
+});
 
 router.get("/verify/:token", (req, res) => {
   //get token from parameters
