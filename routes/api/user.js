@@ -304,7 +304,7 @@ router.post("/resetpw/:token", (req, res) => {
             }
 
             user.password = hash;
-            // user.passwordResetToken = "";
+            user.passwordResetToken = "";
             user
               .save()
               .then(() => {
