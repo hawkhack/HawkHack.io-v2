@@ -74,7 +74,7 @@ const ResetPassword = ({ ...props }) => {
 
   useEffect(() => {
     handleToken(props.match.params.token);
-    console.log(values.token)
+    console.log(values.token);
     // eslint-disable-next-line
   }, [])
 
