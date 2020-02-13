@@ -80,8 +80,8 @@ const Dashboard = ({ ...props }) => {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          {values.dash ? values.dash : 
-            (
+          {values.dash ? values.dash
+            : (
               <Grid
                 container
                 direction="column"
@@ -93,8 +93,7 @@ const Dashboard = ({ ...props }) => {
                   <CircularProgress />
                 </Grid>
               </Grid>
-            )
-          }
+            )}
         </div>
       </div>
       <Footer />

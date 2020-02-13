@@ -71,7 +71,7 @@ const NavBar = ({ route }) => {
                 <Grid item>
                   <div className={classes.wrapper}>
                     <NavLink
-                      to={localStorage.getItem("cool-jwt") ? "dashboard" : "login" }
+                      to={localStorage.getItem('cool-jwt') ? 'dashboard' : 'login'}
                       className={classes.navLink}
                     >
                       <Button color="inherit" className={log}>
@@ -79,7 +79,7 @@ const NavBar = ({ route }) => {
                       </Button>
                     </NavLink>
                     <NavLink
-                      to={localStorage.getItem("cool-jwt") ? "dashboard" : "register" }
+                      to={localStorage.getItem('cool-jwt') ? 'dashboard' : 'register'}
                       className={classes.navLink}
                     >
                       <Button color="inherit" className={log}>
