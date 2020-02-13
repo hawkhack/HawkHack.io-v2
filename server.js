@@ -25,7 +25,10 @@ const app = express();
 app.use(express.json());
 
 //enable cors
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors({   
+  origin: '*',
+  optionsSuccessStatus: 200 
+}));
 
 // Set security headers
 app.use(helmet());
