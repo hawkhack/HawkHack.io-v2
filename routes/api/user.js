@@ -284,6 +284,8 @@ router.get("/resetpw/:email", (req, res) => {
 router.post("/resetpw/:token", (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
+  let errors = {}
+
   User.findOne({ passwordResetToken: token })
     .select("password passwordResetToken")
     .then(user => {

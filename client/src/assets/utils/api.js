@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let apiURL = process.env.REACT_APP_API_DEV_URL;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   apiURL = process.env.REACT_APP_API_URL;
 }
 
