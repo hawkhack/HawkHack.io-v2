@@ -288,47 +288,41 @@ router.post("/resetpw/:token", (req, res) => {
   const { errors, isValid } = validateResetPassword(req.body);
   const { token } = req.params;
   const { password } = req.body;
-  try {
-    if (!isValid) {
-      throw new Error(errors);
-    }
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
-    User.findOne({ passwordResetToken: token })
-      .select("password passwordResetToken")
-      .then(user => {
-        if (!user) {
-          console.log(`ResetPW no user with token ${token}`);
-          throw new Error({ token: "Token is not valid" });
-        }
+  User.findOne({ passwordResetToken: token })
+    .select("password passwordResetToken")
+    .then(user => {
+      if (!user) {
+        console.log(`ResetPW no user with token ${token}`);
+        return res.status(400).json({ token: "Token is not valid" });
+      }
 
-        bcrypt.genSalt(13, (err, salt) => {
-          if (err) throw new Error(err);
-          bcrypt.hash(password, salt, (err, hash) => {
-            if (err) throw new Error(err);
+      bcrypt.genSalt(13, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) res.status(400).json(err);
 
-            if (user.password == hash) {
-              throw new Error({
-                password: "The password needs to be different than your current"
-              });
-            }
+          if (user.password == hash) {
+            return res.status(400).json({
+              password: "The password needs to be different than your current"
+            });
+          }
 
-            user.password = hash;
-            user.passwordResetToken = "";
-            user
-              .save()
-              .then(() => {
-                res.status(200).send({ success: true });
-              })
-              .catch(err => {
-                throw new Error(err);
-              });
-          });
+          user.password = hash;
+          user.passwordResetToken = "";
+          user
+            .save()
+            .then(() => {
+              res.status(200).send({ success: true });
+            })
+            .catch(err => {
+              res.status(400).json(err);
+            });
         });
       });
-  } catch (err) {
-    console.log(err.message);
-    return res.status(400).send({ error: err.message });
-  }
+    });
 });
 
 router.get("/verify/:token", (req, res) => {
