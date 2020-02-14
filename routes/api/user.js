@@ -148,7 +148,6 @@ router.get(
     const user = await User.findById(req.user.id).select(
       "verificationToken email"
     );
-    console.log(user);
     const data = {
       from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
       to: req.user.email,
@@ -256,7 +255,7 @@ router.get("/resetpw/:email", (req, res) => {
   User.findOne({ email: email }).then(user => {
     //if no user, smile and nod.
     if (!user) {
-      console.log(`user ${email} not found`);
+      console.log(`GET /resetpw: user ${email} not found`);
       return res.status(200).json(`email sent to ${email}`);
     }
     const token = uid(64);
@@ -296,7 +295,7 @@ router.post("/resetpw/:token", (req, res) => {
     .select("password passwordResetToken")
     .then(user => {
       if (!user) {
-        console.log(`ResetPW no user with token ${token}`);
+        console.log(`POST /resetpw: ResetPW no user with token ${token}`);
         return res.status(400).json({ token: "Token is not valid" });
       }
 
@@ -328,7 +327,6 @@ router.post("/resetpw/:token", (req, res) => {
 router.get("/verify/:token", (req, res) => {
   //get token from parameters
   const token = req.params.token;
-  console.log(token);
   //find user with this token
   User.findOne({ verificationToken: token })
     .select("verified verificationToken")
