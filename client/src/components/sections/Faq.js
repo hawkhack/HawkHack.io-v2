@@ -2,6 +2,7 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -94,16 +95,26 @@ const Faq = () => {
                         <Grid container direction="column">
                           {faq.answer.map((f) => (
                             <Grid item>
-                              <Typography className={classes.faqText}>
+                              <Box 
+                                fontWeight="fontWeightLight" 
+                                m={1}
+                                align="left"
+                                className={classes.faqText}
+                              >
                                 {f}
-                              </Typography>
+                              </Box>
                             </Grid>
                           ))}
                         </Grid>
                       ) : (
-                        <Typography className={classes.faqText}>
+                        <Box 
+                          fontWeight="fontWeightLight" 
+                          m={1}
+                          align="left"
+                          className={classes.faqText}
+                        >
                           {faq.answer}
-                        </Typography>
+                        </Box>
                       )}
                     </ExpansionPanelDetails>
                   </ExpansionPanel>

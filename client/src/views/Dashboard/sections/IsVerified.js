@@ -74,7 +74,10 @@ const IsVerified = ({ classes, ...props }) => {
         >
           <Grid item>
             <div className={classes.buttonWrapper}>
-              <Button color="primary" size="large" variant="contained" onClick={Logout}>
+              <Button color="primary" size="large" onClick={Logout}>
+                Logout
+              </Button>
+              <Button color="primary" size="large" onClick={Logout}>
                 Logout
               </Button>
             </div>

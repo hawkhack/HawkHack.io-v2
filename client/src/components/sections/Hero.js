@@ -60,7 +60,7 @@ const Hero = () => {
             <Grid item>
               <div className={classes.wrapper}>
                 <NavLink
-                  to={localStorage.getItem("cool-jwt") ? "dashboard" : "register"}
+                  to={localStorage.getItem('cool-jwt') ? 'dashboard' : 'register'}
                   className={classes.navLink}
                 >
                   <Button variant="contained" color="primary" size="large" className={classes.Button}>

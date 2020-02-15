@@ -66,25 +66,26 @@ const aboutStyles = makeStyles((theme) => ({
     fontWeight: '300',
   },
   whatText: {
-    '@media (min-width: 276px)': {
-      fontSize: '1em',
-      padding: 10,
-    },
-    '@media (min-width: 576px)': {
-      fontSize: '1.5em',
-      padding: 10,
-    },
-    '@media (min-width: 768px)': {
-      fontSize: '1.5em',
-    },
-    '@media (min-width: 992px)': {
-      fontSize: '1.5em',
-    },
-    '@media (min-width: 1200px)': {
-      fontSize: '1.5em',
-    },
-    color: '#999',
-    alignText: 'left',
+    // '@media (min-width: 276px)': {
+    //   fontSize: 'calc(16px + 1em)',
+    //   padding: 10,
+    // },
+    // '@media (min-width: 576px)': {
+    //   fontSize: '1.5em',
+    //   padding: 10,
+    // },
+    // '@media (min-width: 768px)': {
+    //   fontSize: '1.5em',
+    // },
+    // '@media (min-width: 992px)': {
+    //   fontSize: '1.5em',
+    // },
+    // '@media (min-width: 1200px)': {
+    //   fontSize: '1.5em',
+    // },
+    color: "black",
+    fontSize: "calc(14px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))",
+    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
   },
   iframe: {
     border: 0,

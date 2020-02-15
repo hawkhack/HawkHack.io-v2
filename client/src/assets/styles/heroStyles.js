@@ -5,21 +5,8 @@ const heroStyles = makeStyles(() => ({
   heroText: {
     color: 'white',
     fontFamily: 'Dancing Script, cursive',
-    '@media (min-width: 276px)': {
-      fontSize: 'calc(12px + 4em)',
-    },
-    '@media (min-width: 576px)': {
-      fontSize: 'calc(12px + 7em)',
-    },
-    '@media (min-width: 768px)': {
-      fontSize: 'calc(12px + 8em)',
-    },
-    '@media (min-width: 992px)': {
-      fontSize: 'calc(12px + 9em)',
-    },
-    '@media (min-width: 1200px)': {
-      fontSize: 'calc(12px + 10em)',
-    },
+    fontSize: "calc(56px + (136 - 18) * ((100vw - 300px) / (1600 - 300)))",
+    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
   },
   buttonGroup: {
     padding: 20,
@@ -67,27 +54,12 @@ const heroStyles = makeStyles(() => ({
   round2: {
     fontFamily: 'Roboto',
     paddingBottom: 20,
-    fontWeight: 300,
-    '@media (min-width: 276px)': {
-      fontSize: '1.375em',
-    },
-    '@media (min-width: 576px)': {
-      fontSize: '1.375em',
-    },
-    '@media (min-width: 768px)': {
-      fontSize: '1.5em',
-    },
-    '@media (min-width: 992px)': {
-      fontSize: '1.75em',
-    },
-    '@media (min-width: 1200px)': {
-      fontSize: '1.75em',
-    },
+    fontSize: "calc(16px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))",
+    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
   },
   dates: {
     fontSize: 'calc(13px + .5vw)',
     fontFamily: 'Roboto',
-    fontWeight: 300,
   },
   navLink: {
     textDecoration: 'none',
