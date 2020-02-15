@@ -2,7 +2,7 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -95,8 +95,8 @@ const Faq = () => {
                         <Grid container direction="column">
                           {faq.answer.map((f) => (
                             <Grid item>
-                              <Box 
-                                fontWeight="fontWeightLight" 
+                              <Box
+                                fontWeight="fontWeightLight"
                                 m={1}
                                 align="left"
                                 className={classes.faqText}
@@ -107,8 +107,8 @@ const Faq = () => {
                           ))}
                         </Grid>
                       ) : (
-                        <Box 
-                          fontWeight="fontWeightLight" 
+                        <Box
+                          fontWeight="fontWeightLight"
                           m={1}
                           align="left"
                           className={classes.faqText}

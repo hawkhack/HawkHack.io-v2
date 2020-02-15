@@ -130,13 +130,13 @@ const dashboardStyles = makeStyles((theme) => ({
     padding: 5,
   },
   realDashboardTitle: {
-    fontSize: "calc(36px + (26 - 10) * ((100vw - 300px) / (1600 - 300)))",
-    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
+    fontSize: 'calc(36px + (26 - 10) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   realDashboardText: {
-    fontSize: "calc(16px + (26 - 16) * ((100vw - 300px) / (1600 - 300)))",
-    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
-  }
+    fontSize: 'calc(16px + (26 - 16) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
+  },
 }));
 
 export default dashboardStyles;

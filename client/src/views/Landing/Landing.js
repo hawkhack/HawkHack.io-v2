@@ -11,6 +11,7 @@ import About from '../../components/sections/About';
 import Faq from '../../components/sections/Faq';
 import Footer from '../../components/sections/Footer';
 import Final from '../../components/sections/Final';
+import Info from '../../components/sections/Info';
 import Sponsors from '../../components/sections/Sponsors';
 import Parallax from '../../components/sections/Parallax/Parallax';
 
@@ -31,6 +32,7 @@ const LandingPage = () => {
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <About />
+          <Info />
           <Sponsors />
           <Faq />
           <Final />

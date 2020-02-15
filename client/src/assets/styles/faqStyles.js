@@ -7,8 +7,8 @@ const faqStyles = makeStyles((theme) => ({
   },
   faqText: {
     padding: 10,
-    fontSize: "calc(14px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))",
-    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
+    fontSize: 'calc(14px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   faqWrapper: {
     padding: 20,

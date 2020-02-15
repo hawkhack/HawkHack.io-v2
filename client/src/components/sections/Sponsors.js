@@ -9,7 +9,7 @@ const Sponsors = ({ ...props }) => {
     <div className={classes.wholeWrapper}>
       <div className={classes.title}>
         <Typography variant="h3" style={{ fontWeight: '300' }} color="primary" align="center">
-              Our Sponsors
+          Our Sponsors
         </Typography>
       </div>
       <Grid
@@ -18,6 +18,9 @@ const Sponsors = ({ ...props }) => {
         justify="center"
         alignItems="center"
       >
+        <Grid item xs={12} sm={8} md={4}>
+          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
+        </Grid>
         <Grid item>
           <div className={classes.wrapper}>
             <Grid
@@ -48,9 +51,6 @@ const Sponsors = ({ ...props }) => {
               </Grid>
             </Grid>
           </div>
-        </Grid>
-        <Grid item xs={12} sm={8} md={4}>
-          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
         </Grid>
       </Grid>
     </div>

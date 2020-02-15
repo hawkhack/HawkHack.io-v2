@@ -5,8 +5,8 @@ const heroStyles = makeStyles(() => ({
   heroText: {
     color: 'white',
     fontFamily: 'Dancing Script, cursive',
-    fontSize: "calc(56px + (136 - 18) * ((100vw - 300px) / (1600 - 300)))",
-    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
+    fontSize: 'calc(56px + (136 - 18) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   buttonGroup: {
     padding: 20,
@@ -54,8 +54,8 @@ const heroStyles = makeStyles(() => ({
   round2: {
     fontFamily: 'Roboto',
     paddingBottom: 20,
-    fontSize: "calc(16px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))",
-    lineHeight: "calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))"
+    fontSize: 'calc(16px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   dates: {
     fontSize: 'calc(13px + .5vw)',

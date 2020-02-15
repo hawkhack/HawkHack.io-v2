@@ -43,11 +43,11 @@ const Dashboard = ({ ...props }) => {
             ? <RealDashboard {...props} classes={classes} />
             : <IsVerified {...props} classes={classes} />);
         } catch (err) {
-          if (err.message !== "Network Error") {
+          if (err.message !== 'Network Error') {
             handleError();
           }
 
-          props.history.push("/")
+          props.history.push('/');
         }
       };
 

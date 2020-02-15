@@ -27,8 +27,8 @@ const About = () => {
               What's HawkHack?
             </Typography>
           </div>
-          <Box 
-            fontWeight="fontWeightLight" 
+          <Box
+            fontWeight="fontWeightLight"
             m={1}
             align="center"
             className={classes.whatText}
@@ -50,8 +50,8 @@ const About = () => {
               When and Where?
             </Typography>
           </div>
-          <Box 
-            fontWeight="fontWeightLight" 
+          <Box
+            fontWeight="fontWeightLight"
             m={1}
             align="center"
             className={classes.whatText}
