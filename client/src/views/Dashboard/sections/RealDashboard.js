@@ -25,8 +25,9 @@ const RealDashboard = ({ classes, ...props }) => {
               variant="h2"
               color="primary"
               align="center"
+              className={classes.realDashboardTitle}
             >
-                Hang in there! The applications aren't open yet.
+              Hang in there! The applications aren't open yet.
             </Typography>
           </div>
         </Grid>
@@ -36,6 +37,7 @@ const RealDashboard = ({ classes, ...props }) => {
               variant="body1"
               color="primary"
               align="center"
+              className={classes.realDashboardText}
             >
               But when they are, we'll notify you.
             </Typography>

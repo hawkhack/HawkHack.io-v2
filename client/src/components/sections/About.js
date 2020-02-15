@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 import aboutStyles from '../../assets/styles/aboutStyles';
 
@@ -26,22 +27,19 @@ const About = () => {
               What's HawkHack?
             </Typography>
           </div>
-          <div className={classes.wrapper}>
-            <Typography
-              variant="body1"
-              align="left"
-              gutterBottom
-              color="primary"
-              className={classes.whatText}
-            >
-              HawkHack is a 24-hour hackathon event at Montclair State University.
-              Students of any majors are welcome to form a team and build awesome software
-              and hardware projects. Industry experts and mentors will be there to help and guide
-              students and create a learning environment through talks, workshops,
-              and one-on-one guidance. We encourage anyone from beginner to
-              advanced developers to challenge themselves and create something awesome.
-            </Typography>
-          </div>
+          <Box
+            fontWeight="fontWeightLight"
+            m={1}
+            align="center"
+            className={classes.whatText}
+          >
+            HawkHack is a 24-hour hackathon event at Montclair State University.
+            Students of any majors are welcome to form a team and build awesome software
+            and hardware projects. Industry experts and mentors will be there to help and guide
+            students and create a learning environment through talks, workshops,
+            and one-on-one guidance. We encourage anyone from beginner to
+            advanced developers to challenge themselves and create something awesome.
+          </Box>
           <div className={classes.whatsHawkhack}>
             <Typography
               variant="h3"
@@ -52,18 +50,16 @@ const About = () => {
               When and Where?
             </Typography>
           </div>
-          <div className={classes.wrapper}>
-            <Typography
-              variant="body1"
-              align="center"
-              gutterBottom
-              className={classes.whatText}
-            >
-              <b>March 28th, 10:00 AM to March 29th, 3:00 PM</b>
-              <br />
-              <b>Montclair State University, Student Center - Ballrooms A, B, C</b>
-            </Typography>
-          </div>
+          <Box
+            fontWeight="fontWeightLight"
+            m={1}
+            align="center"
+            className={classes.whatText}
+          >
+            <b>March 28th, 10:00 AM to March 29th, 3:00 PM</b>
+            <br />
+            <b>Montclair State University, Student Center - Ballrooms A, B, C</b>
+          </Box>
         </Grid>
         <Grid item sm={12} md={12} lg={6}>
           <div className={classes.wrapper}>

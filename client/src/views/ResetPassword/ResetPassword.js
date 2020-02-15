@@ -86,7 +86,6 @@ const ResetPassword = ({ ...props }) => {
       handleLoading(false);
       props.history.push('/login');
     } catch (err) {
-      console.log(err);
       if (err.response) {
         handleTokenError(err.response.data.token);
       } else {
@@ -100,7 +99,6 @@ const ResetPassword = ({ ...props }) => {
     // eslint-disable-next-line
   }, [])
 
-  console.log(values.errors);
   return (
     <>
       <CssBaseline />

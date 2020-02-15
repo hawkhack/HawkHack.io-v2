@@ -6,26 +6,9 @@ const faqStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.secondary,
   },
   faqText: {
-    '@media (min-width: 276px)': {
-      padding: '5px',
-      fontSize: 'calc(14px + .2vw)',
-    },
-    '@media (min-width: 576px)': {
-      padding: '10px',
-      fontSize: 'calc(14px + .2vw)',
-    },
-    '@media (min-width: 768px)': {
-      padding: '15px',
-      fontSize: 'calc(12px + .4vw)',
-    },
-    '@media (min-width: 992px)': {
-      padding: '15px',
-      fontSize: 'calc(12px + .5vw)',
-    },
-    '@media (min-width: 1200px)': {
-      padding: '15px',
-      fontSize: 'calc(12px + .5vw)',
-    },
+    padding: 10,
+    fontSize: 'calc(14px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))',
+    lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   faqWrapper: {
     padding: 20,
