@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
 
 import dashboardStyles from '../../assets/styles/dashboardStyles';
@@ -79,7 +80,20 @@ const Dashboard = ({ ...props }) => {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          {values.dash ? values.dash : null}
+          {values.dash ? values.dash
+            : (
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                align="center"
+                className={classes.dash}
+              >
+                <Grid item>
+                  <CircularProgress />
+                </Grid>
+              </Grid>
+            )}
         </div>
       </div>
       <Footer />

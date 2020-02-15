@@ -340,14 +340,19 @@ router.get("/verify/:token", (req, res) => {
       user.verificationToken = "";
       //save user and return success
       user.save().then(() => {
-        res.status(200).json({ success: true });
+        const member = {
+          address: user.email
+        };
+        mailgun
+          .lists(process.env.usersMailingList)
+          .members()
+          .create(member, (err, member) => {
+            if (err) {
+              return res.status(400).json(err);
+            }
+            return res.status(200).json({ success: true });
+          });
       });
-      const member = {
-        address: user.email
-      };
-      mailgun
-        .lists(process.env.usersMailingList)
-        .add({ members: member, subscribed: true });
     });
 });
 

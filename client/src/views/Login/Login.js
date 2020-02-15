@@ -158,9 +158,9 @@ const Login = ({ ...props }) => {
                     <>
                       <div className={classes.textfieldWrapper}>
                         <FormControl className={classes.formControl}>
-                          <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
+                          <InputLabel htmlFor="standard-adornment-email">Email</InputLabel>
                           <Input
-                            id="standard-adornment-password"
+                            id="standard-adornment-email"
                             type="Email"
                             disabled={values.loading}
                             value={values.email}

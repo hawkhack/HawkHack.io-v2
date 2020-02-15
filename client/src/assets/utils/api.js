@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-let apiURL = process.env.REACT_APP_API_URL;
-
-if (process.env.NODE_ENV === 'production') {
-  apiURL = process.env.REACT_APP_API_URL;
-}
+const apiURL = process.env.REACT_APP_API_URL;
 
 export const RegisterUser = (email, password, password2) => axios.post(`${apiURL}/u/register`, {
   email,
