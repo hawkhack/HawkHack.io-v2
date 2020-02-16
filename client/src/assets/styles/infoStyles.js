@@ -10,10 +10,19 @@ const infoStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.primary.main,
     fontWeight: '300',
-    marginBottom: '70px',
   },
   imageText: {
     color: 'black',
+  },
+  card: {
+    minWidth: '200px',
+    width: '100%',
+    minHeight: '600px',
+  },
+  hr: {
+    marginTop: 30,
+    border: '.8px solid red',
+    width: '50%',
   },
 }));
 

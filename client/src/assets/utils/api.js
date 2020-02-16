@@ -51,7 +51,7 @@ export const ResetPass = (token, password, password2) => axios.post(`${apiURL}/u
 export const VerifyUser = (token) => axios.get(`${apiURL}/u/verify/${token}`)
   .then((result) => result)
   .catch((err) => {
-    throw err;
+    throw err.response.data;
   });
 
 export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
