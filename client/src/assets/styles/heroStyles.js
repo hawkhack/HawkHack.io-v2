@@ -11,6 +11,9 @@ const heroStyles = makeStyles(() => ({
   buttonGroup: {
     padding: 20,
   },
+  logoImg: {
+
+  },
   Button: {
     padding: '15px 40px',
     minHeight: 'auto',

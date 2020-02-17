@@ -55,8 +55,7 @@ const Info = () => {
                   <hr className={classes.hr} />
                   <div className={classes.wrapper}>
                     <Typography variant="h5" color="textSecondary" component="p">
-                      Over 150 participants, 30 volunteers and 10 organizers. This year,
-                      we so far have 15 organizers and 40 volunteers!
+                      Over 10 organizers, 30 volunteers and 150 hackers
                     </Typography>
                   </div>
                 </CardContent>
@@ -80,8 +79,7 @@ const Info = () => {
                   <hr className={classes.hr} />
                   <div className={classes.wrapper}>
                     <Typography variant="h5" color="textSecondary" component="p">
-                      More than 30 activities ranging from spray
-                      painting hair to a Laser tag tournament, even cup stacking
+                      More than 30 activities ranging from cup-stacking to a Laser tag tournament
                     </Typography>
                   </div>
                 </CardContent>
@@ -105,8 +103,8 @@ const Info = () => {
                   <hr className={classes.hr} />
                   <div className={classes.wrapper}>
                     <Typography variant="h5" color="textSecondary" component="p">
-                      $15,000+ in sponsorships workshops from Google, Netflix,
-                      ADP. Complete with over $1,000 in prizes!
+                      $15,000+ in sponsorships with workshops from Google, Netflix,
+                      ADP and over $1,000 in prizes!
                     </Typography>
                   </div>
                 </CardContent>

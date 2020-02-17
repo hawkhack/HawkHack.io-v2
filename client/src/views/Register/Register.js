@@ -117,9 +117,9 @@ const Register = ({ ...props }) => {
                   <div className={classes.cardBody}>
                     <div className={classes.textfieldWrapper}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
+                        <InputLabel htmlFor="email">Email</InputLabel>
                         <Input
-                          id="standard-adornment-password"
+                          id="email"
                           type="Email"
                           value={values.email}
                           disabled={values.loading}
@@ -143,9 +143,9 @@ const Register = ({ ...props }) => {
                     </div>
                     <div className={classes.textfieldWrapper}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="password">Password</InputLabel>
                         <Input
-                          id="standard-adornment-password"
+                          id="password"
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password}
                           disabled={values.loading}
@@ -171,9 +171,9 @@ const Register = ({ ...props }) => {
                     </div>
                     <div className={classes.textfieldWrapper}>
                       <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="standard-adornment-password">Confirm password</InputLabel>
+                        <InputLabel htmlFor="confPassword">Confirm password</InputLabel>
                         <Input
-                          id="standard-adornment-password"
+                          id="confPassword"
                           type={values.showPassword ? 'text' : 'password'}
                           value={values.password2}
                           disabled={values.loading}
