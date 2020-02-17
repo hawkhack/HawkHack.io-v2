@@ -1,18 +1,15 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
-const morgan = require("morgan");
+const logger = require("./config/logger");
 const rateLimit = require("express-rate-limit");
-const getDefaults = require("./config/defaults");
+const connectDB = require("./config/db");
 
-//import keys
-const { port, dburi } = require("./config/keys");
+const getDefaults = require("./config/defaults");
 
 //import route files
 const users = require("./routes/api/user");
@@ -40,9 +37,7 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+app.use(logger());
 
 // Prevent http param pollution
 app.use(hpp());
@@ -57,16 +52,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 //connect to db
-mongoose
-  .connect(dburi, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  })
-  .then(() => {
-    console.log("connected to mongodb");
-  })
-  .catch(err => console.log(err));
+connectDB();
 
 //Use Routes
 app.use("/api/u", users);
@@ -75,7 +61,10 @@ app.use("/api/a", admin);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://hawkhack.io"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
@@ -88,8 +77,12 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
-const server = app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(PORT, () => {
+  console.log(
+    `Server listening on port ${PORT} in ${process.env.NODE_ENV} mode.`
+  );
 });
 
 //handle unhandled rejections
