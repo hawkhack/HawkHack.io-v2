@@ -84,7 +84,7 @@ const Faq = () => {
             alignItems="center"
           >
             {FAQs.map((faq) => (
-              <Grid key={faq} item style={{ width: '100%' }} xs={12} md={12} lg={8}>
+              <Grid key={faq.question} item style={{ width: '100%' }} xs={12} md={12} lg={8}>
                 <div className={classes.wrapper}>
                   <ExpansionPanel square expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -94,7 +94,7 @@ const Faq = () => {
                       {typeof (faq.answer) === 'object' ? (
                         <Grid container direction="column">
                           {faq.answer.map((f) => (
-                            <Grid item>
+                            <Grid key={f} item>
                               <Box
                                 fontWeight="fontWeightLight"
                                 m={1}

@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const apiURL = process.env.REACT_APP_DEV_API_URL;
+let apiURL = process.env.REACT_APP_DEV_API_URL;
+
+if (process.env.NODE_ENV === 'production') {
+  apiURL = process.env.REACT_APP_API_URL;
+}
 
 export const RegisterUser = (email, password, password2) => axios.post(`${apiURL}/u/register`, {
   email,
@@ -47,7 +51,7 @@ export const ResetPass = (token, password, password2) => axios.post(`${apiURL}/u
 export const VerifyUser = (token) => axios.get(`${apiURL}/u/verify/${token}`)
   .then((result) => result)
   .catch((err) => {
-    throw err;
+    throw err.response.data;
   });
 
 export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {

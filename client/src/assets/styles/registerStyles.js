@@ -152,9 +152,6 @@ const registerStyles = makeStyles((theme) => ({
     lineHeight: '1.42857',
     top: '10px',
     letterSpacing: 'unset',
-    '& + $underline': {
-      marginTop: '0px',
-    },
   },
   inputIconsColor: {
     color: '#495057',
@@ -171,10 +168,6 @@ const registerStyles = makeStyles((theme) => ({
     },
     '&::placeholder': {
       color: '#FFF',
-    },
-    '&:hover:not($disabled):before,&:before': {
-      borderColor: '#D2D2D2 !important',
-      borderWidth: '1px !important',
     },
     '&:after': {
       borderColor: theme.palette.primary.main,

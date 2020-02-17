@@ -2,9 +2,6 @@ import image from './pictures/msulanding.jpg';
 
 const sponsorStyles = () => ({
   wholeWrapper: {
-    marginTop: '100px',
-    marginBottom: '100px',
-    padding: -10,
   },
   wrapper: {
     padding: 20,

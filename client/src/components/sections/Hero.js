@@ -20,15 +20,8 @@ const Hero = () => {
         justify="center"
         alignItems="center"
       >
-        <Grid item xs={12}>
-          <Typography
-            variant="h1"
-            className={classes.heroText}
-            color="secondary"
-            align="center"
-          >
-            {defaults.title}
-          </Typography>
+        <Grid item xs={7} sm={5} md={4} lg={3}>
+          <img style={{ maxWidth: '100%' }} src="https://msu-images.s3.amazonaws.com/logo.png" alt="our logo" />
         </Grid>
         <Grid item xs={12}>
           <div className={classes.wrapper}>

@@ -18,8 +18,10 @@ const Sponsors = ({ ...props }) => {
         justify="center"
         alignItems="center"
       >
-        <Grid item xs={12} sm={8} md={4}>
-          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
+        <Grid item xs={12} sm={8} md={5}>
+          <div className={classes.wrapper}>
+            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.jpg" alt="google" />
+          </div>
         </Grid>
         <Grid item>
           <div className={classes.wrapper}>
@@ -31,7 +33,7 @@ const Sponsors = ({ ...props }) => {
             >
               <Grid item xs={12} sm={8} md={3}>
                 <div className={classes.imgWrapper}>
-                  <img className={classes.img} src="https://msu-images.s3.amazonaws.com/Logitech_logo.png" alt="logitech" />
+                  <img className={classes.img} src="https://msu-images.s3.amazonaws.com/logitech_logo.png" alt="logitech" />
                 </div>
               </Grid>
               <Grid item xs={12} sm={8} md={3}>
@@ -51,6 +53,9 @@ const Sponsors = ({ ...props }) => {
               </Grid>
             </Grid>
           </div>
+        </Grid>
+        <Grid item xs={12} sm={8} md={4}>
+          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google.png" alt="google" />
         </Grid>
       </Grid>
     </div>
