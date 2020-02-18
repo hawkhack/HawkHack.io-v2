@@ -46,4 +46,4 @@ echo "Installing server packages"
 npm ci
 
 echo "Starting with PM2"
-pm2 start npm -- start
+pm2 start npm -- start --log-date-format 'DD-MM HH:mm:ss.SSS'

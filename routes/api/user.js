@@ -10,6 +10,7 @@ const mailgun = require("../../config/mailgun");
 const getDefaults = require("../../config/defaults");
 const verify = require("../../middleware/verifyActive");
 const wrap = require("../../middleware/asyncWrapper");
+const mailbody = require("../../config/mailbody");
 
 //Load user model
 const User = require("../../models/User");
@@ -19,10 +20,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateResetPassword = require("../../validation/resetpw");
 
-let domain = "www.hawkhack.io";
-if (process.env.NODE_ENV === "development") {
-  domain = "localhost:3000";
-}
+
 
 //  @route  GET api/u/test
 //  @desc   Test users route
@@ -96,13 +94,7 @@ router.post("/register", (req, res) => {
             .save()
             .then(user => {
               //send email verification
-
-              const data = {
-                from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
-                to: user.email,
-                subject: `${defaults.Event.name} Please verify your email`,
-                html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${newUser.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
-              };
+              const data = mailbody.confirmation(user.email, user.verificationToken);
               mailgun.messages().send(data, (err, body) => {
                 if (err) {
                   console.log("mailgun error: ", err);
@@ -148,13 +140,7 @@ router.get(
     const user = await User.findById(req.user.id).select(
       "verificationToken email"
     );
-    console.log(user);
-    const data = {
-      from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
-      to: req.user.email,
-      subject: `${defaults.Event.name} Please verify your email`,
-      html: `<p>Hi,<br>Welcome to ${defaults.Event.name} ${defaults.Event.edition}. Please verify your email by clicking the link below.</p><p>${domain}/verify/${user.verificationToken}</p><p>If you did sign up for a ${defaults.Event.name} account please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
-    };
+    const data = mailbody.confirmation(user.email, user.verificationToken);
     mailgun.messages().send(data, (err, body) => {
       if (err) {
         console.log("mailgun error: ", err);
@@ -256,19 +242,15 @@ router.get("/resetpw/:email", (req, res) => {
   User.findOne({ email: email }).then(user => {
     //if no user, smile and nod.
     if (!user) {
-      console.log(`user ${email} not found`);
+      console.log(`GET /resetpw: user ${email} not found`);
       return res.status(200).json(`email sent to ${email}`);
     }
     const token = uid(64);
     user.passwordResetToken = token;
+    
     user.save().then(() => {
       //send password reset link to email
-      const data = {
-        from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
-        to: user.email,
-        subject: `${defaults.Event.name} Password Reset`,
-        html: `<p>Hi,<br>An account registered in ${defaults.Event.name} has issued a password reset. Clicking the link below to reset your password. </p><p>${domain}/reset/${token}</p><p>If you did not issue a password reset please disregard this email.</p><p>Happy Hacking!<br>Team ${defaults.Event.name}</p>`
-      };
+      const data = mailbody.reset(user.email, token);
       mailgun.messages().send(data, (err, body) => {
         if (err) {
           console.log("mailgun error: ", err);
@@ -296,7 +278,7 @@ router.post("/resetpw/:token", (req, res) => {
     .select("password passwordResetToken")
     .then(user => {
       if (!user) {
-        console.log(`ResetPW no user with token ${token}`);
+        console.log(`POST /resetpw: ResetPW no user with token ${token}`);
         return res.status(400).json({ token: "Token is not valid" });
       }
 
@@ -328,7 +310,6 @@ router.post("/resetpw/:token", (req, res) => {
 router.get("/verify/:token", (req, res) => {
   //get token from parameters
   const token = req.params.token;
-  console.log(token);
   //find user with this token
   User.findOne({ verificationToken: token })
     .select("verified verificationToken")
