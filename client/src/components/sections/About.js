@@ -63,7 +63,7 @@ const About = () => {
         </Grid>
         <Grid item sm={12} md={12} lg={6}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/msu.jpg" alt="there should be something really cool here" />
+            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/msu-min.jpg" alt="there should be something really cool here" />
           </div>
         </Grid>
       </Grid>
