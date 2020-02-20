@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const randtoken = require("rand-token");
 const uid = randtoken.uid;
-const { secretOrKey } = require("../../config/keys");
+const { secretOrKey, usersMailingList } = require("../../config/keys");
 const mailgun = require("../../config/mailgun");
 const getDefaults = require("../../config/defaults");
 const verify = require("../../middleware/verifyActive");
@@ -22,12 +22,11 @@ const validateLoginInput = require("../../validation/login");
 const validateResetPassword = require("../../validation/resetpw");
 
 
-
 //  @route  GET api/u/test
 //  @desc   Test users route
 //  @access Public
-router.get("/test", (req, res) => {
-  res.json({ msg: "Users Works" });
+router.get("/test/:email", (req, res) => {
+  
 });
 
 //  @route  GET api/u/test
@@ -316,11 +315,12 @@ router.post("/resetpw/:token", (req, res) => {
 });
 
 router.get("/verify/:token", (req, res) => {
+  console.log("i'm trying");
   //get token from parameters
   const token = req.params.token;
   //find user with this token
   User.findOne({ verificationToken: token })
-    .select("verified verificationToken")
+    .select("verified email verificationToken")
     .then(user => {
       if (!user) {
         //if no user then no such token exists
@@ -332,16 +332,21 @@ router.get("/verify/:token", (req, res) => {
       //save user and return success
       user.save().then(() => {
         const member = {
+          subscribed: true,
           address: user.email
         };
+        console.log("user", user);
+        console.log("mailing list", process.env.UsersMailingList);
+        console.log("member", member);
         mailgun
-          .lists(process.env.usersMailingList)
+          .lists(process.env.UsersMailingList)
           .members()
-          .create(member, (err, member) => {
+          .create(member, (err, data) => {
             if (err) {
               return res.status(400).json(err);
             }
-            return res.status(200).json({ success: true });
+            console.log(`added ${user.email} to ${process.env.UsersMailingList}`);
+            return res.status(200).json(data);
           });
       });
     });
