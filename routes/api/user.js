@@ -14,6 +14,7 @@ const mailbody = require("../../config/mailbody");
 
 //Load user model
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 
 //Load Input Validation
 const validateRegisterInput = require("../../validation/register");
@@ -47,15 +48,22 @@ router.get(
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({
-      email: req.user.email,
-      isVerified: req.user.verified,
-      role: req.user.role,
-      date: req.user.date
-    });
+  wrap(async(req, res) => {
+    try{
+      const data = {
+        email: req.user.email,
+        isVerified: req.user.verified,
+        role: req.user.role,
+        date: req.user.date
+      }
+      const profile = await Profile.findOne({email:req.user.email});
+      if(profile) data.profile = profile;
+      return res.json(data);
+    }catch(err){
+      return res.status(400).json(err);
+    }
   }
-);
+));
 
 //  @route  POST api/u/register
 //  @desc   register user
@@ -94,11 +102,11 @@ router.post("/register", (req, res) => {
             .save()
             .then(user => {
               //send email verification
-              const data = mailbody.confirmation(user.email, user.verificationToken);
+              const data = mailbody.confirmEmail(user.email, user.verificationToken);
               mailgun.messages().send(data, (err, body) => {
                 if (err) {
                   console.log("mailgun error: ", err);
-                  return res.status(500).json("error");
+                  return res.status(500).json(err);
                 }
                 console.log(`verification email sent to ${data.to}`);
               });
@@ -140,7 +148,7 @@ router.get(
     const user = await User.findById(req.user.id).select(
       "verificationToken email"
     );
-    const data = mailbody.confirmation(user.email, user.verificationToken);
+    const data = mailbody.confirmEmail(user.email, user.verificationToken);
     mailgun.messages().send(data, (err, body) => {
       if (err) {
         console.log("mailgun error: ", err);

@@ -39,6 +39,17 @@ export const dayTwoSchedule = [
   ['Closing Ceremony', '2:15 PM'],
 ];
 
+export const sponsorsRowOne = [
+  'https://msu-images.s3.amazonaws.com/cesac.jpg',
+];
+
+export const sponsorsRowTwo = [
+  'https://msu-images.s3.amazonaws.com/logitech_logo-min.png',
+  'https://msu-images.s3.amazonaws.com/lyft-logo-min.png',
+  'https://msu-images.s3.amazonaws.com/gfuel-min.png',
+  'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png',
+];
+
 export const FAQs = [
   {
     question: 'What is a hackathon?',

@@ -5,17 +5,13 @@ const passport = require("passport");
 const wrap = require("../../middleware/asyncWrapper");
 
 const getDefaults = require("../../config/defaults");
+const mailbody = require("../../config/mailbody");
 
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const List = require("../../models/List");
 
 const verifyRole = require("../../middleware/verifyRole");
-
-let domain = "www.hawkhack.io";
-if (process.env.NODE_ENV === "development") {
-  domain = "localhost:3000";
-}
 
 router.get(
   "/stats",
@@ -184,16 +180,11 @@ router.post(
           profile.statusChangedAt = new Date();
           profile.status = status;
           profile.confirmationToken = uid(32);
-          const savedProfile = await profile.save();
+          await profile.save();
           console.log(`USER ACCEPTED: ${profile.email}`);
 
           //send confirmation email
-          const data = {
-            from: `${defaults.Event.name} <noreply@${defaults.Links.domain}>`,
-            to: savedProfile.email,
-            subject: `${defaults.Event.name} You have been Accepted to HawkHack Spring 2020`,
-            html: `<p>Congratulations ${savedProfile.firstName}!<br>You have been accepted to HawkHack Spring 2020. Please let us know if you are coming by clicking the link below.</p><p>${domain}/confirm/${savedProfile.confirmationToken}`
-          };
+          const data = mailbody.confirmation(profile.email, profile.firstName, profile.confirmationToken);
           mailgun.messages().send(data, (err, body) => {
             if (err) {
               console.log("mailgun error: ", err);

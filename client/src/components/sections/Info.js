@@ -45,7 +45,7 @@ const Info = () => {
                   component="img"
                   alt="Contemplative Reptile"
                   height="240"
-                  image="https://msu-images.s3.amazonaws.com/group-pic.jpg"
+                  image="https://msu-images.s3.amazonaws.com/group-pic-min.jpg"
                   title="Contemplative Reptile"
                 />
                 <CardContent>
@@ -69,7 +69,7 @@ const Info = () => {
                   component="img"
                   alt="Contemplative Reptile"
                   height="240"
-                  image="https://msu-images.s3.amazonaws.com/cup-stacking.jpg"
+                  image="https://msu-images.s3.amazonaws.com/cup-stacking-min.jpg"
                   title="Contemplative Reptile"
                 />
                 <CardContent>
@@ -93,7 +93,7 @@ const Info = () => {
                   component="img"
                   alt="Contemplative Reptile"
                   height="240"
-                  image="https://msu-images.s3.amazonaws.com/people.jpg"
+                  image="https://msu-images.s3.amazonaws.com/people-min.jpg"
                   title="Contemplative Reptile"
                 />
                 <CardContent>
