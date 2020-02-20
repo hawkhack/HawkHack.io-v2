@@ -36,7 +36,6 @@
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
     "rand-token": "^0.4.0",
-    "request": "^2.88.0",
     "rotating-file-stream": "^2.0.2",
     "validator": "^11.0.0",
     "xss-clean": "^0.1.1"
