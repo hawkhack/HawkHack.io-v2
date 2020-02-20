@@ -13,7 +13,7 @@ module.exports = {
       to: toEmail,
       subject: `${defaults.Event.name} Please verify your email`,
       template: "email_confirmation",
-      "v:token":token
+      "v:url": `${domain}/verify/${token}`
     });
   },
   reset: (toEmail, token) => {
@@ -23,7 +23,7 @@ module.exports = {
       to: toEmail,
       subject: `${defaults.Event.name} Password Reset`,
       template: "password_reset",
-      "v:token": token
+      "v:url": `${domain}/reset/${token}`
     });
   },
   confirmation: (toEmail, firstName, token) => {

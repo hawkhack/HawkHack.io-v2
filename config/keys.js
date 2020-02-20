@@ -10,10 +10,12 @@ switch (process.env.NODE_ENV) {
   default:
     dotenv.config({ path: path.resolve(__dirname, "./", ".env.local") });
 }
+
 module.exports = {
   dburi: process.env.DBURI,
   port: process.env.PORT,
   secretOrKey: process.env.SecretOrKey,
   mailgunKey: process.env.MAILGUN_KEY,
-  mailgunDomain: process.env.MAILGUN_DOMAIN
+  mailgunDomain: process.env.MAILGUN_DOMAIN,
+  usersMailingList: process.env.UsersMailingList
 };
