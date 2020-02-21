@@ -1,5 +1,5 @@
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import withStyles from '@material-ui/core/styles/withStyles'
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const ExpansionPanelSummary = withStyles({
   root: {
@@ -18,4 +18,4 @@ const ExpansionPanelSummary = withStyles({
   expanded: {},
 })(MuiExpansionPanelSummary);
 
-export default ExpansionPanelSummary
+export default ExpansionPanelSummary;

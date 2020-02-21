@@ -18,7 +18,7 @@ import RealDashboard from './sections/RealDashboard';
 const Dashboard = ({ ...props }) => {
   const [values, setValues] = useState({
     user: {},
-    dash: null
+    dash: null,
   });
 
   const handleState = (key, val) => {
@@ -40,11 +40,10 @@ const Dashboard = ({ ...props }) => {
 
           handleState('user', user.data);
           if (user.data.isVerified) {
-            handleState('dash', <RealDashboard {...props} user={user.data} classes={classes} />)
+            handleState('dash', <RealDashboard {...props} user={user.data} classes={classes} />);
           } else {
-            handleState('dash', <IsVerified {...props} user={user.data} classes={classes} />)
+            handleState('dash', <IsVerified {...props} user={user.data} classes={classes} />);
           }
-
         } catch (err) {
           if (err.message !== 'Network Error') {
             handleError();

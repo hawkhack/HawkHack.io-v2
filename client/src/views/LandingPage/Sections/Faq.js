@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import ExpansionPanel from '../../../components/ExpansionPanel/ExpansionPanel'
-import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/ExpansionPanelSummary'
-import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails'
+import ExpansionPanel from '../../../components/ExpansionPanel/ExpansionPanel';
+import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/ExpansionPanelSummary';
+import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails';
 import faqStyles from '../../../assets/jss/faqStyles';
 import { FAQs } from '../../../defaults';
 
@@ -43,7 +43,7 @@ const Faq = () => {
             {FAQs.map((faq) => (
               <Grid key={faq.question} item style={{ width: '100%' }} xs={12} md={12} lg={8}>
                 <div className={classes.wrapper}>
-                  <ExpansionPanel square expanded={true}>
+                  <ExpansionPanel square expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
                       <Typography color="primary" align="left" variant="h4">{faq.question}</Typography>
                     </ExpansionPanelSummary>
@@ -80,7 +80,7 @@ const Faq = () => {
             ))}
             <Grid item style={{ width: '100%' }} xs={12} md={12} lg={8}>
               <div className={classes.wrapper}>
-                <ExpansionPanel square expanded={true}>
+                <ExpansionPanel square expanded>
                   <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
                     <Typography color="primary" align="left" variant="h4">More questions?</Typography>
                   </ExpansionPanelSummary>

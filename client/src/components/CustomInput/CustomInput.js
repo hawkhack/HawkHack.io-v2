@@ -14,14 +14,14 @@ const CustomInput = (props) => {
   } = props;
 
   return (
-      <FormControl {...formControlProps}>
-        <InputLabel htmlFor={id} {...labelProps} >{labelText}</InputLabel>
-        <Input
-          id={id}
-          {...inputProps}
-        />
-      </FormControl>
-  )
-}
+    <FormControl {...formControlProps}>
+      <InputLabel htmlFor={id} {...labelProps}>{labelText}</InputLabel>
+      <Input
+        id={id}
+        {...inputProps}
+      />
+    </FormControl>
+  );
+};
 
-export default CustomInput
+export default CustomInput;

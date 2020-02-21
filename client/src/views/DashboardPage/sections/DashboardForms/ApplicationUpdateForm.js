@@ -9,74 +9,74 @@ import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
-import makeStyles from '@material-ui/styles/makeStyles'
+import makeStyles from '@material-ui/styles/makeStyles';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import CustomInput from '../../../../components/CustomInput/CustomInput'
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   textWrapper: {
-    padding: "30px 20px 10px 0px"
-  }
+    padding: '30px 20px 10px 0px',
+  },
 }));
 
 const ApplicationUpdateForm = () => {
   const [values, setValues] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "", // Remember to cap at 10 chars before posting
+    email: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '', // Remember to cap at 10 chars before posting
     dateOfBirth: null,
-    shirtSize: "",
-    gender: "",
-    ethnicity: "",
-    github: "",
-    linkedin: "",
-    website: "",
-    school: "",
-    graduationYear: "",
-    levelOfStudy: "",
-    major: "",
-    dietaryRestrictions: "",
-    specialNeeds: "",
-    emergencyName: "",
-    emergencyNumber: ""
-  })
+    shirtSize: '',
+    gender: '',
+    ethnicity: '',
+    github: '',
+    linkedin: '',
+    website: '',
+    school: '',
+    graduationYear: '',
+    levelOfStudy: '',
+    major: '',
+    dietaryRestrictions: '',
+    specialNeeds: '',
+    emergencyName: '',
+    emergencyNumber: '',
+  });
 
   const normalizeInput = (value, previousValue) => {
-    if (!value) return ""; 
+    if (!value) return '';
 
     const currentValue = value.replace(/[^\d]/g, '');
-    const cvLength = currentValue.length; 
+    const cvLength = currentValue.length;
 
     if (!previousValue || value.length > previousValue.length) {
+      if (cvLength < 4) return currentValue;
 
-      if (cvLength < 4) return currentValue; 
+      if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`;
 
-      if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`; 
-
-      return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`; 
+      return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`;
     }
+
+    return value;
   };
 
   const handleState = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleDateChange = date => {
-    setValues({ ...values, dateOfBirth: date })
+  const handleDateChange = (date) => {
+    setValues({ ...values, dateOfBirth: date });
   };
 
-  console.log(values)
   const classes = useStyles();
   return (
     <Grid container justify="center">
       <Grid item xs={12} sm={12} md={12} lg={6}>
-        <div style={{ margin: "1vw 0 2vw 0" }}>
+        <div style={{ margin: '1vw 0 2vw 0' }}>
           <Grid
             container
             justify="center"
@@ -92,33 +92,33 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="First Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"First"}
+                      id="First"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('firstName')
+                        type: 'text',
+                        onChange: handleState('firstName'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Last Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"Last"}
+                      id="Last"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('lastName')
+                        type: 'text',
+                        onChange: handleState('lastName'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -131,14 +131,14 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Email"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"Email"}
+                      id="Email"
                       inputProps={{
-                        type: "email",
+                        type: 'email',
                         onChange: handleState('email'),
                         endAdornment: (
                           <InputAdornment position="end">
@@ -149,10 +149,10 @@ const ApplicationUpdateForm = () => {
                               <Email />
                             </IconButton>
                           </InputAdornment>
-                        )
+                        ),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -165,19 +165,19 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item xs={12} sm={12} md={4}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Phone Number"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"PhoneNumber"}
+                      id="PhoneNumber"
                       inputProps={{
-                        type: "tel",
+                        type: 'tel',
                         value: normalizeInput(values.phoneNumber),
-                        onChange: handleState("phoneNumber")
+                        onChange: handleState('phoneNumber'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <div className={classes.textWrapper}>
@@ -202,15 +202,15 @@ const ApplicationUpdateForm = () => {
                         id="gender"
                         fullWidth
                         value={values.gender}
-                        onChange={handleState("gender")}
+                        onChange={handleState('gender')}
                       >
-                        <MenuItem value={"Male"}>Male</MenuItem>
-                        <MenuItem value={"Female"}>Female</MenuItem>
-                        <MenuItem value={"Other"}>Other</MenuItem>
-                        <MenuItem value={"Prefer not to say"}>Prefer not to say</MenuItem>
+                        <MenuItem value="Male">Male</MenuItem>
+                        <MenuItem value="Female">Female</MenuItem>
+                        <MenuItem value="Other">Other</MenuItem>
+                        <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
                       </Select>
                     </FormControl>
-                  </div>        
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -230,32 +230,32 @@ const ApplicationUpdateForm = () => {
                         id="shirtSize"
                         fullWidth
                         value={values.shirtSize}
-                        onChange={handleState("shirtSize")}
+                        onChange={handleState('shirtSize')}
                       >
-                        <MenuItem value={"XXS"}>XXS</MenuItem>
-                        <MenuItem value={"XS"}>XS</MenuItem>
-                        <MenuItem value={"S"}>S</MenuItem>
-                        <MenuItem value={"M"}>M</MenuItem>
-                        <MenuItem value={"L"}>L</MenuItem>
-                        <MenuItem value={"XL"}>XL</MenuItem>
-                        <MenuItem value={"XXL"}>XXL</MenuItem>
+                        <MenuItem value="XXS">XXS</MenuItem>
+                        <MenuItem value="XS">XS</MenuItem>
+                        <MenuItem value="S">S</MenuItem>
+                        <MenuItem value="M">M</MenuItem>
+                        <MenuItem value="L">L</MenuItem>
+                        <MenuItem value="XL">XL</MenuItem>
+                        <MenuItem value="XXL">XXL</MenuItem>
                       </Select>
                     </FormControl>
-                  </div>           
+                  </div>
                 </Grid>
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Ethnicity"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"Ethnicity"}
+                      id="Ethnicity"
                       inputProps={{
-                        onChange: handleState('ethnicity')
+                        onChange: handleState('ethnicity'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -268,18 +268,18 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Github"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"github"}
+                      id="github"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('github')
+                        type: 'text',
+                        onChange: handleState('github'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -292,18 +292,18 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Linkedin"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"linkedin"}
+                      id="linkedin"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('linkedin')
+                        type: 'text',
+                        onChange: handleState('linkedin'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -316,18 +316,18 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Website"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"website"}
+                      id="website"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('website')
+                        type: 'text',
+                        onChange: handleState('website'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -340,29 +340,29 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="First Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"First"}
+                      id="First"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('firstName')
+                        type: 'text',
+                        onChange: handleState('firstName'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Email"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"Email"}
+                      id="Email"
                       inputProps={{
-                        type: "email",
+                        type: 'email',
                         onChange: handleState('email'),
                         endAdornment: (
                           <InputAdornment position="end">
@@ -373,10 +373,10 @@ const ApplicationUpdateForm = () => {
                               <Email />
                             </IconButton>
                           </InputAdornment>
-                        )
+                        ),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -389,29 +389,29 @@ const ApplicationUpdateForm = () => {
               >
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="First Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"First"}
+                      id="First"
                       inputProps={{
-                        type: "text",
-                        onChange: handleState('firstName')
+                        type: 'text',
+                        onChange: handleState('firstName'),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
                 <Grid item sm={12} md={6}>
                   <div className={classes.textWrapper}>
-                    <CustomInput 
+                    <CustomInput
                       labelText="Email"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id={"Email"}
+                      id="Email"
                       inputProps={{
-                        type: "email",
+                        type: 'email',
                         onChange: handleState('email'),
                         endAdornment: (
                           <InputAdornment position="end">
@@ -422,16 +422,16 @@ const ApplicationUpdateForm = () => {
                               <Email />
                             </IconButton>
                           </InputAdornment>
-                        )
+                        ),
                       }}
-                    />  
-                  </div>        
+                    />
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item>
               <div className={classes.textWrapper}>
-                <Button variant="contained" color="primary" style={{ height: '100%', width: "100%" }}>
+                <Button variant="contained" color="primary" style={{ height: '100%', width: '100%' }}>
                   Update
                 </Button>
               </div>
@@ -441,6 +441,6 @@ const ApplicationUpdateForm = () => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default ApplicationUpdateForm;

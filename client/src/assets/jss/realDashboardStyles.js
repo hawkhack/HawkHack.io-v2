@@ -2,27 +2,27 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const realDashboardStyles = makeStyles((theme) => ({
   dash: {
-    minHeight: "90vh"
+    minHeight: '90vh',
   },
   wrapper: {
-    padding: 20
+    padding: 20,
   },
   status: {
     fontWeight: 300,
     fontSize: 'calc(25px + (46 - 18) * ((100vw - 300px) / (1600 - 300)))',
     lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
   },
   appStatus: {
-    color: "black",
-    paddingTop: "20px",
+    color: 'black',
+    paddingTop: '20px',
     paddingBottom: 0,
     fontSize: 'calc(20px + (26 - 18) * ((100vw - 300px) / (1600 - 300)))',
     lineHeight: 'calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)))',
   },
   buttonWrapper: {
-    padding: 10
-  }
+    padding: 10,
+  },
 }));
 
-export default realDashboardStyles
+export default realDashboardStyles;

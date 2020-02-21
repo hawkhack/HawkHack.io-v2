@@ -70,5 +70,5 @@ export {
   validateRegister,
   isEmail,
   validateResetPassword,
-  validateResetToken
+  validateResetToken,
 };

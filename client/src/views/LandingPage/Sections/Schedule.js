@@ -7,10 +7,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import scheduleStyles from '../../assets/styles/scheduleStyles';
+import scheduleStyles from '../../../assets/jss/sponsorStyles';
 import {
   dayOne, dayTwo, dayOneSchedule, dayTwoSchedule,
-} from '../../defaults';
+} from '../../../defaults';
 
 const Schedule = () => (
   <>
