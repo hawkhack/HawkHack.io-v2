@@ -61,3 +61,4 @@ export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
   .catch((err) => {
     throw err;
   });
+ 
