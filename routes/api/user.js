@@ -21,13 +21,10 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 const validateResetPassword = require("../../validation/resetpw");
 
-
 //  @route  GET api/u/test
 //  @desc   Test users route
 //  @access Public
-router.get("/test/:email", (req, res) => {
-  
-});
+router.get("/test/:email", (req, res) => {});
 
 //  @route  GET api/u/test
 //  @desc   Test users route
@@ -47,22 +44,22 @@ router.get(
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  wrap(async(req, res) => {
-    try{
+  wrap(async (req, res) => {
+    try {
       const data = {
         email: req.user.email,
         isVerified: req.user.verified,
         role: req.user.role,
         date: req.user.date
-      }
-      const profile = await Profile.findOne({email:req.user.email});
-      if(profile) data.profile = profile;
+      };
+      const profile = await Profile.findOne({ email: req.user.email });
+      if (profile) data.profile = profile;
       return res.json(data);
-    }catch(err){
+    } catch (err) {
       return res.status(400).json(err);
     }
-  }
-));
+  })
+);
 
 //  @route  POST api/u/register
 //  @desc   register user
@@ -101,7 +98,10 @@ router.post("/register", (req, res) => {
             .save()
             .then(user => {
               //send email verification
-              const data = mailbody.confirmEmail(user.email, user.verificationToken);
+              const data = mailbody.confirmEmail(
+                user.email,
+                user.verificationToken
+              );
               mailgun.messages().send(data, (err, body) => {
                 if (err) {
                   console.log("mailgun error: ", err);
@@ -254,7 +254,7 @@ router.get("/resetpw/:email", (req, res) => {
     }
     const token = uid(64);
     user.passwordResetToken = token;
-    
+
     user.save().then(() => {
       //send password reset link to email
       const data = mailbody.reset(user.email, token);
@@ -315,7 +315,6 @@ router.post("/resetpw/:token", (req, res) => {
 });
 
 router.get("/verify/:token", (req, res) => {
-  console.log("i'm trying");
   //get token from parameters
   const token = req.params.token;
   //find user with this token
@@ -335,9 +334,6 @@ router.get("/verify/:token", (req, res) => {
           subscribed: true,
           address: user.email
         };
-        console.log("user", user);
-        console.log("mailing list", process.env.UsersMailingList);
-        console.log("member", member);
         mailgun
           .lists(process.env.UsersMailingList)
           .members()
@@ -345,7 +341,9 @@ router.get("/verify/:token", (req, res) => {
             if (err) {
               return res.status(400).json(err);
             }
-            console.log(`added ${user.email} to ${process.env.UsersMailingList}`);
+            console.log(
+              `added ${user.email} to ${process.env.UsersMailingList}`
+            );
             return res.status(200).json(data);
           });
       });
