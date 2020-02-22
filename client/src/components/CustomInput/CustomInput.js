@@ -11,11 +11,12 @@ const CustomInput = (props) => {
     id,
     labelProps,
     inputProps,
+    error,
   } = props;
 
   return (
     <FormControl {...formControlProps}>
-      <InputLabel htmlFor={id} {...labelProps}>{labelText}</InputLabel>
+      <InputLabel error={error} htmlFor={id} {...labelProps}>{labelText}</InputLabel>
       <Input
         id={id}
         {...inputProps}

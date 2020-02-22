@@ -6,6 +6,7 @@ export const defaults = {
   universityText: 'Montclair State University',
   dayof: false,
   openApplications: false,
+  openCheckIn: true,
 };
 
 export const dayOne = 'Saturday, March 30';

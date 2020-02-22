@@ -10,6 +10,29 @@ import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/Exp
 import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails';
 import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm';
 
+import { defaults } from '../../../defaults';
+
+const CheckIn = ({ classes }) => (
+  <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
+    <Grid item>
+      <div className={classes.wrapper}>
+        <ExpansionPanel expanded>
+          <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+            <Typography variant="h4" className={classes.status}>
+              Check In
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography>
+              stuff and things
+            </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
+    </Grid>
+  </Paper>
+);
+
 const RealDashboard = ({ user }) => {
   const [values, setValues] = useState({
     status: 'Not Submitted',
@@ -19,7 +42,12 @@ const RealDashboard = ({ user }) => {
     setValues({ ...values, [key]: val });
   };
 
+  const submitApplication = (app) => {
+    console.log(app);
+  };
+
   useEffect(() => {
+    console.log(user);
     if (user.status) {
       handleState('status', user.status);
     }
@@ -27,6 +55,7 @@ const RealDashboard = ({ user }) => {
   }, [])
 
   const classes = realDashboardStyles();
+  const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
 
   return (
     <>
@@ -64,25 +93,8 @@ const RealDashboard = ({ user }) => {
                 </div>
               </Grid>
             </Paper>
-            <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
-              <Grid item>
-                <div className={classes.wrapper}>
-                  <ExpansionPanel expanded>
-                    <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-                      <Typography variant="h4" className={classes.status}>
-                        Check In
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <Typography>
-                        stuff and things
-                      </Typography>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
-              </Grid>
-            </Paper>
-            <Paper style={{ margin: '1vw 4vw 1vw 4vw' }}>
+            {checkIn}
+            <Paper style={{ margin: '1vw 4vw 4vw 4vw' }}>
               <Grid item>
                 <div className={classes.wrapper}>
                   <ExpansionPanel expanded>
@@ -90,7 +102,7 @@ const RealDashboard = ({ user }) => {
                       <Typography className={classes.status}>Application</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <ApplicationUpdateForm />
+                      <ApplicationUpdateForm submitApplication={submitApplication} />
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>

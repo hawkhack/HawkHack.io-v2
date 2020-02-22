@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -17,6 +18,9 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 
 import CustomInput from '../../../../components/CustomInput/CustomInput';
+import { validateUpdateForm } from '../../../../assets/utils/Validation';
+
+const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
 const useStyles = makeStyles(() => ({
   textWrapper: {
@@ -24,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ApplicationUpdateForm = () => {
+const ApplicationUpdateForm = ({ ...props }) => {
   const [values, setValues] = useState({
     email: '',
     firstName: '',
@@ -45,6 +49,8 @@ const ApplicationUpdateForm = () => {
     specialNeeds: '',
     emergencyName: '',
     emergencyNumber: '',
+    errors: {},
+    loading: false,
   });
 
   const normalizeInput = (value, previousValue) => {
@@ -72,6 +78,30 @@ const ApplicationUpdateForm = () => {
     setValues({ ...values, dateOfBirth: date });
   };
 
+  const handleErrors = (err) => {
+    setValues({ ...values, errors: err });
+  };
+
+  const handleLoading = (val) => {
+    setValues({ ...values, loading: val });
+  };
+
+  const submit = async () => {
+    try {
+      handleLoading(true);
+      const errors = validateUpdateForm(values);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
+
+      await props.submitApplication(values);
+
+      handleLoading(false);
+    } catch (err) {
+      handleErrors(err);
+    }
+  };
+
   const classes = useStyles();
   return (
     <Grid container justify="center">
@@ -90,34 +120,44 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="First Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      error={!!values.errors.firstName}
                       id="First"
                       inputProps={{
                         type: 'text',
+                        error: !!values.errors.firstName,
                         onChange: handleState('firstName'),
                       }}
                     />
+                    {values.errors.firstName
+                      ? <FormHelperText error>{values.errors.firstName}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Last Name"
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      error={!!values.errors.lastName}
                       id="Last"
                       inputProps={{
                         type: 'text',
+                        error: !!values.errors.lastName,
                         onChange: handleState('lastName'),
                       }}
                     />
+                    {values.errors.lastName
+                      ? <FormHelperText error>{values.errors.lastName}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
               </Grid>
@@ -129,17 +169,19 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12}>
+                <Grid item xs={12} sm={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Email"
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      error={!!values.errors.email}
                       id="Email"
                       inputProps={{
                         type: 'email',
                         onChange: handleState('email'),
+                        error: !!values.errors.email,
                         endAdornment: (
                           <InputAdornment position="end">
                             <IconButton
@@ -152,6 +194,9 @@ const ApplicationUpdateForm = () => {
                         ),
                       }}
                     />
+                    {values.errors.email
+                      ? <FormHelperText error>{values.errors.email}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
               </Grid>
@@ -170,14 +215,19 @@ const ApplicationUpdateForm = () => {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      error={!!values.errors.phoneNumber}
                       id="PhoneNumber"
                       inputProps={{
                         type: 'tel',
                         value: normalizeInput(values.phoneNumber),
+                        error: !!values.errors.phoneNumber,
                         onChange: handleState('phoneNumber'),
                       }}
                     />
                   </div>
+                  {values.errors.phoneNumber
+                    ? <FormHelperText error>{values.errors.phoneNumber}</FormHelperText>
+                    : null}
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <div className={classes.textWrapper}>
@@ -186,21 +236,25 @@ const ApplicationUpdateForm = () => {
                         format="MM/dd/yyyy"
                         id="dateOfBirth"
                         fullWidth
+                        error={!!values.errors.dateOfBirth}
                         label="Date of Birth"
                         value={values.dateOfBirth}
                         onChange={handleDateChange}
                       />
                     </MuiPickersUtilsProvider>
+                    {values.errors.dateOfBirth
+                      ? <FormHelperText error>{values.errors.dateOfBirth}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <div className={classes.textWrapper}>
                     <FormControl fullWidth>
-                      <InputLabel id="gender">Gender</InputLabel>
+                      <InputLabel error={!!values.errors.gender} id="gender">Gender</InputLabel>
                       <Select
-                        labelId="gender"
                         id="gender"
                         fullWidth
+                        error={!!values.errors.gender}
                         value={values.gender}
                         onChange={handleState('gender')}
                       >
@@ -209,6 +263,9 @@ const ApplicationUpdateForm = () => {
                         <MenuItem value="Other">Other</MenuItem>
                         <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
                       </Select>
+                      {values.errors.gender
+                        ? <FormHelperText error>{values.errors.gender}</FormHelperText>
+                        : null}
                     </FormControl>
                   </div>
                 </Grid>
@@ -224,11 +281,11 @@ const ApplicationUpdateForm = () => {
                 <Grid item xs={12} sm={12} md={6}>
                   <div className={classes.textWrapper}>
                     <FormControl fullWidth>
-                      <InputLabel id="shirtSize">Shirt Size</InputLabel>
+                      <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
                       <Select
-                        labelId="shirtSize"
                         id="shirtSize"
                         fullWidth
+                        error={!!values.errors.shirtSize}
                         value={values.shirtSize}
                         onChange={handleState('shirtSize')}
                       >
@@ -240,21 +297,29 @@ const ApplicationUpdateForm = () => {
                         <MenuItem value="XL">XL</MenuItem>
                         <MenuItem value="XXL">XXL</MenuItem>
                       </Select>
+                      {values.errors.shirtSize
+                        ? <FormHelperText error>{values.errors.shirtSize}</FormHelperText>
+                        : null}
                     </FormControl>
                   </div>
                 </Grid>
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Ethnicity"
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      error={!!values.errors.ethnicity}
                       id="Ethnicity"
                       inputProps={{
                         onChange: handleState('ethnicity'),
+                        error: !!values.errors.ethnicity,
                       }}
                     />
+                    {values.errors.ethnicity
+                      ? <FormHelperText error>{values.errors.ethnicity}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
               </Grid>
@@ -266,7 +331,7 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12}>
+                <Grid item xs={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Github"
@@ -290,7 +355,7 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12}>
+                <Grid item xs={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Linkedin"
@@ -314,7 +379,7 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12}>
+                <Grid item xs={12} sm={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
                       labelText="Website"
@@ -338,42 +403,88 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
-                      labelText="First Name"
+                      labelText="School"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id="First"
+                      error={!!values.errors.school}
+                      id="School"
                       inputProps={{
                         type: 'text',
-                        onChange: handleState('firstName'),
+                        onChange: handleState('school'),
+                        error: !!values.errors.school,
                       }}
                     />
+                    {values.errors.school
+                      ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                      : null}
                   </div>
                 </Grid>
-                <Grid item sm={12} md={6}>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                align="center"
+              >
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <div className={classes.textWrapper}>
+                    <FormControl fullWidth>
+                      <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
+                      <Select
+                        id="graduationYear"
+                        fullWidth
+                        error={!!values.errors.graduationYear}
+                        value={values.graduationYear}
+                        onChange={handleState('graduationYear')}
+                      >
+                        {GraduationYears.map((year) => (
+                          <MenuItem key={year} value={year}>{year}</MenuItem>
+                        ))}
+                      </Select>
+                      {values.errors.graduationYear
+                        ? <FormHelperText error>{values.errors.graduationYear}</FormHelperText>
+                        : null}
+                    </FormControl>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
+                  <div className={classes.textWrapper}>
+                    <FormControl fullWidth>
+                      <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
+                      <Select
+                        id="levelOfStudy"
+                        fullWidth
+                        error={!!values.errors.levelOfStudy}
+                        value={values.levelOfStudy}
+                        onChange={handleState('levelOfStudy')}
+                      >
+                        <MenuItem value="Undergraduate">Undergraduate</MenuItem>
+                        <MenuItem value="Graduate">Graduate</MenuItem>
+                        <MenuItem value="High School">High School</MenuItem>
+                      </Select>
+                      {values.errors.levelOfStudy
+                        ? <FormHelperText error>{values.errors.levelOfStudy}</FormHelperText>
+                        : null}
+                    </FormControl>
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
                   <div className={classes.textWrapper}>
                     <CustomInput
-                      labelText="Email"
+                      labelText="Major"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id="Email"
+                      id="major"
                       inputProps={{
-                        type: 'email',
-                        onChange: handleState('email'),
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              disabled
-                            >
-                              <Email />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
+                        type: 'major',
+                        onChange: handleState('major'),
                       }}
                     />
                   </div>
@@ -387,42 +498,17 @@ const ApplicationUpdateForm = () => {
                 justify="space-between"
                 align="center"
               >
-                <Grid item sm={12} md={6}>
+                <Grid item xs={12}>
                   <div className={classes.textWrapper}>
                     <CustomInput
-                      labelText="First Name"
+                      labelText="Dietary Restrictions"
                       formControlProps={{
                         fullWidth: true,
                       }}
-                      id="First"
+                      id="dietaryRestrictions"
                       inputProps={{
                         type: 'text',
-                        onChange: handleState('firstName'),
-                      }}
-                    />
-                  </div>
-                </Grid>
-                <Grid item sm={12} md={6}>
-                  <div className={classes.textWrapper}>
-                    <CustomInput
-                      labelText="Email"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      id="Email"
-                      inputProps={{
-                        type: 'email',
-                        onChange: handleState('email'),
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              disabled
-                            >
-                              <Email />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
+                        onChange: handleState('dietaryRestrictions'),
                       }}
                     />
                   </div>
@@ -430,8 +516,88 @@ const ApplicationUpdateForm = () => {
               </Grid>
             </Grid>
             <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                align="center"
+              >
+                <Grid item xs={12}>
+                  <div className={classes.textWrapper}>
+                    <CustomInput
+                      labelText="Special Needs"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      id="specialNeeds"
+                      inputProps={{
+                        type: 'text',
+                        onChange: handleState('specialNeeds'),
+                      }}
+                    />
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                align="center"
+              >
+                <Grid item xs={12} sm={12} md={6}>
+                  <div className={classes.textWrapper}>
+                    <CustomInput
+                      labelText="Emergency Name"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      error={!!values.errors.emergencyName}
+                      id="emergencyName"
+                      inputProps={{
+                        type: 'text',
+                        onChange: handleState('emergencyName'),
+                        error: !!values.errors.emergencyName,
+                      }}
+                    />
+                    {values.errors.emergencyName
+                      ? <FormHelperText error>{values.errors.emergencyName}</FormHelperText>
+                      : null}
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6}>
+                  <div className={classes.textWrapper}>
+                    <CustomInput
+                      labelText="Emergency Number"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      error={!!values.errors.emergencyNumber}
+                      id="emergencyNumber"
+                      inputProps={{
+                        type: 'tel',
+                        value: normalizeInput(values.emergencyNumber),
+                        error: !!values.errors.emergencyNumber,
+                        onChange: handleState('emergencyNumber'),
+                      }}
+                    />
+                    {values.errors.emergencyNumber
+                      ? <FormHelperText error>{values.errors.emergencyNumber}</FormHelperText>
+                      : null}
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
               <div className={classes.textWrapper}>
-                <Button variant="contained" color="primary" style={{ height: '100%', width: '100%' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ height: '100%', width: '100%' }}
+                  type="submit"
+                  onClick={submit}
+                >
                   Update
                 </Button>
               </div>

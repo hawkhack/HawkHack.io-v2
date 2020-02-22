@@ -12,6 +12,7 @@ import { GetUser } from '../../assets/utils/Api';
 
 import Footer from '../../components/Footer/Footer';
 import Parallax from '../../components/Parallax/Parallax';
+import NavBar from '../../components/NavBar/NavBar';
 import IsVerified from './sections/IsVerified';
 import RealDashboard from './sections/RealDashboard';
 
@@ -62,6 +63,7 @@ const Dashboard = ({ ...props }) => {
   return (
     <>
       <CssBaseline />
+      <NavBar route="user" />
       <Parallax filter image={image}>
         <Grid
           container
