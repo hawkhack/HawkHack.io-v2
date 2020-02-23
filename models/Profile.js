@@ -37,6 +37,9 @@ const ProfileSchema = new Schema({
   dateOfBirth: {
     type: Date
   },
+  resume: {
+    type: String
+  },
   shirtSize: {
     type: String,
     enum: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "Not set"],

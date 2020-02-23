@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const wrap = require("../../middleware/asyncWrapper");
+const uploadFile = require("../../middleware/upload-file");
+const deleteResume = require("../../utils/deleteResume");
 
 //load middleware
 const verify = require("../../middleware/verifyActive");
@@ -17,8 +19,8 @@ const User = require("../../models/User");
 //  @route  GET api/p/test
 //  @desc   Test profile route
 //  @access Public
-router.get("/test", (req, res) => {
-  res.json({ msg: "Profile Works" });
+router.post("/test", (req, res) => {
+  res.json(req.body);
 });
 
 //  @route  GET api/p/
@@ -52,12 +54,10 @@ router.post(
       //return any erros with 400 status
       return res.status(400).json(errors);
     }
-
     const profileFields = {
       user: req.user.id,
       email: req.user.email
     };
-
     if (req.body.firstName) profileFields.firstName = req.body.firstName;
     if (req.body.lastName) profileFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
@@ -76,21 +76,16 @@ router.post(
     if (req.body.specialNeeds) profileFields.specialNeeds = req.body.specialNeeds;
     if (req.body.emergencyName) profileFields.emergencyName = req.body.emergencyName;
     if (req.body.emergencyNumber) profileFields.emergencyNumber = req.body.emergencyNumber;
-
     try {
-      const profile = await Profile.findOne({ id: req.user.id });
+      const profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
         if (profile.status === "Incomplete" && isComplete) {
           profileFiends.status = "Registered";
           profileFields.statusChangedAt = new Date();
         }
-        //Update
-        const updatedProfile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        );
-        return res.status(200).json(updatedProfile);
+        //Update Profile
+        savedProfile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
+        return res.status(200).json(savedProfile);
       } else {
         if (isComplete) {
           profileFields.status = "Complete";
@@ -104,6 +99,27 @@ router.post(
     }
   })
 );
+
+router.post("/resume", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
+  uploadFile(req, res, function(err) {
+    if (err) {
+      return res.status(422).json(err.message);
+    }
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (!profile) {
+        return res.status(400).json("profile not foud");
+      }
+      if (req.file && profile.resume) {
+        deleteResume(profile.resume);
+      }
+      profile.resume = req.file.key;
+      profile.save().then(() => {
+        console.log(`Resume ${req.file.key} uploaded`);
+        res.status(200).json(`Resume uploaded. id:${req.file.key}`);
+      });
+    });
+  });
+});
 
 //  @route  GET api/p/:user_id
 //  @desc   Get user profile by id

@@ -8,7 +8,6 @@ const hpp = require("hpp");
 const logger = require("./config/logger");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
-
 const getDefaults = require("./config/defaults");
 
 //import route files
@@ -61,10 +60,7 @@ app.use("/api/a", admin);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://hawkhack.io"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
@@ -80,9 +76,7 @@ app.get("*", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
-  console.log(
-    `Server listening on port ${PORT} in ${process.env.NODE_ENV} mode.`
-  );
+  console.log(`Server listening on port ${PORT} in ${process.env.NODE_ENV} mode.`);
 });
 
 //handle unhandled rejections
