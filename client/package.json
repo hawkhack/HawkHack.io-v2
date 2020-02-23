@@ -33,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run prepush"
+      // "pre-push": "npm run prepush"
     }
   },
   "eslintConfig": {
