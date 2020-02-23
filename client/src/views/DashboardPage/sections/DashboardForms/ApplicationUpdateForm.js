@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,6 +21,8 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
+import { store } from '../../../../context/store'
+import UPDATE_USER from '../../../../context/types';
 
 const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
@@ -43,55 +45,61 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ApplicationUpdateForm = ({ ...props }) => {
-  const {
-    user,
-    formErrors,
-    profile: {
-      firstName,
-      lastName,
-      phoneNumber,
-      dateOfBirth,
-      shirtSize,
-      gender,
-      ethnicity,
-      github,
-      linkedin,
-      website,
-      school,
-      graduationYear,
-      levelOfStudy,
-      major,
-      dietaryRestrictions,
-      specialNeeds,
-      emergencyName,
-      emergencyNumber,
-    },
-  } = props;
+  const { state, dispatch } = useContext(store);
+
+  const { formErrors } = props;
   const [values, setValues] = useState({
-    email: user.email,
-    firstName: firstName || '',
-    lastName: lastName || '',
-    phoneNumber: phoneNumber || '',
-    dateOfBirth: dateOfBirth || null,
-    shirtSize: shirtSize || '',
-    gender: gender || '',
-    ethnicity: ethnicity || '',
-    github: github || '',
-    linkedin: linkedin || '',
-    website: website || '',
-    school: school || '',
-    graduationYear: graduationYear || '',
-    levelOfStudy: levelOfStudy || '',
-    major: major || '',
-    dietaryRestrictions: dietaryRestrictions || '',
-    specialNeeds: specialNeeds || '',
-    emergencyName: emergencyName || '',
-    emergencyNumber: emergencyNumber || '',
+    email: state.email,
+    firstName: state.profile.firstName ? state.profile.firstName : '',
+    lastName: state.profile.lastName ? state.profile.lastName : '',
+    phoneNumber: state.profile.phoneNumber ? state.profile.phoneNumber : '',
+    dateOfBirth: state.profile.dateOfBirth ? state.profile.dateOfBirth : null,
+    shirtSize: state.profile.shirtSize ? state.profile.shirtSize : '',
+    gender: state.profile.gender ? state.profile.gender : '',
+    ethnicity: state.profile.ethnicity ? state.profile.ethnicity : '',
+    github: state.profile.github ? state.profile.github : '',
+    linkedin: state.profile.linkedin ? state.profile.linkedin : '',
+    website: state.profile.website ? state.profile.website : '',
+    school: state.profile.school ? state.profile.school : '',
+    graduationYear: state.profile.graduationYear ? state.profile.graduationYear : '',
+    levelOfStudy: state.profile.levelOfStudy ? state.profile.levelOfStudy : '',
+    major: state.profile.major ? state.profile.major : '',
+    dietaryRestrictions: state.profile.dietaryRestrictions ? state.profile.dietaryRestrictions : '',
+    specialNeeds: state.profile.specialNeeds ? state.profile.specialNeeds : '',
+    emergencyName: state.profile.emergencyName ? state.profile.emergencyName : '',
+    emergencyNumber: state.profile.emergencyNumber ? state.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
     errors: formErrors,
     loading: false,
     success: false,
+    disableAll: !state.isVerified
   });
+
+  useEffect(() => {
+    if (state.profile) {
+      handleSetState("firstName", state.profile.firstName)
+      handleSetState("lastName", state.profile.lastName)
+      handleSetState("phoneNumber", state.profile.phoneNumber)
+      handleSetState("dateOfBirth", state.profile.dateOfBirth)
+      handleSetState("shirtSize", state.profile.shirtSize)
+      handleSetState("gender", state.profile.gender)
+      handleSetState("ethnicity", state.profile.ethnicity)
+      handleSetState("github", state.profile.github)
+      handleSetState("linkedin", state.profile.linkedin)
+      handleSetState("website", state.profile.website)
+      handleSetState("school", state.profile.school)
+      handleSetState("graduationYear", state.profile.graduationYear)
+      handleSetState("levelOfStudy", state.profile.levelOfStudy)
+      handleSetState("major", state.profile.major)
+      handleSetState("dietaryRestrictions", state.profile.dietaryRestrictions)
+      handleSetState("specialNeeds", state.profile.specialNeeds)
+      handleSetState("emergencyName", state.profile.emergencyName)
+      handleSetState("emergencyNumber", state.profile.emergencyNumber)
+      console.log(values)
+    }
+
+    // eslint-disable-next-line
+  }, []) 
 
   const normalizeInput = (value, previousValue) => {
     if (!value) return '';
@@ -147,6 +155,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
       if (Object.keys(errors).length !== 0) {
         throw errors;
       }
+      handleErrors({});
 
       const data = {
         ...values,
@@ -154,10 +163,15 @@ const ApplicationUpdateForm = ({ ...props }) => {
         emergencyNumber: normalize(values.emergencyNumber),
       };
 
+      const newUser = {
+        ...state,
+        profile: data
+      }
+
       await props.submitApplication(data);
+      dispatch({ type: UPDATE_USER, payload: newUser })
 
       handleLoading(false);
-      handleErrors({});
       handleSetState('success', true);
     } catch (err) {
       handleErrors(err);
@@ -209,7 +223,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                         inputProps={{
                           type: 'text',
                           value: values.firstName,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           error: !!values.errors.firstName,
                           onChange: handleState('firstName'),
                         }}
@@ -232,7 +246,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           error: !!values.errors.lastName,
                           value: values.lastName,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           onChange: handleState('lastName'),
                         }}
                       />
@@ -304,7 +318,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'tel',
                           value: normalizeInput(values.phoneNumber),
                           error: !!values.errors.phoneNumber,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           onChange: handleState('phoneNumber'),
                         }}
                       />
@@ -320,7 +334,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           format="MM/dd/yyyy"
                           id="dateOfBirth"
                           fullWidth
-                          disabled={values.loading}
+                          disabled={values.loading || values.disableAll}
                           error={!!values.errors.dateOfBirth}
                           label="Date of Birth"
                           value={values.dateOfBirth}
@@ -341,7 +355,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           fullWidth
                           error={!!values.errors.gender}
                           value={values.gender}
-                          disabled={values.loading}
+                          disabled={values.loading || values.disableAll}
                           onChange={handleState('gender')}
                         >
                           <MenuItem value="Male">Male</MenuItem>
@@ -370,7 +384,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                         <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
                         <Select
                           id="shirtSize"
-                          disabled={values.loading}
+                          disabled={values.loading || values.disableAll}
                           fullWidth
                           error={!!values.errors.shirtSize}
                           value={values.shirtSize}
@@ -403,7 +417,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           onChange: handleState('ethnicity'),
                           error: !!values.errors.ethnicity,
                           value: values.ethnicity,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                         }}
                       />
                       {values.errors.ethnicity
@@ -433,7 +447,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('github'),
                           value: values.github,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           error: !!values.errors.github,
                         }}
                       />
@@ -464,7 +478,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('linkedin'),
                           value: values.linkedin,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           error: !!values.errors.linkedin,
                         }}
                       />
@@ -495,7 +509,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('website'),
                           value: values.website,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           error: !!values.errors.website,
                         }}
                       />
@@ -526,7 +540,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('school'),
                           error: !!values.errors.school,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           value: values.school,
                         }}
                       />
@@ -550,7 +564,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                         <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
                         <Select
                           id="graduationYear"
-                          disabled={values.loading}
+                          disabled={values.loading || values.disableAll}
                           fullWidth
                           error={!!values.errors.graduationYear}
                           value={values.graduationYear}
@@ -572,7 +586,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                         <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
                         <Select
                           id="levelOfStudy"
-                          disabled={values.loading}
+                          disabled={values.loading || values.disableAll}
                           fullWidth
                           error={!!values.errors.levelOfStudy}
                           value={values.levelOfStudy}
@@ -600,7 +614,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'major',
                           onChange: handleState('major'),
                           value: values.major,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                         }}
                       />
                     </div>
@@ -626,7 +640,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('dietaryRestrictions'),
                           value: values.dietaryRestrictions,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                         }}
                       />
                     </div>
@@ -652,7 +666,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('specialNeeds'),
                           value: values.specialNeeds,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                         }}
                       />
                     </div>
@@ -679,7 +693,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'text',
                           onChange: handleState('emergencyName'),
                           error: !!values.errors.emergencyName,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           value: values.emergencyName,
                         }}
                       />
@@ -701,7 +715,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                           type: 'tel',
                           value: normalizeInput(values.emergencyNumber),
                           error: !!values.errors.emergencyNumber,
-                          disabled: values.loading,
+                          disabled: values.loading || values.disableAll,
                           onChange: handleState('emergencyNumber'),
                         }}
                       />

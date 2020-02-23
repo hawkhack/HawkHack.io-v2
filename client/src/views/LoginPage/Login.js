@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -26,10 +26,15 @@ import CloseIcon from '@material-ui/icons/Close';
 import NavBar from '../../components/NavBar/NavBar';
 
 import loginStyles from '../../assets/jss/loginStyles';
-import { LoginUser, ForgotPassword } from '../../assets/utils/Api';
+import { LoginUser, ForgotPassword, GetUser } from '../../assets/utils/Api';
 import { validateLogin, isEmail } from '../../assets/utils/Validation';
+import UPDATE_USER from '../../context/types';
+import { store } from '../../context/store'
 
 const Login = ({ ...props }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -80,13 +85,26 @@ const Login = ({ ...props }) => {
         throw errors;
       }
 
-      const user = await LoginUser(values.email, values.password);
+      let user = await LoginUser(values.email, values.password);
 
       if (!user.data.success) {
         throw user;
       }
 
       localStorage.setItem('cool-jwt', user.data.token);
+
+      user = await GetUser()
+      user = user.data
+      if (!user.profile) {
+        user = {
+          ...user,
+          profile: { status: user.isVerified ? "Fill out the application" : "Unverified Email" }
+        }
+      }
+
+      console.log(user)
+      dispatch({ type: UPDATE_USER, payload: user})
+
       handleLoading(false);
       props.history.push('/dashboard');
     } catch (err) {

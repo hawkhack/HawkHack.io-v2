@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -18,10 +18,14 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import NavBar from '../../components/NavBar/NavBar';
 import registerStyles from '../../assets/jss/registerStyles';
 
-import { RegisterUser } from '../../assets/utils/Api';
+import { RegisterUser, GetUser } from '../../assets/utils/Api';
 import { validateRegister } from '../../assets/utils/Validation';
+import UPDATE_USER from '../../context/types';
+import { store } from '../../context/store'
 
 const Register = ({ ...props }) => {
+  const globalState = useContext(store);
+  const { dispatch } = globalState
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -65,6 +69,15 @@ const Register = ({ ...props }) => {
       const result = await RegisterUser(values.email, values.password, values.password2);
 
       localStorage.setItem('cool-jwt', result.data.token);
+
+      const user = await GetUser();
+      const data = {
+        ...user.data,
+        profile: { status: "Unverified Email" }
+      }
+
+      dispatch({ type: UPDATE_USER, payload: data })
+
       handleLoading(false);
       props.history.push('/dashboard');
     } catch (err) {

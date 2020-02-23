@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +12,7 @@ import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm';
 
 import { defaults } from '../../../defaults';
 import { UpdateApplication } from '../../../assets/utils/Api';
+import { store } from '../../../context/store'
 
 const CheckIn = ({ classes }) => (
   <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
@@ -35,9 +36,10 @@ const CheckIn = ({ classes }) => (
 );
 
 const RealDashboard = ({ user }) => {
+  const globalState = useContext(store);
   const [values, setValues] = useState({
     status: 'Not Submitted',
-    profile: user.profile ? user.profile : { status: 'Incomplete' },
+    profile: globalState.state.profile || { status: "Incomplete" },
     formErrors: {},
   });
 
@@ -55,13 +57,6 @@ const RealDashboard = ({ user }) => {
       throw err;
     }
   };
-
-  useEffect(() => {
-    if (user.profile) {
-      handleState('profile', user.profile);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const classes = realDashboardStyles();
   const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
@@ -112,8 +107,6 @@ const RealDashboard = ({ user }) => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                       <ApplicationUpdateForm
-                        user={user}
-                        profile={values.profile}
                         submitApplication={submitApplication}
                         formErrors={values.formErrors}
                       />
