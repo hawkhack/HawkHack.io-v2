@@ -61,3 +61,30 @@ export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
   .catch((err) => {
     throw err;
   });
+
+export const UpdateApplication = (user) => axios.post(`${apiURL}/p/`, {
+  firstName: user.firstName,
+  lastName: user.lastName,
+  phoneNumber: user.phoneNumber,
+  dateOfBirth: user.dateOfBirth,
+  shirtSize: user.shirtSize,
+  gender: user.gender,
+  ethnicity: user.ethnicity,
+  github: user.github,
+  linkedin: user.linkedin,
+  website: user.website,
+  school: user.school,
+  graduationYear: user.graduationYear,
+  levelOfStudy: user.levelOfStudy,
+  major: user.major,
+  dietaryRestrictions: user.dietaryRestrictions,
+  specialNeeds: user.specialNeeds,
+  emergencyName: user.emergencyName,
+  emergencyNumber: user.emergencyNumber,
+}, {
+  headers: { Authorization: `${localStorage.getItem('cool-jwt')}` },
+})
+  .then((result) => result)
+  .catch((err) => {
+    throw err.response.data;
+  });

@@ -88,7 +88,7 @@ router.post(
         return res.status(200).json(savedProfile);
       } else {
         if (isComplete) {
-          profileFields.status = "Complete";
+          profileFields.status = "Registered";
         }
         const savedProfile = await new Profile(profileFields).save();
         return res.status(200).json(savedProfile);
