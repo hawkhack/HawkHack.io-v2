@@ -78,7 +78,7 @@ router.post(
     if (req.body.emergencyNumber) profileFields.emergencyNumber = req.body.emergencyNumber;
 
     try {
-      const profile = await Profile.findOne({ id: req.user.id });
+      const profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
         if (profile.status === "Incomplete" && isComplete) {
           profileFiends.status = "Registered";
@@ -93,7 +93,7 @@ router.post(
         return res.status(200).json(updatedProfile);
       } else {
         if (isComplete) {
-          profileFields.status = "Complete";
+          profileFields.status = "Registered";
         }
         const savedProfile = await new Profile(profileFields).save();
         return res.status(200).json(savedProfile);

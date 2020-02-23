@@ -11,6 +11,7 @@ import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/Exp
 import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm';
 
 import { defaults } from '../../../defaults';
+import { UpdateApplication } from '../../../assets/utils/Api';
 
 const CheckIn = ({ classes }) => (
   <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
@@ -36,23 +37,30 @@ const CheckIn = ({ classes }) => (
 const RealDashboard = ({ user }) => {
   const [values, setValues] = useState({
     status: 'Not Submitted',
+    profile: user.profile ? user.profile : { status: 'Incomplete' },
+    formErrors: {},
   });
 
   const handleState = (key, val) => {
     setValues({ ...values, [key]: val });
   };
 
-  const submitApplication = (app) => {
-    console.log(app);
+  const submitApplication = async (app) => {
+    try {
+      const result = await UpdateApplication(app);
+
+      handleState('profile', result.data);
+    } catch (err) {
+      handleState('formErrors', err);
+      throw err;
+    }
   };
 
   useEffect(() => {
-    console.log(user);
-    if (user.status) {
-      handleState('status', user.status);
+    if (user.profile) {
+      handleState('profile', user.profile);
     }
-  // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const classes = realDashboardStyles();
   const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
@@ -79,7 +87,7 @@ const RealDashboard = ({ user }) => {
                         Status:
                         <span className={classes.status}>
                           {' '}
-                          {values.status}
+                          {values.profile.status}
                           {' '}
                         </span>
                       </Typography>
@@ -102,7 +110,12 @@ const RealDashboard = ({ user }) => {
                       <Typography className={classes.status}>Application</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <ApplicationUpdateForm submitApplication={submitApplication} />
+                      <ApplicationUpdateForm
+                        user={user}
+                        profile={values.profile}
+                        submitApplication={submitApplication}
+                        formErrors={values.formErrors}
+                      />
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>

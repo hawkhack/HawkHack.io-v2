@@ -83,6 +83,10 @@ const validateUpdateForm = (app) => {
   if (checkLength(app.shirtSize)) errors.shirtSize = 'Invalid Shirt Size';
   if (checkLength(app.ethnicity)) errors.ethnicity = 'Invalid Ethnicity';
 
+  if (!checkLength(app.github) && !Validator.isURL(app.github)) errors.github = 'Invalid URL';
+  if (!checkLength(app.linkedin) && !Validator.isURL(app.linkedin)) errors.linkedin = 'Invalid URL';
+  if (!checkLength(app.website) && !Validator.isURL(app.website)) errors.website = 'Invalid URL';
+
   if (checkLength(app.school)) errors.school = 'Invalid School Name';
 
   if (checkLength(app.graduationYear)) errors.graduationYear = 'Invalid Graduation Year';

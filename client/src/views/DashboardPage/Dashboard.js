@@ -59,7 +59,6 @@ const Dashboard = ({ ...props }) => {
     // eslint-disable-next-line
   }, []);
 
-
   return (
     <>
       <CssBaseline />
