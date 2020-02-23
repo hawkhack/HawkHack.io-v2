@@ -60,6 +60,7 @@ const RealDashboard = ({ user }) => {
     if (user.profile) {
       handleState('profile', user.profile);
     }
+    // eslint-disable-next-line
   }, []);
 
   const classes = realDashboardStyles();
