@@ -7,7 +7,7 @@ const store = createContext(initialState);
 const { Provider } = store;
 
 const StateProvider = ({ children }) => {
-  const [val, dispatch] = useReducer((state, action) => {
+  const [state, dispatch] = useReducer((prev, action) => {
     switch (action.type) {
       case UPDATE_USER:
         return action.payload;
@@ -16,7 +16,7 @@ const StateProvider = ({ children }) => {
     }
   }, initialState);
 
-  return <Provider value={{ val, dispatch }}>{children}</Provider>;
+  return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
 export { store, StateProvider };

@@ -50,24 +50,24 @@ const ApplicationUpdateForm = ({ ...props }) => {
   const { formErrors } = props;
   const [values, setValues] = useState({
     email: state.email,
-    firstName: state.profile.firstName ? state.profile.firstName : '',
-    lastName: state.profile.lastName ? state.profile.lastName : '',
-    phoneNumber: state.profile.phoneNumber ? state.profile.phoneNumber : '',
-    dateOfBirth: state.profile.dateOfBirth ? state.profile.dateOfBirth : null,
-    shirtSize: state.profile.shirtSize ? state.profile.shirtSize : '',
-    gender: state.profile.gender ? state.profile.gender : '',
-    ethnicity: state.profile.ethnicity ? state.profile.ethnicity : '',
-    github: state.profile.github ? state.profile.github : '',
-    linkedin: state.profile.linkedin ? state.profile.linkedin : '',
-    website: state.profile.website ? state.profile.website : '',
-    school: state.profile.school ? state.profile.school : '',
-    graduationYear: state.profile.graduationYear ? state.profile.graduationYear : '',
-    levelOfStudy: state.profile.levelOfStudy ? state.profile.levelOfStudy : '',
-    major: state.profile.major ? state.profile.major : '',
-    dietaryRestrictions: state.profile.dietaryRestrictions ? state.profile.dietaryRestrictions : '',
-    specialNeeds: state.profile.specialNeeds ? state.profile.specialNeeds : '',
-    emergencyName: state.profile.emergencyName ? state.profile.emergencyName : '',
-    emergencyNumber: state.profile.emergencyNumber ? state.profile.emergencyNumber : '',
+    firstName: !!state.profile && state.profile.firstName ? state.profile.firstName : '',
+    lastName: !!state.profile && state.profile.lastName ? state.profile.lastName : '',
+    phoneNumber: !!state.profile && state.profile.phoneNumber ? state.profile.phoneNumber : '',
+    dateOfBirth: !!state.profile && state.profile.dateOfBirth ? state.profile.dateOfBirth : null,
+    shirtSize: !!state.profile && state.profile.shirtSize ? state.profile.shirtSize : '',
+    gender: !!state.profile && state.profile.gender ? state.profile.gender : '',
+    ethnicity: !!state.profile && state.profile.ethnicity ? state.profile.ethnicity : '',
+    github: !!state.profile && state.profile.github ? state.profile.github : '',
+    linkedin: !!state.profile && state.profile.linkedin ? state.profile.linkedin : '',
+    website: !!state.profile && state.profile.website ? state.profile.website : '',
+    school: !!state.profile && state.profile.school ? state.profile.school : '',
+    graduationYear: !!state.profile && state.profile.graduationYear ? state.profile.graduationYear : '',
+    levelOfStudy: !!state.profile && state.profile.levelOfStudy ? state.profile.levelOfStudy : '',
+    major: !!state.profile && state.profile.major ? state.profile.major : '',
+    dietaryRestrictions: !!state.profile && state.profile.dietaryRestrictions ? state.profile.dietaryRestrictions : '',
+    specialNeeds: !!state.profile && state.profile.specialNeeds ? state.profile.specialNeeds : '',
+    emergencyName: !!state.profile && state.profile.emergencyName ? state.profile.emergencyName : '',
+    emergencyNumber: !!state.profile && state.profile.emergencyNumber ? state.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
     errors: formErrors,
     loading: false,
@@ -75,31 +75,9 @@ const ApplicationUpdateForm = ({ ...props }) => {
     disableAll: !state.isVerified
   });
 
-  useEffect(() => {
-    if (state.profile) {
-      handleSetState("firstName", state.profile.firstName)
-      handleSetState("lastName", state.profile.lastName)
-      handleSetState("phoneNumber", state.profile.phoneNumber)
-      handleSetState("dateOfBirth", state.profile.dateOfBirth)
-      handleSetState("shirtSize", state.profile.shirtSize)
-      handleSetState("gender", state.profile.gender)
-      handleSetState("ethnicity", state.profile.ethnicity)
-      handleSetState("github", state.profile.github)
-      handleSetState("linkedin", state.profile.linkedin)
-      handleSetState("website", state.profile.website)
-      handleSetState("school", state.profile.school)
-      handleSetState("graduationYear", state.profile.graduationYear)
-      handleSetState("levelOfStudy", state.profile.levelOfStudy)
-      handleSetState("major", state.profile.major)
-      handleSetState("dietaryRestrictions", state.profile.dietaryRestrictions)
-      handleSetState("specialNeeds", state.profile.specialNeeds)
-      handleSetState("emergencyName", state.profile.emergencyName)
-      handleSetState("emergencyNumber", state.profile.emergencyNumber)
-      console.log(values)
-    }
-
-    // eslint-disable-next-line
-  }, []) 
+  const handleSetState = (key, val) => {
+    setValues({ ...values, [key]: val });
+  };
 
   const normalizeInput = (value, previousValue) => {
     if (!value) return '';
@@ -126,10 +104,6 @@ const ApplicationUpdateForm = ({ ...props }) => {
 
   const handleFileUpload = () => (event) => {
     setValues({ ...values, resume: event.target.files[0] });
-  };
-
-  const handleSetState = (key, val) => {
-    setValues({ ...values, [key]: val });
   };
 
   const handleDateChange = (date) => {
