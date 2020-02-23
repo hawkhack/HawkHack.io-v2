@@ -32,9 +32,7 @@
     "prepush": "npm run lint-fix"
   },
   "husky": {
-    "hooks": {
-      // "pre-push": "npm run prepush"
-    }
+    "hooks": {}
   },
   "eslintConfig": {
     "extends": "react-app"
