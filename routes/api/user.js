@@ -1,30 +1,31 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
-const randtoken = require("rand-token");
-const uid = randtoken.uid;
-const { secretOrKey, usersMailingList } = require("../../config/keys");
-const mailgun = require("../../config/mailgun");
-const getDefaults = require("../../config/defaults");
-const verify = require("../../middleware/verifyActive");
-const wrap = require("../../middleware/asyncWrapper");
-const mailbody = require("../../config/mailbody");
+const express = require("express"),
+  router = express.Router(),
+  bcrypt = require("bcryptjs"),
+  jwt = require("jsonwebtoken"),
+  passport = require("passport"),
+  randtoken = require("rand-token"),
+  uid = randtoken.uid,
+  { secretOrKey } = require("../../config/keys"),
+  mailgun = require("../../config/mailgun"),
+  getDefaults = require("../../utils/defaults"),
+  verify = require("../../middleware/verifyActive"),
+  wrap = require("../../middleware/asyncWrapper"),
+  mailbody = require("../../utils/mailbody"),
+  uploadResume = require("../../utils/uploadResume");
 
 //Load user model
-const User = require("../../models/User");
-const Profile = require("../../models/Profile");
+const User = require("../../models/User"),
+  Profile = require("../../models/Profile");
 
 //Load Input Validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
-const validateResetPassword = require("../../validation/resetpw");
+const validateRegisterInput = require("../../validation/register"),
+  validateLoginInput = require("../../validation/login"),
+  validateResetPassword = require("../../validation/resetpw");
 
 //  @route  GET api/u/test
 //  @desc   Test users route
 //  @access Public
-router.get("/test/:email", (req, res) => {});
+router.get("/test", (req, res) => {});
 
 //  @route  GET api/u/test
 //  @desc   Test users route

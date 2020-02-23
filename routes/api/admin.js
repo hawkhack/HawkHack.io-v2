@@ -5,7 +5,7 @@ const passport = require("passport");
 const wrap = require("../../middleware/asyncWrapper");
 
 const getDefaults = require("../../config/defaults");
-const mailbody = require("../../config/mailbody");
+const mailbody = require("../../utils/mailbody");
 
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
@@ -184,7 +184,11 @@ router.post(
           console.log(`USER ACCEPTED: ${profile.email}`);
 
           //send confirmation email
-          const data = mailbody.confirmation(profile.email, profile.firstName, profile.confirmationToken);
+          const data = mailbody.confirmation(
+            profile.email,
+            profile.firstName,
+            profile.confirmationToken
+          );
           mailgun.messages().send(data, (err, body) => {
             if (err) {
               console.log("mailgun error: ", err);

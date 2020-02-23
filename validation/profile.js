@@ -14,19 +14,13 @@ module.exports = function validateProfileInput(data) {
   data.github = !isEmpty(data.github) ? data.github : "";
   data.linkedin = !isEmpty(data.linkedin) ? data.linkedin : "";
   data.school = !isEmpty(data.school) ? data.school : "";
-  data.graduationYear = !isEmpty(data.graduationYear)
-    ? data.graduationYear
-    : "";
+  data.graduationYear = !isEmpty(data.graduationYear) ? data.graduationYear : "";
   data.levelOfStudy = !isEmpty(data.levelOfStudy) ? data.levelOfStudy : "";
   data.major = !isEmpty(data.major) ? data.major : "";
-  data.dietaryRestrictions = !isEmpty(data.dietaryRestrictions)
-    ? data.dietaryRestrictions
-    : "";
+  data.dietaryRestrictions = !isEmpty(data.dietaryRestrictions) ? data.dietaryRestrictions : "";
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
   data.emergencyName = !isEmpty(data.emergencyName) ? data.emergencyName : "";
-  data.emergencyNumber = !isEmpty(data.emergencyNumber)
-    ? data.emergencyNumber
-    : "";
+  data.emergencyNumber = !isEmpty(data.emergencyNumber) ? data.emergencyNumber : "";
 
   if (!isEmpty(data.firstName)) {
     if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
@@ -50,20 +44,17 @@ module.exports = function validateProfileInput(data) {
   }
   if (!isEmpty(data.dietaryRestrictions)) {
     if (!Validator.isLength(data.dietaryRestrictions, { min: 2, max: 200 })) {
-      errors.dietaryRestrictions =
-        "Dietary Restrictions need to be between 2 and 200 characters";
+      errors.dietaryRestrictions = "Dietary Restrictions need to be between 2 and 200 characters";
     }
   }
   if (!isEmpty(data.specialNeeds)) {
     if (!Validator.isLength(data.specialNeeds, { min: 2, max: 200 })) {
-      errors.specialNeeds =
-        "Special Needs need to be between 2 and 200 characters";
+      errors.specialNeeds = "Special Needs need to be between 2 and 200 characters";
     }
   }
   if (!isEmpty(data.graduationYear)) {
     if (!Validator.isLength(data.graduationYear, { min: 2, max: 4 })) {
-      errors.graduationYear =
-        "Graduation Year need to be between 2 and 4 characters";
+      errors.graduationYear = "Graduation Year need to be between 2 and 4 characters";
     }
   }
 
@@ -121,13 +112,12 @@ module.exports = function validateProfileInput(data) {
       data.lastName &&
       data.phoneNumber &&
       data.dateOfBirth &&
-      data.shirtSize &&
-      data.gender &&
-      data.ethnicity &&
+      data.shirtSize != "Not set" &&
+      data.gender != "Not set" &&
+      data.ethnicity != "Not set" &&
       data.school &&
       data.graduationYear &&
-      data.levelOfStudy &&
-      data.major &&
+      data.levelOfStudy != "Not set" &&
       data.emergencyName &&
       data.emergencyNumber
     ) {
