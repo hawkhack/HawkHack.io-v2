@@ -1,11 +1,13 @@
-  const uploadFile = require("../services/upload-file");
-  
-  //check and upload resume
-  const uploadResume = uploadFile.single("resume");
+const s3 = require("../config/aws"),
+  fs = require("fs");
 
-  uploadResume(req, res, err => {
-    if (err) {
-      return res.status(422).json(err);
-    }
-    return res.status(200).json(req.file.);
-  });
+module.exports = (file, callback) => {
+  const params = {
+    Bucket: process.env.ResumeBucketName,
+    Key: file.filename,
+    Body: fs.readFileSync(file.path),
+    Metadata: { "x-amz-meta-originalname": file.originalname }
+  };
+
+  s3.upload(params, callback);
+};
