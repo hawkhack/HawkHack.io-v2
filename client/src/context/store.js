@@ -1,22 +1,36 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useState } from 'react';
 
-import UPDATE_USER from './types';
-
-const initialState = {};
-const store = createContext(initialState);
-const { Provider } = store;
+export const UserContext = createContext()
 
 const StateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer((prev, action) => {
-    switch (action.type) {
-      case UPDATE_USER:
-        return action.payload;
-      default:
-        throw new Error();
-    }
-  }, initialState);
+	const [user, setUser] = useState({
+		user: {
+			profile: {},
+			loggedIn: localStorage.getItem("cool-jwt") ? true : false
+		}
+	})
 
-  return <Provider value={{ state, dispatch }}>{children}</Provider>;
-};
+	const handleUser = (val) => {
+		const newUser = val
+		newUser.loggedIn = true
+		if (!val.profile) {
+			newUser.profile = {
+				status: "Incomplete"
+			}
 
-export { store, StateProvider };
+			if (!val.isVerified) {
+				newUser.profile.status = "Verify your email to apply"
+			}
+		}
+
+		setUser({ user: val })
+	}
+
+	return (
+		<UserContext.Provider value={[ user, handleUser ]}>
+			{ children }
+		</UserContext.Provider>
+	)
+}
+
+export default StateProvider

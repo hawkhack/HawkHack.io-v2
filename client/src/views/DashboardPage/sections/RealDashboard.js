@@ -3,16 +3,18 @@ import React, { useContext, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import realDashboardStyles from '../../../assets/jss/realDashboardStyles';
 import ExpansionPanel from '../../../components/ExpansionPanel/ExpansionPanel';
 import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/ExpansionPanelSummary';
 import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails';
+import Loading from '../../../components/Loading/Loading';
 import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm';
 
 import { defaults } from '../../../defaults';
 import { UpdateApplication } from '../../../assets/utils/Api';
-import { store } from '../../../context/store'
+import { UserContext } from '../../../context/store'
 
 const CheckIn = ({ classes }) => (
   <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
@@ -35,23 +37,29 @@ const CheckIn = ({ classes }) => (
   </Paper>
 );
 
-const RealDashboard = ({ user }) => {
-  const globalState = useContext(store);
+const RealDashboard = () => {
+  const [{ user }, handleUser] = useContext(UserContext);
+
   const [values, setValues] = useState({
-    status: 'Not Submitted',
-    profile: globalState.state.profile || { status: "Incomplete" },
     formErrors: {},
+    success: false,
+    status: user.profile.status ? user.profile.status : ""
   });
 
   const handleState = (key, val) => {
     setValues({ ...values, [key]: val });
   };
 
+  const handleClose = () => {
+    setValues({ ...values, success: false });
+  };
+
   const submitApplication = async (app) => {
     try {
       const result = await UpdateApplication(app);
 
-      handleState('profile', result.data);
+      handleState('status', result.data.status)
+      handleState('success', true)
     } catch (err) {
       handleState('formErrors', err);
       throw err;
@@ -83,7 +91,7 @@ const RealDashboard = ({ user }) => {
                         Status:
                         <span className={classes.status}>
                           {' '}
-                          {values.profile.status}
+                          {values.status}
                           {' '}
                         </span>
                       </Typography>
@@ -100,16 +108,20 @@ const RealDashboard = ({ user }) => {
             {checkIn}
             <Paper style={{ margin: '1vw 4vw 4vw 4vw' }}>
               <Grid item>
-                <div className={classes.wrapper}>
+                <div style={{ padding: 10 }}>
                   <ExpansionPanel expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
                       <Typography className={classes.status}>Application</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <ApplicationUpdateForm
-                        submitApplication={submitApplication}
-                        formErrors={values.formErrors}
-                      />
+                      {user.email ? (
+                        <ApplicationUpdateForm
+                          user={user}
+                          handleUser={handleUser}
+                          submitApplication={submitApplication}
+                          formErrors={values.formErrors}
+                        />
+                      ) : <Loading />}
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
@@ -117,6 +129,14 @@ const RealDashboard = ({ user }) => {
             </Paper>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={values.success}
+          onClose={handleClose}
+          autoHideDuration={1500}
+          style={{ marginTop: 100 }}
+          message="Updated!"
+        />
       </Grid>
     </>
   );

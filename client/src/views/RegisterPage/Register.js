@@ -20,12 +20,11 @@ import registerStyles from '../../assets/jss/registerStyles';
 
 import { RegisterUser, GetUser } from '../../assets/utils/Api';
 import { validateRegister } from '../../assets/utils/Validation';
-import UPDATE_USER from '../../context/types';
-import { store } from '../../context/store'
+import { UserContext } from '../../context/store'
 
 const Register = ({ ...props }) => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState
+  const handleUser = useContext(UserContext);
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -70,13 +69,8 @@ const Register = ({ ...props }) => {
 
       localStorage.setItem('cool-jwt', result.data.token);
 
-      const user = await GetUser();
-      const data = {
-        ...user.data,
-        profile: { status: "Unverified Email" }
-      }
-
-      dispatch({ type: UPDATE_USER, payload: data })
+      const profile = await GetUser();
+      handleUser[1](profile.data)
 
       handleLoading(false);
       props.history.push('/dashboard');
@@ -114,7 +108,7 @@ const Register = ({ ...props }) => {
             alignItems="center"
             className={classes.gridContainer}
           >
-            <Grid item xs={12} sm={8} md={4} lg={4} className={classes.gridItem}>
+            <Grid item xs={12} sm={8} md={6} lg={4} className={classes.gridItem}>
               <div className={classes.card}>
                 <form className={classes.form}>
                   <div className={classes.cardHeader}>

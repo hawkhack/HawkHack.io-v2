@@ -13,19 +13,34 @@ import Parallax from '../../components/Parallax/Parallax';
 import NavBar from '../../components/NavBar/NavBar';
 import RealDashboard from './sections/RealDashboard';
 
-import { store } from '../../context/store'
+import { UserContext } from '../../context/store'
+import { GetUser } from '../../assets/utils/Api'
 
 const Dashboard = ({ ...props }) => {
-  const globalState = useContext(store);
+  const [{ user }, handleUser] = useContext(UserContext);
   
   const classes = dashboardStyles();
 
   useEffect(() => {
-    if (!globalState.state.profile) {
+    if (!user.loggedIn || !localStorage.getItem('cool-jwt')) {
       localStorage.removeItem('cool-jwt')
       props.history.push('/');
     }
 
+    if (!user.email) {
+      const getUser = async () => {
+        try {
+          let user = await GetUser()
+          
+          handleUser(user.data)
+        } catch (err) {
+          localStorage.removeItem('cool-jwt')
+          props.history.push('/');
+        }
+      }
+
+      getUser();
+    }
     // eslint-disable-next-line
   }, []);
 

@@ -8,8 +8,7 @@ import Register from './views/RegisterPage/Register';
 import Loading from './components/Loading/Loading';
 import theme from './theme';
 import { GetUser } from './assets/utils/Api'
-import { store } from './context/store'
-import UPDATE_USER from './context/types'
+import { UserContext } from './context/store'
 
 const Dashboard = React.lazy(() => import('./views/DashboardPage/Dashboard'));
 const ResetPassword = React.lazy(() => import('./views/ResetPasswordPage/ResetPassword'));
@@ -17,22 +16,17 @@ const NotFound = React.lazy(() => import('./views/NotFoundPage/NotFound'));
 const Verified = React.lazy(() => import('./views/VerifiedPage/Verified'));
 
 const App = () => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState
+  const handleUser = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem('cool-jwt')) {
       const getUser = async () => {
-        let user = await GetUser()
-        user = user.data
-        if (!user.profile) {
-          user = {
-            ...user,
-            profile: { status: user.isVerified ? "Fill out the application" : "Unverified Email" }
-          }
+        try {
+          let user = await GetUser()
+          handleUser[1](user.data)
+        } catch (err) {
+          localStorage.removeItem('cool-jwt')
         }
-
-        dispatch({ type: UPDATE_USER, payload: user })
       }
 
       getUser();
