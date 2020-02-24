@@ -22,6 +22,13 @@ import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
 
 const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
+const ethnicities = [
+  'American Indian or Alaskan Native', 
+  'Asian/Pacific Islander', 
+  'Hispanic or Latino', 
+  'Black or African American', 
+  'White/Caucasian'
+];
 
 const useStyles = makeStyles(() => ({
   textWrapper: {
@@ -41,7 +48,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ApplicationUpdateForm = ({ user, handleUser, ...props }) => {
+const ApplicationUpdateForm = ({ user, ...props }) => {
   const [values, setValues] = useState({
     email: user.email,
     status: user.profile.status ? user.profile.status : '',
@@ -121,14 +128,8 @@ const ApplicationUpdateForm = ({ user, handleUser, ...props }) => {
         phoneNumber: normalize(values.phoneNumber),
         emergencyNumber: normalize(values.emergencyNumber),
       };
-
-      const newUser = {
-        ...user,
-        profile: profile
-      }
-
+      
       await props.submitApplication(profile);
-      handleUser(newUser)
 
       handleLoading(false);
       handleErrors({});
@@ -365,23 +366,24 @@ const ApplicationUpdateForm = ({ user, handleUser, ...props }) => {
                   </Grid>
                   <Grid item xs={12} sm={12} md={6}>
                     <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Ethnicity"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.ethnicity}
-                        id="Ethnicity"
-                        inputProps={{
-                          onChange: handleState('ethnicity'),
-                          error: !!values.errors.ethnicity,
-                          value: values.ethnicity,
-                          disabled: values.loading || values.disableAll,
-                        }}
-                      />
-                      {values.errors.ethnicity
-                        ? <FormHelperText error>{values.errors.ethnicity}</FormHelperText>
-                        : null}
+                      <FormControl fullWidth>
+                        <InputLabel error={!!values.errors.shirtSize} id="ethnicity">Ethnicity</InputLabel>
+                        <Select
+                          id="ethnicity"
+                          disabled={values.loading || values.disableAll}
+                          fullWidth
+                          error={!!values.errors.ethnicity}
+                          value={values.ethnicity}
+                          onChange={handleState('ethnicity')}
+                        >
+                         {ethnicities.map(eth => (
+                           <MenuItem value={eth}>{eth}</MenuItem>
+                          ))}
+                        </Select>
+                        {values.errors.ethnicity
+                          ? <FormHelperText error>{values.errors.ethnicity}</FormHelperText>
+                          : null}
+                      </FormControl>
                     </div>
                   </Grid>
                 </Grid>

@@ -43,7 +43,6 @@ const RealDashboard = () => {
   const [values, setValues] = useState({
     formErrors: {},
     success: false,
-    status: user.profile.status ? user.profile.status : ""
   });
 
   const handleState = (key, val) => {
@@ -57,9 +56,13 @@ const RealDashboard = () => {
   const submitApplication = async (app) => {
     try {
       const result = await UpdateApplication(app);
+      const newUser = {
+        ...user,
+        profile: result.data
+      }
 
-      handleState('status', result.data.status)
       handleState('success', true)
+      handleUser(newUser)
     } catch (err) {
       handleState('formErrors', err);
       throw err;
@@ -91,7 +94,7 @@ const RealDashboard = () => {
                         Status:
                         <span className={classes.status}>
                           {' '}
-                          {values.status}
+                          {user.profile.status ? user.profile.status : ""}
                           {' '}
                         </span>
                       </Typography>

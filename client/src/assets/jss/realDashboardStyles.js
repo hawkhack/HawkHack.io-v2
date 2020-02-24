@@ -5,7 +5,7 @@ const realDashboardStyles = makeStyles((theme) => ({
     minHeight: '90vh',
   },
   wrapper: {
-    padding: 20,
+    padding: 10,
   },
   status: {
     fontWeight: 300,
