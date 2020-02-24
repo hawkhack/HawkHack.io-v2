@@ -66,6 +66,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const checkSchool = (school) => {
+  if (!school) {
+    return ""
+  }
+
+  if (!Schools.includes(school)) {
+    return "Other";
+  }
+
+  return school
+}
+
 const ApplicationUpdateForm = ({ user, ...props }) => {
   const [values, setValues] = useState({
     email: user.email,
@@ -80,7 +92,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     github: user.profile.github ? user.profile.github : '',
     linkedin: user.profile.linkedin ? user.profile.linkedin : '',
     website: user.profile.website ? user.profile.website : '',
-    school: user.profile.school ? user.profile.school : '',
+    school: checkSchool(user.profile.school),
     graduationYear: user.profile.graduationYear ? user.profile.graduationYear : '',
     levelOfStudy: user.profile.levelOfStudy ? user.profile.levelOfStudy : '',
     major: user.profile.major ? user.profile.major : '',
@@ -89,7 +101,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
     emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
-    otherSchool: "",
+    otherSchool: user.profile.school,
     errors: {},
     loading: false,
     disableAll: !user.isVerified
@@ -142,9 +154,14 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
         throw errors;
       }
 
+      let school = values.otherSchool
+      if (values.school !== "Other") {
+        school = values.school
+      }
+
       const profile = {
         ...values,
-        school: values.otherSchool.length > 0 ? values.otherSchool : values.school,
+        school: school,
         phoneNumber: normalize(values.phoneNumber),
         emergencyNumber: normalize(values.emergencyNumber),
       };
@@ -593,6 +610,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.graduationYear}
                           onChange={handleState('graduationYear')}
                         >
+                          <option value="" disabled></option>
                           {GraduationYears.map((year) => (
                             <option key={year} value={year}>{year}</option>
                           ))}
@@ -616,6 +634,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.levelOfStudy}
                           onChange={handleState('levelOfStudy')}
                         >
+                          <option value="" disabled></option>
                           <option value="Undergraduate">Undergraduate</option>
                           <option value="Graduate">Graduate</option>
                           <option value="High School">High School</option>
