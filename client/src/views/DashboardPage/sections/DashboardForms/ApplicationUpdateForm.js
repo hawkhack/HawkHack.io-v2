@@ -5,7 +5,6 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -29,6 +28,34 @@ const ethnicities = [
   'Black or African American', 
   'White/Caucasian'
 ];
+
+const Schools = [
+  "Bloomfield College",
+  "Caldwell University",
+  "Clifton High School",
+  "Hudson County Community College",
+  "Kean University",
+  "Leonia High School",
+  "Middlesex County College",
+  "Monmouth University",
+  "Monroe Township High School",
+  "Montclair State University",
+  "New Jersey Institute of Technology",
+  "Ocean Township High School",
+  "Passaic County Community College",
+  "Passaic County Technical Institute",
+  "Ramapo College",
+  "Rider University",
+  "Rowan University",
+  "Rutgers University - New Brunswick",
+  "Rutgers University - Newark",
+  "Seton Hall University",
+  "Stevens Institute of Technology",
+  "Stockton University",
+  "The College of New Jersey",
+  "William Paterson University",
+  "Other"
+]
 
 const useStyles = makeStyles(() => ({
   textWrapper: {
@@ -71,6 +98,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
     emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
+    otherSchool: "",
     errors: {},
     loading: false,
     disableAll: !user.isVerified
@@ -311,6 +339,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       <FormControl fullWidth>
                         <InputLabel error={!!values.errors.gender} id="gender">Gender</InputLabel>
                         <Select
+                          native
                           id="gender"
                           fullWidth
                           error={!!values.errors.gender}
@@ -318,10 +347,10 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           disabled={values.loading || values.disableAll}
                           onChange={handleState('gender')}
                         >
-                          <MenuItem value="Male">Male</MenuItem>
-                          <MenuItem value="Female">Female</MenuItem>
-                          <MenuItem value="Other">Other</MenuItem>
-                          <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Other">Other</option>
+                          <option value="Prefer not to say">Prefer not to say</option>
                         </Select>
                         {values.errors.gender
                           ? <FormHelperText error>{values.errors.gender}</FormHelperText>
@@ -343,6 +372,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       <FormControl fullWidth>
                         <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
                         <Select
+                          native
                           id="shirtSize"
                           disabled={values.loading || values.disableAll}
                           fullWidth
@@ -350,13 +380,13 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.shirtSize}
                           onChange={handleState('shirtSize')}
                         >
-                          <MenuItem value="XXS">XXS</MenuItem>
-                          <MenuItem value="XS">XS</MenuItem>
-                          <MenuItem value="S">S</MenuItem>
-                          <MenuItem value="M">M</MenuItem>
-                          <MenuItem value="L">L</MenuItem>
-                          <MenuItem value="XL">XL</MenuItem>
-                          <MenuItem value="XXL">XXL</MenuItem>
+                          <option value="XXS">XXS</option>
+                          <option value="XS">XS</option>
+                          <option value="S">S</option>
+                          <option value="M">M</option>
+                          <option value="L">L</option>
+                          <option value="XL">XL</option>
+                          <option value="XXL">XXL</option>
                         </Select>
                         {values.errors.shirtSize
                           ? <FormHelperText error>{values.errors.shirtSize}</FormHelperText>
@@ -367,8 +397,9 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   <Grid item xs={12} sm={12} md={6}>
                     <div className={classes.textWrapper}>
                       <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.shirtSize} id="ethnicity">Ethnicity</InputLabel>
+                        <InputLabel error={!!values.errors.ethnicity} id="ethnicity">Ethnicity</InputLabel>
                         <Select
+                          native
                           id="ethnicity"
                           disabled={values.loading || values.disableAll}
                           fullWidth
@@ -377,7 +408,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           onChange={handleState('ethnicity')}
                         >
                          {ethnicities.map(eth => (
-                           <MenuItem value={eth}>{eth}</MenuItem>
+                           <option key={eth} value={eth}>{eth}</option>
                           ))}
                         </Select>
                         {values.errors.ethnicity
@@ -490,28 +521,63 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                 >
                   <Grid item xs={12}>
                     <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="School"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.school}
-                        id="School"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('school'),
-                          error: !!values.errors.school,
-                          disabled: values.loading || values.disableAll,
-                          value: values.school,
-                        }}
-                      />
-                      {values.errors.school
-                        ? <FormHelperText error>{values.errors.school}</FormHelperText>
-                        : null}
+                      <FormControl fullWidth>
+                        <InputLabel error={!!values.errors.school} id="School">School</InputLabel>
+                        <Select
+                          native
+                          id="School"
+                          disabled={values.loading || values.disableAll}
+                          fullWidth
+                          error={!!values.errors.school}
+                          value={values.school}
+                          onChange={handleState('school')}
+                        >
+                          <option value="" disabled></option>
+                          {Schools.map(school => (
+                            <option key={school} value={school}>{school}</option>
+                          ))}
+                        </Select>
+                        {values.errors.school
+                          ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                          : null}
+                      </FormControl>
                     </div>
                   </Grid>
                 </Grid>
               </Grid>
+              {values.school === "Other" &&
+                <Grid item>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    align="center"
+                  >
+                    <Grid item xs={12}>
+                      <div className={classes.textWrapper}>
+                        <FormControl fullWidth>
+                          <CustomInput
+                            labelText="School"
+                            formControlProps={{
+                              fullWidth: true,
+                            }}
+                            id="otherSchool"
+                            inputProps={{
+                              type: 'text',
+                              onChange: handleState('otherSchool'),
+                              value: values.otherSchool,
+                              disabled: values.loading || values.disableAll,
+                            }}
+                          />
+                          {values.errors.school
+                            ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                            : null}
+                        </FormControl>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              }
               <Grid item>
                 <Grid
                   container
@@ -524,6 +590,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       <FormControl fullWidth>
                         <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
                         <Select
+                          native
                           id="graduationYear"
                           disabled={values.loading || values.disableAll}
                           fullWidth
@@ -532,7 +599,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           onChange={handleState('graduationYear')}
                         >
                           {GraduationYears.map((year) => (
-                            <MenuItem key={year} value={year}>{year}</MenuItem>
+                            <option key={year} value={year}>{year}</option>
                           ))}
                         </Select>
                         {values.errors.graduationYear
@@ -546,6 +613,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       <FormControl fullWidth>
                         <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
                         <Select
+                          native
                           id="levelOfStudy"
                           disabled={values.loading || values.disableAll}
                           fullWidth
@@ -553,9 +621,9 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.levelOfStudy}
                           onChange={handleState('levelOfStudy')}
                         >
-                          <MenuItem value="Undergraduate">Undergraduate</MenuItem>
-                          <MenuItem value="Graduate">Graduate</MenuItem>
-                          <MenuItem value="High School">High School</MenuItem>
+                          <option value="Undergraduate">Undergraduate</option>
+                          <option value="Graduate">Graduate</option>
+                          <option value="High School">High School</option>
                         </Select>
                         {values.errors.levelOfStudy
                           ? <FormHelperText error>{values.errors.levelOfStudy}</FormHelperText>
