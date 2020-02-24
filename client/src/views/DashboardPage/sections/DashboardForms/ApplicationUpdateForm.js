@@ -33,25 +33,16 @@ const Schools = [
   "Bloomfield College",
   "Caldwell University",
   "Clifton High School",
-  "Hudson County Community College",
   "Kean University",
   "Leonia High School",
-  "Middlesex County College",
-  "Monmouth University",
   "Monroe Township High School",
   "Montclair State University",
   "New Jersey Institute of Technology",
   "Ocean Township High School",
-  "Passaic County Community College",
   "Passaic County Technical Institute",
-  "Ramapo College",
-  "Rider University",
-  "Rowan University",
   "Rutgers University - New Brunswick",
   "Rutgers University - Newark",
   "Seton Hall University",
-  "Stevens Institute of Technology",
-  "Stockton University",
   "The College of New Jersey",
   "William Paterson University",
   "Other"
@@ -153,6 +144,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
 
       const profile = {
         ...values,
+        school: values.otherSchool.length > 0 ? values.otherSchool : values.school,
         phoneNumber: normalize(values.phoneNumber),
         emergencyNumber: normalize(values.emergencyNumber),
       };
@@ -347,6 +339,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           disabled={values.loading || values.disableAll}
                           onChange={handleState('gender')}
                         >
+                          <option value="" disabled></option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
                           <option value="Other">Other</option>
@@ -380,6 +373,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.shirtSize}
                           onChange={handleState('shirtSize')}
                         >
+                          <option value="" disabled></option>
                           <option value="XXS">XXS</option>
                           <option value="XS">XS</option>
                           <option value="S">S</option>
@@ -407,6 +401,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           value={values.ethnicity}
                           onChange={handleState('ethnicity')}
                         >
+                          <option value="" disabled></option>
                          {ethnicities.map(eth => (
                            <option key={eth} value={eth}>{eth}</option>
                           ))}

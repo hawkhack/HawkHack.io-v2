@@ -18,7 +18,7 @@ import { UserContext } from '../../../context/store'
 
 const CheckIn = ({ classes }) => (
   <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
-    <Grid item>
+    <Grid item xs={12}>
       <div className={classes.wrapper}>
         <ExpansionPanel expanded>
           <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -86,7 +86,7 @@ const RealDashboard = () => {
             align="center"
           >
             <Paper style={{ margin: '4vw 4vw 1vw 4vw' }}>
-              <Grid item>
+              <Grid item xs={12}>
                 <div className={classes.wrapper}>
                   <ExpansionPanel expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -110,7 +110,7 @@ const RealDashboard = () => {
             </Paper>
             {checkIn}
             <Paper style={{ margin: '1vw 4vw 4vw 4vw' }}>
-              <Grid item>
+              <Grid item xs={12}>
                 <div style={{ padding: 10 }}>
                   <ExpansionPanel expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
