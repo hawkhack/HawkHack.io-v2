@@ -3,7 +3,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const ExpansionPanelDetails = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: 0,
   },
 }))(MuiExpansionPanelDetails);
 

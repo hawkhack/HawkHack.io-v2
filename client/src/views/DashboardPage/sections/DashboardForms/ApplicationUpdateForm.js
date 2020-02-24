@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,7 +12,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
 import makeStyles from '@material-ui/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Snackbar from '@material-ui/core/Snackbar';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -21,14 +20,12 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
-import { store } from '../../../../context/store'
-import UPDATE_USER from '../../../../context/types';
 
 const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 
 const useStyles = makeStyles(() => ({
   textWrapper: {
-    padding: '30px 20px 10px 0px',
+    padding: '30px 10px 10px 10px',
   },
   progress: {
     height: 'auto',
@@ -44,40 +41,33 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ApplicationUpdateForm = ({ ...props }) => {
-  const { state, dispatch } = useContext(store);
-
-  const { formErrors } = props;
+const ApplicationUpdateForm = ({ user, handleUser, ...props }) => {
   const [values, setValues] = useState({
-    email: state.email,
-    firstName: !!state.profile && state.profile.firstName ? state.profile.firstName : '',
-    lastName: !!state.profile && state.profile.lastName ? state.profile.lastName : '',
-    phoneNumber: !!state.profile && state.profile.phoneNumber ? state.profile.phoneNumber : '',
-    dateOfBirth: !!state.profile && state.profile.dateOfBirth ? state.profile.dateOfBirth : null,
-    shirtSize: !!state.profile && state.profile.shirtSize ? state.profile.shirtSize : '',
-    gender: !!state.profile && state.profile.gender ? state.profile.gender : '',
-    ethnicity: !!state.profile && state.profile.ethnicity ? state.profile.ethnicity : '',
-    github: !!state.profile && state.profile.github ? state.profile.github : '',
-    linkedin: !!state.profile && state.profile.linkedin ? state.profile.linkedin : '',
-    website: !!state.profile && state.profile.website ? state.profile.website : '',
-    school: !!state.profile && state.profile.school ? state.profile.school : '',
-    graduationYear: !!state.profile && state.profile.graduationYear ? state.profile.graduationYear : '',
-    levelOfStudy: !!state.profile && state.profile.levelOfStudy ? state.profile.levelOfStudy : '',
-    major: !!state.profile && state.profile.major ? state.profile.major : '',
-    dietaryRestrictions: !!state.profile && state.profile.dietaryRestrictions ? state.profile.dietaryRestrictions : '',
-    specialNeeds: !!state.profile && state.profile.specialNeeds ? state.profile.specialNeeds : '',
-    emergencyName: !!state.profile && state.profile.emergencyName ? state.profile.emergencyName : '',
-    emergencyNumber: !!state.profile && state.profile.emergencyNumber ? state.profile.emergencyNumber : '',
+    email: user.email,
+    status: user.profile.status ? user.profile.status : '',
+    firstName: user.profile.firstName ? user.profile.firstName : '',
+    lastName: user.profile.lastName ? user.profile.lastName : '',
+    phoneNumber: user.profile.phoneNumber ? user.profile.phoneNumber : '',
+    dateOfBirth: user.profile.dateOfBirth ? user.profile.dateOfBirth : null,
+    shirtSize: user.profile.shirtSize ? user.profile.shirtSize : '',
+    gender: user.profile.gender ? user.profile.gender : '',
+    ethnicity: user.profile.ethnicity ? user.profile.ethnicity : '',
+    github: user.profile.github ? user.profile.github : '',
+    linkedin: user.profile.linkedin ? user.profile.linkedin : '',
+    website: user.profile.website ? user.profile.website : '',
+    school: user.profile.school ? user.profile.school : '',
+    graduationYear: user.profile.graduationYear ? user.profile.graduationYear : '',
+    levelOfStudy: user.profile.levelOfStudy ? user.profile.levelOfStudy : '',
+    major: user.profile.major ? user.profile.major : '',
+    dietaryRestrictions: user.profile.dietaryRestrictions ? user.profile.dietaryRestrictions : '',
+    specialNeeds: user.profile.specialNeeds ? user.profile.specialNeeds : '',
+    emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
+    emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
-    errors: formErrors,
+    errors: {},
     loading: false,
-    success: false,
-    disableAll: !state.isVerified
+    disableAll: !user.isVerified
   });
-
-  const handleSetState = (key, val) => {
-    setValues({ ...values, [key]: val });
-  };
 
   const normalizeInput = (value, previousValue) => {
     if (!value) return '';
@@ -118,10 +108,6 @@ const ApplicationUpdateForm = ({ ...props }) => {
     setValues({ ...values, loading: val });
   };
 
-  const handleClose = () => {
-    setValues({ ...values, success: false });
-  };
-
   const submit = async () => {
     try {
       handleLoading(true);
@@ -129,24 +115,23 @@ const ApplicationUpdateForm = ({ ...props }) => {
       if (Object.keys(errors).length !== 0) {
         throw errors;
       }
-      handleErrors({});
 
-      const data = {
+      const profile = {
         ...values,
         phoneNumber: normalize(values.phoneNumber),
         emergencyNumber: normalize(values.emergencyNumber),
       };
 
       const newUser = {
-        ...state,
-        profile: data
+        ...user,
+        profile: profile
       }
 
-      await props.submitApplication(data);
-      dispatch({ type: UPDATE_USER, payload: newUser })
+      await props.submitApplication(profile);
+      handleUser(newUser)
 
       handleLoading(false);
-      handleSetState('success', true);
+      handleErrors({});
     } catch (err) {
       handleErrors(err);
     }
@@ -707,11 +692,17 @@ const ApplicationUpdateForm = ({ ...props }) => {
                     style={{ display: 'none' }}
                     id="contained-button-file"
                     multiple
+                    disabled={values.loading || values.disableAll}
                     type="file"
                     onChange={handleFileUpload()}
                   />
                   <label htmlFor="contained-button-file">
-                    <Button color="primary" component="span" style={{ height: '100%', width: '100%' }}>
+                    <Button 
+                      color="primary" 
+                      component="span" 
+                      style={{ height: '100%', width: '100%' }}
+                      disabled={values.loading || values.disableAll}
+                    >
                       {values.resume.name}
                     </Button>
                   </label>
@@ -722,6 +713,7 @@ const ApplicationUpdateForm = ({ ...props }) => {
                   <Button
                     variant="contained"
                     color="primary"
+                    disabled={values.loading || values.disableAll}
                     style={{ height: '100%', width: '100%' }}
                     type="submit"
                     onClick={submit}
@@ -733,14 +725,6 @@ const ApplicationUpdateForm = ({ ...props }) => {
             </Grid>
           </div>
         </Grid>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={values.success}
-          onClose={handleClose}
-          autoHideDuration={1500}
-          style={{ marginTop: 100 }}
-          message="Updated!"
-        />
       </Grid>
     </>
   );
