@@ -78,7 +78,7 @@ const ProfileSchema = new Schema({
   },
   major: {
     type: String,
-    max: 30
+    max: 100
   },
   dietaryRestrictions: {
     type: String,

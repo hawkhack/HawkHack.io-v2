@@ -38,7 +38,7 @@ module.exports = function validateProfileInput(data) {
     }
   }
   if (!isEmpty(data.major)) {
-    if (!Validator.isLength(data.major, { min: 2, max: 30 })) {
+    if (!Validator.isLength(data.major, { min: 2, max: 50 })) {
       errors.major = "Major needs to be between 2 and 30 characters";
     }
   }
