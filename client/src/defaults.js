@@ -6,7 +6,7 @@ export const defaults = {
   universityText: 'Montclair State University',
   dayof: false,
   openApplications: false,
-  openCheckIn: true,
+  openCheckIn: false,
 };
 
 export const dayOne = 'Saturday, March 30';
@@ -93,3 +93,12 @@ export const FAQs = [
       '5. If your confirmation is “Successful,” come to the venue on March 28th!'],
   },
 ];
+
+export const UserStatus = {
+  Incomplete: "Applications are open! Fill out the application below to register.", 
+  Registered: "Great! You're registered. Hang tight, we'll send out an email for confirmations soon.", 
+  Waitlisted: "Hold on for now, we'll update you if something changes.", 
+  Accepted: "You've been accepted! We'll send out an email for confirmation and then you'll be good to go.", 
+  Confirmed: "You're all set, we'll see you there", 
+  Denied: "Stars didn't align themselves this year, but we're open to suggestions at support@hawkhack.io"
+}
