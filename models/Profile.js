@@ -9,7 +9,7 @@ const ProfileSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["Incomplete", "Registered", "Waitlisted", "Accepted", "Confirmed", "Denied"],
+    enum: ["Incomplete", "Pending", "Waitlisted", "Accepted", "Confirmed", "Denied"],
     default: "Incomplete"
   },
   statusChangedAt: {

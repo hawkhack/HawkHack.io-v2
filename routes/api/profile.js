@@ -81,7 +81,7 @@ router.post(
       const profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
         if (profile.status === "Incomplete" && isComplete) {
-          profileFiends.status = "Registered";
+          profileFiends.status = "Pending";
           profileFields.statusChangedAt = new Date();
         }
         //Update Profile
@@ -89,7 +89,7 @@ router.post(
         return res.status(200).json(savedProfile);
       } else {
         if (isComplete) {
-          profileFields.status = "Registered";
+          profileFields.status = "Pending";
         }
         const savedProfile = await new Profile(profileFields).save();
         return res.status(200).json(savedProfile);
