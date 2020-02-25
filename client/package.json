@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "author": "Aadil Glasswala",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

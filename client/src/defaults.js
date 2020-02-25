@@ -96,7 +96,7 @@ export const FAQs = [
 
 export const UserStatus = {
   Incomplete: "Applications are open! Fill out the application below to register.", 
-  Registered: "Great! You're registered. Hang tight, we'll send out an email for confirmations soon.", 
+  Pending: "Great! You're registered. Hang tight, we'll send out an email for confirmations soon.", 
   Waitlisted: "Hold on for now, we'll update you if something changes.", 
   Accepted: "You've been accepted! We'll send out an email for confirmation and then you'll be good to go.", 
   Confirmed: "You're all set, we'll see you there", 
