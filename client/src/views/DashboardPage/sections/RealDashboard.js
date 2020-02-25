@@ -12,7 +12,7 @@ import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/Exp
 import Loading from '../../../components/Loading/Loading';
 import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm';
 
-import { defaults } from '../../../defaults';
+import { defaults, UserStatus } from '../../../defaults';
 import { UpdateApplication } from '../../../assets/utils/Api';
 import { UserContext } from '../../../context/store'
 
@@ -69,6 +69,10 @@ const RealDashboard = () => {
     }
   };
 
+  const GetStatus = (status) => {
+    return UserStatus[status]
+  }
+
   const classes = realDashboardStyles();
   const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
 
@@ -100,9 +104,11 @@ const RealDashboard = () => {
                       </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Typography>
-                        Fill out the application below
-                      </Typography>
+                      <div className={classes.wrapper}>
+                        <Typography variant="body1">
+                          {user.profile.status ? GetStatus(user.profile.status) : ""}
+                        </Typography>
+                      </div>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
