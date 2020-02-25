@@ -102,3 +102,7 @@ export const UserStatus = {
   Confirmed: "You're all set, we'll see you there", 
   Denied: "Stars didn't align themselves this year, but we're open to suggestions at support@hawkhack.io"
 }
+
+export const termsOfService = `
+  Terms...
+`

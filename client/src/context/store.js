@@ -1,36 +1,36 @@
 import React, { createContext, useState } from 'react';
 
-export const UserContext = createContext()
+export const UserContext = createContext();
 
 const StateProvider = ({ children }) => {
-	const [user, setUser] = useState({
-		user: {
-			profile: {},
-			loggedIn: localStorage.getItem("cool-jwt") ? true : false
-		}
-	})
+  const [user, setUser] = useState({
+    user: {
+      profile: {},
+      loggedIn: !!localStorage.getItem('cool-jwt'),
+    },
+  });
 
-	const handleUser = (val) => {
-		const newUser = val
-		newUser.loggedIn = true
-		if (!val.profile) {
-			newUser.profile = {
-				status: "Incomplete"
-			}
+  const handleUser = (val) => {
+    const newUser = val;
+    newUser.loggedIn = true;
+    if (!val.profile) {
+      newUser.profile = {
+        status: 'Incomplete',
+      };
 
-			if (!val.isVerified) {
-				newUser.profile.status = "Email not verified"
-			}
-		}
+      if (!val.isVerified) {
+        newUser.profile.status = 'Email not verified';
+      }
+    }
 
-		setUser({ user: val })
-	}
+    setUser({ user: val });
+  };
 
-	return (
-		<UserContext.Provider value={[ user, handleUser ]}>
-			{ children }
-		</UserContext.Provider>
-	)
-}
+  return (
+    <UserContext.Provider value={[user, handleUser]}>
+      { children }
+    </UserContext.Provider>
+  );
+};
 
-export default StateProvider
+export default StateProvider;
