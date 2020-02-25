@@ -92,6 +92,8 @@ router.post(
       } else {
         if (isComplete) {
           profileFields.status = "Pending";
+        }else{
+          profileFields.status = "Incomplete";
         }
         const savedProfile = await new Profile(profileFields).save();
         return res.status(200).json(savedProfile);
