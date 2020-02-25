@@ -10,6 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
 import makeStyles from '@material-ui/styles/makeStyles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   MuiPickersUtilsProvider,
@@ -19,6 +24,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
+import { termsOfService } from '../../../../defaults';
 
 const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 const ethnicities = [
@@ -48,7 +54,7 @@ const Schools = [
   "Other"
 ]
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   textWrapper: {
     padding: '30px 10px 10px 10px',
   },
@@ -64,6 +70,10 @@ const useStyles = makeStyles(() => ({
   buttonWrapper: {
     padding: '5px 10px 10px 10px',
   },
+  terms: {
+    color: theme.palette.primary.main,
+    cursor: "pointer"
+  }
 }));
 
 const checkSchool = (school) => {
@@ -102,6 +112,8 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
     resume: { name: 'Upload Resume' },
     otherSchool: user.profile.school,
+    agreeToTerms: false,
+    termsDialog: false,
     errors: {},
     loading: false,
     disableAll: !user.isVerified
@@ -145,6 +157,10 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
   const handleLoading = (val) => {
     setValues({ ...values, loading: val });
   };
+
+  const handleDialog = () => {
+    setValues({ ...values, termsDialog: !values.termsDialog })
+  }
 
   const submit = async () => {
     try {
@@ -255,45 +271,36 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Email"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.email}
-                        id="Email"
-                        inputProps={{
-                          type: 'email',
-                          onChange: handleState('email'),
-                          error: !!values.errors.email,
-                          disabled: true,
-                          value: values.email,
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                disabled
-                              >
-                                <Email />
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      {values.errors.email
-                        ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
+                <div className={classes.textWrapper}>
+                  <CustomInput
+                    labelText="Email"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    error={!!values.errors.email}
+                    id="Email"
+                    inputProps={{
+                      type: 'email',
+                      onChange: handleState('email'),
+                      error: !!values.errors.email,
+                      disabled: true,
+                      value: values.email,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            disabled
+                          >
+                            <Email />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  {values.errors.email
+                    ? <FormHelperText error>{values.errors.email}</FormHelperText>
+                    : null}
+                </div>
               </Grid>
               <Grid item xs={12}>
                 <Grid
@@ -432,97 +439,70 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                 </Grid>
               </Grid>
               <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Github"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.github}
-                        id="github"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('github'),
-                          value: values.github,
-                          disabled: values.loading || values.disableAll,
-                          error: !!values.errors.github,
-                        }}
-                      />
-                      {values.errors.github
-                        ? <FormHelperText error>{values.errors.github}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
+                <div className={classes.textWrapper}>
+                  <CustomInput
+                    labelText="Github URL"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    error={!!values.errors.github}
+                    id="github"
+                    inputProps={{
+                      type: 'text',
+                      onChange: handleState('github'),
+                      value: values.github,
+                      disabled: values.loading || values.disableAll,
+                      error: !!values.errors.github,
+                    }}
+                  />
+                  {values.errors.github
+                    ? <FormHelperText error>{values.errors.github}</FormHelperText>
+                    : null}
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Linkedin"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.linkedin}
-                        id="linkedin"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('linkedin'),
-                          value: values.linkedin,
-                          disabled: values.loading || values.disableAll,
-                          error: !!values.errors.linkedin,
-                        }}
-                      />
-                      {values.errors.linkedin
-                        ? <FormHelperText error>{values.errors.linkedin}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
+                <div className={classes.textWrapper}>
+                  <CustomInput
+                    labelText="Linkedin URL"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    error={!!values.errors.linkedin}
+                    id="linkedin"
+                    inputProps={{
+                      type: 'text',
+                      onChange: handleState('linkedin'),
+                      value: values.linkedin,
+                      disabled: values.loading || values.disableAll,
+                      error: !!values.errors.linkedin,
+                    }}
+                  />
+                  {values.errors.linkedin
+                    ? <FormHelperText error>{values.errors.linkedin}</FormHelperText>
+                    : null}
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Website"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.website}
-                        id="website"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('website'),
-                          value: values.website,
-                          disabled: values.loading || values.disableAll,
-                          error: !!values.errors.website,
-                        }}
-                      />
-                      {values.errors.website
-                        ? <FormHelperText error>{values.errors.website}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
+                <div className={classes.textWrapper}>
+                  <CustomInput
+                    labelText="Website URL"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    error={!!values.errors.website}
+                    id="website"
+                    inputProps={{
+                      type: 'text',
+                      onChange: handleState('website'),
+                      value: values.website,
+                      disabled: values.loading || values.disableAll,
+                      error: !!values.errors.website,
+                    }}
+                  />
+                  {values.errors.website
+                    ? <FormHelperText error>{values.errors.website}</FormHelperText>
+                    : null}
+                </div>
               </Grid>
               <Grid item xs={12}>
                 <Grid
@@ -771,6 +751,35 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
               </Grid>
               <Grid item xs={12}>
                 <div className={classes.buttonWrapper}>
+                  <FormGroup aria-label="position" row>
+                    <FormControlLabel
+                      value="end"
+                      error={!!values.errors.agreeToTerms}
+                      control={
+                        <Checkbox 
+                          check={values.agreeToTerms} 
+                          disabled={values.loading || values.disableAll}
+                          onClick={handleState('agreeToTerms')} 
+                          color="primary" />
+                      }
+                      label={
+                        <div>
+                          I agree to {' '}
+                          <label>
+                            <span className={classes.terms} onClick={handleDialog}>Terms and Services</span>
+                          </label>
+                        </div>
+                      }
+                      labelPlacement="end"
+                    />
+                  </FormGroup>
+                  {values.errors.agreeToTerms
+                    ? <FormHelperText error>{values.errors.agreeToTerms}</FormHelperText>
+                    : null}
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <div className={classes.buttonWrapper}>
                   <input
                     accept="image/*"
                     style={{ display: 'none' }}
@@ -809,6 +818,11 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
             </Grid>
           </div>
         </Grid>
+        <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
+           <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
+             {termsOfService}
+           </DialogTitle>
+         </Dialog>
       </Grid>
     </>
   );

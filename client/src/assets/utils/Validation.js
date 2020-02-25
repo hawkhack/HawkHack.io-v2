@@ -96,6 +96,8 @@ const validateUpdateForm = (app) => {
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
   if (checkLength(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
 
+  if (!app.agreeToTerms) errors.agreeToTerms = "Must agree to terms and conditions"
+
   return errors;
 };
 

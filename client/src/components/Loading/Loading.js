@@ -12,7 +12,7 @@ const Loading = () => (
 		style={{ height: "100vh" }}
 	>
 		<Grid item>
-			<CircularProgress />
+			<CircularProgress color="primary" />
 		</Grid>
 	</Grid>
 )
