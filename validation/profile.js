@@ -33,8 +33,8 @@ module.exports = function validateProfileInput(data) {
     }
   }
   if (!isEmpty(data.ethnicity)) {
-    if (!Validator.isLength(data.ethnicity, { min: 2, max: 20 })) {
-      errors.ethnicity = "Ethnicity needs to be between 2 and 20 characters";
+    if (!Validator.isLength(data.ethnicity, { min: 2, max: 50 })) {
+      errors.ethnicity = "Ethnicity needs to be between 2 and 50 characters";
     }
   }
   if (!isEmpty(data.major)) {

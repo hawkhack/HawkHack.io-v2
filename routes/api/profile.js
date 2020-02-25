@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const wrap = require("../../middleware/asyncWrapper");
-const uploadFile = require("../../middleware/upload-file");
+const upload = require("../../middleware/multer");
+const uploadResume = require("../../utils/uploadResume");
 const deleteResume = require("../../utils/deleteResume");
 
 //load middleware
@@ -100,26 +101,32 @@ router.post(
   })
 );
 
-router.post("/resume", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
-  uploadFile(req, res, function(err) {
-    if (err) {
-      return res.status(422).json(err.message);
+router.post(
+  "/resume",
+  passport.authenticate("jwt", { session: false }),
+  verify(),
+  upload.single("resume"),
+  wrap(async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json("no file");
     }
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      if (!profile) {
-        return res.status(400).json("profile not foud");
+    const profile = await Profile.findOne({ user: req.user.id });
+    // res.json(req.file);
+    uploadResume(req.file, (err, data) => {
+      if (err) {
+        return res.status(400).json(err.message);
       }
-      if (req.file && profile.resume) {
+      if (profile.resume) {
         deleteResume(profile.resume);
       }
-      profile.resume = req.file.key;
-      profile.save().then(() => {
-        console.log(`Resume ${req.file.key} uploaded`);
-        res.status(200).json(`Resume uploaded. id:${req.file.key}`);
+      profile.resume = req.file.filename;
+      profile.save().then(saved => {
+        console.log(`Resume ${profile.resume} saved`);
+        return res.status(200).json(saved);
       });
     });
-  });
-});
+  })
+);
 
 //  @route  GET api/p/:user_id
 //  @desc   Get user profile by id

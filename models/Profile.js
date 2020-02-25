@@ -52,7 +52,7 @@ const ProfileSchema = new Schema({
   },
   ethnicity: {
     type: String,
-    max: 20
+    max: 50
   },
   github: {
     type: String

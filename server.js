@@ -64,6 +64,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(error, req, res, next) {
+  res.status(400).json(error.message);
+});
+
 app.get("/api", (req, res) => {
   const defaults = getDefaults();
   res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
