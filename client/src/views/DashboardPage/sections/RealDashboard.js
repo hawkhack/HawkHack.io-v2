@@ -17,8 +17,8 @@ import { UpdateApplication } from '../../../assets/utils/Api';
 import { UserContext } from '../../../context/store'
 
 const CheckIn = ({ classes }) => (
-  <Paper style={{ margin: '0vw 4vw 1vw 4vw' }}>
-    <Grid item xs={12}>
+  <Grid item xs={12} style={{ margin: '0vw 4vw 1vw 4vw' }}>
+    <Paper style={{ height: "100%", width: "100%" }}>
       <div className={classes.wrapper}>
         <ExpansionPanel expanded>
           <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -33,8 +33,8 @@ const CheckIn = ({ classes }) => (
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
-    </Grid>
-  </Paper>
+    </Paper>
+  </Grid>
 );
 
 const RealDashboard = () => {
@@ -89,8 +89,8 @@ const RealDashboard = () => {
             justify="flex-start"
             align="center"
           >
-            <Paper style={{ margin: '4vw 4vw 1vw 4vw' }}>
-              <Grid item xs={12}>
+            <Grid item xs={12} style={{ margin: '4vw 4vw 1vw 4vw' }}>
+              <Paper style={{ height: "100%", width: "100%" }}>
                 <div className={classes.wrapper}>
                   <ExpansionPanel expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -114,11 +114,11 @@ const RealDashboard = () => {
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
-              </Grid>
-            </Paper>
+              </Paper>
+            </Grid>
             {checkIn}
-            <Paper style={{ margin: '1vw 4vw 4vw 4vw' }}>
-              <Grid item xs={12}>
+            <Grid item xs={12} style={{ margin: '1vw 4vw 4vw 4vw' }}>
+              <Paper style={{ height: "100%", width: "100%" }}>
                 <div style={{ padding: 10 }}>
                   <ExpansionPanel expanded>
                     <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -136,8 +136,8 @@ const RealDashboard = () => {
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
                 </div>
-              </Grid>
-            </Paper>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
         <Snackbar

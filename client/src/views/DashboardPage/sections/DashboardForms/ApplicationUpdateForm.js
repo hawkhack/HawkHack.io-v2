@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     zIndex: '100',
   },
   buttonWrapper: {
-    padding: '5px 20px 10px 0px',
+    padding: '5px 10px 10px 10px',
   },
 }));
 
@@ -187,7 +187,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
           align="center"
           className={classes.loadingGrid}
         >
-          <Grid item>
+          <Grid item xs={12}>
             <CircularProgress className={classes.progress} />
           </Grid>
         </Grid>
@@ -201,7 +201,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
               direction="column"
               align="center"
             >
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -254,7 +254,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -295,7 +295,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -319,10 +319,10 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                           onChange: handleState('phoneNumber'),
                         }}
                       />
+                      {values.errors.phoneNumber
+                        ? <FormHelperText error>{values.errors.phoneNumber}</FormHelperText>
+                        : null}
                     </div>
-                    {values.errors.phoneNumber
-                      ? <FormHelperText error>{values.errors.phoneNumber}</FormHelperText>
-                      : null}
                   </Grid>
                   <Grid item xs={12} sm={12} md={4}>
                     <div className={classes.textWrapper}>
@@ -370,7 +370,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -431,7 +431,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -462,7 +462,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -493,7 +493,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -524,7 +524,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -558,7 +558,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                 </Grid>
               </Grid>
               {values.school === "Other" &&
-                <Grid item>
+                <Grid item xs={12}>
                   <Grid
                     container
                     direction="row"
@@ -569,7 +569,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       <div className={classes.textWrapper}>
                         <FormControl fullWidth>
                           <CustomInput
-                            labelText="School"
+                            labelText="Which one?"
                             formControlProps={{
                               fullWidth: true,
                             }}
@@ -590,7 +590,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               }
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -664,7 +664,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -690,7 +690,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -716,7 +716,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <Grid
                   container
                   direction="row"
@@ -769,7 +769,7 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <div className={classes.buttonWrapper}>
                   <input
                     accept="image/*"
@@ -787,12 +787,12 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
                       style={{ height: '100%', width: '100%' }}
                       disabled={values.loading || values.disableAll}
                     >
-                      {values.resume.name}
+                      {values.resume ? values.resume.name : "Upload Resume"}
                     </Button>
                   </label>
                 </div>
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <div className={classes.buttonWrapper}>
                   <Button
                     variant="contained"
