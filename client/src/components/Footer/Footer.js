@@ -16,7 +16,8 @@ const Footer = () => {
               <a
                 href="https://www.facebook.com/computerclubmsu/"
                 className={classes.block}
-                target=""
+                rel="noopener noreferrer"
+                target="_blank"
               >
                       Facebook
               </a>
@@ -25,9 +26,20 @@ const Footer = () => {
               <a
                 href="https://www.instagram.com/msucomputerclub/"
                 className={classes.block}
-                target=""
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 Instagram
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://www.github.com/hawkhack/"
+                className={classes.block}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                GitHub
               </a>
             </ListItem>
           </List>
