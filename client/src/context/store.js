@@ -19,7 +19,7 @@ const StateProvider = ({ children }) => {
 			}
 
 			if (!val.isVerified) {
-				newUser.profile.status = "Verify your email to apply"
+				newUser.profile.status = "Email not verified"
 			}
 		}
 

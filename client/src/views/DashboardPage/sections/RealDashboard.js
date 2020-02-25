@@ -106,7 +106,9 @@ const RealDashboard = () => {
                     <ExpansionPanelDetails>
                       <div className={classes.wrapper}>
                         <Typography variant="body1">
-                          {user.profile.status ? GetStatus(user.profile.status) : ""}
+                          {user.profile.status && user.profile.status !== "Email not verified" ? 
+                            GetStatus(user.profile.status) 
+                          : "The application will open once your email is verified"}
                         </Typography>
                       </div>
                     </ExpansionPanelDetails>

@@ -59,24 +59,26 @@ router.post(
       user: req.user.id,
       email: req.user.email
     };
-    if (req.body.firstName) profileFields.firstName = req.body.firstName;
-    if (req.body.lastName) profileFields.lastName = req.body.lastName;
-    if (req.body.phoneNumber) profileFields.phoneNumber = req.body.phoneNumber;
-    if (req.body.dateOfBirth) profileFields.dateOfBirth = req.body.dateOfBirth;
-    if (req.body.shirtSize) profileFields.shirtSize = req.body.shirtSize;
-    if (req.body.gender) profileFields.gender = req.body.gender;
-    if (req.body.ethnicity) profileFields.ethnicity = req.body.ethnicity;
-    if (req.body.github) profileFields.github = req.body.github;
-    if (req.body.linkedin) profileFields.linkedin = req.body.linkedin;
-    if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.school) profileFields.school = req.body.school;
-    if (req.body.graduationYear) profileFields.graduationYear = req.body.graduationYear;
-    if (req.body.levelOfStudy) profileFields.levelOfStudy = req.body.levelOfStudy;
-    if (req.body.major) profileFields.major = req.body.major;
-    if (req.body.dietaryRestrictions) profileFields.dietaryRestrictions = req.body.dietaryRestrictions;
-    if (req.body.specialNeeds) profileFields.specialNeeds = req.body.specialNeeds;
-    if (req.body.emergencyName) profileFields.emergencyName = req.body.emergencyName;
-    if (req.body.emergencyNumber) profileFields.emergencyNumber = req.body.emergencyNumber;
+    
+    profileFields.firstName = req.body.firstName;
+    profileFields.lastName = req.body.lastName;
+    profileFields.phoneNumber = req.body.phoneNumber;
+    profileFields.dateOfBirth = req.body.dateOfBirth;
+    profileFields.shirtSize = req.body.shirtSize;
+    profileFields.gender = req.body.gender;
+    profileFields.ethnicity = req.body.ethnicity;
+    profileFields.github = req.body.github;
+    profileFields.linkedin = req.body.linkedin;
+    profileFields.website = req.body.website;
+    profileFields.school = req.body.school;
+    profileFields.graduationYear = req.body.graduationYear;
+    profileFields.levelOfStudy = req.body.levelOfStudy;
+    profileFields.major = req.body.major;
+    profileFields.dietaryRestrictions = req.body.dietaryRestrictions;
+    profileFields.specialNeeds = req.body.specialNeeds;
+    profileFields.emergencyName = req.body.emergencyName;
+    profileFields.emergencyNumber = req.body.emergencyNumber;
+
     try {
       const profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
