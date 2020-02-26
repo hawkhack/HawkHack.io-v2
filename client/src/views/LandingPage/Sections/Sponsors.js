@@ -22,7 +22,7 @@ const Sponsors = ({ ...props }) => {
       >
         <Grid item xs={12} sm={8} md={5}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.jpg" alt="google" />
+            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.webp" alt="google" />
           </div>
         </Grid>
         <Grid item>
