@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/input';
+import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
