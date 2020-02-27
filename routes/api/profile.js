@@ -60,7 +60,6 @@ router.post(
       user: req.user.id,
       email: req.user.email
     };
-    console.log(req.body);
     profileFields.firstName = req.body.firstName;
     profileFields.lastName = req.body.lastName;
     profileFields.phoneNumber = req.body.phoneNumber;
