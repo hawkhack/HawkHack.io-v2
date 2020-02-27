@@ -81,10 +81,7 @@ const ProfileSchema = new Schema({
     enum: ["Undergraduate", "Graduate", "High School", "Not set"],
     default: "Not set"
   },
-  major: {
-    type: String,
-    max: 100
-  },
+  major: [String],
   dietaryRestrictions: {
     type: String,
     default: "None",

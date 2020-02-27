@@ -16,7 +16,7 @@ module.exports = function validateProfileInput(data) {
   data.school = !isEmpty(data.school) ? data.school : "";
   data.graduationYear = !isEmpty(data.graduationYear) ? data.graduationYear : "";
   data.levelOfStudy = !isEmpty(data.levelOfStudy) ? data.levelOfStudy : "";
-  data.major = !isEmpty(data.major) ? data.major : "";
+  data.major = !isEmpty(data.major) ? data.major.split(",") : "";
   data.dietaryRestrictions = !isEmpty(data.dietaryRestrictions) ? data.dietaryRestrictions : "";
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
   data.emergencyName = !isEmpty(data.emergencyName) ? data.emergencyName : "";
@@ -38,9 +38,14 @@ module.exports = function validateProfileInput(data) {
     }
   }
   if (!isEmpty(data.major)) {
-    if (!Validator.isLength(data.major, { min: 2, max: 50 })) {
-      errors.major = "Major needs to be between 2 and 30 characters";
+    if (data.major.length > 5) {
+      errors.major = "You cannot set more than 5 majors";
     }
+    data.major.forEach(e => {
+      if (!Validator.isLength(e, { min: 2, max: 50 })) {
+        errors.major = "Major needs to be between 2 and 50 characters";
+      }
+    });
   }
   if (!isEmpty(data.dietaryRestrictions)) {
     if (!Validator.isLength(data.dietaryRestrictions, { min: 2, max: 200 })) {

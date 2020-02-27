@@ -48,7 +48,10 @@ router.get(
         date: req.user.date
       };
       const profile = await Profile.findOne({ email: req.user.email });
-      if (profile) data.profile = profile;
+      if (profile) {
+        data.profile = profile;
+        data.profile.major = data.profile.major.split(",");
+      }
       return res.json(data);
     } catch (err) {
       return res.status(400).json(err);
