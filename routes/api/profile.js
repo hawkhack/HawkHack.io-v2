@@ -48,6 +48,7 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   verify(),
+  upload.single("resume"),
   wrap(async (req, res, next) => {
     const { errors, isValid, isComplete } = validateProfileInput(req.body);
     //check validation
@@ -59,7 +60,7 @@ router.post(
       user: req.user.id,
       email: req.user.email
     };
-    
+    console.log(req.body);
     profileFields.firstName = req.body.firstName;
     profileFields.lastName = req.body.lastName;
     profileFields.phoneNumber = req.body.phoneNumber;
@@ -80,19 +81,27 @@ router.post(
     profileFields.emergencyNumber = req.body.emergencyNumber;
 
     try {
+      const upload = await uploadResume(req.file);
+      profileFields.resume = upload.key;
+      console.log(`Resume ${profileFields.resume} saved`);
+
       const profile = await Profile.findOne({ user: req.user.id });
+      if (profile.resume) {
+        deleteResume(profile.resume);
+      }
+
       if (profile) {
-        if (profile.status === "Incomplete" && isComplete) {
-          profileFiends.status = "Pending";
+        if (profile.status === "Incomplete" && isComplete && profile.resume) {
+          profileFields.status = "Pending";
           profileFields.statusChangedAt = new Date();
         }
         //Update Profile
         savedProfile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
         return res.status(200).json(savedProfile);
       } else {
-        if (isComplete) {
+        if (isComplete && profile.resume) {
           profileFields.status = "Pending";
-        }else{
+        } else {
           profileFields.status = "Incomplete";
         }
         const savedProfile = await new Profile(profileFields).save();
@@ -114,21 +123,20 @@ router.post(
     if (!req.file) {
       return res.status(400).json("no file");
     }
-    const profile = await Profile.findOne({ user: req.user.id });
-    // res.json(req.file);
-    uploadResume(req.file, (err, data) => {
-      if (err) {
-        return res.status(400).json(err.message);
-      }
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      const upload = await uploadResume(req.file);
+      console.log(upload);
       if (profile.resume) {
         deleteResume(profile.resume);
       }
-      profile.resume = req.file.filename;
-      profile.save().then(saved => {
-        console.log(`Resume ${profile.resume} saved`);
-        return res.status(200).json(saved);
-      });
-    });
+      profile.resume = upload.key;
+      await profile.save();
+      console.log(`Resume ${profile.resume} saved`);
+      return res.status(200).json(profile);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   })
 );
 

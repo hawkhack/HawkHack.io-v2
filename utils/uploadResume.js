@@ -1,7 +1,7 @@
 const s3 = require("../config/aws"),
   fs = require("fs");
 
-module.exports = (file, callback) => {
+module.exports = file => {
   const params = {
     Bucket: process.env.ResumeBucketName,
     Key: file.filename,
@@ -9,5 +9,5 @@ module.exports = (file, callback) => {
     Metadata: { "x-amz-meta-originalname": file.originalname }
   };
 
-  s3.upload(params, callback);
+  return s3.upload(params).promise();
 };

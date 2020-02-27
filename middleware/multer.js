@@ -13,7 +13,6 @@ let fileFilter = (req, file, callback) => {
   ) {
     callback(null, true);
   } else {
-    console.log("wrong mime");
     callback(new Error("Invalid Mime Type, Only PDF, DOC, or DOCX allowed."));
   }
 };
