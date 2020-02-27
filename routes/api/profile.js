@@ -106,7 +106,7 @@ router.post(
         );
         return res.status(200).json(savedProfile);
       } else {
-        if (isComplete && profile.resume) {
+        if (isComplete && profileFields.resume != null) {
           profileFields.status = "Pending";
         } else {
           profileFields.status = "Incomplete";

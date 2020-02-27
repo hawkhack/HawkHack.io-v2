@@ -62,27 +62,11 @@ export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
     throw err;
   });
 
-export const UpdateApplication = (user) => axios.post(`${apiURL}/p/`, {
-  firstName: user.firstName,
-  lastName: user.lastName,
-  phoneNumber: user.phoneNumber,
-  dateOfBirth: user.dateOfBirth,
-  shirtSize: user.shirtSize,
-  gender: user.gender,
-  ethnicity: user.ethnicity,
-  github: user.github,
-  linkedin: user.linkedin,
-  website: user.website,
-  school: user.school,
-  graduationYear: user.graduationYear,
-  levelOfStudy: user.levelOfStudy,
-  major: user.major,
-  dietaryRestrictions: user.dietaryRestrictions,
-  specialNeeds: user.specialNeeds,
-  emergencyName: user.emergencyName,
-  emergencyNumber: user.emergencyNumber,
-}, {
-  headers: { Authorization: `${localStorage.getItem('cool-jwt')}` },
+export const UpdateApplication = (profile) => axios.post(`${apiURL}/p/`, profile, {
+  headers: { 
+    'Authorization': `${localStorage.getItem('cool-jwt')}`,
+    'Content-Type': 'multipart/form-data'
+  },
 })
   .then((result) => result)
   .catch((err) => {

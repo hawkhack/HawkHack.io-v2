@@ -16,27 +16,6 @@ import { defaults, UserStatus } from '../../../defaults';
 import { UpdateApplication } from '../../../assets/utils/Api';
 import { UserContext } from '../../../context/store'
 
-const CheckIn = ({ classes }) => (
-  <Grid item xs={12} style={{ margin: '0vw 4vw 1vw 4vw' }}>
-    <Paper style={{ height: "100%", width: "100%" }}>
-      <div className={classes.wrapper}>
-        <ExpansionPanel expanded>
-          <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography variant="h4" className={classes.status}>
-              Check In
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              stuff and things
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div>
-    </Paper>
-  </Grid>
-);
-
 const RealDashboard = () => {
   const [{ user }, handleUser] = useContext(UserContext);
 
@@ -74,71 +53,83 @@ const RealDashboard = () => {
   }
 
   const classes = realDashboardStyles();
-  const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
+  const CheckIn = ({ classes }) => (
+    <Grid item xs={12} style={{ margin: '0vw 4vw 1vw 4vw' }}>
+      <Paper style={{ height: "100%", width: "100%" }}>
+        <div className={classes.wrapper}>
+          <ExpansionPanel expanded>
+            <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+              <Typography variant="h4" className={classes.status}>
+                Check In
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                stuff and things
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
+      </Paper>
+    </Grid>
+  );
 
+  const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
   return (
     <>
       <Grid
         container
         className={classes.dash}
       >
-        <Grid item xs={12}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            align="center"
-          >
-            <Grid item xs={12} style={{ margin: '4vw 4vw 1vw 4vw' }}>
-              <Paper style={{ height: "100%", width: "100%" }}>
-                <div className={classes.wrapper}>
-                  <ExpansionPanel expanded>
-                    <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-                      <Typography variant="h4" className={classes.appStatus}>
-                        Status:
-                        <span className={classes.status}>
-                          {' '}
-                          {user.profile.status ? user.profile.status : ""}
-                          {' '}
-                        </span>
-                      </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      <div className={classes.wrapper}>
-                        <Typography variant="body1">
-                          {user.profile.status && user.profile.status !== "Email not verified" ? 
-                            GetStatus(user.profile.status) 
-                          : "The application will open once your email is verified"}
-                        </Typography>
-                      </div>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
-              </Paper>
-            </Grid>
-            {checkIn}
-            <Grid item xs={12} style={{ margin: '1vw 4vw 4vw 4vw' }}>
-              <Paper style={{ height: "100%", width: "100%" }}>
-                <div style={{ padding: 10 }}>
-                  <ExpansionPanel expanded>
-                    <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-                      <Typography className={classes.status}>Application</Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                      {user.email ? (
-                        <ApplicationUpdateForm
-                          user={user}
-                          handleUser={handleUser}
-                          submitApplication={submitApplication}
-                          formErrors={values.formErrors}
-                        />
-                      ) : <Loading />}
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
-                </div>
-              </Paper>
-            </Grid>
-          </Grid>
+        <Grid item xs={12} style={{ margin: '4vw 4vw 1vw 4vw' }}>
+          <Paper style={{ height: "100%", width: "100%" }}>
+            <div className={classes.wrapper}>
+              <ExpansionPanel expanded>
+                <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+                  <Typography variant="h4" className={classes.appStatus}>
+                    Status:
+                    <span className={classes.status}>
+                      {' '}
+                      {user.profile.status ? user.profile.status : ""}
+                      {' '}
+                    </span>
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div className={classes.wrapper}>
+                    <Typography variant="body1">
+                      {user.profile.status && user.profile.status !== "Email not verified" ? 
+                        GetStatus(user.profile.status) 
+                      : "The application will open once your email is verified"}
+                    </Typography>
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </div>
+          </Paper>
+        </Grid>
+        {checkIn}
+        <Grid item xs={12} style={{ margin: '1vw 4vw 4vw 4vw' }}>
+          <Paper style={{ height: "100%", width: "100%" }}>
+            <div style={{ padding: 10 }}>
+              <ExpansionPanel expanded>
+                <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
+                  <Typography className={classes.status}>Application</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  {user.email ? (
+                    <ApplicationUpdateForm
+                      user={user}
+                      status={user.profile.status && user.profile.status === "Email not verified"}
+                      handleUser={handleUser}
+                      submitApplication={submitApplication}
+                      formErrors={values.formErrors}
+                    />
+                  ) : <Loading />}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </div>
+          </Paper>
         </Grid>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

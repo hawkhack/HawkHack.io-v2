@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/input';
+import Chip from '@material-ui/core/Chip';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
@@ -13,6 +15,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -22,6 +25,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+import Majors from '../Majors'
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
 import { termsOfService } from '../../../../defaults';
@@ -73,6 +77,29 @@ const useStyles = makeStyles((theme) => ({
   terms: {
     color: theme.palette.primary.main,
     cursor: "pointer"
+  },
+  gridItem: {
+    width: "100%"
+  },
+  container: {
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    marginRight: "auto",
+    marginLeft: "auto",
+    width: "100%",
+    "@media (min-width: 576px)": {
+      maxWidth: "540px"
+    },
+    "@media (min-width: 768px)": {
+      maxWidth: "720px"
+    },
+    "@media (min-width: 992px)": {
+      maxWidth: "840px"
+    }
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
   }
 }));
 
@@ -88,7 +115,7 @@ const checkSchool = (school) => {
   return school
 }
 
-const ApplicationUpdateForm = ({ user, ...props }) => {
+const ApplicationUpdateForm = ({ status, user, ...props }) => {
   const [values, setValues] = useState({
     email: user.email,
     status: user.profile.status ? user.profile.status : '',
@@ -105,18 +132,19 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     school: checkSchool(user.profile.school),
     graduationYear: user.profile.graduationYear ? user.profile.graduationYear : '',
     levelOfStudy: user.profile.levelOfStudy ? user.profile.levelOfStudy : '',
-    major: user.profile.major ? user.profile.major : '',
+    major: user.profile.major.length !== 0 ? user.profile.major : [],
     dietaryRestrictions: user.profile.dietaryRestrictions ? user.profile.dietaryRestrictions : '',
     specialNeeds: user.profile.specialNeeds ? user.profile.specialNeeds : '',
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
     emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
-    resume: { name: 'Upload Resume' },
+    resume: user.profile.resume ? user.profile.resume : { name: 'Upload Resume' },
     otherSchool: user.profile.school,
-    agreeToTerms: false,
+    agreeToTerms: user.profile.firstName,
     termsDialog: false,
     errors: {},
     loading: false,
-    disableAll: !user.isVerified
+    updateApp: false,
+    disableAll: true
   });
 
   const normalizeInput = (value, previousValue) => {
@@ -142,6 +170,14 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  const handleTermsChange = name => event => {
+    setValues({ ...values, [name]: event.target.checked });
+  };
+
+  const handleSetState = (key, val) => {
+    setValues({ ...values, [key]: val });
+  }
+
   const handleFileUpload = () => (event) => {
     setValues({ ...values, resume: event.target.files[0] });
   };
@@ -162,7 +198,18 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
     setValues({ ...values, termsDialog: !values.termsDialog })
   }
 
+  const handleDelete = chipToDelete => () => {
+    let newMajors = values.major.filter(chips => chips !== chipToDelete);
+    if (newMajors.length === 0) newMajors = []
+
+    handleSetState('major', newMajors)
+  };
+
   const submit = async () => {
+    if (values.disableAll) {
+      return handleSetState('disableAll', false)
+    }
+
     try {
       handleLoading(true);
       const errors = validateUpdateForm(values);
@@ -181,11 +228,36 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
         phoneNumber: normalize(values.phoneNumber),
         emergencyNumber: normalize(values.emergencyNumber),
       };
-      
-      await props.submitApplication(profile);
 
+      const data = new FormData();
+      data.append('resume', profile.resume);
+      data.append('email', profile.email);
+      data.append('status', profile.status);
+      data.append('firstName', profile.firstName);
+      data.append('lastName', profile.lastName);
+      data.append('phoneNumber', profile.phoneNumber);
+      data.append('dateOfBirth', profile.dateOfBirth);
+      data.append('shirtSize', profile.shirtSize);
+      data.append('gender', profile.gender);
+      data.append('ethnicity', profile.ethnicity);
+      data.append('github', profile.github);
+      data.append('linkedin', profile.linkedin);
+      data.append('website', profile.website);
+      data.append('school', profile.school);
+      data.append('graduationYear', profile.graduationYear);
+      data.append('levelOfStudy', profile.levelOfStudy);
+      data.append('major', profile.major);
+      data.append('dietaryRestrictions', profile.dietaryRestrictions);
+      data.append('specialNeeds', profile.specialNeeds);
+      data.append('emergencyName', profile.emergencyName);
+      data.append('emergencyNumber', profile.emergencyNumber);
+
+      await props.submitApplication(data);
+
+      handleSetState('disableAll', true)
       handleLoading(false);
       handleErrors({});
+      handleSetState('resume', user.profile.resume ? user.profile.resume : { name: 'Upload Resume' })
     } catch (err) {
       handleErrors(err);
     }
@@ -208,624 +280,565 @@ const ApplicationUpdateForm = ({ user, ...props }) => {
           </Grid>
         </Grid>
       )}
-      <Grid container justify="center">
-        <Grid item xs={12} sm={12} md={12} lg={6}>
-          <div style={{ margin: '1vw 0 2vw 0' }}>
-            <Grid
-              container
-              justify="center"
-              direction="column"
-              align="center"
-            >
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="First Name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.firstName}
-                        id="First"
-                        inputProps={{
-                          type: 'text',
-                          value: values.firstName,
-                          disabled: values.loading || values.disableAll,
-                          error: !!values.errors.firstName,
-                          onChange: handleState('firstName'),
-                        }}
-                      />
-                      {values.errors.firstName
-                        ? <FormHelperText error>{values.errors.firstName}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Last Name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.lastName}
-                        id="Last"
-                        inputProps={{
-                          type: 'text',
-                          error: !!values.errors.lastName,
-                          value: values.lastName,
-                          disabled: values.loading || values.disableAll,
-                          onChange: handleState('lastName'),
-                        }}
-                      />
-                      {values.errors.lastName
-                        ? <FormHelperText error>{values.errors.lastName}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.textWrapper}>
-                  <CustomInput
-                    labelText="Email"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    error={!!values.errors.email}
-                    id="Email"
-                    inputProps={{
-                      type: 'email',
-                      onChange: handleState('email'),
-                      error: !!values.errors.email,
-                      disabled: true,
-                      value: values.email,
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            disabled
-                          >
-                            <Email />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  {values.errors.email
-                    ? <FormHelperText error>{values.errors.email}</FormHelperText>
-                    : null}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12} md={4}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Phone Number"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.phoneNumber}
-                        id="PhoneNumber"
-                        inputProps={{
-                          type: 'tel',
-                          value: normalizeInput(values.phoneNumber),
-                          error: !!values.errors.phoneNumber,
-                          disabled: values.loading || values.disableAll,
-                          onChange: handleState('phoneNumber'),
-                        }}
-                      />
-                      {values.errors.phoneNumber
-                        ? <FormHelperText error>{values.errors.phoneNumber}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4}>
-                    <div className={classes.textWrapper}>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardDatePicker
-                          format="MM/dd/yyyy"
-                          id="dateOfBirth"
-                          fullWidth
-                          disabled={values.loading || values.disableAll}
-                          error={!!values.errors.dateOfBirth}
-                          label="Date of Birth"
-                          value={values.dateOfBirth}
-                          onChange={handleDateChange}
-                        />
-                      </MuiPickersUtilsProvider>
-                      {values.errors.dateOfBirth
-                        ? <FormHelperText error>{values.errors.dateOfBirth}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.gender} id="gender">Gender</InputLabel>
-                        <Select
-                          native
-                          id="gender"
-                          fullWidth
-                          error={!!values.errors.gender}
-                          value={values.gender}
-                          disabled={values.loading || values.disableAll}
-                          onChange={handleState('gender')}
-                        >
-                          <option value="" disabled></option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Other">Other</option>
-                          <option value="Prefer not to say">Prefer not to say</option>
-                        </Select>
-                        {values.errors.gender
-                          ? <FormHelperText error>{values.errors.gender}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
-                        <Select
-                          native
-                          id="shirtSize"
-                          disabled={values.loading || values.disableAll}
-                          fullWidth
-                          error={!!values.errors.shirtSize}
-                          value={values.shirtSize}
-                          onChange={handleState('shirtSize')}
-                        >
-                          <option value="" disabled></option>
-                          <option value="XXS">XXS</option>
-                          <option value="XS">XS</option>
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                          <option value="XL">XL</option>
-                          <option value="XXL">XXL</option>
-                        </Select>
-                        {values.errors.shirtSize
-                          ? <FormHelperText error>{values.errors.shirtSize}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.ethnicity} id="ethnicity">Ethnicity</InputLabel>
-                        <Select
-                          native
-                          id="ethnicity"
-                          disabled={values.loading || values.disableAll}
-                          fullWidth
-                          error={!!values.errors.ethnicity}
-                          value={values.ethnicity}
-                          onChange={handleState('ethnicity')}
-                        >
-                          <option value="" disabled></option>
-                         {ethnicities.map(eth => (
-                           <option key={eth} value={eth}>{eth}</option>
-                          ))}
-                        </Select>
-                        {values.errors.ethnicity
-                          ? <FormHelperText error>{values.errors.ethnicity}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.textWrapper}>
-                  <CustomInput
-                    labelText="Github URL"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    error={!!values.errors.github}
-                    id="github"
-                    inputProps={{
-                      type: 'text',
-                      onChange: handleState('github'),
-                      value: values.github,
-                      disabled: values.loading || values.disableAll,
-                      error: !!values.errors.github,
-                    }}
-                  />
-                  {values.errors.github
-                    ? <FormHelperText error>{values.errors.github}</FormHelperText>
-                    : null}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.textWrapper}>
-                  <CustomInput
-                    labelText="Linkedin URL"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    error={!!values.errors.linkedin}
-                    id="linkedin"
-                    inputProps={{
-                      type: 'text',
-                      onChange: handleState('linkedin'),
-                      value: values.linkedin,
-                      disabled: values.loading || values.disableAll,
-                      error: !!values.errors.linkedin,
-                    }}
-                  />
-                  {values.errors.linkedin
-                    ? <FormHelperText error>{values.errors.linkedin}</FormHelperText>
-                    : null}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.textWrapper}>
-                  <CustomInput
-                    labelText="Website URL"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    error={!!values.errors.website}
-                    id="website"
-                    inputProps={{
-                      type: 'text',
-                      onChange: handleState('website'),
-                      value: values.website,
-                      disabled: values.loading || values.disableAll,
-                      error: !!values.errors.website,
-                    }}
-                  />
-                  {values.errors.website
-                    ? <FormHelperText error>{values.errors.website}</FormHelperText>
-                    : null}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.school} id="School">School</InputLabel>
-                        <Select
-                          native
-                          id="School"
-                          disabled={values.loading || values.disableAll}
-                          fullWidth
-                          error={!!values.errors.school}
-                          value={values.school}
-                          onChange={handleState('school')}
-                        >
-                          <option value="" disabled></option>
-                          {Schools.map(school => (
-                            <option key={school} value={school}>{school}</option>
-                          ))}
-                        </Select>
-                        {values.errors.school
-                          ? <FormHelperText error>{values.errors.school}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              {values.school === "Other" &&
-                <Grid item xs={12}>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="space-between"
-                    align="center"
-                  >
-                    <Grid item xs={12}>
-                      <div className={classes.textWrapper}>
-                        <FormControl fullWidth>
-                          <CustomInput
-                            labelText="Which one?"
-                            formControlProps={{
-                              fullWidth: true,
-                            }}
-                            id="otherSchool"
-                            inputProps={{
-                              type: 'text',
-                              onChange: handleState('otherSchool'),
-                              value: values.otherSchool,
-                              disabled: values.loading || values.disableAll,
-                            }}
-                          />
-                          {values.errors.school
-                            ? <FormHelperText error>{values.errors.school}</FormHelperText>
-                            : null}
-                        </FormControl>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              }
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12} md={4} lg={4}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
-                        <Select
-                          native
-                          id="graduationYear"
-                          disabled={values.loading || values.disableAll}
-                          fullWidth
-                          error={!!values.errors.graduationYear}
-                          value={values.graduationYear}
-                          onChange={handleState('graduationYear')}
-                        >
-                          <option value="" disabled></option>
-                          {GraduationYears.map((year) => (
-                            <option key={year} value={year}>{year}</option>
-                          ))}
-                        </Select>
-                        {values.errors.graduationYear
-                          ? <FormHelperText error>{values.errors.graduationYear}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4}>
-                    <div className={classes.textWrapper}>
-                      <FormControl fullWidth>
-                        <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
-                        <Select
-                          native
-                          id="levelOfStudy"
-                          disabled={values.loading || values.disableAll}
-                          fullWidth
-                          error={!!values.errors.levelOfStudy}
-                          value={values.levelOfStudy}
-                          onChange={handleState('levelOfStudy')}
-                        >
-                          <option value="" disabled></option>
-                          <option value="Undergraduate">Undergraduate</option>
-                          <option value="Graduate">Graduate</option>
-                          <option value="High School">High School</option>
-                        </Select>
-                        {values.errors.levelOfStudy
-                          ? <FormHelperText error>{values.errors.levelOfStudy}</FormHelperText>
-                          : null}
-                      </FormControl>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={4}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Major"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        id="major"
-                        inputProps={{
-                          type: 'major',
-                          onChange: handleState('major'),
-                          value: values.major,
-                          disabled: values.loading || values.disableAll,
-                        }}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Dietary Restrictions"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        id="dietaryRestrictions"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('dietaryRestrictions'),
-                          value: values.dietaryRestrictions,
-                          disabled: values.loading || values.disableAll,
-                        }}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Special Needs"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        id="specialNeeds"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('specialNeeds'),
-                          value: values.specialNeeds,
-                          disabled: values.loading || values.disableAll,
-                        }}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  align="center"
-                >
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Emergency Name"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.emergencyName}
-                        id="emergencyName"
-                        inputProps={{
-                          type: 'text',
-                          onChange: handleState('emergencyName'),
-                          error: !!values.errors.emergencyName,
-                          disabled: values.loading || values.disableAll,
-                          value: values.emergencyName,
-                        }}
-                      />
-                      {values.errors.emergencyName
-                        ? <FormHelperText error>{values.errors.emergencyName}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={6}>
-                    <div className={classes.textWrapper}>
-                      <CustomInput
-                        labelText="Emergency Number"
-                        formControlProps={{
-                          fullWidth: true,
-                        }}
-                        error={!!values.errors.emergencyNumber}
-                        id="emergencyNumber"
-                        inputProps={{
-                          type: 'tel',
-                          value: normalizeInput(values.emergencyNumber),
-                          error: !!values.errors.emergencyNumber,
-                          disabled: values.loading || values.disableAll,
-                          onChange: handleState('emergencyNumber'),
-                        }}
-                      />
-                      {values.errors.emergencyNumber
-                        ? <FormHelperText error>{values.errors.emergencyNumber}</FormHelperText>
-                        : null}
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.buttonWrapper}>
-                  <FormGroup aria-label="position" row>
-                    <FormControlLabel
-                      value="end"
-                      error={!!values.errors.agreeToTerms}
-                      control={
-                        <Checkbox 
-                          check={values.agreeToTerms} 
-                          disabled={values.loading || values.disableAll}
-                          onClick={handleState('agreeToTerms')} 
-                          color="primary" />
-                      }
-                      label={
-                        <div>
-                          I agree to {' '}
-                          <label>
-                            <span className={classes.terms} onClick={handleDialog}>Terms and Services</span>
-                          </label>
-                        </div>
-                      }
-                      labelPlacement="end"
-                    />
-                  </FormGroup>
-                  {values.errors.agreeToTerms
-                    ? <FormHelperText error>{values.errors.agreeToTerms}</FormHelperText>
-                    : null}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.buttonWrapper}>
-                  <input
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    id="contained-button-file"
-                    multiple
-                    disabled={values.loading || values.disableAll}
-                    type="file"
-                    onChange={handleFileUpload()}
-                  />
-                  <label htmlFor="contained-button-file">
-                    <Button 
-                      color="primary" 
-                      component="span" 
-                      style={{ height: '100%', width: '100%' }}
-                      disabled={values.loading || values.disableAll}
-                    >
-                      {values.resume ? values.resume.name : "Upload Resume"}
-                    </Button>
-                  </label>
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <div className={classes.buttonWrapper}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={values.loading || values.disableAll}
-                    style={{ height: '100%', width: '100%' }}
-                    type="submit"
-                    onClick={submit}
-                  >
-                    Update
-                  </Button>
-                </div>
-              </Grid>
-            </Grid>
+      <Grid container alignItems="center" justify="center" className={classes.container}>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="First Name"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.firstName}
+              id="First"
+              inputProps={{
+                type: 'text',
+                value: values.firstName,
+                disabled: values.loading || values.disableAll,
+                error: !!values.errors.firstName,
+                onChange: handleState('firstName'),
+              }}
+            />
+            {values.errors.firstName
+              ? <FormHelperText error>{values.errors.firstName}</FormHelperText>
+              : null}
           </div>
         </Grid>
-        <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
-           <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
-             {termsOfService}
-           </DialogTitle>
-         </Dialog>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Last Name"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.lastName}
+              id="Last"
+              inputProps={{
+                type: 'text',
+                error: !!values.errors.lastName,
+                value: values.lastName,
+                disabled: values.loading || values.disableAll,
+                onChange: handleState('lastName'),
+              }}
+            />
+            {values.errors.lastName
+              ? <FormHelperText error>{values.errors.lastName}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Email"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.email}
+              id="Email"
+              inputProps={{
+                type: 'email',
+                onChange: handleState('email'),
+                error: !!values.errors.email,
+                disabled: true,
+                value: values.email,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      disabled
+                    >
+                      <Email />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {values.errors.email
+              ? <FormHelperText error>{values.errors.email}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Phone Number"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.phoneNumber}
+              id="PhoneNumber"
+              inputProps={{
+                type: 'tel',
+                value: normalizeInput(values.phoneNumber),
+                error: !!values.errors.phoneNumber,
+                disabled: values.loading || values.disableAll,
+                onChange: handleState('phoneNumber'),
+              }}
+            />
+            {values.errors.phoneNumber
+              ? <FormHelperText error>{values.errors.phoneNumber}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                format="MM/dd/yyyy"
+                id="dateOfBirth"
+                fullWidth
+                disabled={values.loading || values.disableAll}
+                error={!!values.errors.dateOfBirth}
+                label="Date of Birth"
+                value={values.dateOfBirth}
+                onChange={handleDateChange}
+              />
+            </MuiPickersUtilsProvider>
+            {values.errors.dateOfBirth
+              ? <FormHelperText error>{values.errors.dateOfBirth}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.gender} id="gender">Gender</InputLabel>
+              <Select
+                native
+                id="gender"
+                fullWidth
+                error={!!values.errors.gender}
+                value={values.gender}
+                disabled={values.loading || values.disableAll}
+                onChange={handleState('gender')}
+              >
+                <option value="" disabled></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </Select>
+              {values.errors.gender
+                ? <FormHelperText error>{values.errors.gender}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
+              <Select
+                native
+                id="shirtSize"
+                disabled={values.loading || values.disableAll}
+                fullWidth
+                error={!!values.errors.shirtSize}
+                value={values.shirtSize}
+                onChange={handleState('shirtSize')}
+              >
+                <option value="" disabled></option>
+                <option value="XXS">XXS</option>
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </Select>
+              {values.errors.shirtSize
+                ? <FormHelperText error>{values.errors.shirtSize}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.ethnicity} id="ethnicity">Ethnicity</InputLabel>
+              <Select
+                native
+                id="ethnicity"
+                disabled={values.loading || values.disableAll}
+                fullWidth
+                error={!!values.errors.ethnicity}
+                value={values.ethnicity}
+                onChange={handleState('ethnicity')}
+              >
+                <option value="" disabled></option>
+               {ethnicities.map(eth => (
+                 <option key={eth} value={eth}>{eth}</option>
+                ))}
+              </Select>
+              {values.errors.ethnicity
+                ? <FormHelperText error>{values.errors.ethnicity}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Github URL"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.github}
+              id="github"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('github'),
+                value: values.github,
+                disabled: values.loading || values.disableAll,
+                error: !!values.errors.github,
+              }}
+            />
+            {values.errors.github
+              ? <FormHelperText error>{values.errors.github}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Linkedin URL"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.linkedin}
+              id="linkedin"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('linkedin'),
+                value: values.linkedin,
+                disabled: values.loading || values.disableAll,
+                error: !!values.errors.linkedin,
+              }}
+            />
+            {values.errors.linkedin
+              ? <FormHelperText error>{values.errors.linkedin}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Website URL"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.website}
+              id="website"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('website'),
+                value: values.website,
+                disabled: values.loading || values.disableAll,
+                error: !!values.errors.website,
+              }}
+            />
+            {values.errors.website
+              ? <FormHelperText error>{values.errors.website}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.school} id="School">School</InputLabel>
+              <Select
+                native
+                id="School"
+                disabled={values.loading || values.disableAll}
+                fullWidth
+                error={!!values.errors.school}
+                value={values.school}
+                onChange={handleState('school')}
+              >
+                <option value="" disabled></option>
+                {Schools.map(school => (
+                  <option key={school} value={school}>{school}</option>
+                ))}
+              </Select>
+              {values.errors.school
+                ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        {values.school === "Other" &&
+          <Grid item xs={12} className={classes.gridItem}>
+            <div className={classes.textWrapper}>
+              <FormControl fullWidth>
+                <CustomInput
+                  labelText="Which one?"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  id="otherSchool"
+                  inputProps={{
+                    type: 'text',
+                    onChange: handleState('otherSchool'),
+                    value: values.otherSchool,
+                    disabled: values.loading || values.disableAll,
+                  }}
+                />
+                {values.errors.school
+                  ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                  : null}
+              </FormControl>
+            </div>
+          </Grid>
+        }
+        <Grid item xs={12} sm={12} md={12} lg={3} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
+              <Select
+                native
+                id="graduationYear"
+                disabled={values.loading || values.disableAll}
+                fullWidth
+                error={!!values.errors.graduationYear}
+                value={values.graduationYear}
+                onChange={handleState('graduationYear')}
+              >
+                <option value="" disabled></option>
+                {GraduationYears.map((year) => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </Select>
+              {values.errors.graduationYear
+                ? <FormHelperText error>{values.errors.graduationYear}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={4} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth>
+              <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
+              <Select
+                native
+                id="levelOfStudy"
+                disabled={values.loading || values.disableAll}
+                fullWidth
+                error={!!values.errors.levelOfStudy}
+                value={values.levelOfStudy}
+                onChange={handleState('levelOfStudy')}
+              >
+                <option value="" disabled></option>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Graduate">Graduate</option>
+                <option value="High School">High School</option>
+              </Select>
+              {values.errors.levelOfStudy
+                ? <FormHelperText error>{values.errors.levelOfStudy}</FormHelperText>
+                : null}
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={5} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <FormControl fullWidth className={classes.formControl}>
+              <InputLabel id="major">Major</InputLabel>
+              <Select
+                id="demo-mutiple-chip"
+                multiple
+                disabled={values.loading || values.disableAll}
+                value={values.major}
+                onChange={handleState('major')}
+                input={<Input disabled={values.loading || values.disableAll} id="select-multiple-chip" />}
+                renderValue={selected => (
+                  <div className={classes.chips}>
+                    {selected.map(value => (
+                      <Chip 
+                        key={value} 
+                        onDelete={
+                           values.loading || 
+                           values.disableAll || 
+                           values.major.length === 0 
+                        ? undefined : handleDelete(value)} 
+                        label={value} 
+                        className={classes.chip} 
+                      />
+                    ))}
+                  </div>
+                )}
+              >
+                {Majors.map(name => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Dietary Restrictions"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              id="dietaryRestrictions"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('dietaryRestrictions'),
+                value: values.dietaryRestrictions,
+                disabled: values.loading || values.disableAll,
+              }}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Special Needs"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              id="specialNeeds"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('specialNeeds'),
+                value: values.specialNeeds,
+                disabled: values.loading || values.disableAll,
+              }}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Emergency Name"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.emergencyName}
+              id="emergencyName"
+              inputProps={{
+                type: 'text',
+                onChange: handleState('emergencyName'),
+                error: !!values.errors.emergencyName,
+                disabled: values.loading || values.disableAll,
+                value: values.emergencyName,
+              }}
+            />
+            {values.errors.emergencyName
+              ? <FormHelperText error>{values.errors.emergencyName}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="Emergency Number"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              error={!!values.errors.emergencyNumber}
+              id="emergencyNumber"
+              inputProps={{
+                type: 'tel',
+                value: normalizeInput(values.emergencyNumber),
+                error: !!values.errors.emergencyNumber,
+                disabled: values.loading || values.disableAll,
+                onChange: handleState('emergencyNumber'),
+              }}
+            />
+            {values.errors.emergencyNumber
+              ? <FormHelperText error>{values.errors.emergencyNumber}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.buttonWrapper}>
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                value="end"
+                error={!!values.errors.agreeToTerms}
+                control={
+                  <Checkbox 
+                    checked={values.agreeToTerms} 
+                    disabled={values.loading || values.disableAll}
+                    onClick={handleTermsChange('agreeToTerms')} 
+                    color="primary" />
+                }
+                label={
+                  <div>
+                    I agree to {' '}
+                    <label>
+                      <span className={classes.terms} onClick={handleDialog}>Terms and Services</span>
+                    </label>
+                  </div>
+                }
+                labelPlacement="end"
+              />
+            </FormGroup>
+            {values.errors.agreeToTerms
+              ? <FormHelperText error>{values.errors.agreeToTerms}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.buttonWrapper}>
+            <input
+              style={{ display: 'none' }}
+              id="contained-button-file"
+              multiple
+              disabled={values.loading || values.disableAll}
+              type="file"
+              onChange={handleFileUpload()}
+            />
+            <label htmlFor="contained-button-file">
+              <Button 
+                color="primary" 
+                component="span" 
+                style={{ height: '100%', width: '100%' }}
+                disabled={values.loading || values.disableAll}
+              >
+                {values.resume ? values.resume.name : "Upload Resume"}
+              </Button>
+            </label>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.buttonWrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={values.loading || status}
+              style={{ height: '100%', width: '100%' }}
+              type="submit"
+              onClick={submit}
+            >
+              {values.disableAll ? "Edit" : "Update"}
+            </Button>
+          </div>
+        </Grid>
       </Grid>
+      <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
+         <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
+           {termsOfService}
+         </DialogTitle>
+       </Dialog>
     </>
   );
 };
 
 export default ApplicationUpdateForm;
+
+            // <CustomInput
+            //   labelText="Major"
+            //   formControlProps={{
+            //     fullWidth: true,
+            //   }}
+            //   id="major"
+            //   inputProps={{
+            //     type: 'major',
+            //     onChange: handleState('major'),
+            //     value: values.major,
+            //     disabled: values.loading || values.disableAll,
+            //   }}
+            // />

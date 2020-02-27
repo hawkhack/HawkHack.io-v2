@@ -3,6 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 const realDashboardStyles = makeStyles((theme) => ({
   dash: {
     minHeight: '90vh',
+    width: "100%"
   },
   wrapper: {
     padding: 10,
@@ -22,7 +23,7 @@ const realDashboardStyles = makeStyles((theme) => ({
   },
   buttonWrapper: {
     padding: 10,
-  },
+  }
 }));
 
 export default realDashboardStyles;

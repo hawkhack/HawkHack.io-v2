@@ -20,6 +20,7 @@
     "react-scripts": "^3.3.0",
     "rebass": "^3.0.0-12",
     "styled-components": "^5.0.0",
+    "typeface-roboto": "0.0.75",
     "validator": "^12.2.0"
   },
   "scripts": {
