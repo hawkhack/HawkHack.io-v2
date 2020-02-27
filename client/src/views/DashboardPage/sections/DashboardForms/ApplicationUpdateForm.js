@@ -132,7 +132,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     school: checkSchool(user.profile.school),
     graduationYear: user.profile.graduationYear ? user.profile.graduationYear : '',
     levelOfStudy: user.profile.levelOfStudy ? user.profile.levelOfStudy : '',
-    major: user.profile.major.length !== 0 ? user.profile.major : [],
+    major: user.profile.major.length !== 0 && user.profile.major[0].length !== 0 ? user.profile.major : [],
     dietaryRestrictions: user.profile.dietaryRestrictions ? user.profile.dietaryRestrictions : '',
     specialNeeds: user.profile.specialNeeds ? user.profile.specialNeeds : '',
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
@@ -254,13 +254,17 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
 
       await props.submitApplication(data);
 
-      handleSetState('disableAll', true)
-      handleLoading(false);
-      handleErrors({});
-      handleSetState('resume', user.profile.resume ? user.profile.resume : { name: 'Upload Resume' })
+      setValues({
+        ...values,
+        loading: false,
+        errors: {},
+        resume: user.profile.resume ? user.profile.resume : { name: 'Upload Resume' },
+        disableAll: !values.disableAll
+      })
     } catch (err) {
       handleErrors(err);
     }
+
   };
 
   const classes = useStyles();
@@ -574,6 +578,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                   formControlProps={{
                     fullWidth: true,
                   }}
+                  error={!!values.errors.otherSchool}
                   id="otherSchool"
                   inputProps={{
                     type: 'text',
@@ -582,8 +587,8 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                     disabled: values.loading || values.disableAll,
                   }}
                 />
-                {values.errors.school
-                  ? <FormHelperText error>{values.errors.school}</FormHelperText>
+                {values.errors.otherSchool
+                  ? <FormHelperText error>{values.errors.otherSchool}</FormHelperText>
                   : null}
               </FormControl>
             </div>
@@ -757,10 +762,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             <FormGroup aria-label="position" row>
               <FormControlLabel
                 value="end"
-                error={!!values.errors.agreeToTerms}
+                error={values.errors.agreeToTerms}
                 control={
                   <Checkbox 
-                    checked={values.agreeToTerms} 
+                    checked={!!values.agreeToTerms} 
                     disabled={values.loading || values.disableAll}
                     onClick={handleTermsChange('agreeToTerms')} 
                     color="primary" />
@@ -784,6 +789,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.buttonWrapper}>
             <input
+              accept=".doc, .docx, .pdf"
               style={{ display: 'none' }}
               id="contained-button-file"
               multiple
