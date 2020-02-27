@@ -38,7 +38,12 @@ const ProfileSchema = new Schema({
     type: Date
   },
   resume: {
-    type: String
+    name: {
+      type: String
+    },
+    key: {
+      type: String
+    }
   },
   shirtSize: {
     type: String,

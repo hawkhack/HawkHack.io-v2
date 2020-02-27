@@ -83,10 +83,13 @@ router.post(
       const profile = await Profile.findOne({ user: req.user.id });
       if (req.file) {
         const upload = await uploadResume(req.file);
-        profileFields.resume = upload.key;
-        console.log(`Resume ${profileFields.resume} saved`);
+        profileFields.resume = {
+          key: upload.key,
+          name: req.file.originalname
+        };
+        console.log(`Resume ${profileFields.resume.key} saved`);
         if (profile.resume) {
-          deleteResume(profile.resume);
+          deleteResume(profile.resume.key);
         }
       }
 
