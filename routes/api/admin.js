@@ -19,18 +19,12 @@ router.get(
   verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
-      const numUsers = await User.countDocuments();
-      const numAccepted = await Profile.countDocuments({ status: "Accepted" });
-      const numRegistered = await Profile.countDocuments({
-        status: "Registered"
-      });
-
-      const response = {
-        numUsers,
-        numRegistered,
-        numAccepted
-      };
-      return res.status(200).json(response);
+      const users = await User.aggregate([{$group:{_id: "$role", count :{$sum: 1} }}]);
+      const profiles = await Profile.aggregate([{$group:{_id: "$status", count :{$sum: 1} }}]);
+      const data = {
+        users,profiles
+      }
+      return res.status(200).json(data);
     } catch (err) {
       next(err);
     }
