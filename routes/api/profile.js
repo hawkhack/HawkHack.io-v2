@@ -80,13 +80,14 @@ router.post(
     profileFields.emergencyNumber = req.body.emergencyNumber;
 
     try {
-      const upload = await uploadResume(req.file);
-      profileFields.resume = upload.key;
-      console.log(`Resume ${profileFields.resume} saved`);
-
       const profile = await Profile.findOne({ user: req.user.id });
-      if (profile.resume) {
-        deleteResume(profile.resume);
+      if (req.file) {
+        const upload = await uploadResume(req.file);
+        profileFields.resume = upload.key;
+        console.log(`Resume ${profileFields.resume} saved`);
+        if (profile.resume) {
+          deleteResume(profile.resume);
+        }
       }
 
       if (profile) {
@@ -95,7 +96,11 @@ router.post(
           profileFields.statusChangedAt = new Date();
         }
         //Update Profile
-        savedProfile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
+        savedProfile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        );
         return res.status(200).json(savedProfile);
       } else {
         if (isComplete && profile.resume) {
