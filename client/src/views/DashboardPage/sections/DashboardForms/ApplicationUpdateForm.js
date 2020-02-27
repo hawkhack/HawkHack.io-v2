@@ -8,6 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
@@ -100,6 +101,9 @@ const useStyles = makeStyles((theme) => ({
   chips: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  header: {
+    fontWeight: 300
   }
 }));
 
@@ -132,7 +136,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     school: checkSchool(user.profile.school),
     graduationYear: user.profile.graduationYear ? user.profile.graduationYear : '',
     levelOfStudy: user.profile.levelOfStudy ? user.profile.levelOfStudy : '',
-    major: user.profile.major.length !== 0 && user.profile.major[0].length !== 0 ? user.profile.major : [],
+    major: user.profile.major && user.profile.major.length !== 0 && user.profile.major[0].length !== 0 ? user.profile.major : [],
     dietaryRestrictions: user.profile.dietaryRestrictions ? user.profile.dietaryRestrictions : '',
     specialNeeds: user.profile.specialNeeds ? user.profile.specialNeeds : '',
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
@@ -205,6 +209,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     handleSetState('major', newMajors)
   };
 
+  const sendError = () => {
+    return props.handleSnackbar("Fix errors to submit")
+  }
+
   const submit = async () => {
     if (values.disableAll) {
       return handleSetState('disableAll', false)
@@ -258,7 +266,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         ...values,
         loading: false,
         errors: {},
-        resume: user.profile.resume ? user.profile.resume : { name: 'Upload Resume' },
+        resume: values.resume ? values.resume : { name: 'Upload Resume' },
         disableAll: !values.disableAll
       })
     } catch (err) {
@@ -285,10 +293,17 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         </Grid>
       )}
       <Grid container alignItems="center" justify="center" className={classes.container}>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <Typography color="primary" className={classes.header} variant="h4">
+              Your Information
+            </Typography>
+          </div>
+        </Grid>
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="First Name"
+              labelText="First Name *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -310,7 +325,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Last Name"
+              labelText="Last Name *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -364,7 +379,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={4} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Phone Number"
+              labelText="Phone Number *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -392,7 +407,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 fullWidth
                 disabled={values.loading || values.disableAll}
                 error={!!values.errors.dateOfBirth}
-                label="Date of Birth"
+                label="Date of Birth *"
                 value={values.dateOfBirth}
                 onChange={handleDateChange}
               />
@@ -405,7 +420,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={4} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.gender} id="gender">Gender</InputLabel>
+              <InputLabel error={!!values.errors.gender} id="gender">Gender *</InputLabel>
               <Select
                 native
                 id="gender"
@@ -430,7 +445,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size</InputLabel>
+              <InputLabel error={!!values.errors.shirtSize} id="shirtSize">Shirt Size *</InputLabel>
               <Select
                 native
                 id="shirtSize"
@@ -458,7 +473,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.ethnicity} id="ethnicity">Ethnicity</InputLabel>
+              <InputLabel error={!!values.errors.ethnicity} id="ethnicity">Ethnicity *</InputLabel>
               <Select
                 native
                 id="ethnicity"
@@ -547,8 +562,15 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
+            <Typography color="primary" className={classes.header} variant="h4">
+              Education
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.school} id="School">School</InputLabel>
+              <InputLabel error={!!values.errors.school} id="School">School *</InputLabel>
               <Select
                 native
                 id="School"
@@ -574,7 +596,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             <div className={classes.textWrapper}>
               <FormControl fullWidth>
                 <CustomInput
-                  labelText="Which one?"
+                  labelText="Which one? *"
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -597,7 +619,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={12} lg={3} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year</InputLabel>
+              <InputLabel error={!!values.errors.graduationYear} id="graduationYear">Graduation Year *</InputLabel>
               <Select
                 native
                 id="graduationYear"
@@ -621,7 +643,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={12} lg={4} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <FormControl fullWidth>
-              <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study</InputLabel>
+              <InputLabel error={!!values.errors.levelOfStudy} id="levelOfStudy">Level of Study *</InputLabel>
               <Select
                 native
                 id="levelOfStudy"
@@ -681,6 +703,13 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
+            <Typography color="primary" className={classes.header} variant="h4">
+              HawkHack
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
             <CustomInput
               labelText="Dietary Restrictions"
               formControlProps={{
@@ -716,7 +745,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Emergency Name"
+              labelText="Emergency Name *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -738,7 +767,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Emergency Number"
+              labelText="Emergency Number *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -823,6 +852,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             </Button>
           </div>
         </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          {Object.keys(values.errors).length !== 0 && sendError}
+        </Grid>
       </Grid>
       <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
          <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
@@ -834,17 +866,3 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
 };
 
 export default ApplicationUpdateForm;
-
-            // <CustomInput
-            //   labelText="Major"
-            //   formControlProps={{
-            //     fullWidth: true,
-            //   }}
-            //   id="major"
-            //   inputProps={{
-            //     type: 'major',
-            //     onChange: handleState('major'),
-            //     value: values.major,
-            //     disabled: values.loading || values.disableAll,
-            //   }}
-            // />

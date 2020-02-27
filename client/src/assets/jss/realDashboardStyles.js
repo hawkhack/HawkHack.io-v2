@@ -23,6 +23,9 @@ const realDashboardStyles = makeStyles((theme) => ({
   },
   buttonWrapper: {
     padding: 10,
+  },
+  panel: {
+    cursor: "auto"
   }
 }));
 
