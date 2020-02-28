@@ -183,7 +183,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
   }
 
   const handleFileUpload = () => (event) => {
-    setValues({ ...values, resume: event.target.files[0] });
+    if (event.target.files.length !== 0) {
+      setValues({ ...values, resume: event.target.files[0] });
+    }
   };
 
   const handleDateChange = (date) => {
