@@ -56,17 +56,6 @@ const Verified = ({ ...props }) => {
     <>
       <CssBaseline />
       <Parallax filter image={image}>
-        <Grid
-          container
-          direction="column"
-          justify="flex-start"
-          alignItems="center"
-          style={{ height: '100%' }}
-        >
-          <Grid item>
-            <div />
-          </Grid>
-        </Grid>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <Grid
@@ -74,7 +63,7 @@ const Verified = ({ ...props }) => {
           justify="center"
           align="center"
           direction="column"
-          style={{ height: '90vh' }}
+          style={{ height: '80vh' }}
         >
           <Grid item>
             <div className={classes.wrapper}>
@@ -82,6 +71,7 @@ const Verified = ({ ...props }) => {
                 variant="h2"
                 color="primary"
                 align="center"
+                style={{ fontWeight: 300 }}
               >
                 You're verified!
               </Typography>

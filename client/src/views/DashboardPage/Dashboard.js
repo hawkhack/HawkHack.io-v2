@@ -14,9 +14,9 @@ import NavBar from '../../components/NavBar/NavBar';
 import RealDashboard from './sections/RealDashboard';
 
 import { UserContext } from '../../context/store'
-import { GetUser } from '../../assets/utils/Api'
 
 const Dashboard = ({ ...props }) => {
+  // eslint-disable-next-line
   const [{ user }, handleUser] = useContext(UserContext);
   
   const classes = dashboardStyles();
@@ -26,21 +26,7 @@ const Dashboard = ({ ...props }) => {
       localStorage.removeItem('cool-jwt')
       props.history.push('/');
     }
-
-    if (!user.email) {
-      const getUser = async () => {
-        try {
-          let user = await GetUser()
-          
-          handleUser(user.data)
-        } catch (err) {
-          localStorage.removeItem('cool-jwt')
-          props.history.push('/');
-        }
-      }
-
-      getUser();
-    }
+    
     // eslint-disable-next-line
   }, []);
 

@@ -209,10 +209,6 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     handleSetState('major', newMajors)
   };
 
-  const sendError = () => {
-    return props.handleSnackbar("Fix errors to submit")
-  }
-
   const submit = async () => {
     if (values.disableAll) {
       return handleSetState('disableAll', false)
@@ -293,6 +289,13 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         </Grid>
       )}
       <Grid container alignItems="center" justify="center" className={classes.container}>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <Typography align="center" className={classes.header} variant="body1">
+              Keep in mind, your application will be incomplete unless all required fields are filled 
+            </Typography>
+          </div>
+        </Grid>
         <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <Typography color="primary" className={classes.header} variant="h4">
@@ -698,6 +701,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                   </MenuItem>
                 ))}
               </Select>
+              {values.errors.major
+                ? <FormHelperText error>{values.errors.major}</FormHelperText>
+                : null}
             </FormControl>
           </div>
         </Grid>
@@ -787,6 +793,45 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <Typography color="primary" className={classes.header} variant="h4">
+              Resume
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.buttonWrapper}>
+            <input
+              accept=".doc, .docx, .pdf"
+              style={{ display: 'none' }}
+              id="contained-button-file"
+              multiple
+              disabled={values.loading || values.disableAll}
+              type="file"
+              onChange={handleFileUpload()}
+            />
+            <label htmlFor="contained-button-file">
+              <Button 
+                color="primary" 
+                component="span" 
+                variant="outlined"
+                style={{ padding: 10, height: '100%', width: '100%' }}
+                disabled={values.loading || values.disableAll}
+              >
+                {values.resume ? values.resume.name : "Upload Resume"}
+              </Button>
+            </label>
+            {values.errors.resume
+              ? <FormHelperText error>{values.errors.resume}</FormHelperText>
+              : values.resume.name === 'Upload Resume' &&
+                <FormHelperText>
+                  You don't have to upload a resume right now, 
+                  but your profile will remain 
+                  <Typography component="span" color="primary">{' '}Incomplete{' '}</Typography>  
+                  until you upload</FormHelperText>}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.buttonWrapper}>
             <FormGroup aria-label="position" row>
               <FormControlLabel
@@ -815,45 +860,19 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               : null}
           </div>
         </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.buttonWrapper}>
-            <input
-              accept=".doc, .docx, .pdf"
-              style={{ display: 'none' }}
-              id="contained-button-file"
-              multiple
-              disabled={values.loading || values.disableAll}
-              type="file"
-              onChange={handleFileUpload()}
-            />
-            <label htmlFor="contained-button-file">
-              <Button 
-                color="primary" 
-                component="span" 
-                style={{ height: '100%', width: '100%' }}
-                disabled={values.loading || values.disableAll}
-              >
-                {values.resume ? values.resume.name : "Upload Resume"}
-              </Button>
-            </label>
-          </div>
-        </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
+        <Grid item xs={12} style={{ marginBottom: "30px" }} className={classes.gridItem}>
           <div className={classes.buttonWrapper}>
             <Button
               variant="contained"
               color="primary"
               disabled={values.loading || status}
-              style={{ height: '100%', width: '100%' }}
+              style={{ padding: 10, height: '100%', width: '100%' }}
               type="submit"
               onClick={submit}
             >
               {values.disableAll ? "Edit" : "Update"}
             </Button>
           </div>
-        </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
-          {Object.keys(values.errors).length !== 0 && sendError}
         </Grid>
       </Grid>
       <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>

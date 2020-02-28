@@ -41,15 +41,17 @@ const UserNav = ({ top }) => {
       <Grid item>
         {!top
       && (
-      <div>
-        <Typography
-          color="secondary"
-          className={hh}
-          variant="h5"
-        >
-          HawkHack
-        </Typography>
-      </div>
+        <div>
+          <Typography
+            color="secondary"
+            className={hh}
+            variant="h5"
+          >
+            <div style={{ padding: 5 }}>
+              <img style={{ width: "50px", height: "auto" }} alt={"our logo"} src="https://msu-images.s3.amazonaws.com/logo-min.png" />
+            </div>
+          </Typography>
+        </div>
       )}
       </Grid>
       <Grid item>

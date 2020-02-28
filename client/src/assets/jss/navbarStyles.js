@@ -15,7 +15,7 @@ const navbarStyles = makeStyles((theme) => ({
   },
   navbarScrolled: {
     color: theme.palette.primary.main,
-    fontFamily: 'Dancing script, cursive',
+    fontFamily: 'Roboto',
   },
   NotTop: {
     background: 'white',
