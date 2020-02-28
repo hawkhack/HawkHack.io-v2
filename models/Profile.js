@@ -92,6 +92,10 @@ const ProfileSchema = new Schema({
     default: "None",
     max: 200
   },
+  heardFrom: {
+    type: String,
+    max: 50
+  },
   emergencyName: {
     type: String,
     max: 20

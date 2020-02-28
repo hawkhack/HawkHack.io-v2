@@ -21,6 +21,7 @@ module.exports = function validateProfileInput(data) {
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
   data.emergencyName = !isEmpty(data.emergencyName) ? data.emergencyName : "";
   data.emergencyNumber = !isEmpty(data.emergencyNumber) ? data.emergencyNumber : "";
+  data.heardFrom = !isEmpty(data.heardFrom) ? data.heardFrom : "";
 
   if (!isEmpty(data.firstName)) {
     if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
@@ -59,7 +60,12 @@ module.exports = function validateProfileInput(data) {
   }
   if (!isEmpty(data.graduationYear)) {
     if (!Validator.isLength(data.graduationYear, { min: 2, max: 4 })) {
-      errors.graduationYear = "Graduation Year need to be between 2 and 4 characters";
+      errors.graduationYear = "Graduation Year needs to be between 2 and 4 characters";
+    }
+  }
+  if (!isEmpty(data.heardFrom)) {
+    if (!Validator.isLength(data.heardFrom, { min: 2, max: 50 })) {
+      errors.heardFrom = "Answer needs to be between 2 and 50 characters";
     }
   }
 
