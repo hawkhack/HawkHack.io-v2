@@ -14,6 +14,7 @@ const validateProfileInput = require("../../validation/profile");
 
 //Load profile model
 const Profile = require("../../models/Profile");
+
 //Load user model
 const User = require("../../models/User");
 
@@ -117,32 +118,6 @@ router.post(
     } catch (err) {
       console.log(err);
       next(err);
-    }
-  })
-);
-
-router.post(
-  "/resume",
-  passport.authenticate("jwt", { session: false }),
-  verify(),
-  upload.single("resume"),
-  wrap(async (req, res) => {
-    if (!req.file) {
-      return res.status(400).json("no file");
-    }
-    try {
-      const profile = await Profile.findOne({ user: req.user.id });
-      const upload = await uploadResume(req.file);
-      console.log(upload);
-      if (profile.resume) {
-        deleteResume(profile.resume);
-      }
-      profile.resume = upload.key;
-      await profile.save();
-      console.log(`Resume ${profile.resume} saved`);
-      return res.status(200).json(profile);
-    } catch (err) {
-      return res.status(400).json(err);
     }
   })
 );
