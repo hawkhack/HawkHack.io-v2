@@ -55,24 +55,10 @@ router.post(
       user: req.user.id,
       email: req.user.email
     };
-    profileFields.firstName = req.body.firstName;
-    profileFields.lastName = req.body.lastName;
-    profileFields.phoneNumber = req.body.phoneNumber;
-    profileFields.dateOfBirth = req.body.dateOfBirth;
-    profileFields.shirtSize = req.body.shirtSize;
-    profileFields.gender = req.body.gender;
-    profileFields.ethnicity = req.body.ethnicity;
-    profileFields.github = req.body.github;
-    profileFields.linkedin = req.body.linkedin;
-    profileFields.website = req.body.website;
-    profileFields.school = req.body.school;
-    profileFields.graduationYear = req.body.graduationYear;
-    profileFields.levelOfStudy = req.body.levelOfStudy;
-    profileFields.major = req.body.major;
-    profileFields.dietaryRestrictions = req.body.dietaryRestrictions;
-    profileFields.specialNeeds = req.body.specialNeeds;
-    profileFields.emergencyName = req.body.emergencyName;
-    profileFields.emergencyNumber = req.body.emergencyNumber;
+
+    for (const field in req.body) {
+      profileFields[field] = req.body[field];
+    };
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
@@ -86,7 +72,7 @@ router.post(
       }
 
       if (profile) {
-        if (profile.resume) {
+        if (profileFields.resume && profile.resume) {
           deleteResume(profile.resume.key);
         }
         if (profile.status === "Incomplete" && isComplete && profile.resume) {
