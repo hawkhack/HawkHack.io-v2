@@ -8,14 +8,14 @@ module.exports = function validateProfileInput(data) {
   data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
   data.phoneNumber = !isEmpty(data.phoneNumber) ? data.phoneNumber : "";
   data.dateOfBirth = !isEmpty(data.dateOfBirth) ? data.dateOfBirth : "";
-  data.shirtSize = !isEmpty(data.shirtSize) ? data.shirtSize : "";
-  data.gender = !isEmpty(data.gender) ? data.gender : "";
+  data.shirtSize = !isEmpty(data.shirtSize) ? data.shirtSize : "Not set";
+  data.gender = !isEmpty(data.gender) ? data.gender : "Not set";
   data.ethnicity = !isEmpty(data.ethnicity) ? data.ethnicity : "";
   data.github = !isEmpty(data.github) ? data.github : "";
   data.linkedin = !isEmpty(data.linkedin) ? data.linkedin : "";
   data.school = !isEmpty(data.school) ? data.school : "";
   data.graduationYear = !isEmpty(data.graduationYear) ? data.graduationYear : "";
-  data.levelOfStudy = !isEmpty(data.levelOfStudy) ? data.levelOfStudy : "";
+  data.levelOfStudy = !isEmpty(data.levelOfStudy) ? data.levelOfStudy : "Not set";
   data.major = !isEmpty(data.major) ? data.major.split(",") : "";
   data.dietaryRestrictions = !isEmpty(data.dietaryRestrictions) ? data.dietaryRestrictions : "";
   data.specialNeeds = !isEmpty(data.specialNeeds) ? data.specialNeeds : "";
@@ -85,14 +85,14 @@ module.exports = function validateProfileInput(data) {
     }
   }
 
-  if (!isEmpty(data.shirtSize)) {
+  if (data.shirtSize !== "Not set") {
     const sizes = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
     if (!sizes.includes(data.shirtSize)) {
       errors.shirtSize = "not a valid size";
     }
   }
 
-  if (!isEmpty(data.gender)) {
+  if (data.gender !== "Not set") {
     const sizes = ["Male", "Female", "Other", "Prefer not to say"];
     if (!sizes.includes(data.gender)) {
       errors.gender = "not a valid gender";

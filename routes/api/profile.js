@@ -83,12 +83,12 @@ router.post(
           name: req.file.originalname
         };
         console.log(`Resume ${profileFields.resume.key} saved`);
-        if (profile.resume) {
-          deleteResume(profile.resume.key);
-        }
       }
 
       if (profile) {
+        if (profile.resume) {
+          deleteResume(profile.resume.key);
+        }
         if (profile.status === "Incomplete" && isComplete && profile.resume) {
           profileFields.status = "Pending";
           profileFields.statusChangedAt = new Date();
