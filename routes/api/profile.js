@@ -1,13 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
 const wrap = require("../../middleware/asyncWrapper");
 const upload = require("../../middleware/multer");
 const uploadResume = require("../../utils/uploadResume");
 const deleteResume = require("../../utils/deleteResume");
-
-//load middleware
-const verify = require("../../middleware/verifyActive");
 
 //Load validation
 const validateProfileInput = require("../../validation/profile");
@@ -28,7 +24,7 @@ router.post("/test", (req, res) => {
 //  @route  GET api/p/
 //  @desc   Get current user profile
 //  @access Private
-router.get("/", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
+router.get("/", (req, res) => {
   const errors = {};
   Profile.findOne({ user: req.user.id })
     .populate("user", ["name", "avatar"])
@@ -47,8 +43,6 @@ router.get("/", passport.authenticate("jwt", { session: false }), verify(), (req
 //  @access Private
 router.post(
   "/",
-  passport.authenticate("jwt", { session: false }),
-  verify(),
   upload.single("resume"),
   wrap(async (req, res, next) => {
     const { errors, isValid, isComplete } = validateProfileInput(req.body);
@@ -125,7 +119,7 @@ router.post(
 //  @route  GET api/p/:user_id
 //  @desc   Get user profile by id
 //  @access Private
-router.get("/:user_id", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
+router.get("/:user_id", (req, res) => {
   const errors = {};
   if (req.user.role != "Director" || req.user.role != "Administrator") {
     errors.forbidden = "invalid access";
@@ -146,7 +140,7 @@ router.get("/:user_id", passport.authenticate("jwt", { session: false }), verify
 //  @route  DELETE api/p/
 //  @desc   Delete user and profile
 //  @access Private
-router.delete("/", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
+router.delete("/", (req, res) => {
   Profile.findOneAndRemove({ user: req.user.id }).then(() => {
     User.findOneAndRemove({ _id: req.user.id }).then(() => {
       res.json({ success: true });
