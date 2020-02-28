@@ -9,6 +9,8 @@ const logger = require("./config/logger");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 const getDefaults = require("./config/defaults");
+const verifyRole = require("./middleware/verifyRole");
+const verify = require("./middleware/verifyActive");
 
 //import route files
 const users = require("./routes/api/user");
@@ -55,8 +57,14 @@ connectDB();
 
 //Use Routes
 app.use("/api/u", users);
-app.use("/api/p", profile);
-app.use("/api/a", admin);
+app.use("/api/p", passport.authenticate("jwt", { session: false }), verify(), profile);
+app.use(
+  "/api/a",
+  passport.authenticate("jwt", { session: false }),
+  verify(),
+  verifyRole("Director", "Administrator"),
+  admin
+);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://hawkhack.io"); // update to match the domain you will make the request from

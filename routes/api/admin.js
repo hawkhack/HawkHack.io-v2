@@ -15,15 +15,16 @@ const verifyRole = require("../../middleware/verifyRole");
 
 router.get(
   "/stats",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
-      const users = await User.aggregate([{$group:{_id: "$role", count :{$sum: 1} }}]);
-      const profiles = await Profile.aggregate([{$group:{_id: "$status", count :{$sum: 1} }}]);
+      const users = await User.aggregate([{ $group: { _id: "$role", count: { $sum: 1 } } }]);
+      const profiles = await Profile.aggregate([
+        { $group: { _id: "$status", count: { $sum: 1 } } }
+      ]);
       const data = {
-        users,profiles
-      }
+        users,
+        profiles
+      };
       return res.status(200).json(data);
     } catch (err) {
       next(err);
@@ -33,8 +34,6 @@ router.get(
 
 router.get(
   "/users",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
       const users = await User.find();
@@ -47,8 +46,6 @@ router.get(
 
 router.get(
   "/users/:email",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
       const user = await User.findOne({ email: req.params.email });
@@ -64,8 +61,6 @@ router.get(
 
 router.get(
   "/profiles",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
       const profiles = await Profile.find();
@@ -78,8 +73,6 @@ router.get(
 
 router.get(
   "/profiles/:email",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
       const profile = await Profile.findOne({ email: req.params.email });
@@ -95,8 +88,6 @@ router.get(
 
 router.get(
   "/signin",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
   wrap(async (req, res, next) => {
     try {
       const list = await List.findOne({ name: "signin" });
@@ -109,8 +100,7 @@ router.get(
 
 router.put(
   "/signin/:email",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Volunteer", "Organizer", "Director", "Administrator"),
+  verifyRole("Volunteer", "Organizer"),
   wrap(async (req, res, next) => {
     const errors = {};
     try {
@@ -137,9 +127,7 @@ router.put(
       list.users.push(user.id);
       list.count++;
       const saveList = await list.save();
-      return res
-        .status(200)
-        .json({ message: "user signed in", total: saveList.users.length });
+      return res.status(200).json({ message: "user signed in", total: saveList.users.length });
     } catch (err) {
       next(err);
     }
@@ -148,8 +136,6 @@ router.put(
 
 router.post(
   "/accept",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Administrator", "Director"),
   wrap(async (req, res, next) => {
     try {
       const defaults = getDefaults();
@@ -191,9 +177,7 @@ router.post(
             console.log(`Confirmation email sent to ${data.to}`);
             return res
               .status(200)
-              .json(
-                `User ${profile.email} accepted. Email sent to ${profile.email}`
-              );
+              .json(`User ${profile.email} accepted. Email sent to ${profile.email}`);
           });
         }
       }
@@ -206,80 +190,12 @@ router.post(
         return res.status(200).json(`user ${savedProfile.email} denied`);
       }
       //if invalid status or something else didn't go through, cry about it.
-      console.log(
-        `ACCEPT ERROR:\nuid: ${uid}\nstatus:${status}\nforce${force}`
-      );
+      console.log(`ACCEPT ERROR:\nuid: ${uid}\nstatus:${status}\nforce${force}`);
       res.status(400).json("something went wrong");
     } catch (err) {
       next(err);
     }
   })
-);
-
-router.get(
-  "/dbcreatedefault",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Administrator"),
-  (req, res) => {
-    User.findOne({ email: "test@example.com" }).then(user => {
-      if (user) {
-        return res.status(400).json("default user exists");
-      } else {
-        const newUser = new User({
-          email: "test@example.com",
-          password: "123456",
-          role: "Administrator"
-        });
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser.save().then(user => {
-              const profileFields = {};
-              profileFields.user = user.id;
-              profileFields.email = user.email;
-              profileFields.status = "Complete";
-              profileFields.firstName = "Firstname";
-              profileFields.lastName = "Lastname";
-              profileFields.phoneNumber = "5555555555";
-              profileFields.dateOfBirth = "01/01/1990";
-              profileFields.shirtSize = "M";
-              profileFields.gender = "Male";
-              profileFields.ethnicity = "American";
-              profileFields.github = "https://github.com/hawkhack";
-              profileFields.linkedin =
-                "https://www.linkedin.com/company/hawkhack-spring-2019/about/";
-              profileFields.website = "http://www.hawkhack.io";
-              profileFields.school = "Montclair State University";
-              profileFields.graduationYear = "2020";
-              profileFields.levelOfStudy = "Undergraduate";
-              profileFields.major = "Computer Science";
-              profileFields.dietaryRestrictions = "Dietary Restriction test";
-              profileFields.specialNeeds = "Speecial Needs test";
-
-              Profile.findOne({ user: user.id })
-                .then(profile => {
-                  if (profile) {
-                    //Update
-                    Profile.findOneAndUpdate(
-                      { user: user.id },
-                      { $set: profileFields },
-                      { new: true }
-                    ).then(profile => res.json(profile));
-                  } else {
-                    new Profile(profileFields)
-                      .save()
-                      .then(profile => res.json(profile));
-                  }
-                })
-                .catch(err => console.log(err));
-            });
-          });
-        });
-      }
-    });
-  }
 );
 
 module.exports = router;
