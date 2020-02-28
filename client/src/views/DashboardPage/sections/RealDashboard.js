@@ -57,7 +57,7 @@ const RealDashboard = () => {
     <Grid item xs={12} style={{ margin: '0vw 4vw 1vw 4vw' }}>
       <Paper style={{ height: "100%", width: "100%" }}>
         <div className={classes.wrapper}>
-          <ExpansionPanel expanded>
+          <ExpansionPanel className={classes.panel} expanded>
             <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
               <Typography variant="h4" className={classes.status}>
                 Check In
@@ -84,7 +84,7 @@ const RealDashboard = () => {
         <Grid item xs={12} style={{ margin: '4vw 4vw 1vw 4vw' }}>
           <Paper style={{ height: "100%", width: "100%" }}>
             <div className={classes.wrapper}>
-              <ExpansionPanel expanded>
+              <ExpansionPanel className={classes.panel} expanded>
                 <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
                   <Typography variant="h4" className={classes.appStatus}>
                     Status:
@@ -112,7 +112,7 @@ const RealDashboard = () => {
         <Grid item xs={12} style={{ margin: '1vw 4vw 4vw 4vw' }}>
           <Paper style={{ height: "100%", width: "100%" }}>
             <div style={{ padding: 10 }}>
-              <ExpansionPanel expanded>
+              <ExpansionPanel className={classes.panel} expanded>
                 <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
                   <Typography className={classes.status}>Application</Typography>
                 </ExpansionPanelSummary>
@@ -137,7 +137,7 @@ const RealDashboard = () => {
           onClose={handleClose}
           autoHideDuration={1500}
           style={{ marginTop: 100 }}
-          message="Updated!"
+          message={"Updated!"}
         />
       </Grid>
     </>

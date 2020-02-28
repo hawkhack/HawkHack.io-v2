@@ -88,6 +88,9 @@ const validateUpdateForm = (app) => {
   if (!checkLength(app.website) && !Validator.isURL(app.website)) errors.website = 'Invalid URL';
 
   if (checkLength(app.school)) errors.school = 'Invalid School Name';
+  if (app.school === "Other") {
+    if (checkLength(app.otherSchool)) errors.otherSchool = 'Invalid School Name';
+  }
 
   if (checkLength(app.graduationYear)) errors.graduationYear = 'Invalid Graduation Year';
   if (checkLength(app.levelOfStudy)) errors.levelOfStudy = 'Invalid Level of Study';
