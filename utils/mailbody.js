@@ -1,7 +1,6 @@
 const getDefaults = require("./defaults");
 
 let baseURL = process.env.BaseURL;
-console.log(baseURL, process.env.BaseURL);
 
 module.exports = {
   confirmEmail: (toEmail, token) => {

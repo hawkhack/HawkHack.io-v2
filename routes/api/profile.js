@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const wrap = require("../../middleware/asyncWrapper");
-const upload = require("../../middleware/multer");
+const upload = require("../../middleware/handleUpload");
 const uploadResume = require("../../utils/uploadResume");
 const deleteResume = require("../../utils/deleteResume");
 
@@ -43,7 +43,7 @@ router.get("/", (req, res) => {
 //  @access Private
 router.post(
   "/",
-  upload.single("resume"),
+  upload,
   wrap(async (req, res, next) => {
     const { errors, isValid, isComplete } = validateProfileInput(req.body);
     //check validation
