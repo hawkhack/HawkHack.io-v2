@@ -17,6 +17,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import EditIcon from '@material-ui/icons/Edit';
+import Hidden from '@material-ui/core/Hidden';
+import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -258,6 +261,8 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
       data.append('emergencyName', profile.emergencyName);
       data.append('emergencyNumber', profile.emergencyNumber);
 
+      console.log(values)
+
       await props.submitApplication(data);
 
       setValues({
@@ -272,6 +277,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     }
 
   };
+
 
   const classes = useStyles();
   return (
@@ -298,13 +304,46 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.textWrapper}>
-            <Typography color="primary" className={classes.header} variant="h4">
-              Your Information
-            </Typography>
-          </div>
-        </Grid>
+        <Hidden smUp>
+        {values.status !== "Email not verified" &&
+          <Grid item xs={12} className={classes.gridItem}>
+            <div className={classes.textWrapper}>  
+              <Typography align="center">
+                <Fab onClick={values.status !== "Email not verified" ? handleState('disableAll') : null} color="primary">
+                  <EditIcon />
+                </Fab>
+              </Typography>
+            </div>
+          </Grid>
+        }
+          <Grid item xs={12} className={classes.gridItem}>
+            <div className={classes.textWrapper}>
+              <Typography color="primary" className={classes.header} variant="h4">
+                Your Information
+              </Typography>
+            </div>
+          </Grid>
+        </Hidden>
+        <Hidden xsDown>
+          <Grid item xs={12} sm={values.status !== "Email not verified" ? 9 : 12} className={classes.gridItem}>
+            <div className={classes.textWrapper}>
+              <Typography color="primary" className={classes.header} variant="h4">
+                Your Information
+              </Typography>
+            </div>
+          </Grid>
+          {values.status !== "Email not verified" &&
+            <Grid item xs sm={3} className={classes.gridItem}>
+              <div className={classes.textWrapper}>  
+                <Typography align="right">
+                  <Fab onClick={handleState('disableAll')}  color="primary">
+                    <EditIcon />
+                  </Fab>
+                </Typography>
+              </div>
+            </Grid>
+          }
+        </Hidden>
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
@@ -867,19 +906,19 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             <Button
               variant="contained"
               color="primary"
-              disabled={values.loading || status}
+              disabled={values.loading || values.disableAll}
               style={{ padding: 10, height: '100%', width: '100%' }}
               type="submit"
               onClick={submit}
             >
-              {values.disableAll ? "Edit" : "Update"}
+              {"Update"}
             </Button>
           </div>
         </Grid>
       </Grid>
       <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
          <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
-           {termsOfService}
+           {termsOfService()}
          </DialogTitle>
        </Dialog>
     </>

@@ -1,3 +1,6 @@
+import React from 'react'
+import Typography from '@material-ui/core/Typography'
+
 export const defaults = {
   title: 'HawkHack',
   subTitle: "Montclair State University's Second Annual 24-hour Hackathon",
@@ -103,6 +106,131 @@ export const UserStatus = {
   Denied: "Stars didn't align themselves this year, but we're open to suggestions at support@hawkhack.io"
 }
 
-export const termsOfService = `
-  Terms...
-`
+export const termsOfService = () => (
+  <>
+  <Typography align="center" variant="h4">
+    HACKATHON PARTICIPATION AGREEMENT
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="body1">
+    HawkHack is pleased to present the annual HawkHack Hackathon 
+    (“Hackathon”) hosted at Montclair State University. The Hackathon 
+    is governed by this Hackathon Participation Agreement (“Agreement”). 
+    By entering the Hackathon, you (“Participant”) agree to abide by the 
+    Agreement which is a binding legal agreement between Participant and 
+    HawkHack with respect to the Hackathon.
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="h5"><b> Participation in the Hackathon </b></Typography>
+  <Typography align="left" variant="body1">
+    Participants must be classified as a highschool or undergraduate student. 
+    In addition to the Agreement, Participant agrees to abide by the 
+    Terms and Conditions provided in connection with the Hackathon. HawkHack has 
+    the right, at its sole discretion, to disqualify any Participant for breach 
+    of the Agreement or Additional Documents. HawkHack has the right to cancel or 
+    suspend the Hackathon with or without notice and for any reason. HawkHack is not 
+    responsible for any damage or inconvenience caused by a cancellation or suspension 
+    of the Hackathon.
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="h5"><b> Ownership of Applications </b></Typography>
+  <Typography align="left" variant="body1">
+    Participant represents and warrants that the Application was and will be 
+    Participant’s own original work and does not and will not infringe the 
+    intellectual property or proprietary rights of any third party, including, 
+    without limitation, any third party patents, copyrights or trademarks. 
+    Participant hereby agrees not to instigate, support, maintain or authorize 
+    any action, claim or lawsuit against HawkHack, or any other person, on the grounds 
+    that any use of a Participant’s Application infringes any of Participant’s rights 
+    as creator of the Application, including, without limitation, trademark rights, 
+    copyrights and moral rights or “droit moral.” Each participant acknowledges and 
+    agree that HawkHack or other Participants or third parties may have developed or 
+    commissioned works which are similar to the Application of Participant or Participant’s team, or 
+    may develop something similar in the future, and each Participant waives any claims 
+    that Participant may have resulting from any similarities to the Application of 
+    Participant or Participant’s team.
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="h5"><b> Prizes and Awards </b></Typography>
+  <Typography align="left" variant="body1">
+    The prizes and awards to be awarded are as follows: 
+    The Participant, or team of Participants whose Application 
+    is awarded the highest score by the Judge in each Category 
+    will each receive the presented prize (prizes vary by track). 
+    No cash or other substitution of prizes is permitted, except at 
+    the sole option of Sponsor for a prize of equal or greater value. 
+    Sponsor will not replace any lost or stolen prizes. Winners are solely 
+    responsible for any and all federal, state, provincial and local taxes, 
+    if any, that apply to prizes.
+  </Typography>
+  
+  <br /> 
+  <Typography align="left" variant="h5"><b> Publicity </b></Typography>
+  <Typography align="left" variant="body1">
+    Except where prohibited, by participating in the Contest, Participant consent 
+    to the use of his/her name, photo and/or likeness, biographical information, 
+    entry and statements attributed to Participant (if true) for advertising and 
+    promotional purposes,including without limitation, inclusion in Sponsor’ newsletters, 
+    Sponsor’ websites, andany of the Sponsor’ social media accounts or outlets without 
+    additional compensation. 
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="h5"><b> Indemnity </b></Typography>
+  <Typography align="left" variant="body1">
+    You agree to release, indemnify, defend and hold Sponsor and their parents, affiliates, 
+    subsidiaries, directors, officers, employees, Sponsor and agents, including advertising 
+    and promotion agencies, and assigns, and any other organizations related to the Contest, 
+    harmless, from any and all claims, injuries, damages, expenses or losses to person or 
+    property and/or liabilities of any nature that in any way arise from participation in 
+    the Contest or acceptance or use of a prize or parts thereof, including without 
+    limitation (i) any condition caused by events beyond Sponsor’ control that may 
+    cause the Contest to be disrupted or corrupted; (ii) any claim than an Application 
+    Infringes third party intellectual property or proprietary rights; (iii) any disputes 
+    among team members, (iv) any injuries, losses, or damages (compensatory, direct, 
+    incidental, consequential or otherwise) of any kind arising in connection with or 
+    as a result of the prize, or acceptance, possession, or use of the prize, or from 
+    participation in the Contest;(v) any printing or typographical errors in any materials 
+    associated with the Contest;technical errors that may impair your ability to participate 
+    in the Contest; or (vi) errors in the administration of the Contest.
+  </Typography>
+
+  <br />
+  <Typography style={{ fontFamily: "Times New Roman" }} align="left" variant="body1">
+    DISCLAIMER. IN NO EVENT WILL SPONSOR OR HAWKHACK BE LIABLE 
+    TO YOU FOR ANY DIRECT, SPECIAL, INCIDENTAL, EXEMPLARY, 
+    PUNITIVE OR CONSEQUENTIAL DAMAGES (INCLUDING LOSS OF USE, 
+      DATA, BUSINESS OR PROFITS) ARISING OUT OF OR IN CONNECTION WITH YOUR 
+    PARTICIPATION IN THE CONTEST, WHETHER SUCH LIABILITY ARISES FROM ANY CLAIM 
+    BASED UPON CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY 
+    OR OTHERWISE, AND WHETHER OR NOT SPONSOR HAVE BEEN ADVISED OF THE POSSIBILITY OF 
+    SUCH LOSS OR DAMAGE. 
+  </Typography>
+  <br />
+  <Typography align="left" variant="body1">
+    Some jurisdiction does not allow the limitation or exclusion of 
+    liability for incidental or consequential damages,so the above limitation 
+    or exclusion may not apply to you.
+  </Typography>
+
+  <br />
+  <Typography align="left" variant="h5"><b> Acknowledgment of Understanding  </b></Typography>
+  <Typography align="left" variant="body1">
+    I have read both the rules & participation agreement with waiver of liability, 
+    assumption of risk, and indemnity agreement, and permission to use myname, personal 
+    information, and image, and fully understand the terms. I understand that I'm giving 
+    up substantial rights, including my right to sue. I acknowledge that I am accepting 
+    this agreement freely and voluntarily, and I intend by my acceptance to be a complete 
+    and unconditional release of all liability to the greatest extent allowed by law. 
+    Agreement to an electronic form of consent or verification to this document entails 
+    complete agreement and acknowledgement to the document and the terms described within 
+    it. By attending HawkHack Iunderstand that I have voluntarily agreed and read this 
+    document. My guardian I have read and understand this agreement and I freely and 
+    knowingly give my consent to HawkHack described herein.
+  </Typography>
+  </>
+)
