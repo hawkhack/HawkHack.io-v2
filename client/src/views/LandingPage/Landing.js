@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import classNames from 'classnames';
@@ -16,14 +16,18 @@ import NavBar from '../../components/NavBar/NavBar';
 import Footer from '../../components/Footer/Footer';
 import Parallax from '../../components/Parallax/Parallax';
 
+import { UserContext } from '../../context/store'
+
 const Landing = () => {
+  // eslint-disable-next-line
+  const [{ user }, handleUser] = useContext(UserContext);
   const classes = landingPageStyles();
 
   return (
     <>
       <CssBaseline />
       <NavBar
-        route="home"
+        route={user.loggedIn ? "user" : "home"}
       />
       <Parallax filter image={image}>
         <div className={classes.container}>

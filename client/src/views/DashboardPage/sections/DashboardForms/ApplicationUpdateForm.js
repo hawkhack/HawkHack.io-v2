@@ -64,7 +64,7 @@ const Schools = [
 
 const useStyles = makeStyles((theme) => ({
   textWrapper: {
-    padding: '30px 10px 10px 10px',
+    padding: '20px',
   },
   progress: {
     height: 'auto',
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '100',
   },
   buttonWrapper: {
-    padding: '5px 10px 10px 10px',
+    padding: '5px 20px 10px 20px',
   },
   terms: {
     color: theme.palette.primary.main,
@@ -104,6 +104,9 @@ const useStyles = makeStyles((theme) => ({
   chips: {
     display: 'flex',
     flexWrap: 'wrap',
+  },
+  headerWrapper: {
+    padding: "10px 20px"
   },
   header: {
     fontWeight: 300
@@ -324,7 +327,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </Grid>
         }
           <Grid item xs={12} className={classes.gridItem}>
-            <div className={classes.textWrapper}>
+            <div className={classes.headerWrapper}>
               <Typography color="primary" className={classes.header} variant="h4">
                 Your Information
               </Typography>
@@ -333,7 +336,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         </Hidden>
         <Hidden xsDown>
           <Grid item xs={12} sm={values.status !== "Email not verified" ? 9 : 12} className={classes.gridItem}>
-            <div className={classes.textWrapper}>
+            <div className={classes.headerWrapper}>
               <Typography color="primary" className={classes.header} variant="h4">
                 Your Information
               </Typography>
@@ -612,7 +615,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.textWrapper}>
+          <div className={classes.headerWrapper}>
             <Typography color="primary" className={classes.header} variant="h4">
               Education
             </Typography>
@@ -758,7 +761,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.textWrapper}>
+          <div className={classes.headerWrapper}>
             <Typography color="primary" className={classes.header} variant="h4">
               HawkHack
             </Typography>
@@ -843,7 +846,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.textWrapper}>
+          <div className={classes.headerWrapper}>
             <Typography color="primary" className={classes.header} variant="h4">
               Survey
             </Typography>
@@ -852,7 +855,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="How'd you hear about Hawkhack"
+              labelText="How did you hear about HawkHack?"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -867,7 +870,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
-          <div className={classes.textWrapper}>
+          <div className={classes.headerWrapper}>
             <Typography color="primary" className={classes.header} variant="h4">
               Resume
             </Typography>
@@ -920,9 +923,11 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 }
                 label={
                   <div>
-                    I agree to {' '}
+                    I agree to the {' '}
                     <label>
-                      <span className={classes.terms} onClick={handleDialog}>Terms and Services</span>
+                      <span className={classes.terms} onClick={handleDialog}>
+                        Terms and Conditions
+                      </span>
                     </label>
                   </div>
                 }
@@ -949,7 +954,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 }
                 label={
                   <div>
-                    I agree to {' '}
+                    I agree to the {' '}
                     <label>
                       <span className={classes.terms} onClick={handleCodeDialog}>Code of Conduct</span>
                     </label>
