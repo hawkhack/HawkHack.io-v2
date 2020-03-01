@@ -49,10 +49,18 @@ export const sponsorsRowOne = [
 
 export const sponsorsRowTwo = [
   'https://msu-images.s3.amazonaws.com/logitech_logo-min.png',
-  'https://msu-images.s3.amazonaws.com/lyft-logo-min.png',
   'https://msu-images.s3.amazonaws.com/gfuel-min.png',
-  'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png',
+  'https://msu-images.s3.amazonaws.com/lyft-logo-min.png',
 ];
+
+export const sponsorRowThree = [
+  'https://msu-images.s3.amazonaws.com/google+(1)-min.png',
+  'https://msu-images.s3.amazonaws.com/atalakit-min.png'
+]
+
+export const sponsorRowFour = [
+  'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png'
+]
 
 export const FAQs = [
   {

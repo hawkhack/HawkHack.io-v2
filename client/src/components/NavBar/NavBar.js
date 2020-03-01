@@ -66,7 +66,7 @@ const NavBar = ({ route }) => {
                       className={classes.navLink}
                     >
                       <Button color="inherit" className={log}>
-                      Login
+                        Login
                       </Button>
                     </NavLink>
                     <NavLink

@@ -32,7 +32,6 @@ const RealDashboard = () => {
 
   const handleButtonClick = async () => {
     try {
-
       setValues({
         ...values,
         sendVerify: false,
@@ -182,7 +181,7 @@ const RealDashboard = () => {
                     <Typography align="center" style={{ fontWeight: 300 }} variant="body1">
                       {user.profile.status && user.profile.status !== "Email not verified" ? 
                         GetStatus(user.profile.status) 
-                      : "The application will open once your email is verified"}
+                      : "Check your inbox (or spam) for a verification email. The application will open once your email is verified"}
                     </Typography>
                   </div>
                 </div>

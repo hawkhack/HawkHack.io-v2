@@ -40,7 +40,8 @@ const ethnicities = [
   'Asian/Pacific Islander', 
   'Hispanic or Latino', 
   'Black or African American', 
-  'White/Caucasian'
+  'White/Caucasian',
+  'Other'
 ];
 
 const Schools = [
@@ -64,7 +65,19 @@ const Schools = [
 
 const useStyles = makeStyles((theme) => ({
   textWrapper: {
-    padding: '20px',
+    "@media (min-width: 276px)": {
+      paddingTop: '20px',
+      paddingBottom: '20px'
+    },
+    "@media (min-width: 576px)": {
+      padding: '10px',
+    },
+    "@media (min-width: 768px)": {
+      padding: '20px',
+    },
+    "@media (min-width: 992px)": {
+      padding: '20px',
+    }
   },
   progress: {
     height: 'auto',
@@ -106,7 +119,19 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   headerWrapper: {
-    padding: "10px 20px"
+    "@media (min-width: 276px)": {
+      paddingTop: '10px',
+      paddingBottom: '10px'
+    },
+    "@media (min-width: 576px)": {
+      padding: "10px 20px"
+    },
+    "@media (min-width: 768px)": {
+      padding: "10px 20px"
+    },
+    "@media (min-width: 992px)": {
+      padding: "10px 20px"
+    }
   },
   header: {
     fontWeight: 300
@@ -804,7 +829,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Emergency Name *"
+              labelText="Emergency Contact Name *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -826,7 +851,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="Emergency Number *"
+              labelText="Emergency Contact Number *"
               formControlProps={{
                 fullWidth: true,
               }}
@@ -855,10 +880,11 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} sm={12} md={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <CustomInput
-              labelText="How did you hear about HawkHack?"
+              labelText="How'd you hear about HawkHack?"
               formControlProps={{
                 fullWidth: true,
               }}
+              shrink
               id="heardFrom"
               inputProps={{
                 type: 'text',
