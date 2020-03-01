@@ -51,14 +51,12 @@ router.post(
       //return any erros with 400 status
       return res.status(400).json(errors);
     }
-    const profileFields = {
-      user: req.user.id,
-      email: req.user.email
-    };
-
+    const profileFields = {};
     for (const field in req.body) {
       profileFields[field] = req.body[field];
     };
+    profileFields.user = req.user.id;
+    profileFields.email = rqe.user.email;
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
@@ -77,7 +75,7 @@ router.post(
         }
         if (profile.status === "Incomplete" && isComplete && profile.resume) {
           profileFields.status = "Pending";
-          profileFields.statusChangedAt = new Date();
+          profileFields.statusChangedAt = new Date(Date.now());
         }
         //Update Profile
         savedProfile = await Profile.findOneAndUpdate(
@@ -89,8 +87,10 @@ router.post(
       } else {
         if (isComplete && profileFields.resume != null) {
           profileFields.status = "Pending";
+          profileFields.statusChangedAt = new Date(Date.now());
         } else {
           profileFields.status = "Incomplete";
+          profileFields.statusChangedAt = new Date(Date.now());
         }
         const savedProfile = await new Profile(profileFields).save();
         return res.status(200).json(savedProfile);
@@ -101,27 +101,6 @@ router.post(
     }
   })
 );
-
-//  @route  GET api/p/:user_id
-//  @desc   Get user profile by id
-//  @access Private
-router.get("/:user_id", (req, res) => {
-  const errors = {};
-  if (req.user.role != "Director" || req.user.role != "Administrator") {
-    errors.forbidden = "invalid access";
-    return res.status(401).json(errors);
-  }
-  Profile.findOne({ user: req.params.user_id })
-    .populate("user", ["name"])
-    .then(profile => {
-      if (!profile) {
-        errors.noprofile = "There is no profile for this user";
-        res.status(404).json(errors);
-      }
-      res.json(profile);
-    })
-    .catch(err => res.status(404).json({ profile: "There is no profile for this user" }));
-});
 
 //  @route  DELETE api/p/
 //  @desc   Delete user and profile

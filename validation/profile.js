@@ -33,6 +33,11 @@ module.exports = function validateProfileInput(data) {
       errors.lastName = "Last Name needs to be between 2 and 20 characters";
     }
   }
+  if (!isEmpty(data.dateOfBirth)) {
+    const now = new Date().getFullYear();
+    if (now - new Date(data.dateOfBirth).getFullYear() < 13) errors.dateOfBirth = 'Must be older than 13 years of age';
+  }
+
   if (!isEmpty(data.ethnicity)) {
     if (!Validator.isLength(data.ethnicity, { min: 2, max: 50 })) {
       errors.ethnicity = "Ethnicity needs to be between 2 and 50 characters";
