@@ -7,6 +7,7 @@ import { sponsorsRowTwo } from '../../defaults';
 const Sponsors = ({ ...props }) => {
   const { classes } = props;
 
+
   return (
     <div className={classes.wholeWrapper}>
       <div className={classes.title}>
@@ -22,7 +23,9 @@ const Sponsors = ({ ...props }) => {
       >
         <Grid item xs={12} sm={8} md={5}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.jpg" alt="google" />
+            <a href="http://www.montclair.edu">
+              <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.jpg" alt="google" />
+            </a>
           </div>
         </Grid>
         <Grid item>
@@ -33,10 +36,13 @@ const Sponsors = ({ ...props }) => {
               justify="center"
               alignItems="center"
             >
+              {/* SPONSOR LOGOS */}
               {sponsorsRowTwo.map((url) => (
-                <Grid key={url} item xs={12} sm={8} md={3}>
+                <Grid key={url.image_url} item xs={12} sm={8} md={3}>
                   <div className={classes.imgWrapper}>
-                    <img className={classes.img} src={url} alt="logitech" />
+                    <a href={url.sponsor_url}>
+                      <img className={classes.img} src={url.image_url} alt="logitech" />
+                    </a>
                   </div>
                 </Grid>
               ))}
