@@ -4,7 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 import { NavLink } from 'react-router-dom';
 import navbarStyles from '../../assets/jss/navbarStyles';
@@ -27,7 +26,6 @@ const NavBar = ({ route }) => {
   }, []);
 
   const routes = (rt) => {
-    const hh = top ? classes.navBarText : classes.navbarScrolled;
     const log = top ? classes.buttonTop : classes.buttonNotTop;
 
     switch (rt) {
@@ -53,20 +51,11 @@ const NavBar = ({ route }) => {
         return (
           <>
             <Grid item>
-              {!top
-            && (
-            <div>
-              <Typography
-                color="secondary"
-                className={hh}
-                variant="h5"
-              >
-                <div style={{ padding: 5 }}>
+              {!top && (
+                <div style={{ padding: 20 }}>
                   <img style={{ width: "50px", height: "auto" }} alt={"our logo"} src="https://msu-images.s3.amazonaws.com/logo-min.png" />
                 </div>
-              </Typography>
-            </div>
-            )}
+              )}
             </Grid>
             <Grid item>
               <Grid container direction="row">
@@ -77,7 +66,7 @@ const NavBar = ({ route }) => {
                       className={classes.navLink}
                     >
                       <Button color="inherit" className={log}>
-                      Login
+                        Login
                       </Button>
                     </NavLink>
                     <NavLink

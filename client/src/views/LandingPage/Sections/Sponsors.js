@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import sponsorStyles from '../../../assets/jss/sponsorStyles';
 
-import { sponsorsRowTwo } from '../../../defaults';
+import { sponsorsRowTwo, sponsorRowFour } from '../../../defaults';
 
 const Sponsors = ({ ...props }) => {
   const { classes } = props;
@@ -43,8 +43,29 @@ const Sponsors = ({ ...props }) => {
             </Grid>
           </div>
         </Grid>
-        <Grid item xs={12} sm={8} md={4}>
-          <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google+(1)-min.png" alt="google" />
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={12} sm={8} md={4}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google+(1)-min.png" alt="google" />
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={8} md={4}>
+              <div className={classes.imgWrapper}>
+                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/atalakit-min.png" alt="google" />
+              </div>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} sm={4} md={2}>
+          <div className={classes.wrapper}>
+            <img className={classes.img} src={sponsorRowFour[0]} alt="google" />
+          </div>
         </Grid>
       </Grid>
     </div>

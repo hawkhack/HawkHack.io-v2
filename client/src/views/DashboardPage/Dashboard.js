@@ -40,7 +40,7 @@ const Dashboard = ({ ...props }) => {
           direction="column"
           justify="flex-start"
           alignItems="center"
-          style={{ height: '100%' }}
+          style={{ height: '90vh' }}
         >
           <Grid item>
             <div>

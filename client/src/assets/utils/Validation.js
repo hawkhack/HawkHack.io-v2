@@ -78,6 +78,11 @@ const validateUpdateForm = (app) => {
 
   if (checkLength(app.phoneNumber)) errors.phoneNumber = 'Invalid Phone Number';
   if (!app.dateOfBirth || checkLength(app.dateOfBirth)) errors.dateOfBirth = 'Invalid Date of Birth';
+
+  const currYear = new Date().getFullYear()
+  const birthYear = new Date(app.dateOfBirth).getFullYear()
+
+  if (currYear - birthYear < 13 ) errors.dateOfBirth = 'Must be older than 13 years of age';
   if (checkLength(app.gender)) errors.gender = 'Invalid Gender';
 
   if (checkLength(app.shirtSize)) errors.shirtSize = 'Invalid Shirt Size';
@@ -99,7 +104,10 @@ const validateUpdateForm = (app) => {
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
   if (checkLength(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
 
-  if (!app.agreeToTerms) errors.agreeToTerms = "Must agree to terms and conditions"
+  if (app.resume.size && app.resume.size > 1024 * 1024 * 2) errors.resume = 'File too large'; 
+
+  if (!app.agreeToTerms) errors.agreeToTerms = "Must agree to Terms and Conditions";
+  if (!app.agreeCode) errors.agreeCode = "Must agree to Code of Conduct";
 
   return errors;
 };

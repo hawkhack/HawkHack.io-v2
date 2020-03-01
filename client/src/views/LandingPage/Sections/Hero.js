@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { ScrollDownIndicator } from 'react-landing-page';
 import { NavLink } from 'react-router-dom';
 import { defaults } from '../../../defaults';
+import { UserContext } from '../../../context/store';
 
 import heroStyles from '../../../assets/jss/heroStyles';
 
 const Hero = () => {
+  // eslint-disable-next-line
+  const [{ user }, handleUser] = useContext(UserContext)
   const classes = heroStyles();
   return (
     <>
@@ -53,11 +55,11 @@ const Hero = () => {
             <Grid item>
               <div className={classes.wrapper}>
                 <NavLink
-                  to={localStorage.getItem('cool-jwt') ? 'dashboard' : 'register'}
+                  to={user.loggedIn ? 'dashboard' : 'register'}
                   className={classes.navLink}
                 >
                   <Button variant="contained" color="primary" size="large" className={classes.Button}>
-                    Register
+                    {user.loggedIn ? 'Dashboard' : 'Register'}
                   </Button>
                 </NavLink>
               </div>
@@ -65,7 +67,6 @@ const Hero = () => {
           </Grid>
         </Grid>
       </Grid>
-      <ScrollDownIndicator />
     </>
   );
 };

@@ -11,14 +11,14 @@ const theme = createMuiTheme({
     }
   },
   overrides: {
-      MuiInput: {
-        underline: {
-          "&&&&:hover:before": {
-            borderBottom: "1px solid rgba(0, 0, 0, 0.42)"
-          }
+    MuiInput: {
+      underline: {
+        "&&&&:hover:before": {
+          borderBottom: "1px solid rgba(0, 0, 0, 0.42)"
         }
       }
     }
+  }
 });
 
 export default theme;

@@ -32,7 +32,6 @@ const RealDashboard = () => {
 
   const handleButtonClick = async () => {
     try {
-
       setValues({
         ...values,
         sendVerify: false,
@@ -114,7 +113,163 @@ const RealDashboard = () => {
     </Grid>
   );
 
+  const Application = ({ classes }) => (
+    <>
+      <Grid item xs={12}>
+        <div className={classes.wrapper}>
+          <Typography color="primary" align="center" className={classes.status}>
+            {user.profile.firstName && user.profile.lastName ? 
+              `Welcome back, 
+                ${user.profile.firstName.charAt(0).toUpperCase() + user.profile.firstName.substring(1)}` 
+                : "Welcome"}
+          </Typography>
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.container}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.gridContainer}
+          >
+            <Grid item xs={12} className={classes.gridItem}>
+              <div className={classes.card}>
+                <div className={classes.cardHeader}>
+                  <Typography
+                    variant="h4"
+                    align="center"
+                    color="secondary"
+                    className={classes.loginText}
+                  >
+                    Status
+                  </Typography>
+                </div>
+                <div className={classes.cardBody}>
+                  <div className={classes.wrapper}>
+                    <Typography align="center" variant="h4" className={classes.appStatus}>
+                      <span className={classes.status}>
+                        {' '}
+                        {user.profile.status ? user.profile.status : ""}
+                        {' '}
+                      </span>
+                    </Typography>
+                  </div>
+                  {user.profile.status && user.profile.status === "Email not verified" &&
+                    <div style={{ padding: 5 }}>
+                      <Typography align="center">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={buttonClassname}
+                          disabled={values.loading}
+                          onClick={handleButtonClick}
+                        >
+                          {values.sendVerify ? "Sent!" : "Resend Email"}
+                          {values.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                        </Button>
+                      </Typography>
+                    </div>
+                  }
+                  {values.errors &&
+                    <Typography color="primary" align="center" variant="body1">
+                      {values.errors}
+                    </Typography>
+                  }
+                  <div className={classes.wrapper}>
+                    <Typography align="center" style={{ fontWeight: 300 }} variant="body1">
+                      {user.profile.status && user.profile.status !== "Email not verified" ? 
+                        GetStatus(user.profile.status) 
+                      : "Check your inbox (or spam) for a verification email. The application will open once your email is verified"}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.container}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            className={classes.gridContainer}
+          >
+            <Grid item xs={12} className={classes.gridItem}>
+              <div className={classes.card}>
+                <div className={classes.cardHeader}>
+                  <Typography
+                    variant="h4"
+                    align="center"
+                    color="secondary"
+                    className={classes.loginText}
+                  >
+                    Application
+                  </Typography>
+                </div>
+                <div className={classes.cardBody}>
+                  {user.email ? (
+                    <ApplicationUpdateForm
+                      user={user}
+                      status={user.profile.status && user.profile.status === "Email not verified"}
+                      handleUser={handleUser}
+                      submitApplication={submitApplication}
+                      formErrors={values.formErrors}
+                    />
+                  ) : <Loading />}
+                </div>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+      </Grid>
+    </>
+  )
+
   const checkIn = defaults.openCheckIn ? <CheckIn classes={classes} /> : null;
+  const application = defaults.openApplications ? <Application classes={classes} /> : (
+    <Grid item xs={12}>
+      <div className={classes.container}>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.gridContainer}
+        >
+          <Grid item xs={12} className={classes.gridItem}>
+            <div className={classes.card}>
+              <div className={classes.cardHeader}>
+                <Typography
+                  variant="h4"
+                  align="center"
+                  color="secondary"
+                  className={classes.loginText}
+                >
+                  Application
+                </Typography>
+              </div>
+              <div className={classes.cardBody}>
+                <Typography
+                  variant="h5"
+                  align="center"
+                  color="primary"
+                  className={classes.loginText}
+                >
+                  The application isn't open yet, but we'll notify you when it is.
+                </Typography>
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+    </Grid>
+  );
+
   return (
     <>
       <Grid
@@ -123,119 +278,9 @@ const RealDashboard = () => {
         alignItems="center"
         className={classes.dash}
       >
-        <Grid item xs={12} style={{  }}>
-          <div className={classes.wrapper}>
-            <Typography color="primary" align="center" className={classes.status}>
-              {user.profile.firstName && user.profile.lastName ? 
-                `Welcome back, 
-                  ${user.profile.firstName.charAt(0).toUpperCase() + user.profile.firstName.substring(1)}` 
-                  : "Welcome"}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div className={classes.container}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              className={classes.gridContainer}
-            >
-              <Grid item xs={12} className={classes.gridItem}>
-                <div className={classes.card}>
-                  <div className={classes.cardHeader}>
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      color="secondary"
-                      className={classes.loginText}
-                    >
-                      Status
-                    </Typography>
-                  </div>
-                  <div className={classes.cardBody}>
-                    <div className={classes.wrapper}>
-                      <Typography align="center" variant="h4" className={classes.appStatus}>
-                        <span className={classes.status}>
-                          {' '}
-                          {user.profile.status ? user.profile.status : ""}
-                          {' '}
-                        </span>
-                      </Typography>
-                    </div>
-                    {user.profile.status && user.profile.status === "Email not verified" &&
-                      <div style={{ padding: 5 }}>
-                        <Typography align="center">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={buttonClassname}
-                            disabled={values.loading}
-                            onClick={handleButtonClick}
-                          >
-                            {values.sendVerify ? "Sent!" : "Resend Email"}
-                            {values.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-                          </Button>
-                        </Typography>
-                      </div>
-                    }
-                    {values.errors &&
-                      <Typography color="primary" align="center" variant="body1">
-                        {values.errors}
-                      </Typography>
-                    }
-                    <div className={classes.wrapper}>
-                      <Typography align="center" style={{ fontWeight: 300 }} variant="body1">
-                        {user.profile.status && user.profile.status !== "Email not verified" ? 
-                          GetStatus(user.profile.status) 
-                        : "The application will open once your email is verified"}
-                      </Typography>
-                    </div>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </div>
-        </Grid>
+
         {checkIn}
-        <Grid item xs={12}>
-          <div className={classes.container}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              className={classes.gridContainer}
-            >
-              <Grid item xs={12} className={classes.gridItem}>
-                <div className={classes.card}>
-                  <div className={classes.cardHeader}>
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      color="secondary"
-                      className={classes.loginText}
-                    >
-                      Application
-                    </Typography>
-                  </div>
-                  <div className={classes.cardBody}>
-                    {user.email ? (
-                      <ApplicationUpdateForm
-                        user={user}
-                        status={user.profile.status && user.profile.status === "Email not verified"}
-                        handleUser={handleUser}
-                        submitApplication={submitApplication}
-                        formErrors={values.formErrors}
-                      />
-                    ) : <Loading />}
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </div>
-        </Grid>
+        {application}
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={values.success}
