@@ -32,7 +32,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Majors from '../Majors'
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
-import { termsOfService } from '../../../../defaults';
+import { termsOfService, codeOfConduct } from '../../../../defaults';
 
 const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
 const ethnicities = [
@@ -144,10 +144,13 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     specialNeeds: user.profile.specialNeeds ? user.profile.specialNeeds : '',
     emergencyName: user.profile.emergencyName ? user.profile.emergencyName : '',
     emergencyNumber: user.profile.emergencyNumber ? user.profile.emergencyNumber : '',
+    heardFrom: user.profile.heardFrom ? user.profile.heardFrom : '',
     resume: user.profile.resume ? user.profile.resume : { name: 'Upload Resume' },
     otherSchool: user.profile.school,
     agreeToTerms: user.profile.firstName,
+    agreeCode: user.profile.firstName,
     termsDialog: false,
+    codeDialog: false,
     errors: {},
     loading: false,
     updateApp: false,
@@ -207,6 +210,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     setValues({ ...values, termsDialog: !values.termsDialog })
   }
 
+  const handleCodeDialog = () => {
+    setValues({ ...values, codeDialog: !values.codeDialog })
+  }
+
   const handleDelete = chipToDelete => () => {
     let newMajors = values.major.filter(chips => chips !== chipToDelete);
     if (newMajors.length === 0) newMajors = []
@@ -239,7 +246,6 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
       };
 
       const data = new FormData();
-      data.append('resume', profile.resume);
       data.append('email', profile.email);
       data.append('status', profile.status);
       data.append('firstName', profile.firstName);
@@ -260,8 +266,11 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
       data.append('specialNeeds', profile.specialNeeds);
       data.append('emergencyName', profile.emergencyName);
       data.append('emergencyNumber', profile.emergencyNumber);
+      data.append('heardFrom', profile.heardFrom);
 
-      console.log(values)
+      if (profile.resume.size) {
+        data.append('resume', profile.resume);
+      }
 
       await props.submitApplication(data);
 
@@ -275,9 +284,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     } catch (err) {
       handleErrors(err);
     }
-
   };
-
 
   const classes = useStyles();
   return (
@@ -309,7 +316,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           <Grid item xs={12} className={classes.gridItem}>
             <div className={classes.textWrapper}>  
               <Typography align="center">
-                <Fab onClick={values.status !== "Email not verified" ? handleState('disableAll') : null} color="primary">
+                <Fab disabled={!values.disableAll} onClick={values.status !== "Email not verified" ? handleState('disableAll') : null} color="primary">
                   <EditIcon />
                 </Fab>
               </Typography>
@@ -336,7 +343,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             <Grid item xs sm={3} className={classes.gridItem}>
               <div className={classes.textWrapper}>  
                 <Typography align="right">
-                  <Fab onClick={handleState('disableAll')}  color="primary">
+                  <Fab disabled={!values.disableAll} onClick={handleState('disableAll')}  color="primary">
                     <EditIcon />
                   </Fab>
                 </Typography>
@@ -356,7 +363,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               inputProps={{
                 type: 'text',
                 value: values.firstName,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 error: !!values.errors.firstName,
                 onChange: handleState('firstName'),
               }}
@@ -379,7 +386,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 error: !!values.errors.lastName,
                 value: values.lastName,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 onChange: handleState('lastName'),
               }}
             />
@@ -433,7 +440,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'tel',
                 value: normalizeInput(values.phoneNumber),
                 error: !!values.errors.phoneNumber,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 onChange: handleState('phoneNumber'),
               }}
             />
@@ -449,7 +456,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 format="MM/dd/yyyy"
                 id="dateOfBirth"
                 fullWidth
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 error={!!values.errors.dateOfBirth}
                 label="Date of Birth *"
                 value={values.dateOfBirth}
@@ -471,7 +478,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 fullWidth
                 error={!!values.errors.gender}
                 value={values.gender}
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 onChange={handleState('gender')}
               >
                 <option value="" disabled></option>
@@ -493,7 +500,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               <Select
                 native
                 id="shirtSize"
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 fullWidth
                 error={!!values.errors.shirtSize}
                 value={values.shirtSize}
@@ -521,7 +528,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               <Select
                 native
                 id="ethnicity"
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 fullWidth
                 error={!!values.errors.ethnicity}
                 value={values.ethnicity}
@@ -551,7 +558,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('github'),
                 value: values.github,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 error: !!values.errors.github,
               }}
             />
@@ -573,7 +580,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('linkedin'),
                 value: values.linkedin,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 error: !!values.errors.linkedin,
               }}
             />
@@ -595,7 +602,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('website'),
                 value: values.website,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 error: !!values.errors.website,
               }}
             />
@@ -618,7 +625,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               <Select
                 native
                 id="School"
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 fullWidth
                 error={!!values.errors.school}
                 value={values.school}
@@ -650,7 +657,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                     type: 'text',
                     onChange: handleState('otherSchool'),
                     value: values.otherSchool,
-                    disabled: values.loading || values.disableAll,
+                    disabled: !!values.loading || !!values.disableAll,
                   }}
                 />
                 {values.errors.otherSchool
@@ -667,7 +674,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               <Select
                 native
                 id="graduationYear"
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 fullWidth
                 error={!!values.errors.graduationYear}
                 value={values.graduationYear}
@@ -691,7 +698,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               <Select
                 native
                 id="levelOfStudy"
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 fullWidth
                 error={!!values.errors.levelOfStudy}
                 value={values.levelOfStudy}
@@ -713,12 +720,14 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             <FormControl fullWidth className={classes.formControl}>
               <InputLabel id="major">Major</InputLabel>
               <Select
-                id="demo-mutiple-chip"
                 multiple
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
                 value={values.major}
+                MenuProps={{
+                  style: { maxHeight: "450px"}
+                }}
                 onChange={handleState('major')}
-                input={<Input disabled={values.loading || values.disableAll} id="select-multiple-chip" />}
+                input={<Input disabled={!!values.loading || !!values.disableAll} id="select-multiple-chip" />}
                 renderValue={selected => (
                   <div className={classes.chips}>
                     {selected.map(value => (
@@ -767,7 +776,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('dietaryRestrictions'),
                 value: values.dietaryRestrictions,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
               }}
             />
           </div>
@@ -784,7 +793,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('specialNeeds'),
                 value: values.specialNeeds,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
               }}
             />
           </div>
@@ -802,7 +811,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'text',
                 onChange: handleState('emergencyName'),
                 error: !!values.errors.emergencyName,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 value: values.emergencyName,
               }}
             />
@@ -824,13 +833,37 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 type: 'tel',
                 value: normalizeInput(values.emergencyNumber),
                 error: !!values.errors.emergencyNumber,
-                disabled: values.loading || values.disableAll,
+                disabled: !!values.loading || !!values.disableAll,
                 onChange: handleState('emergencyNumber'),
               }}
             />
             {values.errors.emergencyNumber
               ? <FormHelperText error>{values.errors.emergencyNumber}</FormHelperText>
               : null}
+          </div>
+        </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <Typography color="primary" className={classes.header} variant="h4">
+              Survey
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} className={classes.gridItem}>
+          <div className={classes.textWrapper}>
+            <CustomInput
+              labelText="How'd you hear about Hawkhack"
+              formControlProps={{
+                fullWidth: true,
+              }}
+              id="heardFrom"
+              inputProps={{
+                type: 'text',
+                value: values.heardFrom,
+                disabled: !!values.loading || !!values.disableAll,
+                onChange: handleState('heardFrom'),
+              }}
+            />
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
@@ -847,7 +880,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               style={{ display: 'none' }}
               id="contained-button-file"
               multiple
-              disabled={values.loading || values.disableAll}
+              disabled={!!values.loading || !!values.disableAll}
               type="file"
               onChange={handleFileUpload()}
             />
@@ -857,7 +890,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 component="span" 
                 variant="outlined"
                 style={{ padding: 10, height: '100%', width: '100%' }}
-                disabled={values.loading || values.disableAll}
+                disabled={!!values.loading || !!values.disableAll}
               >
                 {values.resume ? values.resume.name : "Upload Resume"}
               </Button>
@@ -881,7 +914,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 control={
                   <Checkbox 
                     checked={!!values.agreeToTerms} 
-                    disabled={values.loading || values.disableAll}
+                    disabled={!!values.loading || !!values.disableAll}
                     onClick={handleTermsChange('agreeToTerms')} 
                     color="primary" />
                 }
@@ -901,12 +934,41 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               : null}
           </div>
         </Grid>
+        <Grid item xs={12} className={classes.gridItem}>
+          <div className={classes.buttonWrapper}>
+            <FormGroup aria-label="position" row>
+              <FormControlLabel
+                value="end"
+                error={values.errors.agreeCode}
+                control={
+                  <Checkbox 
+                    checked={!!values.agreeCode} 
+                    disabled={!!values.loading || !!values.disableAll}
+                    onClick={handleTermsChange('agreeCode')} 
+                    color="primary" />
+                }
+                label={
+                  <div>
+                    I agree to {' '}
+                    <label>
+                      <span className={classes.terms} onClick={handleCodeDialog}>Code of Conduct</span>
+                    </label>
+                  </div>
+                }
+                labelPlacement="end"
+              />
+            </FormGroup>
+            {values.errors.agreeCode
+              ? <FormHelperText error>{values.errors.agreeCode}</FormHelperText>
+              : null}
+          </div>
+        </Grid>
         <Grid item xs={12} style={{ marginBottom: "30px" }} className={classes.gridItem}>
           <div className={classes.buttonWrapper}>
             <Button
               variant="contained"
               color="primary"
-              disabled={values.loading || values.disableAll}
+              disabled={!!values.loading || !!values.disableAll}
               style={{ padding: 10, height: '100%', width: '100%' }}
               type="submit"
               onClick={submit}
@@ -916,11 +978,16 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </div>
         </Grid>
       </Grid>
-      <Dialog onClose={handleDialog} aria-labelledby="customized-dialog-title" open={values.termsDialog}>
-         <DialogTitle id="customized-dialog-title" onClose={handleDialog}>
-           {termsOfService()}
-         </DialogTitle>
-       </Dialog>
+      <Dialog onClose={handleDialog} open={values.termsDialog}>
+        <DialogTitle onClose={handleDialog}>
+          {termsOfService()}
+        </DialogTitle>
+      </Dialog>
+      <Dialog onClose={handleCodeDialog} open={values.codeDialog}>
+        <DialogTitle onClose={handleCodeDialog}>
+          {codeOfConduct()}
+        </DialogTitle>
+      </Dialog>
     </>
   );
 };
