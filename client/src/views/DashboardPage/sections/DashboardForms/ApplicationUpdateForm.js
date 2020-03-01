@@ -1006,6 +1006,11 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             >
               {"Update"}
             </Button>
+            {Object.keys(values.errors).length !== 0 && 
+              <div style={{ padding: 10 }}>
+                <Typography color="primary" align="center" variant="body1">{"Fix the errors above to update"}</Typography>
+              </div>
+            }
           </div>
         </Grid>
       </Grid>
