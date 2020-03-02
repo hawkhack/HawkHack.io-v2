@@ -7,7 +7,8 @@
     "server": "cross-env NODE_ENV=development nodemon server",
     "start": "cross-env NODE_ENV=production node server",
     "dev": "concurrently \"npm start\" \"cd client && npm start\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "send-opening-email": "cd scripts && cross-env NODE_ENV=development node sendOpening"
   },
   "repository": {
     "type": "git",
