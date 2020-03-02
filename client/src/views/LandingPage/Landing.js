@@ -27,7 +27,7 @@ const Landing = () => {
     <>
       <CssBaseline />
       <NavBar
-        route={user.loggedIn ? "user" : "home"}
+        route={user.loggedIn && localStorage.getItem('cool-jwt') ? "user" : "home"}
       />
       <Parallax filter image={image}>
         <div className={classes.container}>

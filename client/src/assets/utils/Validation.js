@@ -102,6 +102,7 @@ const validateUpdateForm = (app) => {
   if (checkLength(app.graduationYear)) errors.graduationYear = 'Invalid Graduation Year';
 
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
+  if (app.emergencyName.length < 5 || app.emergencyName.length > 20) errors.emergencyName = 'Must be between 5 and 20 characters';
   if (checkLength(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
 
   if (app.resume.size && app.resume.size > 1024 * 1024 * 2) errors.resume = 'File too large'; 
