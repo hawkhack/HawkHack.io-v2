@@ -56,7 +56,7 @@ router.post(
       profileFields[field] = req.body[field];
     };
     profileFields.user = req.user.id;
-    profileFields.email = rqe.user.email;
+    profileFields.email = req.user.email;
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
