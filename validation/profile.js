@@ -34,8 +34,13 @@ module.exports = function validateProfileInput(data) {
     }
   }
   if (!isEmpty(data.dateOfBirth)) {
-    const now = new Date().getFullYear();
-    if (now - new Date(data.dateOfBirth).getFullYear() < 13) errors.dateOfBirth = 'Must be older than 13 years of age';
+    try {
+      const now = new Date().getFullYear();
+      if (now - new Date(data.dateOfBirth).getFullYear() < 13)
+        errors.dateOfBirth = "Must be older than 13 years of age";
+    } catch (err) {
+      error.dateOfBirth = "Invalid date";
+    }
   }
 
   if (!isEmpty(data.ethnicity)) {

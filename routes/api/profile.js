@@ -54,7 +54,7 @@ router.post(
     const profileFields = {};
     for (const field in req.body) {
       profileFields[field] = req.body[field];
-    };
+    }
     profileFields.user = req.user.id;
     profileFields.email = req.user.email;
 
@@ -71,6 +71,7 @@ router.post(
 
       if (profile) {
         if (profileFields.resume && profile.resume) {
+          console.log(profile);
           deleteResume(profile.resume.key);
         }
         if (profile.status === "Incomplete" && isComplete && profile.resume) {
