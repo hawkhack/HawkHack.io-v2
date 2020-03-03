@@ -1,45 +1,37 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
-const randtoken = require("rand-token");
-const uid = randtoken.uid;
-const { secretOrKey, usersMailingList } = require("../../config/keys");
-const mailgun = require("../../config/mailgun");
-const getDefaults = require("../../config/defaults");
-const verify = require("../../middleware/verifyActive");
-const wrap = require("../../middleware/asyncWrapper");
-const mailbody = require("../../config/mailbody");
+const express = require("express"),
+  router = express.Router(),
+  bcrypt = require("bcryptjs"),
+  jwt = require("jsonwebtoken"),
+  passport = require("passport"),
+  randtoken = require("rand-token"),
+  uid = randtoken.uid,
+  { secretOrKey } = require("../../config/keys"),
+  mailgun = require("../../config/mailgun"),
+  getDefaults = require("../../utils/defaults"),
+  verify = require("../../middleware/verifyActive"),
+  wrap = require("../../middleware/asyncWrapper"),
+  mailbody = require("../../utils/mailbody");
 
 //Load user model
-const User = require("../../models/User");
-const Profile = require("../../models/Profile");
+const User = require("../../models/User"),
+  Profile = require("../../models/Profile");
 
 //Load Input Validation
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
-const validateResetPassword = require("../../validation/resetpw");
-
+const validateRegisterInput = require("../../validation/register"),
+  validateLoginInput = require("../../validation/login"),
+  validateResetPassword = require("../../validation/resetpw");
 
 //  @route  GET api/u/test
 //  @desc   Test users route
 //  @access Public
-router.get("/test/:email", (req, res) => {
-  
+router.get("/test", (req, res) => {});
+
+//  @route  GET api/u/test
+//  @desc   Test users route
+//  @access Public
+router.get("/testp", passport.authenticate("jwt", { session: false }), verify(), (req, res) => {
+  res.json({ msg: "Users Works" });
 });
-
-//  @route  GET api/u/test
-//  @desc   Test users route
-//  @access Public
-router.get(
-  "/testp",
-  passport.authenticate("jwt", { session: false }),
-  verify(),
-  (req, res) => {
-    res.json({ msg: "Users Works" });
-  }
-);
 
 //  @route  GET api/u/
 //  @desc   Return current user
@@ -47,22 +39,24 @@ router.get(
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  wrap(async(req, res) => {
-    try{
+  wrap(async (req, res) => {
+    try {
       const data = {
         email: req.user.email,
         isVerified: req.user.verified,
         role: req.user.role,
         date: req.user.date
+      };
+      const profile = await Profile.findOne({ email: req.user.email });
+      if (profile) {
+        data.profile = profile;
       }
-      const profile = await Profile.findOne({email:req.user.email});
-      if(profile) data.profile = profile;
       return res.json(data);
-    }catch(err){
+    } catch (err) {
       return res.status(400).json(err);
     }
-  }
-));
+  })
+);
 
 //  @route  POST api/u/register
 //  @desc   register user
@@ -114,17 +108,12 @@ router.post("/register", (req, res) => {
                 email: user.email
               };
               //Sign Token
-              jwt.sign(
-                payload,
-                secretOrKey,
-                { expiresIn: 3600 },
-                (err, token) => {
-                  return res.status(200).json({
-                    success: true,
-                    token: "Bearer " + token
-                  });
-                }
-              );
+              jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                return res.status(200).json({
+                  success: true,
+                  token: "Bearer " + token
+                });
+              });
             })
             .catch(err => console.log(err));
         });
@@ -144,9 +133,7 @@ router.get(
     if (req.user.verified) {
       return res.status(400).json("user already verified");
     }
-    const user = await User.findById(req.user.id).select(
-      "verificationToken email"
-    );
+    const user = await User.findById(req.user.id).select("verificationToken email");
     const data = mailbody.confirmEmail(user.email, user.verificationToken);
     mailgun.messages().send(data, (err, body) => {
       if (err) {
@@ -209,35 +196,30 @@ router.post("/login", (req, res) => {
 //  @route  POST api/u/changepw
 //  @desc   Change user password
 //  @access Private
-router.post(
-  "/changepw",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    var errors = {};
-    var { newpw } = req.body;
-    User.findOne({ email: req.user.email }).then(user => {
-      if (!user) {
-        errors.nouser = "user not found";
-        return res.status(500).json(errors);
-      }
-      bcrypt.genSalt(13, (err, salt) => {
-        bcrypt.hash(newpw, salt, (err, hash) => {
-          if (err) throw err;
-          if (user.password == hash) {
-            errors.samepassword =
-              "The password needs to be different than your current";
-            return res.status(412).json(errors);
-          }
-          user.password = hash;
-          user
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
+router.post("/changepw", passport.authenticate("jwt", { session: false }), (req, res) => {
+  var errors = {};
+  var { newpw } = req.body;
+  User.findOne({ email: req.user.email }).then(user => {
+    if (!user) {
+      errors.nouser = "user not found";
+      return res.status(500).json(errors);
+    }
+    bcrypt.genSalt(13, (err, salt) => {
+      bcrypt.hash(newpw, salt, (err, hash) => {
+        if (err) throw err;
+        if (user.password == hash) {
+          errors.samepassword = "The password needs to be different than your current";
+          return res.status(412).json(errors);
+        }
+        user.password = hash;
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
       });
     });
-  }
-);
+  });
+});
 
 //  @route  GET api/u/resetpw/:email
 //  @desc   Send password reset token
@@ -254,7 +236,7 @@ router.get("/resetpw/:email", (req, res) => {
     }
     const token = uid(64);
     user.passwordResetToken = token;
-    
+
     user.save().then(() => {
       //send password reset link to email
       const data = mailbody.reset(user.email, token);
@@ -315,7 +297,6 @@ router.post("/resetpw/:token", (req, res) => {
 });
 
 router.get("/verify/:token", (req, res) => {
-  console.log("i'm trying");
   //get token from parameters
   const token = req.params.token;
   //find user with this token
@@ -335,9 +316,6 @@ router.get("/verify/:token", (req, res) => {
           subscribed: true,
           address: user.email
         };
-        console.log("user", user);
-        console.log("mailing list", process.env.UsersMailingList);
-        console.log("member", member);
         mailgun
           .lists(process.env.UsersMailingList)
           .members()

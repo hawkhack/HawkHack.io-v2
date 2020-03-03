@@ -9,14 +9,7 @@ const ProfileSchema = new Schema({
   },
   status: {
     type: String,
-    enum: [
-      "Incomplete",
-      "Registered",
-      "Waitlisted",
-      "Accepted",
-      "Confirmed",
-      "Denied"
-    ],
+    enum: ["Incomplete", "Pending", "Waitlisted", "Accepted", "Confirmed", "Denied"],
     default: "Incomplete"
   },
   statusChangedAt: {
@@ -44,17 +37,27 @@ const ProfileSchema = new Schema({
   dateOfBirth: {
     type: Date
   },
+  resume: {
+    name: {
+      type: String
+    },
+    key: {
+      type: String
+    }
+  },
   shirtSize: {
     type: String,
-    enum: ["XXS", "XS", "S", "M", "L", "XL", "XXL"]
+    enum: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "Not set"],
+    default: "Not set"
   },
   gender: {
     type: String,
-    enum: ["Male", "Female", "Other", "Prefer not to say"]
+    enum: ["Male", "Female", "Other", "Prefer not to say", "Not set"],
+    default: "Not set"
   },
   ethnicity: {
     type: String,
-    max: 20
+    max: 50
   },
   github: {
     type: String
@@ -75,12 +78,10 @@ const ProfileSchema = new Schema({
   },
   levelOfStudy: {
     type: String,
-    enum: ["Undergraduate", "Graduate", "High School"]
+    enum: ["Undergraduate", "Graduate", "High School", "Not set"],
+    default: "Not set"
   },
-  major: {
-    type: String,
-    max: 30
-  },
+  major: [String],
   dietaryRestrictions: {
     type: String,
     default: "None",
@@ -91,15 +92,17 @@ const ProfileSchema = new Schema({
     default: "None",
     max: 200
   },
+  heardFrom: {
+    type: String,
+    max: 50
+  },
   emergencyName: {
     type: String,
-    max: 20,
-    required: true
+    max: 20
   },
   emergencyNumber: {
     type: String,
-    max: 20,
-    required: true
+    max: 20
   },
   date: {
     type: Date,

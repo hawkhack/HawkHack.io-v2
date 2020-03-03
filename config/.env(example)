@@ -1,4 +1,22 @@
-DBURI=XXXXXXXXXXXXX
-PORT=XXXX
-SecretOrKey=XXXXXXXXXXXXX
-MailChimpKey=XXXXXXXXXXXXX
+PORT=5000
+BaseURL=https://example.com
+
+#JWT secret
+SecretOrKey=secretCat
+
+#mongodb uri
+DBURI=mongodb://<dbuser>:<dbpassword>@<DBURL>:<port>/<DBName>
+
+#mailing list to add registered users
+usersMailingList=list@mg.example.com
+
+#maigun api keys
+MAILGUN_KEY=XXXXXXXXXXXXXXXXXXXXXX
+MAILGUN_DOMAIN=mg.example.com
+
+#aws api keys
+AWSAccessKeyID=XXXXXXXXXXXXXXXXXXX
+AWSAccessKey=XXXXXXXXXXXXXXX
+ResumeBucketName=XXXXXXXXXXXX
+
+
