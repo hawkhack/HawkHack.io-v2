@@ -33,13 +33,18 @@ const Sponsors = ({ ...props }) => {
               justify="center"
               alignItems="center"
             >
+            
+              {/* SPONSOR LOGOS */}
               {sponsorsRowTwo.map((url) => (
-                <Grid key={url} item xs={12} sm={8} md={3}>
+                <Grid key={url.image_url} item xs={12} sm={8} md={3}>
                   <div className={classes.imgWrapper}>
-                    <img className={classes.img} src={url} alt="logitech" />
+                    <a href={url.sponsor_url}>
+                      <img className={classes.img} src={url.image_url} alt="logitech" />
+                    </a>
                   </div>
                 </Grid>
               ))}
+
             </Grid>
           </div>
         </Grid>

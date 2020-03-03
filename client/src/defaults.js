@@ -48,9 +48,22 @@ export const sponsorsRowOne = [
 ];
 
 export const sponsorsRowTwo = [
-  'https://msu-images.s3.amazonaws.com/logitech_logo-min.png',
-  'https://msu-images.s3.amazonaws.com/gfuel-min.png',
-  'https://msu-images.s3.amazonaws.com/lyft-logo-min.png',
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/logitech_logo-min.png',
+    sponsor_url: 'https://logitech.com'
+  },
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/lyft-logo-min.png',
+    sponsor_url: 'https://lyft.com'
+  },
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/gfuel-min.png',
+    sponsor_url: 'http://gfuel.com'
+  },
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png',
+    sponsor_url: 'https://monsterenergy.com'
+  }
 ];
 
 export const sponsorRowThree = [
