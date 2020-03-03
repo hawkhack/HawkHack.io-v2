@@ -83,7 +83,7 @@ const Verified = ({ ...props }) => {
               color="primary"
               align="center"
             >
-              If the application is open, login to apply
+              Your application is open! Login to apply
             </Typography>
           </Grid>
           <Grid item>
