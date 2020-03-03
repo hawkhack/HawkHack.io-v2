@@ -256,10 +256,6 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
 
     try {
       handleLoading(true);
-      const errors = validateUpdateForm(values);
-      if (Object.keys(errors).length !== 0) {
-        throw errors;
-      }
 
       let school = values.otherSchool
       if (values.school !== "Other") {
@@ -269,9 +265,14 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
       const profile = {
         ...values,
         school: school,
-        phoneNumber: normalize(values.phoneNumber),
-        emergencyNumber: normalize(values.emergencyNumber),
+        phoneNumber: normalize(values.phoneNumber).substring(0, 10),
+        emergencyNumber: normalize(values.emergencyNumber).substring(0, 10),
       };
+
+      const errors = validateUpdateForm(profile);
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
 
       const data = new FormData();
       data.append('email', profile.email);
@@ -512,7 +513,6 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 <option value="" disabled></option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
-                <option value="Other">Other</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </Select>
               {values.errors.gender

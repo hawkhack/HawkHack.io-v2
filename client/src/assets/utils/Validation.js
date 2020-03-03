@@ -71,9 +71,9 @@ const validateUpdateForm = (app) => {
   const errors = {};
 
   if (checkLength(app.firstName)) errors.firstName = 'Invalid First Name';
-  if (app.firstName.length <= 2 || app.firstName >= 20 ) errors.firstName = 'Must be between 2 and 20 characters';
+  if (app.firstName.length < 2 || app.firstName > 20 ) errors.firstName = 'Must be between 2 and 20 characters';
   if (checkLength(app.lastName)) errors.lastName = 'Invalid Last Name';
-  if (app.lastName.length <= 2 || app.lastName >= 20 ) errors.lastName = 'Must be between 2 and 20 characters';
+  if (app.lastName.length < 2 || app.lastName > 20 ) errors.lastName = 'Must be between 2 and 20 characters';
 
   if (checkLength(app.email)) errors.email = BLANK_EMAIL;
   if (!Validator.isEmail(app.email)) errors.email = INVALID_EMAIL;
@@ -106,6 +106,8 @@ const validateUpdateForm = (app) => {
 
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
   if (app.emergencyName.length < 5 || app.emergencyName.length > 20) errors.emergencyName = 'Must be between 5 and 20 characters';
+
+  console.log(app.emergencyNumber)
   if (!Validator.isMobilePhone(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
 
   if (app.dietaryRestrictions.length !== 0 && (app.dietaryRestrictions.length < 2 || app.dietaryRestrictions.length > 200)) errors.dietaryRestrictions = 'Must be between 2 and 200 characters';
