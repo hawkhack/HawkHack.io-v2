@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import sponsorStyles from '../../../assets/jss/sponsorStyles';
 
-import { sponsorsRowTwo, sponsorRowFour } from '../../../defaults';
+import { sponsorsRowTwo, sponsorsRowThree, sponsorRowFour } from '../../../defaults';
 
 const Sponsors = ({ ...props }) => {
   const { classes } = props;
@@ -14,17 +14,23 @@ const Sponsors = ({ ...props }) => {
           Our Sponsors
         </Typography>
       </div>
+
       <Grid
         container
         direction="column"
         justify="center"
         alignItems="center"
       >
+        {/* ROW 1 */}
         <Grid item xs={12} sm={8} md={5}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.webp" alt="google" />
+            <a href="#">
+              <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.webp" alt="google" />
+            </a>
           </div>
         </Grid>
+
+        {/* ROW 2 */}
         <Grid item>
           <div className={classes.wrapper}>
             <Grid
@@ -34,7 +40,7 @@ const Sponsors = ({ ...props }) => {
               alignItems="center"
             >
             
-              {/* SPONSOR LOGOS */}
+              {/* SPONSOR MAP */}
               {sponsorsRowTwo.map((url) => (
                 <Grid key={url.image_url} item xs={12} sm={8} md={3}>
                   <div className={classes.imgWrapper}>
@@ -48,6 +54,8 @@ const Sponsors = ({ ...props }) => {
             </Grid>
           </div>
         </Grid>
+        
+        {/* ROW 3 */}
         <Grid item>
           <Grid
             container
@@ -57,19 +65,28 @@ const Sponsors = ({ ...props }) => {
           >
             <Grid item xs={12} sm={8} md={4}>
               <div className={classes.imgWrapper}>
-                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/google+(1)-min.png" alt="google" />
+                <a href={sponsorsRowThree[0].sponsor_url}>
+                  <img className={classes.img} src={sponsorsRowThree[0].image_url} alt="google" />
+                </a>
               </div>
             </Grid>
+
             <Grid item xs={12} sm={8} md={4}>
               <div className={classes.imgWrapper}>
-                <img className={classes.img} src="https://msu-images.s3.amazonaws.com/atalakit-min.png" alt="google" />
+                <a href={sponsorsRowThree[1].sponsor_url}>
+                  <img className={classes.img} src={sponsorsRowThree[1].image_url} alt="atalakit" />
+                </a>
               </div>
             </Grid>
           </Grid>
         </Grid>
+
+        {/* ROW 4 */}
         <Grid item xs={12} sm={4} md={2}>
           <div className={classes.wrapper}>
-            <img className={classes.img} src={sponsorRowFour[0]} alt="google" />
+            <a href="https://www.monsterenergy.com/">
+              <img className={classes.img} src={sponsorRowFour[0]} alt="monster" />
+            </a>
           </div>
         </Grid>
       </Grid>

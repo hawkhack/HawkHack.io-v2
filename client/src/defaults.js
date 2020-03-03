@@ -43,10 +43,12 @@ export const dayTwoSchedule = [
   ['Closing Ceremony', '2:15 PM'],
 ];
 
+// SPONSORS ROW 1 //
 export const sponsorsRowOne = [
   'https://msu-images.s3.amazonaws.com/cesac.jpg',
 ];
 
+// SPONSOR ROW 2 //
 export const sponsorsRowTwo = [
   {
     image_url: 'https://msu-images.s3.amazonaws.com/logitech_logo-min.png',
@@ -59,18 +61,23 @@ export const sponsorsRowTwo = [
   {
     image_url: 'https://msu-images.s3.amazonaws.com/gfuel-min.png',
     sponsor_url: 'http://gfuel.com'
-  },
-  {
-    image_url: 'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png',
-    sponsor_url: 'https://monsterenergy.com'
   }
 ];
 
-export const sponsorRowThree = [
-  'https://msu-images.s3.amazonaws.com/google+(1)-min.png',
-  'https://msu-images.s3.amazonaws.com/atalakit-min.png'
+
+// SPONSOR ROW 3 //
+export const sponsorsRowThree = [
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/google+(1)-min.png',
+    sponsor_url: 'https://www.google.com'
+  },
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/atalakit-min.png',
+    sponsor_url: '#'
+  },
 ]
 
+// SPONSOR ROW 4 //
 export const sponsorRowFour = [
   'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png'
 ]
