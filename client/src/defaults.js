@@ -47,7 +47,7 @@ export const dayTwoSchedule = [
 export const sponsorsRowOne = [
   {
     image_url: 'https://msu-images.s3.amazonaws.com/cesac.jpg',
-    sponsor_url: '#'
+    sponsor_url: 'https://www.montclair.edu/clean-energy-sustainability-analytics/'
   }
 ];
 
@@ -76,7 +76,7 @@ export const sponsorsRowThree = [
   },
   {
     image_url: 'https://msu-images.s3.amazonaws.com/atalakit-min.png',
-    sponsor_url: '#'
+    sponsor_url: ''
   },
 ]
 
