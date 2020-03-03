@@ -15,6 +15,7 @@ const Sponsors = ({ ...props }) => {
         </Typography>
       </div>
 
+      {/* GRID CONTAINER */}
       <Grid
         container
         direction="column"
