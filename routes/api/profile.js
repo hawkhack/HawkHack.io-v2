@@ -70,8 +70,7 @@ router.post(
       }
 
       if (profile) {
-        if (profileFields.resume && profile.resume) {
-          console.log(profile);
+        if (profileFields.resume && profile.resume.key) {
           deleteResume(profile.resume.key);
         }
         if (profile.status === "Incomplete" && isComplete && profile.resume) {
