@@ -71,12 +71,15 @@ const validateUpdateForm = (app) => {
   const errors = {};
 
   if (checkLength(app.firstName)) errors.firstName = 'Invalid First Name';
+  if (app.firstName.length <= 2 || app.firstName >= 20 ) errors.firstName = 'Must be between 2 and 20 characters';
   if (checkLength(app.lastName)) errors.lastName = 'Invalid Last Name';
+  if (app.lastName.length <= 2 || app.lastName >= 20 ) errors.lastName = 'Must be between 2 and 20 characters';
 
   if (checkLength(app.email)) errors.email = BLANK_EMAIL;
   if (!Validator.isEmail(app.email)) errors.email = INVALID_EMAIL;
 
   if (checkLength(app.phoneNumber)) errors.phoneNumber = 'Invalid Phone Number';
+  if (!Validator.isMobilePhone(app.phoneNumber)) errors.phoneNumber = 'Invalid Phone Number';
   if (!app.dateOfBirth || checkLength(app.dateOfBirth)) errors.dateOfBirth = 'Invalid Date of Birth';
 
   const currYear = new Date().getFullYear()
@@ -103,7 +106,10 @@ const validateUpdateForm = (app) => {
 
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
   if (app.emergencyName.length < 5 || app.emergencyName.length > 20) errors.emergencyName = 'Must be between 5 and 20 characters';
-  if (checkLength(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
+  if (!Validator.isMobilePhone(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
+
+  if (app.dietaryRestrictions.length !== 0 && (app.dietaryRestrictions.length < 2 || app.dietaryRestrictions.length > 200)) errors.dietaryRestrictions = 'Must be between 2 and 200 characters';
+  if (app.specialNeeds.length !== 0 && (app.specialNeeds.length < 2 || app.specialNeeds.length > 200)) errors.specialNeeds = 'Must be between 2 and 200 characters';
 
   if (app.resume.size && app.resume.size > 1024 * 1024 * 2) errors.resume = 'File too large'; 
 

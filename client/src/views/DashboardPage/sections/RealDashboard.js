@@ -52,7 +52,6 @@ const RealDashboard = () => {
 
   const classes = realDashboardStyles();
 
-
   const buttonClassname = classnames({
      [classes.buttonSuccess]: values.sendVerify,
    });

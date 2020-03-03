@@ -799,6 +799,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               formControlProps={{
                 fullWidth: true,
               }}
+              error={!!values.errors.dietaryRestrictions}
               id="dietaryRestrictions"
               inputProps={{
                 type: 'text',
@@ -807,6 +808,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 disabled: !!values.loading || !!values.disableAll,
               }}
             />
+            {values.errors.dietaryRestrictions
+              ? <FormHelperText error>{values.errors.dietaryRestrictions}</FormHelperText>
+              : null}
           </div>
         </Grid>
         <Grid item xs={12} className={classes.gridItem}>
@@ -816,6 +820,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               formControlProps={{
                 fullWidth: true,
               }}
+              error={!!values.errors.specialNeeds}
               id="specialNeeds"
               inputProps={{
                 type: 'text',
@@ -824,6 +829,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 disabled: !!values.loading || !!values.disableAll,
               }}
             />
+            {values.errors.specialNeeds
+              ? <FormHelperText error>{values.errors.specialNeeds}</FormHelperText>
+              : null}
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6} className={classes.gridItem}>
