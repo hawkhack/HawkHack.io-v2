@@ -54,7 +54,7 @@ router.post(
     const profileFields = {};
     for (const field in req.body) {
       profileFields[field] = req.body[field];
-    };
+    }
     profileFields.user = req.user.id;
     profileFields.email = req.user.email;
 
