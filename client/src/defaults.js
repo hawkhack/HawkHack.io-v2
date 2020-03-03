@@ -45,7 +45,10 @@ export const dayTwoSchedule = [
 
 // SPONSORS ROW 1 //
 export const sponsorsRowOne = [
-  'https://msu-images.s3.amazonaws.com/cesac.jpg',
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/cesac.jpg',
+    sponsor_url: '#'
+  }
 ];
 
 // SPONSOR ROW 2 //
@@ -79,7 +82,10 @@ export const sponsorsRowThree = [
 
 // SPONSOR ROW 4 //
 export const sponsorRowFour = [
-  'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png'
+  {
+    image_url: 'https://msu-images.s3.amazonaws.com/monsterlogo+(1)-min.png',
+    sponsor_url: 'https://www.monsterenergy.com/'
+  },
 ]
 
 export const FAQs = [

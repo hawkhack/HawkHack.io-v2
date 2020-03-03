@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import sponsorStyles from '../../../assets/jss/sponsorStyles';
 
-import { sponsorsRowTwo, sponsorsRowThree, sponsorRowFour } from '../../../defaults';
+import { sponsorsRowOne, sponsorsRowTwo, sponsorsRowThree, sponsorRowFour } from '../../../defaults';
 
 const Sponsors = ({ ...props }) => {
   const { classes } = props;
@@ -25,8 +25,8 @@ const Sponsors = ({ ...props }) => {
         {/* ROW 1 */}
         <Grid item xs={12} sm={8} md={5}>
           <div className={classes.wrapper}>
-            <a href="#">
-              <img className={classes.img} src="https://msu-images.s3.amazonaws.com/cesac.webp" alt="google" />
+            <a href={sponsorsRowOne[0].sponsor_url}>
+              <img className={classes.img} src={sponsorsRowOne[0].image_url} alt="google" />
             </a>
           </div>
         </Grid>
@@ -85,8 +85,8 @@ const Sponsors = ({ ...props }) => {
         {/* ROW 4 */}
         <Grid item xs={12} sm={4} md={2}>
           <div className={classes.wrapper}>
-            <a href="https://www.monsterenergy.com/">
-              <img className={classes.img} src={sponsorRowFour[0]} alt="monster" />
+            <a href={sponsorRowFour[0].sponsor_url}>
+              <img className={classes.img} src={sponsorRowFour[0].image_url} alt="monster" />
             </a>
           </div>
         </Grid>
