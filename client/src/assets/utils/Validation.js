@@ -107,7 +107,6 @@ const validateUpdateForm = (app) => {
   if (checkLength(app.emergencyName)) errors.emergencyName = 'Invalid Emergency Name';
   if (app.emergencyName.length < 5 || app.emergencyName.length > 20) errors.emergencyName = 'Must be between 5 and 20 characters';
 
-  console.log(app.emergencyNumber)
   if (!Validator.isMobilePhone(app.emergencyNumber)) errors.emergencyNumber = 'Invalid Emergency Number';
 
   if (app.dietaryRestrictions.length !== 0 && (app.dietaryRestrictions.length < 2 || app.dietaryRestrictions.length > 200)) errors.dietaryRestrictions = 'Must be between 2 and 200 characters';
