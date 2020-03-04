@@ -73,7 +73,7 @@ router.post(
         if (profileFields.resume && profile.resume.key) {
           deleteResume(profile.resume.key);
         }
-        if (profile.status === "Incomplete" && isComplete && profile.resume) {
+        if (profile.status === "Incomplete" && isComplete && profile.resume.key) {
           profileFields.status = "Pending";
           profileFields.statusChangedAt = new Date(Date.now());
         }
@@ -85,7 +85,7 @@ router.post(
         );
         return res.status(200).json(savedProfile);
       } else {
-        if (isComplete && profileFields.resume != null) {
+        if (isComplete && profileFields.resume.key) {
           profileFields.status = "Pending";
           profileFields.statusChangedAt = new Date(Date.now());
         } else {
