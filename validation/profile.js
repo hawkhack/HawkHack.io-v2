@@ -34,12 +34,13 @@ module.exports = function validateProfileInput(data) {
     }
   }
   if (!isEmpty(data.dateOfBirth)) {
-    try {
+    const age = new Date(data.dateOfBirth);
+    if (isNaN(age)) {
+      errors.dateOfBirth = "Invalid date";
+    } else {
       const now = new Date().getFullYear();
-      if (now - new Date(data.dateOfBirth).getFullYear() < 13)
+      if (now - new Date(age).getFullYear() < 13)
         errors.dateOfBirth = "Must be older than 13 years of age";
-    } catch (err) {
-      error.dateOfBirth = "Invalid date";
     }
   }
 
