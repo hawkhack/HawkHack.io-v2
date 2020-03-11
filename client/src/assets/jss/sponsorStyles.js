@@ -13,6 +13,11 @@ const sponsorStyles = () => ({
   img: {
     width: '100%',
     height: '100%',
+    transition: 'transform .2s' ,
+
+    '&:hover': {
+      transform: 'scale(1.1)'
+    }
   },
 });
 
