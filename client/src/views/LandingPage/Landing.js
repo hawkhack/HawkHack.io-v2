@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
 import landingPageStyles from '../../assets/jss/landingPageStyles';
@@ -26,6 +29,13 @@ const Landing = () => {
   return (
     <>
       <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography align="center" variant="h6">
+            HawkHack is cancelled due to corona
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <NavBar
         route={user.loggedIn && localStorage.getItem('cool-jwt') ? "user" : "home"}
       />
