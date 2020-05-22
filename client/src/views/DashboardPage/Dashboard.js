@@ -12,6 +12,7 @@ import Footer from '../../components/Footer/Footer';
 import Parallax from '../../components/Parallax/Parallax';
 import NavBar from '../../components/NavBar/NavBar';
 import Application from './sections/Application'
+import ClosedApplication from './sections/ClosedApplication'
 
 import { UserContext } from '../../context/store'
 import { defaults } from '../../defaults'
@@ -41,52 +42,6 @@ const Dashboard = ({ ...props }) => {
     // eslint-disable-next-line
   }, []);
 
-  const ClosedApplication = () => (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className={classes.dash}
-    >
-      <Grid item xs={12} sm={8} md={6} lg={4}>
-        <div className={classes.container}>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            className={classes.gridContainer}
-          >
-            <Grid item xs={12} className={classes.gridItem}>
-              <div className={classes.card}>
-                <div className={classes.cardHeader}>
-                  <Typography
-                    variant="h4"
-                    align="center"
-                    color="secondary"
-                    className={classes.loginText}
-                  >
-                    Application
-                  </Typography>
-                </div>
-                <div className={classes.cardBody}>
-                  <Typography
-                    variant="h5"
-                    align="center"
-                    color="primary"
-                    className={classes.loginText}
-                  >
-                    Great you're verified! The application isn't open yet, but we'll email you when it is.
-                  </Typography>
-                </div>
-              </div>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-    </Grid>
-  )
-
   return (
     <>
       <CssBaseline />
@@ -115,7 +70,7 @@ const Dashboard = ({ ...props }) => {
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          {dashboard === 2 ? <ClosedApplication /> : <Application />}
+          {dashboard === 2 ? <ClosedApplication classes={classes} /> : <Application />}
         </div>
       </div>
       <Footer />
