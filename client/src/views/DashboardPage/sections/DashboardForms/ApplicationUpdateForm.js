@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,13 +12,13 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Email from '@material-ui/icons/Email';
-import makeStyles from '@material-ui/styles/makeStyles';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import EditIcon from '@material-ui/icons/Edit';
 import Hidden from '@material-ui/core/Hidden';
+import Snackbar from '@material-ui/core/Snackbar';
 import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -29,114 +29,13 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import Majors from '../Majors'
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import { validateUpdateForm } from '../../../../assets/utils/Validation';
+import { UpdateApplication } from '../../../../assets/utils/Api';
 import { termsOfService, codeOfConduct } from '../../../../defaults';
-
-const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
-const ethnicities = [
-  'American Indian or Alaskan Native', 
-  'Asian/Pacific Islander', 
-  'Hispanic or Latino', 
-  'Black or African American', 
-  'White/Caucasian',
-  'Other'
-];
-
-const Schools = [
-  "Bloomfield College",
-  "Caldwell University",
-  "Clifton High School",
-  "Kean University",
-  "Leonia High School",
-  "Monroe Township High School",
-  "Montclair State University",
-  "New Jersey Institute of Technology",
-  "Ocean Township High School",
-  "Passaic County Technical Institute",
-  "Rutgers University - New Brunswick",
-  "Rutgers University - Newark",
-  "Seton Hall University",
-  "The College of New Jersey",
-  "William Paterson University",
-  "Other"
-]
-
-const useStyles = makeStyles((theme) => ({
-  textWrapper: {
-    "@media (min-width: 276px)": {
-      paddingTop: '20px',
-      paddingBottom: '20px'
-    },
-    "@media (min-width: 576px)": {
-      padding: '10px',
-    },
-    "@media (min-width: 768px)": {
-      padding: '20px',
-    },
-    "@media (min-width: 992px)": {
-      padding: '20px',
-    }
-  },
-  progress: {
-    height: 'auto',
-    width: 70,
-  },
-  loadingGrid: {
-    height: '100%',
-    position: 'absolute',
-    zIndex: '100',
-  },
-  buttonWrapper: {
-    padding: '5px 20px 10px 20px',
-  },
-  terms: {
-    color: theme.palette.primary.main,
-    cursor: "pointer"
-  },
-  gridItem: {
-    width: "100%"
-  },
-  container: {
-    paddingRight: "15px",
-    paddingLeft: "15px",
-    marginRight: "auto",
-    marginLeft: "auto",
-    width: "100%",
-    "@media (min-width: 576px)": {
-      maxWidth: "540px"
-    },
-    "@media (min-width: 768px)": {
-      maxWidth: "720px"
-    },
-    "@media (min-width: 992px)": {
-      maxWidth: "840px"
-    }
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  headerWrapper: {
-    "@media (min-width: 276px)": {
-      paddingTop: '10px',
-      paddingBottom: '10px'
-    },
-    "@media (min-width: 576px)": {
-      padding: "10px 20px"
-    },
-    "@media (min-width: 768px)": {
-      padding: "10px 20px"
-    },
-    "@media (min-width: 992px)": {
-      padding: "10px 20px"
-    }
-  },
-  header: {
-    fontWeight: 300
-  }
-}));
+import { GraduationYears, ethnicities, Schools, Majors } from '../../../../assets/utils/extras'
+import { UserContext } from '../../../../context/store'
+import applicationUpdateFormStyles from '../../../../assets/jss/applicationUpdateFormStyles'
 
 const checkSchool = (school) => {
   if (!school) {
@@ -150,7 +49,8 @@ const checkSchool = (school) => {
   return school
 }
 
-const ApplicationUpdateForm = ({ status, user, ...props }) => {
+const ApplicationUpdateForm = ({ status, ...props }) => {
+  const [{ user }, handleUser] = useContext(UserContext);
   const [values, setValues] = useState({
     email: user.email,
     status: user.profile.status ? user.profile.status : '',
@@ -178,6 +78,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     agreeToTerms: user.profile.firstName,
     agreeCode: user.profile.firstName,
     termsDialog: false,
+    success: false,
     codeDialog: false,
     errors: {},
     loading: false,
@@ -249,6 +150,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     handleSetState('major', newMajors)
   };
 
+  const handleClose = () => {
+    setValues({ ...values, success: false });
+  };
+
   const submit = async () => {
     if (values.disableAll) {
       return handleSetState('disableAll', false)
@@ -301,12 +206,19 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         data.append('resume', profile.resume);
       }
 
-      await props.submitApplication(data);
+      const result = await UpdateApplication(data);
+      const newUser = {
+        ...user,
+        profile: result.data
+      }
+
+      handleUser(newUser)
 
       setValues({
         ...values,
         loading: false,
         errors: {},
+        success: true,
         resume: values.resume ? values.resume : { name: 'Upload Resume' },
         disableAll: !values.disableAll
       })
@@ -315,7 +227,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
     }
   };
 
-  const classes = useStyles();
+  const classes = applicationUpdateFormStyles();
   return (
     <>
       {values.loading
@@ -336,14 +248,14 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
         <Grid item xs={12} className={classes.gridItem}>
           <div className={classes.textWrapper}>
             <Typography align="center" className={classes.header} variant="body1">
-              Keep in mind, your application will be incomplete unless all required fields are filled 
+              Keep in mind, your application will be incomplete unless all required fields are filled
             </Typography>
           </div>
         </Grid>
         <Hidden smUp>
         {values.status !== "Email not verified" &&
           <Grid item xs={12} className={classes.gridItem}>
-            <div className={classes.textWrapper}>  
+            <div className={classes.textWrapper}>
               <Typography align="center">
                 <Fab disabled={!values.disableAll} onClick={values.status !== "Email not verified" ? handleState('disableAll') : null} color="primary">
                   <EditIcon />
@@ -370,7 +282,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           </Grid>
           {values.status !== "Email not verified" &&
             <Grid item xs sm={3} className={classes.gridItem}>
-              <div className={classes.textWrapper}>  
+              <div className={classes.textWrapper}>
                 <Typography align="right">
                   <Fab disabled={!values.disableAll} onClick={handleState('disableAll')}  color="primary">
                     <EditIcon />
@@ -759,15 +671,15 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 renderValue={selected => (
                   <div className={classes.chips}>
                     {selected.map(value => (
-                      <Chip 
-                        key={value} 
+                      <Chip
+                        key={value}
                         onDelete={
-                           values.loading || 
-                           values.disableAll || 
-                           values.major.length === 0 
-                        ? undefined : handleDelete(value)} 
-                        label={value} 
-                        className={classes.chip} 
+                           values.loading ||
+                           values.disableAll ||
+                           values.major.length === 0
+                        ? undefined : handleDelete(value)}
+                        label={value}
+                        className={classes.chip}
                       />
                     ))}
                   </div>
@@ -922,9 +834,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               onChange={handleFileUpload()}
             />
             <label htmlFor="contained-button-file">
-              <Button 
-                color="primary" 
-                component="span" 
+              <Button
+                color="primary"
+                component="span"
                 variant="outlined"
                 style={{ padding: 10, height: '100%', width: '100%' }}
                 disabled={!!values.loading || !!values.disableAll}
@@ -936,9 +848,9 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
               ? <FormHelperText error>{values.errors.resume}</FormHelperText>
               : values.resume.name === 'Upload Resume' &&
                 <FormHelperText>
-                  You don't have to upload a resume right now, 
-                  but your profile will remain 
-                  <Typography component="span" color="primary">{' '}Incomplete{' '}</Typography>  
+                  You don't have to upload a resume right now,
+                  but your profile will remain
+                  <Typography component="span" color="primary">{' '}Incomplete{' '}</Typography>
                   until you upload</FormHelperText>}
           </div>
         </Grid>
@@ -949,10 +861,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 value="end"
                 error={values.errors.agreeToTerms}
                 control={
-                  <Checkbox 
-                    checked={!!values.agreeToTerms} 
+                  <Checkbox
+                    checked={!!values.agreeToTerms}
                     disabled={!!values.loading || !!values.disableAll}
-                    onClick={handleTermsChange('agreeToTerms')} 
+                    onClick={handleTermsChange('agreeToTerms')}
                     color="primary" />
                 }
                 label={
@@ -980,10 +892,10 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
                 value="end"
                 error={values.errors.agreeCode}
                 control={
-                  <Checkbox 
-                    checked={!!values.agreeCode} 
+                  <Checkbox
+                    checked={!!values.agreeCode}
                     disabled={!!values.loading || !!values.disableAll}
-                    onClick={handleTermsChange('agreeCode')} 
+                    onClick={handleTermsChange('agreeCode')}
                     color="primary" />
                 }
                 label={
@@ -1014,7 +926,7 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
             >
               {"Update"}
             </Button>
-            {Object.keys(values.errors).length !== 0 && 
+            {Object.keys(values.errors).length !== 0 &&
               <div style={{ padding: 10 }}>
                 <Typography color="primary" align="center" variant="body1">{"Fix the errors above to update"}</Typography>
               </div>
@@ -1032,6 +944,14 @@ const ApplicationUpdateForm = ({ status, user, ...props }) => {
           {codeOfConduct()}
         </DialogTitle>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={values.success}
+        onClose={handleClose}
+        autoHideDuration={1500}
+        style={{ marginTop: 100 }}
+        message={"Updated!"}
+      />
     </>
   );
 };

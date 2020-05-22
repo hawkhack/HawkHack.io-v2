@@ -1,4 +1,34 @@
-const Majors = [
+export const GraduationYears = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'];
+
+export const ethnicities = [
+  'American Indian or Alaskan Native',
+  'Asian/Pacific Islander',
+  'Hispanic or Latino',
+  'Black or African American',
+  'White/Caucasian',
+  'Other'
+];
+
+export const Schools = [
+  "Bloomfield College",
+  "Caldwell University",
+  "Clifton High School",
+  "Kean University",
+  "Leonia High School",
+  "Monroe Township High School",
+  "Montclair State University",
+  "New Jersey Institute of Technology",
+  "Ocean Township High School",
+  "Passaic County Technical Institute",
+  "Rutgers University - New Brunswick",
+  "Rutgers University - Newark",
+  "Seton Hall University",
+  "The College of New Jersey",
+  "William Paterson University",
+  "Other"
+]
+
+export const Majors = [
   "Accounting",
   "Aerospace Engineering",
   "Agricultural Engineering",
@@ -92,5 +122,3 @@ const Majors = [
   "Technology Management",
   "Theatre and Linguistics"
 ]
-
-export default Majors

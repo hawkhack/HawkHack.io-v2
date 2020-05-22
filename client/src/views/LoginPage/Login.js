@@ -93,10 +93,13 @@ const Login = ({ ...props }) => {
 
       const profile = await GetUser()
       handleUser[1](profile.data)
-      
+
       handleLoading(false);
       props.history.push('/dashboard');
     } catch (err) {
+      if (err.message === "Network Error") {
+        return handleErrors({ server: "Servers are down. Try again later" })
+      }
       handleErrors(err);
     }
   };
@@ -162,6 +165,7 @@ const Login = ({ ...props }) => {
                     </Typography>
                   </div>
                   <div className={classes.cardBody}>
+                   {!!values.errors.server && <Typography color="primary" align="center" variant="body1">{values.errors.server}</Typography>}
                     <>
                       <div className={classes.textfieldWrapper}>
                         <FormControl className={classes.formControl}>

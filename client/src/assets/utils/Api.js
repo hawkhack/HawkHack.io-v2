@@ -22,7 +22,8 @@ export const LoginUser = (email, password) => axios.post(`${apiURL}/u/login`, {
 })
   .then((result) => result)
   .catch((err) => {
-    throw err.response.data;
+    if (err.response) throw err.response.data
+    throw err;
   });
 
 export const GetUser = () => axios.get(`${apiURL}/u/`, {
@@ -63,7 +64,7 @@ export const ResendVerifyEmail = () => axios.get(`${apiURL}/u/reverify`, {
   });
 
 export const UpdateApplication = (profile) => axios.post(`${apiURL}/p/`, profile, {
-  headers: { 
+  headers: {
     'Authorization': `${localStorage.getItem('cool-jwt')}`,
     'Content-Type': 'multipart/form-data'
   },

@@ -23,12 +23,12 @@ module.exports = function validateProfileInput(data) {
   data.emergencyNumber = !isEmpty(data.emergencyNumber) ? data.emergencyNumber : "";
   data.heardFrom = !isEmpty(data.heardFrom) ? data.heardFrom : "";
 
-  if (!isEmpty(data.firstName)) {
+  if (isEmpty(data.firstName)) {
     if (!Validator.isLength(data.firstName, { min: 2, max: 20 })) {
       errors.firstName = "First Name needs to be between 2 and 20 characters";
     }
   }
-  if (!isEmpty(data.lastName)) {
+  if (isEmpty(data.lastName)) {
     if (!Validator.isLength(data.lastName, { min: 2, max: 20 })) {
       errors.lastName = "Last Name needs to be between 2 and 20 characters";
     }

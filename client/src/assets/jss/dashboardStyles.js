@@ -34,6 +34,49 @@ const dashboardStyles = makeStyles((theme) => ({
     marginLeft: '-15px',
     width: 'auto',
   },
+  gridItem: {
+    position: 'relative',
+    width: '100%',
+    minHeight: '1px',
+    flexBasis: 'auto',
+  },
+  card: {
+    border: '0',
+    marginBottom: '30px',
+    marginTop: '30px',
+    borderRadius: '6px',
+    color: 'rgba(0, 0, 0, 0.87)',
+    background: '#fff',
+    width: '100%',
+    boxShadow:
+          '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: '0',
+    wordWrap: 'break-word',
+    fontSize: '.875rem',
+    transition: 'all 300ms linear',
+  },
+  cardHeader: {
+    width: 'auto',
+    textAlign: 'center',
+    marginBottom: '15px',
+    borderRadius: '3px',
+    padding: '1rem 15px',
+    marginLeft: '15px',
+    marginRight: '15px',
+    marginTop: '-30px',
+    border: '0',
+    color: '#fff',
+    background: 'linear-gradient(60deg, #E9190F, #E9190F)',
+    boxShadow:
+          '0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2)',
+  },
+  loginText: {
+    padding: 20,
+    fontWeight: 300,
+  },
   title: {
     display: 'inline-block',
     position: 'relative',
@@ -93,6 +136,9 @@ const dashboardStyles = makeStyles((theme) => ({
     },
     fontFamily: '"Roboto", "Times New Roman", serif',
   },
+  cardBody: {
+    flex: '1 1 auto',
+  },
   wrapper: {
     padding: 20,
   },
@@ -121,7 +167,7 @@ const dashboardStyles = makeStyles((theme) => ({
     },
   },
   dash: {
-    // minHeight: '90vh',
+    minHeight: '90vh',
   },
   list: {
     width: '15vw',
