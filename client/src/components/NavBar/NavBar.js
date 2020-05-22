@@ -6,10 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import { NavLink } from 'react-router-dom';
-import navbarStyles from '../../assets/jss/navbarStyles';
-import RegisterNav from './sections/RegisterNav';
-import LoginNav from './sections/LoginNav';
-import UserNav from './sections/UserNav';
+import navbarStyles from 'assets/jss/navbarStyles';
+import RegisterNav from 'components/NavBar/sections/RegisterNav';
+import LoginNav from 'components/NavBar/sections/LoginNav';
+import UserNav from 'components/NavBar/sections/UserNav';
 
 const NavBar = ({ route }) => {
   const [top, setTop] = useState(true);

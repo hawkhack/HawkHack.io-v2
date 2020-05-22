@@ -7,10 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
-import infoStyles from '../../../assets/jss/infoStyles';
-import People from '../../../assets/img/peopleIcon.png';
-import Game from '../../../assets/img/gameIcon.png';
-import Money from '../../../assets/img/moneyIcon.png';
+import infoStyles from 'assets/jss/infoStyles';
+import People from 'assets/img/peopleIcon.png';
+import Game from 'assets/img/gameIcon.png';
+import Money from 'assets/img/moneyIcon.png';
 
 const Info = () => {
   const classes = infoStyles();

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
 
-import finalStyles from '../../../assets/jss/finalStyles';
+import finalStyles from 'assets/jss/finalStyles';
 
 const Final = () => {
   const classes = finalStyles();

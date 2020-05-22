@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import image from '../img/msubackground-1.png';
+import image from 'assets/img/msubackground-1.png';
 
 const resetPasswordStyles = makeStyles(() => ({
   resetPassword: {

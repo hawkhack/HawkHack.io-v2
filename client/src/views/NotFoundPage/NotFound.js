@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button';
 
 import { NavLink } from 'react-router-dom';
 
-import Parallax from '../../components/Parallax/Parallax';
-import Footer from '../../components/Footer/Footer';
-import image from '../../assets/img/msubackground-1.png';
+import Parallax from 'components/Parallax/Parallax';
+import Footer from 'components/Footer/Footer';
+import image from 'assets/img/msubackground-1.png';
 
 const styles = makeStyles(() => ({
   wrapper: {

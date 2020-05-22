@@ -6,15 +6,15 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classnames from 'classnames'
 
-import { defaults, UserStatus } from '../../../defaults';
-import Loading from '../../../components/Loading/Loading';
-import applicationStyles from '../../../assets/jss/applicationStyles'
-import { UserContext } from '../../../context/store'
-import ApplicationUpdateForm from './DashboardForms/ApplicationUpdateForm'
-import ExpansionPanel from '../../../components/ExpansionPanel/ExpansionPanel';
-import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/ExpansionPanelSummary';
-import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails';
-import { ResendVerifyEmail } from '../../../assets/utils/Api';
+import { defaults, UserStatus } from 'defaults';
+import Loading from 'components/Loading/Loading';
+import applicationStyles from 'assets/jss/applicationStyles'
+import { UserContext } from 'context/store'
+import ApplicationUpdateForm from 'views/DashboardPage/sections/DashboardForms/ApplicationUpdateForm'
+import ExpansionPanel from 'components/ExpansionPanel/ExpansionPanel';
+import ExpansionPanelSummary from 'components/ExpansionPanelSummary/ExpansionPanelSummary';
+import ExpansionPanelDetails from 'components/ExpansionPanelDetails/ExpansionPanelDetails';
+import { ResendVerifyEmail } from 'assets/utils/Api';
 
 const Application = () => {
   // eslint-disable-next-line

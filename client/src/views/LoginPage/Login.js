@@ -23,12 +23,12 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
-import NavBar from '../../components/NavBar/NavBar';
+import NavBar from 'components/NavBar/NavBar';
 
-import loginStyles from '../../assets/jss/loginStyles';
-import { LoginUser, ForgotPassword, GetUser } from '../../assets/utils/Api';
-import { validateLogin, isEmail } from '../../assets/utils/Validation';
-import { UserContext } from '../../context/store'
+import loginStyles from 'assets/jss/loginStyles';
+import { LoginUser, ForgotPassword, GetUser } from 'assets/utils/Api';
+import { validateLogin, isEmail } from 'assets/utils/Validation';
+import { UserContext } from 'context/store'
 
 const Login = ({ ...props }) => {
   const handleUser = useContext(UserContext);

@@ -29,13 +29,13 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import CustomInput from '../../../../components/CustomInput/CustomInput';
-import { validateUpdateForm } from '../../../../assets/utils/Validation';
-import { UpdateApplication } from '../../../../assets/utils/Api';
-import { termsOfService, codeOfConduct } from '../../../../defaults';
-import { GraduationYears, ethnicities, Schools, Majors } from '../../../../assets/utils/extras'
-import { UserContext } from '../../../../context/store'
-import applicationUpdateFormStyles from '../../../../assets/jss/applicationUpdateFormStyles'
+import CustomInput from 'components/CustomInput/CustomInput';
+import { validateUpdateForm } from 'assets/utils/Validation';
+import { UpdateApplication } from 'assets/utils/Api';
+import { termsOfService, codeOfConduct } from 'defaults';
+import { GraduationYears, ethnicities, Schools, Majors } from 'assets/utils/extras'
+import { UserContext } from 'context/store'
+import applicationUpdateFormStyles from 'assets/jss/applicationUpdateFormStyles'
 
 const checkSchool = (school) => {
   if (!school) {

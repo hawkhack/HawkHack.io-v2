@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import classNames from 'classnames';
-import parallaxStyles from '../../assets/jss/parallaxStyles';
+import parallaxStyles from 'assets/jss/parallaxStyles';
 
 const Parallax = ({ ...props }) => {
   let windowScrollTop;

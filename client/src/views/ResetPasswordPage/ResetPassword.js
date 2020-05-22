@@ -16,10 +16,10 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 
-import resetPasswordStyles from '../../assets/jss/resetPasswordStyles';
+import resetPasswordStyles from 'assets/jss/resetPasswordStyles';
 
-import { ResetPass } from '../../assets/utils/Api';
-import { validateResetPassword, validateResetToken } from '../../assets/utils/Validation';
+import { ResetPass } from 'assets/utils/Api';
+import { validateResetPassword, validateResetToken } from 'assets/utils/Validation';
 
 const ResetPassword = ({ ...props }) => {
   const [values, setValues] = useState({

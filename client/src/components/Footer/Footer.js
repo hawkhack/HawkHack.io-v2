@@ -3,7 +3,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
-import footerStyles from "../../assets/jss/footerStyles";
+import footerStyles from "assets/jss/footerStyles";
 
 const Footer = () => {
   const classes = footerStyles();

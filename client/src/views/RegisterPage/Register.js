@@ -15,12 +15,12 @@ import Email from '@material-ui/icons/Email';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import NavBar from '../../components/NavBar/NavBar';
-import registerStyles from '../../assets/jss/registerStyles';
+import NavBar from 'components/NavBar/NavBar';
+import registerStyles from 'assets/jss/registerStyles';
 
-import { RegisterUser, GetUser } from '../../assets/utils/Api';
-import { validateRegister } from '../../assets/utils/Validation';
-import { UserContext } from '../../context/store'
+import { RegisterUser, GetUser } from 'assets/utils/Api';
+import { validateRegister } from 'assets/utils/Validation';
+import { UserContext } from 'context/store'
 
 const Register = ({ ...props }) => {
   const handleUser = useContext(UserContext);

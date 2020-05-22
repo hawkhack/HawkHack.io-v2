@@ -7,12 +7,12 @@ import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
-import dashboardStyles from '../../assets/jss/dashboardStyles';
-import image from '../../assets/img/msubackground-1.png';
+import dashboardStyles from 'assets/jss/dashboardStyles';
+import image from 'assets/img/msubackground-1.png';
 
-import Footer from '../../components/Footer/Footer';
-import Parallax from '../../components/Parallax/Parallax';
-import { VerifyUser } from '../../assets/utils/Api';
+import Footer from 'components/Footer/Footer';
+import Parallax from 'components/Parallax/Parallax';
+import { VerifyUser } from 'assets/utils/Api';
 
 const Verified = ({ ...props }) => {
   const removeJWT = () => {

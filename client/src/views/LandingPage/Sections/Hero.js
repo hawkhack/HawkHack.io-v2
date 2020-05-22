@@ -5,10 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import { NavLink } from 'react-router-dom';
-import { defaults } from '../../../defaults';
-import { UserContext } from '../../../context/store';
+import { defaults } from 'defaults';
+import { UserContext } from 'context/store';
 
-import heroStyles from '../../../assets/jss/heroStyles';
+import heroStyles from 'assets/jss/heroStyles';
 
 const Hero = () => {
   // eslint-disable-next-line

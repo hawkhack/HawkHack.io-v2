@@ -4,11 +4,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import ExpansionPanel from '../../../components/ExpansionPanel/ExpansionPanel';
-import ExpansionPanelSummary from '../../../components/ExpansionPanelSummary/ExpansionPanelSummary';
-import ExpansionPanelDetails from '../../../components/ExpansionPanelDetails/ExpansionPanelDetails';
-import faqStyles from '../../../assets/jss/faqStyles';
-import { FAQs } from '../../../defaults';
+import ExpansionPanel from 'components/ExpansionPanel/ExpansionPanel';
+import ExpansionPanelSummary from 'components/ExpansionPanelSummary/ExpansionPanelSummary';
+import ExpansionPanelDetails from 'components/ExpansionPanelDetails/ExpansionPanelDetails';
+import faqStyles from 'assets/jss/faqStyles';
+import { FAQs } from 'defaults';
 
 const Faq = () => {
   const classes = faqStyles();

@@ -3,20 +3,20 @@ import React, { useContext } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import classNames from 'classnames';
 
-import landingPageStyles from '../../assets/jss/landingPageStyles';
-import image from '../../assets/img/msubackground-1.png';
+import landingPageStyles from 'assets/jss/landingPageStyles';
+import image from 'assets/img/msubackground-1.png';
 
-import Hero from './Sections/Hero';
-import About from './Sections/About';
-import Faq from './Sections/Faq';
-import Final from './Sections/Final';
-import Info from './Sections/Info';
-import Sponsors from './Sections/Sponsors';
-import NavBar from '../../components/NavBar/NavBar';
-import Footer from '../../components/Footer/Footer';
-import Parallax from '../../components/Parallax/Parallax';
+import Hero from 'views/LandingPage/Sections/Hero';
+import About from 'views/LandingPage/Sections/About';
+import Faq from 'views/LandingPage/Sections/Faq';
+import Final from 'views/LandingPage/Sections/Final';
+import Info from 'views/LandingPage/Sections/Info';
+import Sponsors from 'views/LandingPage/Sections/Sponsors';
+import NavBar from 'components/NavBar/NavBar';
+import Footer from 'components/Footer/Footer';
+import Parallax from 'components/Parallax/Parallax';
 
-import { UserContext } from '../../context/store'
+import { UserContext } from 'context/store'
 
 const Landing = () => {
   // eslint-disable-next-line

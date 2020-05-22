@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import sponsorStyles from '../../../assets/jss/sponsorStyles';
 
-import { sponsorsRowOne, sponsorsRowTwo, sponsorsRowThree, sponsorRowFour } from '../../../defaults';
+import { sponsorsRowOne, sponsorsRowTwo, sponsorsRowThree, sponsorRowFour } from 'defaults';
 
 const Sponsors = ({ ...props }) => {
   const { classes } = props;
@@ -40,7 +40,7 @@ const Sponsors = ({ ...props }) => {
               justify="center"
               alignItems="center"
             >
-            
+
               {/* SPONSOR MAP */}
               {sponsorsRowTwo.map((url) => (
                 <Grid key={url.image_url} item xs={12} sm={8} md={3}>
@@ -55,7 +55,7 @@ const Sponsors = ({ ...props }) => {
             </Grid>
           </div>
         </Grid>
-        
+
         {/* ROW 3 */}
         <Grid item>
           <Grid

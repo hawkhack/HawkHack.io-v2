@@ -5,17 +5,17 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
-import dashboardStyles from '../../assets/jss/dashboardStyles';
-import image from '../../assets/img/msubackground-1.png';
+import dashboardStyles from 'assets/jss/dashboardStyles';
+import image from 'assets/img/msubackground-1.png';
 
-import Footer from '../../components/Footer/Footer';
-import Parallax from '../../components/Parallax/Parallax';
-import NavBar from '../../components/NavBar/NavBar';
-import Application from './sections/Application'
-import ClosedApplication from './sections/ClosedApplication'
+import Footer from 'components/Footer/Footer';
+import Parallax from 'components/Parallax/Parallax';
+import NavBar from 'components/NavBar/NavBar';
+import Application from 'views/DashboardPage/sections/Application'
+import ClosedApplication from 'views/DashboardPage/sections/ClosedApplication'
 
-import { UserContext } from '../../context/store'
-import { defaults } from '../../defaults'
+import { UserContext } from 'context/store'
+import { defaults } from 'defaults'
 
 const Dashboard = ({ ...props }) => {
   // eslint-disable-next-line
