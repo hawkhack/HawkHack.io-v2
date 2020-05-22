@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -19,8 +19,8 @@ import { defaults } from 'defaults'
 
 const Dashboard = ({ ...props }) => {
   // eslint-disable-next-line
-  const [{ user }, handleUser] = useContext(UserContext);
-  const [dashboard, setDashboard] = useState(2);
+  const [{ user }, handleUser] = React.useContext(UserContext);
+  const [dashboard, setDashboard] = React.useState(2);
 
   const handleDashboard = () => {
     if (defaults.openApplications) {
@@ -32,7 +32,7 @@ const Dashboard = ({ ...props }) => {
 
   const classes = dashboardStyles();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!user.loggedIn || !localStorage.getItem('cool-jwt')) {
       localStorage.removeItem('cool-jwt')
       props.history.push('/');
