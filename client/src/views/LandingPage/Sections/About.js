@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import aboutStyles from 'assets/jss/aboutStyles';
+import { about } from 'defaults'
 
 const About = () => {
   const classes = aboutStyles();
@@ -24,7 +25,7 @@ const About = () => {
               color="primary"
               className={classes.whatsHawkhack}
             >
-              What's HawkHack?
+              {about.whatTitle}
             </Typography>
           </div>
           <Box
@@ -33,12 +34,7 @@ const About = () => {
             align="center"
             className={classes.whatText}
           >
-            HawkHack is a 24-hour hackathon event at Montclair State University.
-            Students of any majors are welcome to form a team and build awesome software
-            and hardware projects. Industry experts and mentors will be there to help and guide
-            students and create a learning environment through talks, workshops,
-            and one-on-one guidance. We encourage anyone from beginner to
-            advanced developers to challenge themselves and create something awesome.
+            {about.whatText}
           </Box>
           <div className={classes.whatsHawkhack}>
             <Typography
@@ -47,7 +43,7 @@ const About = () => {
               color="primary"
               className={classes.whatsHawkhack}
             >
-              When and Where?
+             {about.whenTitle}
             </Typography>
           </div>
           <Box
@@ -56,9 +52,9 @@ const About = () => {
             align="center"
             className={classes.whatText}
           >
-            <b>March 28th, 10:00 AM to March 29th, 3:00 PM</b>
+            <b>{about.whenDate}</b>
             <br />
-            <b>Montclair State University, Student Center - Ballrooms A, B, C</b>
+            <b>{about.whenLocation}</b>
           </Box>
         </Grid>
         <Grid item sm={12} md={12} lg={6}>

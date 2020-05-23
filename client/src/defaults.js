@@ -4,13 +4,28 @@ import Typography from '@material-ui/core/Typography'
 export const defaults = {
   title: 'HawkHack',
   subTitle: "Montclair State University's Second Annual 24-hour Hackathon",
-  dateText: 'Saturday, March 28th - Sunday, March 29th, 2020',
+  dateText: 'March 28th to March 29th',
   locationText: 'Student Center Ballrooms A, B, C',
   universityText: 'Montclair State University',
   dayof: false,
   openApplications: true,
   openCheckIn: false,
 };
+
+export const about = {
+  whatTitle: "What's HawkHack?",
+  whatText: `HawkHack is a 24-hour hackathon event at Montclair State
+             University. Students of any majors are welcome to form a
+             team and build awesome software and hardware projects. Industry
+             experts and mentors will be there to help and guide students and
+             create a learning environment through talks, workshops, and
+             one-on-one guidance. We encourage anyone from beginner to
+             advanced developers to challenge themselves and create something awesome.`,
+
+  whenTitle: "When and Where?",
+  whenDate: "March 28th, 10:00 AM to March 29th",
+  whenLocation: `Montclair State University, Student Center - Ballrooms A, B, C`
+}
 
 export const dayOne = 'Saturday, March 30';
 export const dayOneSchedule = [
