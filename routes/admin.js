@@ -2,16 +2,16 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const wrap = require("../../middleware/asyncWrapper");
+const wrap = require("../middleware/async");
 
-const getDefaults = require("../../config/defaults");
-const mailbody = require("../../utils/mailbody");
+const getDefaults = require("../config/defaults");
+const mailbody = require("../utils/mailbody");
 
-const User = require("../../models/User");
-const Profile = require("../../models/Profile");
-const List = require("../../models/List");
+const User = require("../models/User");
+const Profile = require("../models/Profile");
+const List = require("../models/List");
 
-const verifyRole = require("../../middleware/verifyRole");
+const verifyRole = require("../middleware/verifyRole");
 
 router.get(
   "/stats",

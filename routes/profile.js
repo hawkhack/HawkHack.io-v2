@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const wrap = require("../../middleware/asyncWrapper");
-const upload = require("../../middleware/handleUpload");
-const uploadResume = require("../../utils/uploadResume");
-const deleteResume = require("../../utils/deleteResume");
+const wrap = require("../middleware/async");
+const upload = require("../middleware/handleUpload");
+const uploadResume = require("../utils/uploadResume");
+const deleteResume = require("../utils/deleteResume");
 
 //Load validation
-const validateProfileInput = require("../../validation/profile");
+const validateProfileInput = require("../validation/profile");
 
 //Load profile model
-const Profile = require("../../models/Profile");
+const Profile = require("../models/Profile");
 
 //Load user model
-const User = require("../../models/User");
+const User = require("../models/User");
 
 //  @route  GET api/p/test
 //  @desc   Test profile route

@@ -1,5 +1,4 @@
 const express = require("express");
-const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -8,14 +7,11 @@ const hpp = require("hpp");
 const logger = require("./config/logger");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
-const getDefaults = require("./config/defaults");
-const verifyRole = require("./middleware/verifyRole");
-const verify = require("./middleware/verifyActive");
 
 //import route files
-const users = require("./routes/api/user");
-const profile = require("./routes/api/profile");
-const admin = require("./routes/api/admin");
+const user = require("./routes/user");
+const profile = require("./routes/profile");
+const admin = require("./routes/admin");
 
 const app = express();
 
@@ -46,38 +42,20 @@ app.use(hpp());
 // Set static files
 app.use(express.static(path.join(__dirname, "/client/build")));
 
-//Passport middleware
-app.use(passport.initialize());
-
-//Passport Config
-require("./config/passport")(passport);
 
 //connect to db
-connectDB();
+// connectDB();
 
 //Use Routes
-app.use("/api/u", users);
-app.use("/api/p", passport.authenticate("jwt", { session: false }), verify(), profile);
-app.use(
-  "/api/a",
-  passport.authenticate("jwt", { session: false }),
-  verifyRole("Director", "Administrator"),
-  admin
-);
+// app.use("/api/auth", auth);
+app.use("/api/u", user);
+// app.use("/api/p", profile);
+// app.use("api/a", admin);
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://hawkhack.io"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
-
-app.get("/api", (req, res) => {
-  const defaults = getDefaults();
-  res.status(200).json({ Event: defaults.Event, Schedule: defaults.Schedule });
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
