@@ -19,7 +19,7 @@
     "rebass": "^3.0.0-12",
     "styled-components": "^5.0.0",
     "typeface-roboto": "0.0.75",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
