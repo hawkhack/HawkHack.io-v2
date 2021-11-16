@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/hawkhack/HawkHack.io-v2#readme",
   "dependencies": {
-    "aws-sdk": "^2.624.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
